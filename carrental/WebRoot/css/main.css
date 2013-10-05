@@ -1,0 +1,162 @@
+/* CSS Document by karat */
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: "微软雅黑", "黑体";
+	list-style-type: none;
+}
+textarea {
+	resize: none;
+}
+
+#dialog {
+	height: 210px;
+	width: 320px;
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1000;
+	background-image: url(../images/img/dialog_bg.png);
+}
+/*按钮样式*/
+.bottomcss{
+	border: 1px solid #218fa3;
+	padding-top:2px;
+	height:20px;
+}
+#header {
+	background-image: url(../images/img/header_bg.jpg);
+	height: 135px;
+	width: 100%;
+	background-position: left;
+	background-repeat: no-repeat;
+	background-color: #101654;
+	position: absolute;
+	top: 0px;
+}
+
+#header #note {
+	background-image: url(../images/img/note_Bg.png);
+	height: 31px;
+	line-height: 31px;
+	width: 559px;
+	float: right;
+	/* margin-top: 95px; */
+	margin-right: 150px;
+	margin-top: 35px;
+	color: #000066;
+}
+
+#header #login_info {
+	height: 60px;
+	width: 300px;
+	float: right;
+}
+
+#header #login_info p {
+	color: #FFF;
+	font-size: 14px;
+	font-family: "微软雅黑", "黑体";
+	line-height: 30px;
+}
+
+#header #login_info p a {
+	color: #FFF;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+#left {
+	width: 230px;
+	position: absolute;
+	top: 135px;
+	background-image: url(../images/img/left_bg.jpg);
+	background-color: #121323;
+	bottom: 0px;
+	background-repeat: no-repeat;
+	overflow-y: auto;
+}
+
+#left ul li {
+	line-height: 44px;
+	padding-left: 20px;
+	padding-top: 5px;
+	display: block;
+	cursor: pointer;
+}
+
+#left .listMenuMain {
+	color: #fff;
+}
+
+#left .listMenuMain li img {
+	float: left;
+	padding-top: 5px;
+}
+
+#left ul .listMenuActive {
+	background-image: url(../images/img/listMenuActive.png);
+	background-repeat: repeat-x;
+}
+
+#left ul .listMenuActive a {
+	color: #000;
+}
+
+#left ul li a {
+	color: #FFF;
+	text-decoration: none;
+}
+
+#left ul li a:hover {
+	text-decoration: underline;
+}
+
+#left ul li ul {
+	padding-left: 20px;
+}
+
+#left ul li ul li {
+	line-height: 24px;
+	font-size: 12px;
+	background-image: url(../images/img/list1.png);
+	background-repeat: no-repeat;
+	background-position: left 14px;
+}
+
+#left .listMenuMain li ul .listChildren {
+	background-image: url(../images/img/listChildren.png);
+}
+
+#left ul li ul li ul {
+	padding-left: 20px;
+}
+
+#content {
+	background-image: url(../images/img/content_corner.png);
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 135px;
+	left: 230px;
+	right: 0px;
+	bottom: 20px;
+}
+
+#content iframe {
+	
+}
+
+#foot {
+	height: 20px;
+	bottom: 0px;
+	right: 0px;
+	left: 230px;
+	background-color: #16192C;
+	position: absolute;
+}
+
+#foot p {
+	font-size: 12px;
+	color: #FFF;
+	text-align: center;
+}
