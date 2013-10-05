@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="ssi">
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<!-- 项目信息 -->
+	<property name="porject.name" value="ssi" />
+	<property name="project.author" value="iSkyInfo" />
+	<property name="project.version" value="1.0" />
+	<property name="project.copyright" value="(C) ${project.author} 2012" />
+	<tstamp>
+		<format property="datestamp" pattern="yyyy-MM-dd" />
+	</tstamp>
+
+	<!-- scr路径 -->
+	<property name="src.dir" value="src" />
+	<!-- resources路径 -->
+	<property name="resources.dir" value="resources" />
+	<!-- WebRoot路径 -->
+	<property name="webContent.dir" value="WebRoot" />
+	<!-- 生成的WAR包存放路径  -->
+	<property name="build.dir" value="build" />
+	<!-- classes路径 -->
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<!-- web.xml -->
+	<property name="web.xml" value="${webContent.dir}/WEB-INF/web.xml" />
+	<!-- Tomcat路径 -->
+	<property name="tomcat.home" value="D:/apache-tomcat-7.0.11" />
+	<!-- Tomcat的扩展包 -->
+	<property name="tomcat.lib" value="${tomcat.home}/lib" />
+	<!-- 第三方jar包 -->
+	<property name="lib.dir" value="target/ssi/WEB-INF/lib" />
+	<!-- 编译用到的第三方包 -->
+	<path id="lib.classpath">
+		<fileset dir="${lib.dir}" />
+		<fileset dir="${tomcat.lib}" />
+	</path>
+	<!-- WAR文件名 -->
+	<property name="war.file" value="${build.dir}/${porject.name}.war" />
+
+	<!-- 清理 -->
+	<target name="clean" description="清理工程...">
+		<echo message="清理旧的class文件..." />
+		<delete dir="${classes.dir}" excludes="**/*.svn, **/.svn" />
+		<echo message="旧的class文件清理完成！" />
+		<echo message="清理旧的WAR文件..." />
+		<delete file="${war.file}" />
+		<echo message="旧的WAR文件清理完成！" />
+	</target>
+
+	<!-- 初始化 -->
+	<target name="init" depends="clean" description="初始化...">
+		<echo message="构建目录..." />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<echo message="目录构建完成!" />
+		<echo message="复制配置文件..." />
+		<copy includeemptydirs="false" todir="${classes.dir}">
+			<fileset dir="${src.dir}" excludes="**/*.launch, **/*.java" />
+			<fileset dir="${resources.dir}" excludes="**/*.launch, **/*.java, **/*.dtd" />
+		</copy>
+		<echo message="配置文件复制完成!" />
+	</target>
+
+	<!-- 编译工程 -->
+	<target name="build" depends="init" description="编译工程...">
+		<echo message="编译工程..." />
+		<javac debug="true" destdir="${classes.dir}" encoding="utf-8" includeantruntime="yes">
+			<src path="${src.dir}" />
+			<classpath refid="lib.classpath" />
+		</javac>
+		<echo message="编译成功！" />
+	</target>
+
+	<!-- 生成war包 -->
+	<target name="war" depends="build" description="打包工程生成WAR文件...">
+		<echo message="生成新的WAR文件..." />
+		<!-- 复制配置文件 -->
+		<copy includeemptydirs="false" todir="${webContent.dir}/WEB-INF/classes">
+			<fileset dir="${classes.dir}" />
+		</copy>
+		<!-- 打WAR包 -->
+		<war destfile="${war.file}" webxml="${web.xml}" basedir="${webContent.dir}" excludes="**/*.svn">
+			<manifest>
+				<attribute name="Author" value="${project.author}" />
+				<section name="Shared">
+					<attribute name="Vendor" value="${project.author}" />
+					<attribute name="Version" value="${project.version}" />
+					<attribute name="Date" value="${datestamp}" />
+				</section>
+				<section name="Copyright">
+					<attribute name="Copy" value="${project.copyright}" />
+				</section>
+			</manifest>
+		</war>
+		<!-- 删除WEB-INF/classes -->
+        <!-- <delete dir="${webContent.dir}/WEB-INF/classes"/> -->
+        <!-- 删除classes文件夹 -->
+        <delete dir="${classes.dir}"/>
+		<echo message="新的WAR文件生成成功！" />
+	</target>
+	
+	<!-- 重新部署 -->
+	<target name="republish">
+		<antcall target="tomcat.stop" />
+		<delete dir="${tomcat.home}/webapps/${porject.name}" />
+		<delete file="${tomcat.home}/webapps/${war.file}" />
+		<copy todir="${tomcat.home}/webapps" overwrite="true">
+			<fileset file="${war.file}"/>
+		</copy>
+		<antcall target="tomcat.start" />
+	</target>
+
+	<!-- Tomcat启动相关 -->
+	<target name="tomcat.start" description="tomcat starting.....">
+		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+		</java>
+	</target>
+	<target name="tomcat.stop" description="tomcat stoping.....">
+		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+			<arg line="stop" />
+		</java>
+	</target>
+	<target name="tomcat.debug" description="tomcat debuging.....">
+		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+			<jvmarg value="-Xdebug" />
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" />
+		</java>
+	</target>
+</project>
