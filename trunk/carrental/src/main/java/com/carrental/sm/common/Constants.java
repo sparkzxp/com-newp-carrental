@@ -7,8 +7,8 @@ package com.carrental.sm.common;
  */
 public interface Constants {
 
-	String SESSION_USER_KEY = "userInfo";
-	String SESSION_USER_MARK = "userSessionMark";
+	String SESSION_ADMIN_KEY = "adminInfo";
+	String SESSION_ADMIN_MARK = "adminSessionMark";
 
 	/**
 	 * 页面跳转

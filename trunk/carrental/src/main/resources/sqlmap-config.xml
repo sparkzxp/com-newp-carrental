@@ -49,9 +49,9 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="user" type="com.carrental.sm.bean.system.User" />
+		<typeAlias alias="admin" type="com.carrental.sm.bean.system.Admin" />
 	</typeAliases>
 	<mappers>
-		<mapper resource="sqlmaps/mysql/system/user.xml" />
+		<mapper resource="sqlmaps/mysql/system/admin.xml" />
 	</mappers>
 </configuration>  

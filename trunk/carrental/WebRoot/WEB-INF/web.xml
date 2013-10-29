@@ -32,7 +32,7 @@
 		<init-param>
 			<description>将当前登录的用户的信息保存在 session 中时使用的key，如果没有配置此参数，则该过滤器不起作用</description>
 			<param-name>sessionKey</param-name>
-			<param-value>userInfo</param-value>
+			<param-value>adminInfo</param-value>
 			</init-param>
 		<init-param>
 			<description>
@@ -41,7 +41,7 @@
 	          如果不配置此参数，则在用户未登录系统的情况下，直接重定向到web应用的根路径（/）
 			</description>
 			<param-name>redirectUrl</param-name>
-			<param-value>/jsp/index/login.jsp</param-value>
+			<param-value>/jsp/admin/login.jsp</param-value>
 		</init-param>
 		<init-param>
 			<description>
@@ -51,7 +51,7 @@
 	          还有一点需要说明的是，该参数的值不包含web应用的 ContextPath。
 			</description>
 			<param-name>excepUrlRegex</param-name>
-			<param-value>/jsp/index/(login|welcome).jsp</param-value>
+			<param-value>/jsp/admin/(login|welcome).jsp</param-value>
 		</init-param>
 	</filter>
 
@@ -64,7 +64,7 @@
     
 
     <welcome-file-list>
-        <welcome-file>/jsp/index/login.jsp</welcome-file>
+        <welcome-file>/jsp/admin/login.jsp</welcome-file>
     </welcome-file-list>
 
 	<context-param>
@@ -103,7 +103,7 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 
-	<error-page>
+	<!-- <error-page>
 		<error-code>401</error-code>
 		<location>/jsp/error/404.jsp</location>
 	</error-page>
@@ -126,7 +126,7 @@
 	<error-page>
 		<exception-type>java.lang.NullPointerException</exception-type>
 		<location>/jsp/error/npe.jsp</location>
-	</error-page>
+	</error-page> -->
 	
     <mime-mapping>
 	    <extension>js</extension> 
