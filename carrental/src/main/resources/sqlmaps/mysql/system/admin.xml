@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminNpc">
+	<!-- 返回值映射关系 -->
+	<resultMap id="adminRstMap" type="admin">
+		<result property="id" column="ID"/>
+		<result property="adminName" column="ADMIN_NAME" />
+		<result property="password" column="LOGIN_PWD"/>
+		<result property="loginName" column="LOGIN_NAME"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="where">
+		<where>
+			<if test="admin != null">
+				<if test="admin.loginName !=null and admin.loginName != ''">
+					and T.LOGIN_NAME like '%${admin.loginName}%'
+				</if>
+				<if test="admin.adminName !=null and admin.adminName != ''">
+					and T.ADMIN_NAME like '%${admin.adminName}%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryByLoginName" resultMap="adminRstMap" parameterType="map">
+		SELECT T.* FROM T_ADMIN T
+		where T.LOGIN_NAME = #{admin.loginName}
+	</select>
+	<!-- 条件查询 -->
+	<select id="queryList" resultMap="adminRstMap" parameterType="map">
+		SELECT T.* FROM T_ADMIN T
+		<include refid="where"/>
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.ID) FROM T_ADMIN T
+		<include refid="where"/>
+	</select>
+</mapper>

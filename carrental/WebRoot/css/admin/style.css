@@ -1,0 +1,91 @@
+@charset "utf-8";
+*{padding:0px; margin:0px; line-height:1.8em;}
+html {_overflow-y:scroll;}
+body{
+    font-family: "微软雅黑",Arial, Tahoma,;   
+	font-size:12px;   
+	color:#7b7b7b;   
+	background:#f2f2f2;
+	}
+
+a{text-decoration: none;} 
+a:link{color:#7b7b7b;}
+a:visited{color:#7b7b7b;} 
+a:hover{color:#333333;text-decoration: none;} 
+a:active{color:#333333;}
+
+h1,h2,h3,h4,h5,h6{font-size:12px;}
+img{border: 0px;}
+.clear{clear:both;}
+
+ 
+table{text-align:justify;}
+checkbox{border: 0px;}
+input{border:0;}
+
+.button{border: 0px;}
+
+
+.topnav{text-align:right;background:url(../../images/admin/top_repeatbg.gif) repeat left top;}/*顶导航*/
+.topnav div{background:url(../../images/admin/top_bg.jpg) no-repeat left top;}
+
+.loginbar{}/*用户信息退出*/
+.loginbar a{color:#ffffff;line-height:67px;}
+.loginbar a:visited{color:#ffffff;}
+.loginbar a:hover{color:#ffffff;}
+.loginbar a{background:url(../../images/admin/exiticon.gif) no-repeat left center;padding:0 0 0 20px;margin:0 10px 0 0;cursor:pointer;}
+.loginbar .member{background:url(../../images/admin/membericon.gif) no-repeat left center;text-decoration:underline;}
+
+.menu{background:#37414a;padding:5px 0;}/*菜单*/
+.menu a{margin:0 0 0 15px;display:block;float:left;padding:0 8px 0 0;}
+.menu a span{line-height:29px;color:#ededed;display:block;padding:0 0 0 8px; cursor:pointer;}
+.menu a:visited span{color:#fff;}
+.menu a:hover{background:url(../../images/admin/menu_r.gif) no-repeat right top;}
+.menu a:hover span{background:url(../../images/admin/menu_l.gif) no-repeat left top;color:#fff;}
+.menu .current{background:url(../../images/admin/menu_r.gif) no-repeat right top;}
+.menu .current span{background:url(../../images/admin/menu_l.gif) no-repeat left top;color:#fff;}
+
+
+.login{background:#fff url(../../images/admin/loginbg.jpg) no-repeat center top;}/*登录页面*/
+#wrapp{width:698px;margin:0 auto;}
+#wrapp .register_table{margin:220px 0 0 0;background:url(../../images/admin/mainbg.jpg) no-repeat center top;}
+.register{}
+.register table{margin:8px 0 0 0;}
+#wrapp h1{font-size:12px;text-align:right;color:#4c4c4c;margin:0px 0 0 0;}
+.register .input{background:url(../../images/admin/register_inputbg.gif) no-repeat left top;width:212px;height:39px;line-height:39px;padding:0 5px;font-size:14px;color:#828181;font-family:"微软雅黑";}
+.register input{ vertical-align:middle;}
+.register_icon{background:url(../../images/admin/registericon.gif) no-repeat left top;width:222px;height:34px;text-align:center;color:#ffffff;font-size:14px;font-weight:600;}
+
+
+.left_bg{background:url(../../images/admin/leftbg.gif) repeat-y right top;}
+.leftmenu{margin:10px;border:1px solid #cbcbcb;background:#ededed;}
+.leftmenu p a{line-height:40px;background:url(../../images/admin/cion01.gif) repeat-x left bottom;padding:0 10px;display:block;}
+.leftmenu p a:hover{background:url(../../images/admin/cion02.gif) repeat-x left bottom;color:#ffffff;}
+.leftmenu p .current{background:url(../../images/admin/cion02.gif) repeat-x left bottom;color:#ffffff;}
+.leftmenu p .current:visited{color:#ffffff;}
+.leftmenu p .current:hover{color:#ffffff;}
+.leftmenu ul{list-style-type:none;}
+.leftmenu ul li a{line-height:40px;background:#ffffff url(../../images/admin/cion01.gif) repeat-x left bottom;padding:0 10px 0 20px;display:block;}
+.leftmenu ul li a:hover{background:url(../../images/admin/cion03.gif) repeat-x left bottom;}
+
+
+.placenav{float:right;margin:10px 10px 0 0;}
+.placenav a{margin:0 5px; text-decoration:underline;}
+.maintitle{background:url(../../images/admin/cion04.gif) repeat left top;border-bottom:1px solid #cbcbcb;padding:10px 0 0 0;}
+.maintitle h1{line-height:40px;font-size:14px;padding:0 0 0 10px;}
+
+.button_nde{background:url(../../images/admin/cion05.gif) repeat-x left bottom;padding:8px;}
+.button_nde input{background:url(../../images/admin/cion06.gif) no-repeat left top;border:0;text-align:center;width:49px;height:22px;margin:0 15px 0 0;font-family:"微软雅黑";}
+
+.content{padding:15px;}
+.show{background:#cbcbcb;}
+.show td{background:#ffffff;padding:3px 5px;}
+.show th{background:#f8f8f8;padding:3px 5px;text-align:center;}
+.page{text-align:right;margin:10px 0 0 0;}
+.page a{margin:0 8px; text-decoration:underline;color:#2d2d2d;}
+.page a:visited{color:#2d2d2d;}
+.page a:hover{color:#2d2d2d;}
+
+.list_table_hilite {
+	background-color: #FFFF99 !important;
+}

@@ -26,7 +26,7 @@ public class MySessionListener implements HttpSessionListener {
 	public void sessionCreated(HttpSessionEvent sessionEvent) {
 		HttpSession session = sessionEvent.getSession();
 		try {
-			session.setAttribute(Constants.SESSION_USER_MARK, "INITIAL_VALUE");
+			session.setAttribute(Constants.SESSION_ADMIN_MARK, "INITIAL_VALUE");
 			sessionMap_s.put(session.getId(), session);
 
 			logger.debug("Session创建:" + session);
@@ -43,8 +43,8 @@ public class MySessionListener implements HttpSessionListener {
 		try {
 			logger.debug("Session过期: " + session + "已销毁");
 			sessionMap_s.remove(session.getId());
-			session.setAttribute(Constants.SESSION_USER_KEY, null);
-			session.setAttribute(Constants.SESSION_USER_MARK, null);
+			session.setAttribute(Constants.SESSION_ADMIN_KEY, null);
+			session.setAttribute(Constants.SESSION_ADMIN_MARK, null);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
