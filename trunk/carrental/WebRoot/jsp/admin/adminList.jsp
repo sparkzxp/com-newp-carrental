@@ -4,82 +4,127 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>用户管理</title>
+		<title>用户管理管理</title>
 		<base href="<%=basePath%>">
+		<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 		<link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
+		
 		<script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<%=basePath%>js/form_util.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/common/pager.js"></script>
+		<script type="text/javascript" src="<%=basePath%>plugin/dialog/dialog.js"></script>
+		<script type="text/javascript" src="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.js"></script>
 		<script type="text/javascript">
 			$(function(){
+				//清空
+				$("#clearForm").click(function(){
+					$("#q_admin_name").val('');
+					$("#q_login_name").val(''); 
+				});
 				//查询
 				$("#query").click(function(){
 					pageLoad();
 				});
 				//新增
 				$("#add").click(function(){
-					$.show('新增用户信息','<%=basePath%>sys/admin_toEdit',800,430,"A");
+					$.show('新增系统用户','<%=basePath%>admin/toAdminEdit?id=',600,400,"A");
 				});
 				//修改
 				$("#update").click(function(){
-					var ids = checkMess();
+					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						$.show('修改用户信息','<%=basePath%>sys/admin_toEdit?admin.id='+ids[0],800,500,'A');
+						$.show('修改系统用户','<%=basePath%>admin/toAdminEdit?id='+ids[0],600,400,'A');
 					}else{
-						alert("请选择一条数据!");
+						$.prompt('请选择一条数据',{
+							title: '提示',
+		        			buttons: { "确认": false}
+		        		});
 					}
 				});
 				//详细
 				$("#detail").click(function(){
-					var ids = checkMess();
+					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						$.show('用户详细信息','<%=basePath%>sys/admin_toDetail?admin.id='+ids[0],800,350,'A');
+						$.show('用户详细信息','<%=basePath%>admin/adminDetail?id='+ids[0],600,350,'A');
 					}else{
-						alert("请选择一条数据!");
+						$.prompt('请选择一条数据',{
+							title: '提示',
+		        			buttons: { "确认": false}
+		        		});
 					}
 				});
 				//分配角色
 				$("#editAdminRole").click(function(){
-					var ids = checkMess();
+					var ids = getSelectedIdArray();
 					if(ids.length < 1){
-						alert("请选择至少一条数据!");
+						$.prompt('请选择至少一条数据',{
+							title: '提示',
+		        			buttons: { "确认": false}
+		        		});
 					}else{
 						$.show('分配角色','<%=basePath%>sys/admin_toEditAdminRole?adminIds='+idToString()+'&names='+getNames(),800,530,'A');
 					}
 				});	
 				//删除
 				$("#del").click(function(){
-					var ids = checkMess();
+					var ids = getSelectedIdArray();
 					if(ids.length==0){
-						alert("请选择至少一条数据!");
+						$.prompt('请选择至少一条数据',{
+							title: '提示',
+		        			buttons: { "确认": false}
+		        		});
 					}else{
-						$.confirm("确定要删除吗?删除后该用户将不能登录本系统!", function(){
-							$.post("<%=basePath%>sys/admin_delete?params="+idToString(),{"names":getNames()},function(data){
-			   					if(data=="success"){
-			   						$.success("操作成功!点击确定返回列表.",function(){
-			   							pageLoad();
-									}).lock(true);			   					 	
-			   					}else{
-			   						alert("操作失败!");
-			   					}
-			   				}); 
-						});
+						$.prompt(
+							{state0:{
+								html: '确定要删除吗?删除后该用户将不能登录本系统',
+			        			buttons: { "确认": 1, "取消": 0},
+			        			submit:function(e,v,m,f){
+			        				e.preventDefault();
+			        				if(v==0){
+			        					$.prompt.close();
+			        				}else if(v==1){
+			        					$.post("<%=basePath%>sys/admin_delete?params="+idToString(),{"names":getNames()},function(data){
+						   					if(data=="success"){
+						   						$.prompt.goToState('state1', true);
+						   						return false;
+						   					}else{
+						   						$.prompt.goToState('state2', true);
+						   						return false;
+						   					}
+						   				});
+			        				}
+			        			}
+			        		},
+			        		state1:{
+			        			html: '操作成功!点击确定返回列表',
+			        			buttons: { "确认": true},
+			        			submit:function(e,v,m,f){
+			        				e.preventDefault();
+			        				if(v){
+			        					$.prompt.close();
+			        					pageLoad();
+			        				}
+			        			}
+			        		},
+			        		state2:{
+			        			html: '操作失败',
+			        			buttons: { "确认": true},
+			        			submit:function(e,v,m,f){
+			        				e.preventDefault();
+			        				if(v){
+			        					$.prompt.goToState('state0');
+			        				}
+			        			}
+			        		}}
+						);
 					}
-				});
-				//全选全不选
-				$("#checkAll").click(function(){
-					checkAll(this.checked);
-				});	
-				//清空
-				$("#clearForm").click(function(){
-					$("#q_admin_name").val('');
-					$("#q_login_name").val(''); 
 				});
 			});
 			//重新提交表单刷新页面
 			function pageLoad(){
 				$("#queryForm").submit();
 			}
-		</script>	
+		</script>
 	</head>
 	<body>
 	<form action="<%=basePath%>admin/showAdminList" id="queryForm">	
@@ -109,10 +154,10 @@
 				<th>登录账号</th>
 			</tr>
 			<c:forEach items="${admins}" var="parent">
-			<tr onMouseOver="this.className='list_table_hilite'" onMouseOut="this.className=''">
-				<td align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
-				<td align="center"><c:out value="${parent.adminName}"/>&nbsp;</td>
-				<td align="center"><c:out value="${parent.loginName}"/>&nbsp;</td>
+			<tr>
+				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
+				<td name="adminName" align="center"><c:out value="${parent.adminName}"/>&nbsp;</td>
+				<td name="loginName" align="center"><c:out value="${parent.loginName}"/>&nbsp;</td>
 			</tr>
 			</c:forEach>
 		</table>
