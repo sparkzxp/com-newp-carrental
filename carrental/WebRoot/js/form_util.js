@@ -1,9 +1,16 @@
 $(function(){
+	$('input[type=checkbox]:first').click(function(){
+		if($(this).attr('checked') == 'checked'){
+			$("input[type=checkbox]").attr('checked', 'checked');
+		}else{
+			$("input[type=checkbox]").attr('checked', null);
+		}
+	});
 	$("input[type=checkbox]").not(":first").click(function(){
 		$("input[type=checkbox]:first").attr("checked",null);
 	});
 	
-	$(".content_table tr").not(":first").hover(function(){
+	$(".content tr").not(":first").hover(function(){
 		$(this).find("td").each(function(index,item){
 			$(item).addClass("list_table_hilite");
 		});
@@ -22,7 +29,7 @@ $(function(){
 	});
 });
 //选中的复选框的值数组
-function checkMess(){
+function getSelectedIdArray(){
 	var arry = new Array();
 	var index = 0;
 	$("input:checkbox").not(":first").each(function(){	
@@ -30,43 +37,42 @@ function checkMess(){
 			arry[index] = $(this).val();
 			index++;
 		}
-	}); 
+	});
 	return arry;
 }
-//获取表格中的值,
-function getTableText(tableId,trIndex,tdIndex){
-	return $("#"+tableId).find("tr").eq(trIndex).find("td").eq(tdIndex).text(); 
-}
-//获取表格中的值,
-function getTableTextByCheckBox(tableId,tdIndex){
-	return $("#"+tableId).find("tr").find("td").find("input[type=checkbox]:checked").parent("td").parent("tr").find("td").eq(tdIndex).text();
+//获取表格中选中的值
+function getSelectedArrayByName(name){
+	var arry = new Array();
+	var index = 0;
+	var td;
+	$("input:checkbox").not(":first").each(function(){	
+		if(this.checked){
+			td = $(this).parent("td").parent("tr").find("td");
+			for(var i=0;i<td.length;i++){
+				if(td.eq(i).attr('name') == name){
+					if(name == 'id'){
+						arry[index] = td.eq(i).find('input:checkbox').val();
+					}else{
+						arry[index] = td.eq(i).text();
+					}
+					index++;
+				}
+			}
+		}
+	});
+	return arry;
 }
 //选中的复选框的值数组
-function getNames(){
+function array2String(arr){
 	var names = "";
-	$("input:checkbox").not(":first").each(function(){	
-		if(this.checked){
-			names += $(this).next().val()+",";
-		}
-	}); 
-	return names.substring(0, names.length-1);
-}
-//拼接选中ID用,分开
-function idToString(){
-	var ids = '';
-	$("input:checkbox").not(":first").each(function(){	
-		if(this.checked){
-			ids+=this.value+",";
-		}
-	}); 
-	return ids.substring(0, ids.length-1);
-}
-
-//全选全不选
-function checkAll(temp){
-	$("input[type=checkbox]").each(function(){
-		$(this).attr("checked",temp);
-	});
+	for(var i in arr){
+		names += arr[i]+",";
+	}
+	if(names.length > 0){
+		return names.substring(0, names.length-1);
+	}else{
+		return "";
+	}
 }
 //打开新窗口居中
 function openwindow(url,name,iWidth,iHeight){

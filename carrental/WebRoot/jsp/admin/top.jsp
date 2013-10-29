@@ -23,16 +23,16 @@ function logout(){
 </head>
 <body>
 <div class="topnav">
-    	<div class="loginbar"><a href="javascript:void(0);" class="member">欢迎，用户&nbsp;${admin.adminName }</a><a href="javascript:logout();">注销</a></div>
+   	<div class="loginbar"><a href="javascript:void(0);" class="member">欢迎，用户&nbsp;${admin.adminName }</a><a href="javascript:logout();">注销</a></div>
 </div>
 <div class="menu">
     <a href="javascript:void(0);" class="current"><span>首页</span></a>
-    <a href="javascript:void(0);"><span>菜单管理</span></a>
+    <!-- <a href="javascript:void(0);"><span>菜单管理</span></a>
     <a href="javascript:void(0);"><span>用户管理</span></a>
     <a href="javascript:void(0);"><span>角色</span></a>
     <a href="javascript:void(0);"><span>密码初始化</span></a>
     <a href="javascript:void(0);"><span>短信平台</span></a>
-    <a href="javascript:void(0);"><span>修改密码</span></a>
+    <a href="javascript:void(0);"><span>修改密码</span></a> -->
     <h6 class="clear"></h6>
 </div>
 </body>
