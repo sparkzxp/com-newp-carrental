@@ -61,12 +61,12 @@ public class AdminAction {
 		admin.setUpdatedUser(_admin);
 		if (StringUtils.isNotEmpty(admin.getId())) {
 			// update
-			result.put("result", this.adminService.update(admin));
+			result.put("result", this.adminService.update(admin, _admin));
 		} else {
 			// add
 			admin.setCreatedUser(_admin);
 			admin.setPassword(MD5.MD5_32(Constants.DEFAULT_PASSWORD));
-			result.put("result", this.adminService.add(admin));
+			result.put("result", this.adminService.add(admin, _admin));
 		}
 		result.put("id", admin.getId());
 		return result;
@@ -81,9 +81,10 @@ public class AdminAction {
 
 	@ResponseBody
 	@RequestMapping(value = "/doAdminDelete")
-	public Map<String, String> doAdminDelete(String ids, String names) {
+	public Map<String, String> doAdminDelete(String ids, String names, HttpServletRequest request) {
 		Map<String, String> result = new HashMap<String, String>();
-		result.put("result", this.adminService.delete(ids, names));
+		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		result.put("result", this.adminService.delete(ids, names, _admin));
 		return result;
 	}
 }
