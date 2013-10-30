@@ -40,7 +40,6 @@ public class CityAction {
 		List<City> citys = this.cityService.queryList(city, pager);
 		model.addAttribute("city", city);
 		model.addAttribute("citys", citys);
-		model.addAttribute("pageTitle", pageTitle);
 		return "admin/cityList";
 	}
 

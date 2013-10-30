@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resourceNpc">
+	<resultMap id="resourceRstMap" type="resource">
+		<id property="id" column="ID"/>
+		<result property="name" column="NAME" />
+		<result property="type" column="TYPE" />
+		<result property="parentId" column="PARENT_ID" />
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="resource != null">
+				<if test="resource.id != null and resource.id != ''">
+					and T.ID = #{resource.id}
+				</if>
+				<if test="resource.type != null and resource.type != ''">
+					and T.TYPE = #{resource.type}
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="resourceRstMap" parameterType="map">
+		SELECT T.* FROM `T_RESOURCE` T
+		<include refid="query_where" />
+		order by T.TYPE asc, T.NAME asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.ID) FROM T_RESOURCE T
+		<include refid="query_where"/>
+	</select>
+	
+	<insert id="add" parameterType="resource">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `T_RESOURCE`(
+			NAME, TYPE, PARENT_ID
+		) VALUES (
+			#{name}, #{type}, #{parentId}
+		)
+	</insert>
+	
+	<update id="update" parameterType="resource">
+		update `T_RESOURCE` set
+			NAME = #{name},
+			TYPE = #{type},
+			PARENT_ID = #{parentId}
+			
+			WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="string">
+		delete from `T_RESOURCE` where ID in (${_parameter}) or PARENT_ID in (${_parameter})
+	</delete>
+</mapper>
