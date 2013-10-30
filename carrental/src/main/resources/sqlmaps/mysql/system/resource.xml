@@ -33,6 +33,12 @@
 		order by T.TYPE asc, T.NAME asc
 		<include refid="limit"/>
 	</select>
+
+	<select id="queryByRoleId" resultMap="resourceRstMap" parameterType="string">
+		SELECT T.* FROM `T_RESOURCE` T
+		join T_ROLE_RESOURCE RR on RR.RESOURCE_ID = T.ID
+		where RR.ROLE_ID = #{roleId}
+	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.ID) FROM T_RESOURCE T
