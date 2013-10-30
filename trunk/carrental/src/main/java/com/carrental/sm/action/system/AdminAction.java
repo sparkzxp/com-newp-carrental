@@ -19,6 +19,7 @@ import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
+import com.carrental.sm.service.system.ICityService;
 
 /**
  * 系统用户管理
@@ -31,6 +32,8 @@ public class AdminAction {
 
 	@Autowired
 	private IAdminService adminService;// admin业务对象
+	@Autowired
+	private ICityService cityService;
 
 	@RequestMapping(value = "/showAdminList")
 	public String adminList(Admin admin, Pager pager, String pageTitle, Model model) {
@@ -50,6 +53,7 @@ public class AdminAction {
 			admin = this.adminService.queryList(admin, null).get(0);
 		}
 		model.addAttribute("admin", admin);
+		model.addAttribute("citys", this.cityService.queryList(null, null));
 		return "admin/adminEdit";
 	}
 

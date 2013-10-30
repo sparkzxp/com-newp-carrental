@@ -35,6 +35,7 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>admin/showAdminList?type=CUSTOM&isDelete=0&pageTitle=注册用户管理')">注册用户管理</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>admin/showAdminList?type=ADMIN&isDelete=0&pageTitle=系统用户管理')">系统用户管理</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>resource/showResourceList')">资源配置管理</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>role/showRoleList')">角色配置管理</a></li>
 </ul>
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>city/showCityList')">城市管理</a></p>
 <ul>

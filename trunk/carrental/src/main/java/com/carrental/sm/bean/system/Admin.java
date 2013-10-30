@@ -13,6 +13,7 @@ public class Admin extends BaseBean {
 	private String password;// 密码
 	private String type;// 用户类型，CUSTOM：注册用户，ADMIN：系统用户
 	private String isDelete;// 是否删除
+	private City city;
 
 	public Admin() {
 		super();
@@ -96,5 +97,20 @@ public class Admin extends BaseBean {
 	 */
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	/**
+	 * @return the city
+	 */
+	public City getCity() {
+		return city;
+	}
+
+	/**
+	 * @param city
+	 *            the city to set
+	 */
+	public void setCity(City city) {
+		this.city = city;
 	}
 }
