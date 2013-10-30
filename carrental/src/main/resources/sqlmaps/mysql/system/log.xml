@@ -30,7 +30,7 @@
 		</if>
 	</sql>
 
-	<select id="query" resultMap="logRstMap" parameterType="map">
+	<select id="queryList" resultMap="logRstMap" parameterType="map">
 		SELECT T.* FROM `T_LOG` T
 		<include refid="query_where" />
 		order by T.CREATED_DT desc
