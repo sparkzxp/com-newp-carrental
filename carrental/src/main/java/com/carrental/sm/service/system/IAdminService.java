@@ -33,19 +33,22 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	String add(Admin admin);
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String add(Admin admin, Admin loginUser);
 
 	/**
 	 * 修改
 	 * 
 	 * @author 张霄鹏
 	 */
-	String update(Admin admin);
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String update(Admin admin, Admin loginUser);
 
 	/**
 	 * 批量删除-假删
 	 * 
 	 * @author 张霄鹏
 	 */
-	String delete(String ids, String names);
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String delete(String ids, String names, Admin loginUser);
 }

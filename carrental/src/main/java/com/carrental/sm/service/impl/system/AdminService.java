@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Log;
 import com.carrental.sm.common.Constants;
+import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.IAdminDao;
+import com.carrental.sm.dao.system.ILogDao;
 import com.carrental.sm.service.system.IAdminService;
 
 /**
@@ -26,6 +29,8 @@ public class AdminService implements IAdminService {
 
 	@Autowired
 	private IAdminDao adminDao;
+	@Autowired
+	private ILogDao logDao;
 
 	public List<Admin> queryList(Admin admin, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -46,24 +51,55 @@ public class AdminService implements IAdminService {
 		return adminDao.queryByLoginName(params);
 	}
 
-	public String add(Admin admin) {
+	public String add(Admin admin, Admin loginUser) {
 		if (checkExist(admin)) {
 			return "登录账号已存在";
 		}
 		this.adminDao.add(admin);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		if (admin.getType().equals(Constants.CUSTOM_USER)) {
+			log.setTitle("新增注册用户");
+			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 新增了名为：" + admin.getAdminName() + " 的注册用户");
+		} else if (admin.getType().equals(Constants.ADMIN_USER)) {
+			log.setTitle("新增系统用户");
+			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 新增了名为：" + admin.getAdminName() + " 的系统用户");
+		}
+		log.setLevel("5");
+		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
 	}
 
-	public String update(Admin admin) {
+	public String update(Admin admin, Admin loginUser) {
 		if (checkExist(admin)) {
 			return "登录账号已存在";
 		}
 		this.adminDao.update(admin);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		if (admin.getType().equals(Constants.CUSTOM_USER)) {
+			log.setTitle("修改注册用户");
+			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + admin.getAdminName() + " 的注册用户");
+		} else if (admin.getType().equals(Constants.ADMIN_USER)) {
+			log.setTitle("修改系统用户");
+			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + admin.getAdminName() + " 的系统用户");
+		}
+		log.setLevel("5");
+		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
 	}
 
-	public String delete(String ids, String names) {
+	public String delete(String ids, String names, Admin loginUser) {
 		this.adminDao.deleteAll(ids);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		log.setTitle("删除用户");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 删除了名为：" + names + " 的用户");
+		log.setLevel("5");
+		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
 	}
 
