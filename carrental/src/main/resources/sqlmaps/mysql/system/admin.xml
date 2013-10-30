@@ -4,21 +4,36 @@
 <mapper namespace="adminNpc">
 	<!-- 返回值映射关系 -->
 	<resultMap id="adminRstMap" type="admin">
-		<result property="id" column="ID"/>
+		<id property="id" column="ID"/>
+		<result property="createdDt" column="CREATED_DT" />
+		<result property="updatedDt" column="UPDATED_DT" />
 		<result property="adminName" column="ADMIN_NAME" />
 		<result property="password" column="LOGIN_PWD"/>
 		<result property="loginName" column="LOGIN_NAME"/>
+		<result property="type" column="TYPE"/>
+		<result property="isDelete" column="IS_DELETE"/>
+		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
 	</resultMap>
 	
 	<!-- 查询条件 -->
 	<sql id="where">
 		<where>
 			<if test="admin != null">
+				<if test="admin.id !=null and admin.id != ''">
+					and T.ID = ${admin.id}
+				</if>
 				<if test="admin.loginName !=null and admin.loginName != ''">
 					and T.LOGIN_NAME like '%${admin.loginName}%'
 				</if>
 				<if test="admin.adminName !=null and admin.adminName != ''">
 					and T.ADMIN_NAME like '%${admin.adminName}%'
+				</if>
+				<if test="admin.type !=null and admin.type != ''">
+					and T.TYPE = #{admin.type}
+				</if>
+				<if test="admin.isDelete !=null and admin.isDelete != ''">
+					and T.IS_DELETE = #{admin.isDelete}
 				</if>
 			</if>
 		</where>
@@ -32,6 +47,18 @@
 	<select id="queryByLoginName" resultMap="adminRstMap" parameterType="map">
 		SELECT T.* FROM T_ADMIN T
 		where T.LOGIN_NAME = #{admin.loginName}
+		<if test="admin != null">
+			<if test="admin.type !=null and admin.type != ''">
+				and T.TYPE = #{admin.type}
+			</if>
+			<if test="admin.isDelete !=null and admin.isDelete != ''">
+				and T.IS_DELETE = #{admin.isDelete}
+			</if>
+		</if>
+	</select>
+	<select id="queryByAdminId" resultMap="adminRstMap" parameterType="map">
+		SELECT T.* FROM T_ADMIN T
+		where T.ID = #{id}
 	</select>
 	<!-- 条件查询 -->
 	<select id="queryList" resultMap="adminRstMap" parameterType="map">
@@ -44,4 +71,35 @@
 		select count(T.ID) FROM T_ADMIN T
 		<include refid="where"/>
 	</select>
+	
+	<insert id="add" parameterType="admin">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO T_ADMIN(
+			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
+			ADMIN_NAME, LOGIN_NAME, LOGIN_PWD, TYPE
+		) VALUES (
+			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
+			#{adminName}, #{loginName}, #{password}, #{type}
+		)
+	</insert>
+	
+	<update id="update" parameterType="admin">
+		update `T_ADMIN` set
+			UPDATED_USER = #{updatedUser.id},
+			UPDATED_DT = NOW(),
+			ADMIN_NAME = #{adminName},
+			LOGIN_NAME = #{loginName},
+			LOGIN_PWD = #{password},
+			TYPE = #{type}
+			
+			WHERE id = #{id}
+	</update>
+	
+	<update id="deleteAll" parameterType="string">
+		update `T_ADMIN` set
+			IS_DELETE = '1'
+			where ID in (${_parameter})
+	</update>
 </mapper>

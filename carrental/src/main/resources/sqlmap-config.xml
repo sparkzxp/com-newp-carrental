@@ -50,8 +50,10 @@
 	
 	<typeAliases>
 		<typeAlias alias="admin" type="com.carrental.sm.bean.system.Admin" />
+		<typeAlias alias="city" type="com.carrental.sm.bean.system.City" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="sqlmaps/mysql/system/admin.xml" />
+		<mapper resource="sqlmaps/mysql/system/city.xml" />
 	</mappers>
 </configuration>  

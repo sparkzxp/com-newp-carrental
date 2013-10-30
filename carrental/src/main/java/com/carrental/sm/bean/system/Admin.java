@@ -1,19 +1,18 @@
 package com.carrental.sm.bean.system;
 
-import java.io.Serializable;
-
 /**
  * 系统用户实体
  * 
  * @author 张霄鹏
  */
-public class Admin implements Serializable {
+public class Admin extends BaseBean {
 
 	private static final long serialVersionUID = 1L;
-	private String id; // ID
 	private String adminName;// 姓名
 	private String loginName;// 登录名
 	private String password;// 密码
+	private String type;// 用户类型，CUSTOM：注册用户，ADMIN：系统用户
+	private String isDelete;// 是否删除
 
 	public Admin() {
 		super();
@@ -21,21 +20,6 @@ public class Admin implements Serializable {
 
 	public Admin(String id) {
 		super();
-		this.id = id;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -84,4 +68,33 @@ public class Admin implements Serializable {
 		this.password = password;
 	}
 
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the isDelete
+	 */
+	public String getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * @param isDelete
+	 *            the isDelete to set
+	 */
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
+	}
 }
