@@ -27,25 +27,13 @@
 				});
 				//新增
 				$("#add").click(function(){
-					$.show('新增系统用户','<%=basePath%>admin/toAdminEdit?id=',600,400,"A");
+					$.show('新增系统用户','<%=basePath%>admin/toAdminEdit?id=&type='+$('#admin_type').val(),450,200,"A");
 				});
 				//修改
 				$("#update").click(function(){
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						$.show('修改系统用户','<%=basePath%>admin/toAdminEdit?id='+ids[0],600,400,'A');
-					}else{
-						$.prompt('请选择一条数据',{
-							title: '提示',
-		        			buttons: { "确认": false}
-		        		});
-					}
-				});
-				//详细
-				$("#detail").click(function(){
-					var ids = getSelectedIdArray();
-					if(ids.length==1){
-						$.show('用户详细信息','<%=basePath%>admin/adminDetail?id='+ids[0],600,350,'A');
+						$.show('修改系统用户','<%=basePath%>admin/toAdminEdit?id='+ids[0],450,200,'A');
 					}else{
 						$.prompt('请选择一条数据',{
 							title: '提示',
@@ -83,15 +71,19 @@
 			        				if(v==0){
 			        					$.prompt.close();
 			        				}else if(v==1){
-			        					$.post("<%=basePath%>sys/admin_delete?params="+idToString(),{"names":getNames()},function(data){
-						   					if(data=="success"){
+			        					$.post("<%=basePath%>admin/doAdminDelete", 
+			        						{
+			        							"ids": array2String(getSelectedIdArray()),
+			        							"names":array2String(getSelectedArrayByName("adminName"))
+			        						}, function(data){
+						   					if(data.result=="SUCCESS"){
 						   						$.prompt.goToState('state1', true);
 						   						return false;
 						   					}else{
 						   						$.prompt.goToState('state2', true);
 						   						return false;
 						   					}
-						   				});
+						   				}, "json");
 			        				}
 			        			}
 			        		},
@@ -124,13 +116,18 @@
 			function pageLoad(){
 				$("#queryForm").submit();
 			}
+			function showDetail(id){
+				$.show('用户详细信息','<%=basePath%>admin/toAdminDetail?id='+id,400,250,'A');
+			}
 		</script>
 	</head>
 	<body>
-	<form action="<%=basePath%>admin/showAdminList" id="queryForm">	
+	<form action="<%=basePath%>admin/showAdminList" id="queryForm">
+	<input type="hidden" id="admin_type" name="type" value="${admin.type}"/>
+	<input type="hidden" id="admin_isDelete" name="isDelete" value="0"/>
 	<div class="maintitle">
-		<div class="placenav">当前位置：<a href="#">首页</a>&gt;<a href="#">菜单管理</a>&gt;菜单管理</div>
-		<h1>sub菜单管理</h1>
+		<div class="placenav">当前位置：<a href="#">首页</a>&gt;<a href="#">用户管理</a>&gt;${pageTitle}</div>
+		<h1>${pageTitle}</h1>
 	</div>
 	<div class="content_list">
 		<ul>
@@ -156,8 +153,8 @@
 			<c:forEach items="${admins}" var="parent">
 			<tr>
 				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
-				<td name="adminName" align="center"><c:out value="${parent.adminName}"/>&nbsp;</td>
-				<td name="loginName" align="center"><c:out value="${parent.loginName}"/>&nbsp;</td>
+				<td name="adminName" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.adminName}"/></a></td>
+				<td name="loginName" align="center"><c:out value="${parent.loginName}"/></td>
 			</tr>
 			</c:forEach>
 		</table>

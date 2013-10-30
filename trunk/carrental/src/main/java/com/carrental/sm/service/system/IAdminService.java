@@ -28,4 +28,24 @@ public interface IAdminService {
 	 */
 	List<Admin> queryList(Admin admin, Pager pager);
 
+	/**
+	 * 新增
+	 * 
+	 * @author 张霄鹏
+	 */
+	String add(Admin admin);
+
+	/**
+	 * 修改
+	 * 
+	 * @author 张霄鹏
+	 */
+	String update(Admin admin);
+
+	/**
+	 * 批量删除-假删
+	 * 
+	 * @author 张霄鹏
+	 */
+	String delete(String ids, String names);
 }

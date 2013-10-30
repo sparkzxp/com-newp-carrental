@@ -33,4 +33,17 @@ public class AdminDao implements IAdminDao {
 		return this.sqlSession.selectList("adminNpc.queryByLoginName", params);
 	}
 
+	public String add(Admin admin) {
+		this.sqlSession.insert("adminNpc.add", admin);
+		return String.valueOf(admin.getId());
+	}
+
+	public Integer update(Admin admin) {
+		return this.sqlSession.update("adminNpc.update", admin);
+	}
+
+	public Integer deleteAll(String ids) {
+		return this.sqlSession.update("adminNpc.deleteAll", ids);
+	}
+
 }

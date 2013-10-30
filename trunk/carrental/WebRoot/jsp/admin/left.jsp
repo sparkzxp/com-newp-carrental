@@ -32,8 +32,8 @@ function toUrl(url){
 <div class="leftmenu">
 <p><a href="javascript:void(0);">用户管理</a></p>
 <ul>
-<li style="display: none;"><a href="javascript:void(0);">注册用户管理</a></li>
-<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>admin/showAdminList')">系统用户管理</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>admin/showAdminList?type=CUSTOM&isDelete=0&pageTitle=注册用户管理')">注册用户管理</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>admin/showAdminList?type=ADMIN&isDelete=0&pageTitle=系统用户管理')">系统用户管理</a></li>
 </ul>
 <p><a href="javascript:void(0);">菜单管理</a></p>
 <ul>

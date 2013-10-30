@@ -61,8 +61,9 @@ public class MainAction {
 	 * @author 张霄鹏
 	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request, Model model) {
 		request.getSession().invalidate();
+		model.addAttribute("logout", true);
 		return "admin/login";
 	}
 

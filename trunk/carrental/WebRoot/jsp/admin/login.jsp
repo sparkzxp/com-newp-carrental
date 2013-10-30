@@ -18,7 +18,7 @@ $(document).ready(function(){
 		top.location.href = "<%=basePath%>";
 	}
 	
-	if('${message}' == '' && $.cookie('carrental.com') != null){
+	if('${logout}' == null && '${message}' == '' && $.cookie('carrental.com') != null){
 		var adminJson = JSON.parse($.cookie('carrental.com'));
 		$('#admin_loginName').val(adminJson.loginName);
 		$('#admin_password').val(adminJson.password);
@@ -62,6 +62,8 @@ function submitLoginForm(){
 </head>
 <body class="login">
 <form id="loginForm" name="loginForm" method="post" action="main/login">
+<input type="hidden" id="admin_type" name="type" value="ADMIN">
+<input type="hidden" id="admin_isDelete" name="isDelete" value="0">
 <div id="wrapp">
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="register_table">
       <tr>

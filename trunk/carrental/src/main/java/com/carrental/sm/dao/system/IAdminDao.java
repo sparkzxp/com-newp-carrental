@@ -40,4 +40,25 @@ public interface IAdminDao {
 	 *            :admin
 	 */
 	Integer count(Map<String, Object> params);
+
+	/**
+	 * 新增
+	 * 
+	 * @author 张霄鹏
+	 */
+	String add(Admin admin);
+
+	/**
+	 * 修改
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer update(Admin admin);
+
+	/**
+	 * 批量删除-假删
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer deleteAll(String ids);
 }
