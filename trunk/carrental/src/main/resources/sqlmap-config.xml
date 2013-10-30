@@ -52,10 +52,12 @@
 		<typeAlias alias="admin" type="com.carrental.sm.bean.system.Admin" />
 		<typeAlias alias="city" type="com.carrental.sm.bean.system.City" />
 		<typeAlias alias="log" type="com.carrental.sm.bean.system.Log" />
+		<typeAlias alias="resource" type="com.carrental.sm.bean.system.Resource" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="sqlmaps/mysql/system/admin.xml" />
 		<mapper resource="sqlmaps/mysql/system/city.xml" />
 		<mapper resource="sqlmaps/mysql/system/log.xml" />
+		<mapper resource="sqlmaps/mysql/system/resource.xml" />
 	</mappers>
 </configuration>  
