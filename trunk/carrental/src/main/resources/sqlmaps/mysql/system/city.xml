@@ -19,14 +19,53 @@
 				<if test="city.id != null and city.id != ''">
 					and T.ID = #{city.id}
 				</if>
+				<if test="city.cityName != null and city.cityName != ''">
+					and T.CITY_NAME like '%${city.cityName}%'
+				</if>
+				<if test="city.cityCode != null and city.cityCode != ''">
+					and T.CITY_CODE like '%${city.cityCode}%'
+				</if>
 			</if>
 		</where>
 	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="city != null">
+				<if test="city.id != null and city.id != ''">
+					and T.ID = #{city.id}
+				</if>
+				<if test="city.cityName != null and city.cityName != ''">
+					and T.CITY_NAME = #{city.cityName}
+				</if>
+				<if test="city.cityCode != null and city.cityCode != ''">
+					and T.CITY_CODE = #{city.cityCode}
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
 
-	<select id="query" resultMap="cityRstMap" parameterType="map">
+	<select id="queryList" resultMap="cityRstMap" parameterType="map">
 		SELECT T.* FROM `T_CITY` T
 		<include refid="query_where" />
-		order by T.cityName asc
+		order by T.CITY_NAME asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryEqualsList" resultMap="cityRstMap" parameterType="map">
+		SELECT T.* FROM `T_CITY` T
+		<include refid="queryEquals_where" />
+		order by T.CITY_NAME asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.ID) FROM T_CITY T
+		<include refid="query_where"/>
 	</select>
 	
 	<select id="queryByCityId" resultMap="cityRstMap" parameterType="map">
@@ -51,14 +90,14 @@
 		update `T_CITY` set
 			UPDATED_USER = #{updatedUser.id},
 			UPDATED_DT = NOW(),
-			CITY_NAME = #{CITY_NAME},
+			CITY_NAME = #{cityName},
 			CITY_CODE = #{cityCode},
 			MULTIPLE = #{multiple}
 			
 			WHERE ID = #{id}
 	</update>
 	
-	<delete id="delete" parameterType="city">
-		delete from `T_CITY` where ID = #{id}
+	<delete id="delete" parameterType="string">
+		delete from `T_CITY` where ID in (${_parameter})
 	</delete>
 </mapper>
