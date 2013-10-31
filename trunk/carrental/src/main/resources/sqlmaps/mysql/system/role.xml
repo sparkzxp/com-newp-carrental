@@ -72,7 +72,7 @@
 		<include refid="query_where"/>
 	</select>
 	
-	<select id="queryByCityId" resultMap="roleRstMap" parameterType="map">
+	<select id="queryByRoleId" resultMap="roleRstMap" parameterType="map">
 		SELECT T.* FROM `T_ROLE` T
 		where T.id = #{id}
 	</select>
@@ -103,4 +103,19 @@
 	<delete id="delete" parameterType="string">
 		delete from `T_ROLE` where ID in (${_parameter})
 	</delete>
+	
+	<delete id="deleteResources" parameterType="string">
+		delete from `T_ROLE_RESOURCE` where ROLE_ID in (${_parameter})
+	</delete>
+	
+	<insert id="addResources" parameterType="role">
+		INSERT INTO T_ROLE_RESOURCE (
+			ROLE_ID, RESOURCE_ID
+		) VALUES 
+		<foreach collection="resources" item="resource" index="index" separator=",">
+		(
+			#{id}, #{resource.id}
+		)
+		</foreach>
+	</insert>
 </mapper>

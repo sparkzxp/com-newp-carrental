@@ -439,7 +439,12 @@ jQuery.validator.addMethod("extension", function(value, element, param) {
 jQuery.validator.addMethod("simplePhone", function(value,element) { 
 	var tel = /^[-0-9]{7,20}$/; 
 	return this.optional(element) || value=='' || tel.test(value); 
-}, "请输入一个介于7位和20位的电话号码,只能填-或者0到9"); 
+}, "请输入一个介于7位和20位的电话号码,只能填-或者0到9");
+
+jQuery.validator.addMethod("phoneCN", function(value,element) { 
+	var tel = /^1[0-9]{10}$/; 
+	return this.optional(element) || value=='' || tel.test(value); 
+}, "请输入一个介于11位的电话号码");
 
 jQuery.validator.addMethod("maxlengthCN", function(value,element,param) {
 	var len = 0;

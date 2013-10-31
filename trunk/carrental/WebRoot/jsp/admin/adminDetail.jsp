@@ -34,12 +34,41 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" height="25px">移动电话：</td>
+                <td colspan="3">
+                	${admin.phone}
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">邮箱地址：</td>
+                <td colspan="3">
+                	${admin.email}
+                </td>
+            </tr>
+            <c:if test="${admin.type == 'ADMIN'}">
+            <tr>
+                <td align="right" height="25px">角色名称：</td>
+                <td colspan="3">
+                	${admin.role.roleName}
+                </td>
+            </tr>
+            </c:if>
+            <tr>
                 <td align="right" height="25px">账号类型：</td>
                 <td colspan="3">
-                	<c:if test="${admin.type == 'CUSTOM'}">注册用户</c:if>
+                	<c:if test="${admin.type == 'CUSTOM_PERSONAL'}">个人用户</c:if>
+                	<c:if test="${admin.type == 'CUSTOM_COMPANY'}">企业用户</c:if>
                 	<c:if test="${admin.type == 'ADMIN'}">系统用户</c:if>
                 </td>
             </tr>
+            <c:if test="${admin.type == 'CUSTOM_PERSONAL'}">
+			<tr>
+                <td align="right" height="25px">企业名称：</td>
+                <td colspan="3">
+                	${admin.companyName}
+                </td>
+            </tr>
+			</c:if>
             <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>
                 <td width="30%">

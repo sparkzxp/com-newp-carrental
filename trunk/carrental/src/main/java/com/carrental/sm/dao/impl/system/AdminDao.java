@@ -46,4 +46,12 @@ public class AdminDao implements IAdminDao {
 		return this.sqlSession.update("adminNpc.deleteAll", ids);
 	}
 
+	public Integer intoBlacklist(String ids) {
+		return this.sqlSession.update("adminNpc.intoBlacklist", ids);
+	}
+
+	public Integer outofBlacklist(String ids) {
+		return this.sqlSession.update("adminNpc.outofBlacklist", ids);
+	}
+
 }

@@ -28,7 +28,7 @@ public interface IRoleService {
 	 * @author 张霄鹏
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	String add(Role role, Admin loginUser);
+	String add(Role role, String resourceIds, Admin loginUser);
 
 	/**
 	 * 修改
@@ -36,7 +36,7 @@ public interface IRoleService {
 	 * @author 张霄鹏
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	String update(Role role, Admin loginUser);
+	String update(Role role, String resourceIds, Admin loginUser);
 
 	/**
 	 * 批量删除-假删

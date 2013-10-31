@@ -59,10 +59,10 @@ public class AdminService implements IAdminService {
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);
-		if (admin.getType().equals(Constants.CUSTOM_USER)) {
+		if (admin.getType().equals(Constants.USER_CUSTOM_PERSONAL)) {
 			log.setTitle("新增注册用户");
 			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 新增了名为：" + admin.getAdminName() + " 的注册用户");
-		} else if (admin.getType().equals(Constants.ADMIN_USER)) {
+		} else if (admin.getType().equals(Constants.USER_ADMIN)) {
 			log.setTitle("新增系统用户");
 			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 新增了名为：" + admin.getAdminName() + " 的系统用户");
 		}
@@ -79,10 +79,10 @@ public class AdminService implements IAdminService {
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);
-		if (admin.getType().equals(Constants.CUSTOM_USER)) {
+		if (admin.getType().equals(Constants.USER_CUSTOM_PERSONAL)) {
 			log.setTitle("修改注册用户");
 			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + admin.getAdminName() + " 的注册用户");
-		} else if (admin.getType().equals(Constants.ADMIN_USER)) {
+		} else if (admin.getType().equals(Constants.USER_ADMIN)) {
 			log.setTitle("修改系统用户");
 			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + admin.getAdminName() + " 的系统用户");
 		}
@@ -98,6 +98,30 @@ public class AdminService implements IAdminService {
 		log.setCreatedUser(loginUser);
 		log.setTitle("删除用户");
 		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 删除了名为：" + names + " 的用户");
+		log.setLevel("5");
+		this.logDao.add(log);
+		return Constants.OPERATION_SUCCESS;
+	}
+
+	public String intoBlacklist(String ids, String names, Admin loginUser) {
+		this.adminDao.intoBlacklist(ids);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		log.setTitle("用户加入黑名单");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 将名为：" + names + " 的用户加入了黑名单");
+		log.setLevel("5");
+		this.logDao.add(log);
+		return Constants.OPERATION_SUCCESS;
+	}
+
+	public String outofBlacklist(String ids, String names, Admin loginUser) {
+		this.adminDao.outofBlacklist(ids);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		log.setTitle("用户从黑名单删除");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 将名为：" + names + " 的用户从黑名单中删除");
 		log.setLevel("5");
 		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;

@@ -31,6 +31,14 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" height="25px">拥有资源：</td>
+                <td colspan="3">
+                	<c:forEach items="${role.resources}" var="parent">
+                	${parent.name}&nbsp;
+                	</c:forEach>
+                </td>
+            </tr>
+            <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>
                 <td width="30%">
                 	${role.createdUser.adminName}
