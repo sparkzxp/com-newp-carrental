@@ -100,20 +100,20 @@
 	<body>
 	<form action="<%=basePath%>resource/showResourceList" id="queryForm">
 	<div class="maintitle">
-		<div class="placenav">当前位置：<a href="#">首页</a>&gt;资源配置管理</div>
+		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;资源配置管理</div>
 		<h1>资源配置管理</h1>
 	</div>
-	<div class="content_list">
-		<ul>
-	    </ul>
+	<div class="button_nde">
+		
 	</div>
 	<div class="button_nde">
-		<input type="button" id="add" value="新增">
-		<input type="button" id="update" value="修改">
-		<input type="button" id="del" value="删除">
+		<a href="javascript:void(0);" id="add"><span>新增</span></a>
+		<a href="javascript:void(0);" id="update"><span>修改</span></a>
+		<a href="javascript:void(0);" id="del"><span>删除</span></a>
+		<h6 class="clear"></h6>
 	</div>
 	<div class="content">
-		<table width="100%" border="0" cellspacing="1" cellpadding="0" class="show mytable">
+		<table width="100%" border="0" cellspacing="1" cellpadding="0" class="show">
 			<tr>
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>ID</th>

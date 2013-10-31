@@ -11,9 +11,15 @@ public class Admin extends BaseBean {
 	private String adminName;// 姓名
 	private String loginName;// 登录名
 	private String password;// 密码
-	private String type;// 用户类型，CUSTOM：注册用户，ADMIN：系统用户
+	private String type;// 用户类型，CUSTOM_PERSONAL：个人注册用户，CUSTOM_PERSONAL：企业注册用户，ADMIN：系统用户
 	private String isDelete;// 是否删除
 	private City city;
+	private Role role;
+
+	private String email;
+	private String phone;
+	private String companyName;
+	private String inBlacklist;// 是否是黑名单
 
 	public Admin() {
 		super();
@@ -112,5 +118,79 @@ public class Admin extends BaseBean {
 	 */
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	/**
+	 * @return the role
+	 */
+	public Role getRole() {
+		return role;
+	}
+
+	/**
+	 * @param role
+	 *            the role to set
+	 */
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone
+	 *            the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the inBlacklist
+	 */
+	public String getInBlacklist() {
+		return inBlacklist;
+	}
+
+	/**
+	 * @param inBlacklist
+	 *            the inBlacklist to set
+	 */
+	public void setInBlacklist(String inBlacklist) {
+		this.inBlacklist = inBlacklist;
+	}
+
+	/**
+	 * @return the companyName
+	 */
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	/**
+	 * @param companyName the companyName to set
+	 */
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 }

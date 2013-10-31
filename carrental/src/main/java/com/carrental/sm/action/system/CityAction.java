@@ -33,7 +33,7 @@ public class CityAction {
 	private ICityService cityService;
 
 	@RequestMapping(value = "/showCityList")
-	public String cityList(City city, Pager pager, String pageTitle, Model model) {
+	public String cityList(City city, Pager pager, Model model) {
 		if (pager == null) {
 			pager = new Pager();
 		}

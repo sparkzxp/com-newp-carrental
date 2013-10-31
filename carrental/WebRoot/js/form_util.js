@@ -6,11 +6,36 @@ $(function(){
 			$("input[type=checkbox]").attr('checked', null);
 		}
 	});
-	$("input[type=checkbox]").not(":first").click(function(){
+
+	$("input[type=checkbox]").not(":first").bind("click",function(event){
 		$("input[type=checkbox]:first").attr("checked",null);
 	});
 	
-	$(".content tr").not(":first").hover(function(){
+	/* 当鼠标移到表格上是，当前一行背景变色 */
+	$(".show tr td").mouseover(function(){
+        $(this).parent().find("td").css("background-color","#def5fc");
+    });
+	/* 当鼠标在表格上移动时，离开的那一行背景恢复 */
+	$(".show tr td").mouseout(function(){
+        var bgc = $(this).parent().attr("bg");
+        $(this).parent().find("td").css("background-color",bgc);
+    });
+	//改变偶数行背景色
+    $(".show tr:odd td").css("background-color","#f8f8f8");
+    $(".show tr:odd").attr("bg","#dfdfdf");
+    $(".show tr:even").attr("bg","#fff");
+    
+    $(".content tr").bind("click",function(event){
+		var element = $(event.target);
+		if(element.is("td")){
+			var box = element.parent().find("td:first").find("input[type=checkbox]");
+			if(null != box && box.length != 0){
+				box.unbind("click").click();
+			}
+		} 
+	});
+	
+    /*$(".content tr").not(":first").hover(function(){
 		$(this).find("td").each(function(index,item){
 			$(item).addClass("list_table_hilite");
 		});
@@ -26,7 +51,7 @@ $(function(){
 				box.unbind("click").click();
 			}
 		} 
-	});
+	});*/
 });
 //选中的复选框的值数组
 function getSelectedIdArray(){

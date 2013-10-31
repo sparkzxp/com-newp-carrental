@@ -7,8 +7,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<base href="<%=basePath%>">
     <title>资源管理 新增 修改</title>
-    <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />
+    <link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
+    <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />
+    
     <script language="javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="<%=basePath%>plugin/jquery-validation-1.10.0/jquery.validate.js"></script>
 	<script type="text/javascript" src="<%=basePath%>plugin/jquery-validation-1.10.0/lib/jquery.metadata.js"></script>
@@ -77,8 +79,11 @@
             </tr>
             <tr>
                 <td align="right" height="25px"></td>
-                <td><input type="button" id="btn_submit" class="btn_submit" value="提交"/>
-                	<input type="button" id="btn_close" class="btn_submit" value="关闭" onclick="javascript:api.close();"/></td>
+                <td><div class="button_nde">
+                	<input type="button" id="btn_submit" class="btn" value="提交"/>
+                	<input type="button" id="btn_close" class="btn" value="关闭" onclick="javascript:api.close();"/>
+                	</div>
+                </td>
             </tr>
         </table>
     </div>

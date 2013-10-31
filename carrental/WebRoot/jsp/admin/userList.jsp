@@ -101,6 +101,64 @@
 						);
 					}
 				});
+				//加入黑名单
+				$("#intoBlacklist").click(function(){
+					var ids = getSelectedIdArray();
+					if(ids.length==0){
+						$.prompt('请选择至少一条数据',{
+							title: '提示',
+		        			buttons: { "确认": false}
+		        		});
+					}else{
+						$.prompt(
+							{state0:{
+								html: '确定要加入黑名单吗?加入黑名单后该用户的手机号和邮箱地址将不能在用来预订和租车',
+			        			buttons: { "确认": 1, "取消": 0},
+			        			submit:function(e,v,m,f){
+			        				e.preventDefault();
+			        				if(v==0){
+			        					$.prompt.close();
+			        				}else if(v==1){
+			        					$.post("<%=basePath%>admin/doAdminIntoBlacklist", 
+			        						{
+			        							"ids": array2String(getSelectedIdArray()),
+			        							"names":array2String(getSelectedArrayByName("adminName"))
+			        						}, function(data){
+						   					if(data.result=="SUCCESS"){
+						   						$.prompt.goToState('state1', true);
+						   						return false;
+						   					}else{
+						   						$.prompt.goToState('state2', true);
+						   						return false;
+						   					}
+						   				}, "json");
+			        				}
+			        			}
+			        		},
+			        		state1:{
+			        			html: '操作成功!点击确定返回列表',
+			        			buttons: { "确认": true},
+			        			submit:function(e,v,m,f){
+			        				e.preventDefault();
+			        				if(v){
+			        					$.prompt.close();
+			        					pageLoad();
+			        				}
+			        			}
+			        		},
+			        		state2:{
+			        			html: '操作失败',
+			        			buttons: { "确认": true},
+			        			submit:function(e,v,m,f){
+			        				e.preventDefault();
+			        				if(v){
+			        					$.prompt.goToState('state0');
+			        				}
+			        			}
+			        		}}
+						);
+					}
+				});
 			});
 			//重新提交表单刷新页面
 			function pageLoad(){
@@ -117,8 +175,9 @@
 	<input type="hidden" id="admin_inBlacklist" name="inBlacklist" value="${admin.inBlacklist}"/>
 	<input type="hidden" id="admin_isDelete" name="isDelete" value="0"/>
 	<div class="maintitle">
-		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;<a href="javascript:void(0);">用户管理</a>&gt;系统用户管理</div>
-		<h1>系统用户管理</h1>
+		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;<a href="javascript:void(0);">用户管理</a>&gt;
+			注册用户管理</div>
+		<h1>注册用户管理</h1>
 	</div>
 	<div class="button_nde">
 		用户姓名：<input type="text" id="admin_adminName" name="adminName" value="${admin.adminName}" class="input"/>
@@ -132,6 +191,7 @@
 		<a href="javascript:void(0);" id="add"><span>新增</span></a>
 		<a href="javascript:void(0);" id="update"><span>修改</span></a>
 		<a href="javascript:void(0);" id="del"><span>删除</span></a>
+		<a href="javascript:void(0);" id="intoBlacklist"><span>加入黑名单</span></a>
 		<h6 class="clear"></h6>
 	</div>
 	<div class="content">
@@ -143,6 +203,7 @@
 				<th>移动电话</th>
 				<th>邮箱地址</th>
 				<th>所在城市</th>
+				<th>用户类型</th>
 			</tr>
 			<c:forEach items="${admins}" var="parent">
 			<tr>
@@ -152,6 +213,10 @@
 				<td name="phone" align="center"><c:out value="${parent.phone}"/></td>
 				<td name="email" align="center"><c:out value="${parent.email}"/></td>
 				<td name="city" align="center"><c:out value="${parent.city.cityName}"/></td>
+				<td name="type" align="center">
+					<c:if test="${parent.type == 'CUSTOM_PERSONAL'}">个人用户</c:if>
+                	<c:if test="${parent.type == 'CUSTOM_COMPANY'}">企业用户</c:if>
+				</td>
 			</tr>
 			</c:forEach>
 		</table>

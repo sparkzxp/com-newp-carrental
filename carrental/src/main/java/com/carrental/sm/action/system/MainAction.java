@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.common.Constants;
@@ -39,13 +40,14 @@ public class MainAction {
 			return "admin/login";
 		}
 		List<Admin> adminList = this.adminService.queryByLoginName(admin);
-		if (null != adminList && adminList.size() > 1) {
+		if (null != adminList && adminList.size() == 0) {
 			model.addAttribute("message", "用户不存在");
 			return "admin/login";
 		} else {
 			Admin tmp = adminList.get(0);
 			if (tmp.getPassword().equals(MD5.MD5_32(admin.getPassword()))) {
 				request.getSession().setAttribute(Constants.SESSION_ADMIN_KEY, tmp);
+				request.getSession().setAttribute(Constants.SESSION_ROLE_KEY, tmp.getRole());
 				model.addAttribute("admin", tmp);
 				return "admin/main";
 			} else {
@@ -60,11 +62,11 @@ public class MainAction {
 	 * 
 	 * @author 张霄鹏
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public String logout(HttpServletRequest request, Model model) {
+	public String logout(Model model, HttpServletRequest request) {
 		request.getSession().invalidate();
-		model.addAttribute("logout", true);
-		return "admin/login";
+		return "logout";
 	}
 
 	@RequestMapping(value = "/top")

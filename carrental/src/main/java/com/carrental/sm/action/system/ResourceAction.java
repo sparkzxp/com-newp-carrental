@@ -33,7 +33,7 @@ public class ResourceAction {
 	private IResourceService resourceService;
 
 	@RequestMapping(value = "/showResourceList")
-	public String resourceList(Resource resource, Pager pager, String pageTitle, Model model) {
+	public String resourceList(Resource resource, Pager pager, Model model) {
 		if (pager == null) {
 			pager = new Pager();
 		}

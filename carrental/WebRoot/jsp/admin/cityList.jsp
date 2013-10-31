@@ -112,24 +112,23 @@
 	<body>
 	<form action="<%=basePath%>city/showCityList" id="queryForm">
 	<div class="maintitle">
-		<div class="placenav">当前位置：<a href="#">首页</a>&gt;城市管理</div>
+		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;城市管理</div>
 		<h1>城市管理</h1>
 	</div>
-	<div class="content_list">
-		<ul>
-		    <li>城市名称：<input type="text" id="city_cityName" name="cityName" value="${city.cityName}"/></li>
-		    <li>城市编码：<input type="text" id="city_cityCode" name="cityCode" value="${city.cityCode}"/></li>
-	    </ul>
+	<div class="button_nde">
+		城市名称：<input type="text" id="city_cityName" name="cityName" value="${city.cityName}" class="input"/>
+		城市编码：<input type="text" id="city_cityCode" name="cityCode" value="${city.cityCode}" class="input"/>
+	    <input type="button" id="query" class="btn" value="查询">
+		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
 	<div class="button_nde">
-		<input type="button" id="clearForm" value="清空">
-	    <input type="button" id="query" value="查询">
-		<input type="button" id="add" value="新增">
-		<input type="button" id="update" value="修改">
-		<input type="button" id="del" value="删除">
+		<a href="javascript:void(0);" id="add"><span>新增</span></a>
+		<a href="javascript:void(0);" id="update"><span>修改</span></a>
+		<a href="javascript:void(0);" id="del"><span>删除</span></a>
+		<h6 class="clear"></h6>
 	</div>
 	<div class="content">
-		<table width="100%" border="0" cellspacing="1" cellpadding="0" class="show mytable">
+		<table width="100%" border="0" cellspacing="1" cellpadding="0" class="show">
 			<tr>
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>城市名称</th>

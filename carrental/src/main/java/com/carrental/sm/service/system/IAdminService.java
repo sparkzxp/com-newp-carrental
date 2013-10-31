@@ -51,4 +51,20 @@ public interface IAdminService {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	String delete(String ids, String names, Admin loginUser);
+
+	/**
+	 * 加入黑名单
+	 * 
+	 * @author 张霄鹏
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String intoBlacklist(String ids, String names, Admin loginUser);
+
+	/**
+	 * 从黑名单删除
+	 * 
+	 * @author 张霄鹏
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String outofBlacklist(String ids, String names, Admin loginUser);
 }

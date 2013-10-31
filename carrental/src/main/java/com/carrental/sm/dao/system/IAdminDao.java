@@ -61,4 +61,18 @@ public interface IAdminDao {
 	 * @author 张霄鹏
 	 */
 	Integer deleteAll(String ids);
+
+	/**
+	 * 加入黑名单
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer intoBlacklist(String ids);
+
+	/**
+	 * 从黑名单删除
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer outofBlacklist(String ids);
 }

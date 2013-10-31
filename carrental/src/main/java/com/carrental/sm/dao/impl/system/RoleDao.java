@@ -45,4 +45,13 @@ public class RoleDao implements IRoleDao {
 		return this.sqlSession.delete("roleNpc.delete", ids);
 	}
 
+	public String addResources(Role role) {
+		this.sqlSession.insert("roleNpc.addResources", role);
+		return String.valueOf(role.getId());
+	}
+
+	public Integer deleteResources(String roleIds) {
+		return this.sqlSession.delete("roleNpc.deleteResources", roleIds);
+	}
+
 }

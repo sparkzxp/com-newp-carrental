@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
 import com.carrental.sm.service.system.ICityService;
+import com.carrental.sm.service.system.IRoleService;
 
 /**
  * 系统用户管理
@@ -34,27 +36,48 @@ public class AdminAction {
 	private IAdminService adminService;// admin业务对象
 	@Autowired
 	private ICityService cityService;
+	@Autowired
+	private IRoleService roleService;
 
 	@RequestMapping(value = "/showAdminList")
-	public String adminList(Admin admin, Pager pager, String pageTitle, Model model) {
+	public String adminList(Admin admin, Pager pager, Model model, HttpServletRequest request) {
 		if (pager == null) {
 			pager = new Pager();
+		}
+		Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
+		if (null != role) {
+			admin.setCity(role.getCity());
 		}
 		List<Admin> admins = this.adminService.queryList(admin, pager);
 		model.addAttribute("admin", admin);
 		model.addAttribute("admins", admins);
-		model.addAttribute("pageTitle", pageTitle);
-		return "admin/adminList";
+		if (admin.getType().equals(Constants.USER_ADMIN)) {
+			return "admin/adminList";
+		} else if (admin.getInBlacklist().equals("1")) {
+			return "admin/blacklistList";
+		} else {
+			return "admin/userList";
+		}
 	}
 
 	@RequestMapping(value = "/toAdminEdit")
-	public String toAdminEdit(Admin admin, Model model) {
+	public String toAdminEdit(Admin admin, Model model, HttpServletRequest request) {
 		if (StringUtils.isNotEmpty(admin.getId())) {
 			admin = this.adminService.queryList(admin, null).get(0);
 		}
 		model.addAttribute("admin", admin);
-		model.addAttribute("citys", this.cityService.queryList(null, null));
-		return "admin/adminEdit";
+		Role _role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
+		if (null != _role) {
+			model.addAttribute("citys", this.cityService.queryList(_role.getCity(), null));
+		} else {
+			model.addAttribute("citys", this.cityService.queryList(null, null));
+		}
+		model.addAttribute("roles", this.roleService.queryList(null, null));
+		if (admin.getType().equals(Constants.USER_ADMIN)) {
+			return "admin/adminEdit";
+		} else {
+			return "admin/userEdit";
+		}
 	}
 
 	@ResponseBody
@@ -89,6 +112,24 @@ public class AdminAction {
 		Map<String, String> result = new HashMap<String, String>();
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
 		result.put("result", this.adminService.delete(ids, names, _admin));
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/doAdminIntoBlacklist")
+	public Map<String, String> doAdminIntoBlacklist(String ids, String names, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		result.put("result", this.adminService.intoBlacklist(ids, names, _admin));
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/doAdminOutofBlacklist")
+	public Map<String, String> doAdminOutofBlacklist(String ids, String names, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		result.put("result", this.adminService.outofBlacklist(ids, names, _admin));
 		return result;
 	}
 }

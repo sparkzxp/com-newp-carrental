@@ -10,6 +10,7 @@
 <script type="text/javascript" src="<%=basePath%>js/common/png.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/jquery/jquery.query-2.1.7.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/common/json2.js"></script>
 
 <script type="text/javascript">
@@ -18,7 +19,7 @@ $(document).ready(function(){
 		top.location.href = "<%=basePath%>";
 	}
 	
-	if('${logout}' == null && '${message}' == '' && $.cookie('carrental.com') != null){
+	if($.query.get('logout') == '' && '${message}' == '' && $.cookie('carrental.com') != null){
 		var adminJson = JSON.parse($.cookie('carrental.com'));
 		$('#admin_loginName').val(adminJson.loginName);
 		$('#admin_password').val(adminJson.password);

@@ -4,12 +4,12 @@ html {_overflow-y:scroll;}
 body{
     font-family: "微软雅黑",Arial, Tahoma,;   
 	font-size:12px;   
-	color:#7b7b7b;   
+	color:#5b5b5b;   
 	background:#f2f2f2;
 	}
 
 a{text-decoration: none;} 
-a:link{color:#7b7b7b;}
+a:link{color:#5b5b5b;}
 a:visited{color:#7b7b7b;} 
 a:hover{color:#333333;text-decoration: none;} 
 a:active{color:#333333;}
@@ -71,21 +71,21 @@ input{border:0;}
 
 .placenav{float:right;margin:10px 10px 0 0;}
 .placenav a{margin:0 5px; text-decoration:underline;}
-.maintitle{background:url(../../images/admin/cion04.gif) repeat left top;border-bottom:1px solid #cbcbcb;padding:10px 0 0 0;}
-.maintitle h1{line-height:40px;font-size:14px;padding:0 0 0 10px;}
+.maintitle{background:url(../../images/admin/cion04.gif) repeat left top;border-bottom:1px solid #cbcbcb;}
+.maintitle h1{line-height:35px;font-size:14px;padding:0 0 0 10px;}
 
 .button_nde{background:url(../../images/admin/cion05.gif) repeat-x left bottom;padding:8px;}
-.button_nde input{background:url(../../images/admin/cion06.gif) no-repeat left top;border:0;text-align:center;width:49px;height:22px;margin:0 15px 0 0;font-family:"微软雅黑";}
+.button_nde .input{border:1px solid #c6c6c6;width:100px;height:20px;line-height:20px;margin:0 5px;padding:0 5px;font-family:"微软雅黑"; vertical-align:middle;}
+.button_nde .btn{background:url(../../images/admin/cion06.gif) no-repeat left top;border:0;text-align:center;width:49px;height:22px;margin:0 15px 0 0;font-family:"微软雅黑";vertical-align:middle;cursor:pointer;}
+
+.button_nde a{background:url(../../images/admin/cion07_r.gif) no-repeat right top;padding:0 8px 0 0;display:block;float:left;margin:0 8px 0 0;}
+.button_nde a span{background:url(../../images/admin/cion07_l.gif) no-repeat left top;padding:0 0 0 8px;display:block;line-height:22px;}
 
 .content{padding:15px;}
 .show{background:#cbcbcb;}
-.show td{background:#ffffff;padding:3px 5px;}
+.show td{background:#ffffff;padding:2px 5px;}
 .show th{background:#f8f8f8;padding:3px 5px;text-align:center;}
 .page{text-align:right;margin:10px 0 0 0;}
 .page a{margin:0 8px; text-decoration:underline;color:#2d2d2d;}
 .page a:visited{color:#2d2d2d;}
 .page a:hover{color:#2d2d2d;}
-
-.list_table_hilite {
-	background-color: #FFFF99 !important;
-}
