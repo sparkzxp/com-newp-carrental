@@ -54,6 +54,7 @@
 		<typeAlias alias="log" type="com.carrental.sm.bean.system.Log" />
 		<typeAlias alias="resource" type="com.carrental.sm.bean.system.Resource" />
 		<typeAlias alias="role" type="com.carrental.sm.bean.system.Role" />
+		<typeAlias alias="company" type="com.carrental.sm.bean.system.Company" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="sqlmaps/mysql/system/admin.xml" />
@@ -61,5 +62,6 @@
 		<mapper resource="sqlmaps/mysql/system/log.xml" />
 		<mapper resource="sqlmaps/mysql/system/resource.xml" />
 		<mapper resource="sqlmaps/mysql/system/role.xml" />
+		<mapper resource="sqlmaps/mysql/system/company.xml" />
 	</mappers>
 </configuration>  
