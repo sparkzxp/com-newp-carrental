@@ -75,4 +75,13 @@ public interface IAdminDao {
 	 * @author 张霄鹏
 	 */
 	Integer outofBlacklist(String ids);
+
+	/**
+	 * 批量修改密码
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :password,ids
+	 */
+	Integer resetPwd(Map<String, Object> params);
 }

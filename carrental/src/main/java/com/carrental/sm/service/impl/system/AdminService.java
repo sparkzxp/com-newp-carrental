@@ -127,6 +127,21 @@ public class AdminService implements IAdminService {
 		return Constants.OPERATION_SUCCESS;
 	}
 
+	public String resetPwd(String ids, String names, String password, Admin loginUser) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("password", password);
+		params.put("ids", ids);
+		this.adminDao.resetPwd(params);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		log.setTitle("修改用户密码");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + names + " 的用户的密码");
+		log.setLevel("5");
+		this.logDao.add(log);
+		return Constants.OPERATION_SUCCESS;
+	}
+
 	/**
 	 * 验证登录账号是否存在
 	 * 

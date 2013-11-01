@@ -122,7 +122,7 @@
 <body>
     <form name="editForm" id="editForm">
     <input type="hidden" name="id" value="${role.id}"/>
-    <div class="content" style="height: 320px;">
+    <div class="content" style="height: 370px;">
         <table border="0" cellpadding="0" cellspacing="0" class="table">
             <tr>
                 <td width="20%" align="right" height="25px">角色名称：</td>
@@ -161,7 +161,7 @@
     </div>
     </form>
     <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
-		<ul id="resourceTree" class="ztree" style="clear:both;margin-top:0; width:250px; height: 300px;"></ul>
+		<ul id="resourceTree" class="ztree" style="clear:both;margin-top:0; width:250px; height: 250px;"></ul>
 	</div>
 </body>
 </html>

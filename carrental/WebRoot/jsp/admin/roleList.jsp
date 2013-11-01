@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>角色管理</title>
+		<title>角色配置管理</title>
 		<base href="<%=basePath%>">
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 		<link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
@@ -27,13 +27,13 @@
 				});
 				//新增
 				$("#add").click(function(){
-					$.show('新增系统角色','<%=basePath%>role/toRoleEdit?id=',550,350,"A");
+					$.show('新增系统角色','<%=basePath%>role/toRoleEdit?id=',550,400,"A");
 				});
 				//修改
 				$("#update").click(function(){
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						$.show('修改系统角色','<%=basePath%>role/toRoleEdit?id='+ids[0],550,350,'A');
+						$.show('修改系统角色','<%=basePath%>role/toRoleEdit?id='+ids[0],550,400,'A');
 					}else{
 						$.prompt('请选择一条数据',{
 							title: '提示',
@@ -112,8 +112,8 @@
 	<body>
 	<form action="<%=basePath%>role/showRoleList" id="queryForm">
 	<div class="maintitle">
-		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;角色管理</div>
-		<h1>角色管理</h1>
+		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;角色配置管理</div>
+		<h1>角色配置管理</h1>
 	</div>
 	<div class="button_nde">
 		角色名称：<input type="text" id="role_roleName" name="roleName" value="${role.roleName}" class="input"/>

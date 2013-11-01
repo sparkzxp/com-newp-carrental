@@ -54,4 +54,8 @@ public class AdminDao implements IAdminDao {
 		return this.sqlSession.update("adminNpc.outofBlacklist", ids);
 	}
 
+	public Integer resetPwd(Map<String, Object> params) {
+		return this.sqlSession.update("adminNpc.resetPwd", params);
+	}
+
 }

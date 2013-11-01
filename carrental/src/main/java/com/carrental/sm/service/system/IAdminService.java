@@ -67,4 +67,12 @@ public interface IAdminService {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	String outofBlacklist(String ids, String names, Admin loginUser);
+
+	/**
+	 * 批量修改密码
+	 * 
+	 * @author 张霄鹏
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String resetPwd(String ids, String names, String password, Admin loginUser);
 }
