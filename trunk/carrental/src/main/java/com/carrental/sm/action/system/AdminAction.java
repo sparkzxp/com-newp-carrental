@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.common.bean.Pager;
+import com.carrental.sm.common.bean.Passworder;
 import com.carrental.sm.service.system.IAdminService;
 import com.carrental.sm.service.system.ICityService;
 import com.carrental.sm.service.system.IRoleService;
@@ -51,7 +53,7 @@ public class AdminAction {
 		List<Admin> admins = this.adminService.queryList(admin, pager);
 		model.addAttribute("admin", admin);
 		model.addAttribute("admins", admins);
-		if (admin.getType().equals(Constants.USER_ADMIN)) {
+		if (Constants.USER_ADMIN.equals(admin.getType())) {
 			return "admin/adminList";
 		} else if (admin.getInBlacklist().equals("1")) {
 			return "admin/blacklistList";
@@ -73,7 +75,7 @@ public class AdminAction {
 			model.addAttribute("citys", this.cityService.queryList(null, null));
 		}
 		model.addAttribute("roles", this.roleService.queryList(null, null));
-		if (admin.getType().equals(Constants.USER_ADMIN)) {
+		if (Constants.USER_ADMIN.equals(admin.getType())) {
 			return "admin/adminEdit";
 		} else {
 			return "admin/userEdit";
@@ -130,6 +132,38 @@ public class AdminAction {
 		Map<String, String> result = new HashMap<String, String>();
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
 		result.put("result", this.adminService.outofBlacklist(ids, names, _admin));
+		return result;
+	}
+
+	@RequestMapping(value = "/toResetPwd")
+	public String toResetPwd(Admin admin, Model model) {
+		model.addAttribute("ids", admin.getId());
+		model.addAttribute("names", admin.getAdminName());
+		return "admin/passwordEdit";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/doResetPwd")
+	public Map<String, String> doResetPwd(String ids, String names, Passworder passworder, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		String password;
+		if (null == passworder || StringUtils.isEmpty(passworder.getNewPassword())) {
+			password = MD5.MD5_32("123456");
+		} else {
+			password = MD5.MD5_32(passworder.getNewPassword());
+			List<Admin> _admins = this.adminService.queryList(new Admin(ids), null);
+			if (CollectionUtils.isNotEmpty(_admins)) {
+				if (!_admins.get(0).getPassword().equals(MD5.MD5_32(passworder.getPassword()))) {
+					result.put("result", "原密码输入错误");
+					return result;
+				}
+			} else {
+				result.put("result", "该用户不存在，请刷新列表后重试");
+				return result;
+			}
+		}
+		result.put("result", this.adminService.resetPwd(ids, names, password, _admin));
 		return result;
 	}
 }

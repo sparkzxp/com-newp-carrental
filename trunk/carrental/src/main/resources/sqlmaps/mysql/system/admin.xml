@@ -142,4 +142,10 @@
 			IN_BLACKLIST = '0'
 			where ID in (${_parameter})
 	</update>
+	
+	<update id="resetPwd" parameterType="map">
+		update `T_ADMIN` set
+			LOGIN_PWD = #{password}
+			where ID in (${ids})
+	</update>
 </mapper>

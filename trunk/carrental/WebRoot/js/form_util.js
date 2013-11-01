@@ -87,6 +87,26 @@ function getSelectedArrayByName(name){
 	});
 	return arry;
 }
+
+//获取表格中选中的值
+function getSelectedByName(name){
+	var _val = "";
+	$("input:checkbox").not(":first").each(function(){	
+		if(this.checked){
+			var td = $(this).parent("td").parent("tr").find("td");
+			for(var i=0;i<td.length;i++){
+				if(td.eq(i).attr('name') == name){
+					if(name == 'id'){
+						_val = td.eq(i).find('input:checkbox').val();
+					}else{
+						_val = td.eq(i).text();
+					}
+				}
+			}
+		}
+	});
+	return _val;
+}
 //选中的复选框的值数组
 function array2String(arr){
 	var names = "";
