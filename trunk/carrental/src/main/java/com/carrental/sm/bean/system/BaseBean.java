@@ -3,6 +3,8 @@ package com.carrental.sm.bean.system;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 /**
  * @author 张霄鹏
  */
@@ -11,8 +13,10 @@ public class BaseBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected String id;
+	@JsonIgnore
 	protected Admin createdUser;
 	protected Timestamp createdDt;
+	@JsonIgnore
 	protected Admin updatedUser;
 	protected Timestamp updatedDt;
 

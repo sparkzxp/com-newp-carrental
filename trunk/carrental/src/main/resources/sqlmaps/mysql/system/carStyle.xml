@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="carStyleNpc">
+	<resultMap id="carStyleRstMap" type="carStyle">
+		<id property="id" column="ID"/>
+		<result property="createdDt" column="CREATED_DT" />
+		<result property="updatedDt" column="UPDATED_DT" />
+		<result property="styleName" column="STYLE_NAME" />
+		<result property="level" column="LEVEL" />
+		<result property="engine" column="ENGINE" />
+		<result property="gearbox" column="GEARBOX" />
+		<result property="LWH" column="LWH" />
+		<result property="structrue" column="STRUCTRUE" />
+		<result property="fuelConsumption" column="FUEL_CONSUMPTION" />
+		<result property="fuelCapacity" column="FUEL_CAPACITY" />
+		<result property="trunkCapacity" column="TRUNK_CAPACITY" />
+		<result property="fuelForm" column="FUEL_FORM" />
+		<result property="ROZ" column="ROZ" />
+		<result property="marketDate" column="MARKET_DATE" />
+		<result property="content" column="CONTENT" />
+		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
+		<association property="series" column="SERIES_ID" select="dictNpc.queryByDictId"/>
+	</resultMap>
+	
+	<sql id="query_where">
+		<where>
+			<if test="carStyle != null">
+				<if test="carStyle.id != null and carStyle.id != ''">
+					and T.ID = #{carStyle.id}
+				</if>
+				<if test="carStyle.styleName != null and carStyle.styleName != ''">
+					and T.STYLE_NAME like '%${carStyle.styleName}%'
+				</if>
+				<if test="carStyle.engine != null and carStyle.engine != ''">
+					and T.ENGINE like '%${carStyle.engine}%'
+				</if>
+				<if test="carStyle.series != null">
+					<if test="carStyle.series.id != null and carStyle.series.id != ''">
+						and T.SERIES_ID = #{carStyle.series.id}
+					</if>
+					<if test="carStyle.series.parent != null">
+						<if test="carStyle.series.parent.id != null and carStyle.series.parent.id != ''">
+							and D.PARENT_ID = #{carStyle.series.parent.id}
+						</if>
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="carStyle != null">
+				<if test="carStyle.id != null and carStyle.id != ''">
+					and T.ID = #{carStyle.id}
+				</if>
+				<if test="carStyle.styleName != null and carStyle.styleName != ''">
+					and T.STYLE_NAME = #{carStyle.styleName}
+				</if>
+				<if test="carStyle.engine != null and carStyle.engine != ''">
+					and T.ENGINE = #{carStyle.engine}
+				</if>
+				<if test="carStyle.series != null">
+					<if test="carStyle.series.id != null and carStyle.series.id != ''">
+						and T.SERIES_ID = #{carStyle.series.id}
+					</if>
+					<if test="carStyle.series.parent != null">
+						<if test="carStyle.series.parent.id != null and carStyle.series.parent.id != ''">
+							and D.PARENT_ID = #{carStyle.series.parent.id}
+						</if>
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="carStyleRstMap" parameterType="map">
+		SELECT T.* FROM `T_CAR_STYLE` T
+		left join T_DICTIONARY D on D.ID = T.SERIES_ID
+		<include refid="query_where" />
+		order by T.STYLE_NAME asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryEqualsList" resultMap="carStyleRstMap" parameterType="map">
+		SELECT T.* FROM `T_CAR_STYLE` T
+		left join T_DICTIONARY D on D.ID = T.SERIES_ID
+		<include refid="queryEquals_where" />
+		order by T.STYLE_NAME asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.ID) FROM T_CAR_STYLE T
+		left join T_DICTIONARY D on D.ID = T.SERIES_ID
+		<include refid="query_where"/>
+	</select>
+	
+	<select id="queryByCityId" resultMap="carStyleRstMap" parameterType="map">
+		SELECT T.* FROM `T_CAR_STYLE` T
+		where T.id = #{id}
+	</select>
+	
+	<insert id="add" parameterType="carStyle">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `T_CAR_STYLE`(
+			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
+			STYLE_NAME, LEVEL, ENGINE, GEARBOX, LWH,
+			STRUCTRUE, FUEL_CONSUMPTION, FUEL_CAPACITY, TRUNK_CAPACITY, FUEL_FORM,
+			ROZ, MARKET_DATE, SERIES_ID, CONTENT
+		) VALUES (
+			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
+			#{styleName}, #{level}, #{engine}, #{gearbox}, #{LWH},
+			#{structrue}, #{fuelConsumption}, #{fuelCapacity}, #{trunkCapacity}, #{fuelForm},
+			#{ROZ}, #{marketDate}, #{series.id}, #{content}
+		)
+	</insert>
+	
+	<update id="update" parameterType="carStyle">
+		update `T_CAR_STYLE` set
+			UPDATED_USER = #{updatedUser.id},
+			UPDATED_DT = NOW(),
+			STYLE_NAME = #{styleName},
+			LEVEL = #{level},
+			ENGINE = #{engine},
+			GEARBOX = #{gearbox},
+			LWH = #{LWH},
+			STRUCTRUE = #{structrue},
+			FUEL_CONSUMPTION = #{fuelConsumption},
+			FUEL_CAPACITY = #{fuelCapacity},
+			TRUNK_CAPACITY = #{trunkCapacity},
+			FUEL_FORM = #{fuelForm},
+			ROZ = #{ROZ},
+			MARKET_DATE = #{marketDate},
+			SERIES_ID = #{series.id},
+			CONTENT = #{content}
+			
+			WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="string">
+		delete from `T_CAR_STYLE` where ID in (${_parameter})
+	</delete>
+</mapper>
