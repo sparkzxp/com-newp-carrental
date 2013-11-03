@@ -6,11 +6,18 @@ import java.sql.Timestamp;
  * @author 张霄鹏
  * 
  */
-public class CarStyle extends BaseBean {
+public class CarSeries extends BaseBean {
 
 	private static final long serialVersionUID = 1L;
 
-	private String styleName;
+	private String seriesName;
+	private String manufacturer;
+	private String manufacturerLogoPath;
+	private Boolean manufacturerLogoUploadStatus;// 不存数据库，修改时标记上传的图片是否有更改
+	private String seriesImgPath;
+	private Boolean seriesImgUploadStatus;// 不存数据库，修改时标记上传的图片是否有更改
+
+	private String styleName;// 车型名称
 	private String level;// 级别
 	private String engine;// 发动机
 	private String gearbox;// 变速箱
@@ -22,8 +29,67 @@ public class CarStyle extends BaseBean {
 	private String fuelForm;// 燃料形式
 	private String ROZ;// 燃油标号
 	private Timestamp marketDate;// 上市时间
-	private Dictionary series;// 车系
 	private String content;
+
+	/**
+	 * @return the seriesName
+	 */
+	public String getSeriesName() {
+		return seriesName;
+	}
+
+	/**
+	 * @param seriesName
+	 *            the seriesName to set
+	 */
+	public void setSeriesName(String seriesName) {
+		this.seriesName = seriesName;
+	}
+
+	/**
+	 * @return the manufacturer
+	 */
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	/**
+	 * @param manufacturer
+	 *            the manufacturer to set
+	 */
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	/**
+	 * @return the manufacturerLogoPath
+	 */
+	public String getManufacturerLogoPath() {
+		return manufacturerLogoPath;
+	}
+
+	/**
+	 * @param manufacturerLogoPath
+	 *            the manufacturerLogoPath to set
+	 */
+	public void setManufacturerLogoPath(String manufacturerLogoPath) {
+		this.manufacturerLogoPath = manufacturerLogoPath;
+	}
+
+	/**
+	 * @return the seriesImgPath
+	 */
+	public String getSeriesImgPath() {
+		return seriesImgPath;
+	}
+
+	/**
+	 * @param seriesImgPath
+	 *            the seriesImgPath to set
+	 */
+	public void setSeriesImgPath(String seriesImgPath) {
+		this.seriesImgPath = seriesImgPath;
+	}
 
 	/**
 	 * @return the styleName
@@ -206,21 +272,6 @@ public class CarStyle extends BaseBean {
 	}
 
 	/**
-	 * @return the series
-	 */
-	public Dictionary getSeries() {
-		return series;
-	}
-
-	/**
-	 * @param series
-	 *            the series to set
-	 */
-	public void setSeries(Dictionary series) {
-		this.series = series;
-	}
-
-	/**
 	 * @return the content
 	 */
 	public String getContent() {
@@ -233,5 +284,35 @@ public class CarStyle extends BaseBean {
 	 */
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	/**
+	 * @return the manufacturerLogoUploadStatus
+	 */
+	public Boolean getManufacturerLogoUploadStatus() {
+		return manufacturerLogoUploadStatus;
+	}
+
+	/**
+	 * @param manufacturerLogoUploadStatus
+	 *            the manufacturerLogoUploadStatus to set
+	 */
+	public void setManufacturerLogoUploadStatus(Boolean manufacturerLogoUploadStatus) {
+		this.manufacturerLogoUploadStatus = manufacturerLogoUploadStatus;
+	}
+
+	/**
+	 * @return the seriesImgUploadStatus
+	 */
+	public Boolean getSeriesImgUploadStatus() {
+		return seriesImgUploadStatus;
+	}
+
+	/**
+	 * @param seriesImgUploadStatus
+	 *            the seriesImgUploadStatus to set
+	 */
+	public void setSeriesImgUploadStatus(Boolean seriesImgUploadStatus) {
+		this.seriesImgUploadStatus = seriesImgUploadStatus;
 	}
 }

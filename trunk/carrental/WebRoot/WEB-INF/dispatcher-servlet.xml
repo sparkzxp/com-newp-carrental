@@ -12,11 +12,12 @@
 	<mvc:resources mapping="/images/**" location="/images/"/>
 	<mvc:resources mapping="/js/**" location="/js/"/>
 	<mvc:resources mapping="/plugin/**" location="/plugin/"/>
+	<mvc:resources mapping="/upload/**" location="/upload/"/>
 	
 	<!-- SpringMVC 上传 -->
 	 <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
 	    <!-- one of the properties available; the maximum file size in bytes -->  
-        <property name="maxUploadSize" value="104857600" />
+        <property name="maxUploadSize" value="104857600" /><!-- 100MB -->
         <property name="defaultEncoding" value="UTF-8" />  
 	</bean>
 	
@@ -61,8 +62,14 @@
     </bean>
     
     <!-- 总错误处理-->
-	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="defaultErrorView">  
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+            <props>
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">uploadError</prop>
+            </props>
+        </property>
+        <!-- <property name="defaultErrorView">  
 		 	<value>/error/error</value>
 		</property>
 		<property name="defaultStatusCode">  
@@ -70,6 +77,6 @@
 		</property>	
 		<property name="warnLogCategory">  
 		 	<value>org.springframework.web.servlet.handler.SimpleMappingExceptionResolver</value>
-		</property>	
-	</bean> -->
+		</property>	 -->
+	</bean>
 </beans>

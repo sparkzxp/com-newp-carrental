@@ -45,8 +45,10 @@ function toUrl(url){
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>company/toCompanyEdit')">企业信息管理</a></p>
 <ul>
 </ul>
-<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>carStyle/showCarStyleList')">车型管理</a></p>
+<p><a href="javascript:void(0);">车辆管理</a></p>
 <ul>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>carSeries/showCarSeriesList')">车系管理</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>car/showCarList')">车辆管理</a></li>
 </ul>
 </div>
 </body>

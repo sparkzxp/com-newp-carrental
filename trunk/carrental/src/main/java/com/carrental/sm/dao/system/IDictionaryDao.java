@@ -10,6 +10,7 @@ import com.carrental.sm.bean.system.Dictionary;
  * 
  * @author 张霄鹏
  */
+@Deprecated
 public interface IDictionaryDao {
 
 	/**

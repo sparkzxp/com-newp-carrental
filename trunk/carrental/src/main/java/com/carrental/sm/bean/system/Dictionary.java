@@ -4,6 +4,7 @@ package com.carrental.sm.bean.system;
  * @author 张霄鹏
  * 
  */
+@Deprecated
 public class Dictionary extends BaseBean {
 
 	private static final long serialVersionUID = 1L;

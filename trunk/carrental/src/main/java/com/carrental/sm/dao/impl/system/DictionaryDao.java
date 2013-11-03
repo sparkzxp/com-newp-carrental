@@ -14,6 +14,7 @@ import com.carrental.sm.dao.system.IDictionaryDao;
  * @author 张霄鹏
  * 
  */
+@Deprecated
 @Repository
 public class DictionaryDao implements IDictionaryDao {
 

@@ -12,4 +12,9 @@ public class ErrorAction {
 	public String error() {
 		return "error/500";
 	}
+
+	@RequestMapping(value = "/uploadError", method = RequestMethod.POST)
+	public String uploadError() {
+		return "error/uploadError";
+	}
 }

@@ -21,7 +21,7 @@ $(function(){
         $(this).parent().find("td").css("background-color",bgc);
     });
 	//改变偶数行背景色
-    $(".show tr:odd td").css("background-color","#f8f8f8");
+    $(".show tr:odd td").css("background-color","#dfdfdf");
     $(".show tr:odd").attr("bg","#dfdfdf");
     $(".show tr:even").attr("bg","#fff");
     

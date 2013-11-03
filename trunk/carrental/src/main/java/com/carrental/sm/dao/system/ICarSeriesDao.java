@@ -3,41 +3,41 @@ package com.carrental.sm.dao.system;
 import java.util.List;
 import java.util.Map;
 
-import com.carrental.sm.bean.system.CarStyle;
+import com.carrental.sm.bean.system.CarSeries;
 
 /**
- * 车型管理
+ * 车系管理
  * 
  * @author 张霄鹏
  */
-public interface ICarStyleDao {
+public interface ICarSeriesDao {
 
 	/**
-	 * 条件查询全部车型信息，字符串类型like匹配
+	 * 条件查询全部车系信息，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏
-	 * @return List<CarStyle>
+	 * @return List<CarSeries>
 	 * @param params
-	 *            :pager,carStyle
+	 *            :pager,carSeries
 	 */
-	List<CarStyle> queryList(Map<String, Object> params);
+	List<CarSeries> queryList(Map<String, Object> params);
 
 	/**
-	 * 条件查询全部车型信息
+	 * 条件查询全部车系信息
 	 * 
 	 * @author 张霄鹏
-	 * @return List<CarStyle>
+	 * @return List<CarSeries>
 	 * @param params
-	 *            :pager,carStyle
+	 *            :pager,carSeries
 	 */
-	List<CarStyle> queryEqualsList(Map<String, Object> params);
+	List<CarSeries> queryEqualsList(Map<String, Object> params);
 
 	/**
 	 * 条件查询列表数量
 	 * 
 	 * @author 张霄鹏
 	 * @param params
-	 *            :carStyle
+	 *            :carSeries
 	 */
 	Integer count(Map<String, Object> params);
 
@@ -46,14 +46,14 @@ public interface ICarStyleDao {
 	 * 
 	 * @author 张霄鹏
 	 */
-	String add(CarStyle carStyle);
+	String add(CarSeries carSeries);
 
 	/**
 	 * 修改
 	 * 
 	 * @author 张霄鹏
 	 */
-	Integer update(CarStyle carStyle);
+	Integer update(CarSeries carSeries);
 
 	/**
 	 * 删除
