@@ -14,6 +14,7 @@ import com.carrental.sm.common.bean.Pager;
  * 
  * @author 张霄鹏
  */
+@Deprecated
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public interface IDictionaryService {
 

@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>车型管理</title>
+		<title>车系管理</title>
 		<base href="<%=basePath%>">
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 		<link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
@@ -18,42 +18,23 @@
 			$(function(){
 				//清空
 				$("#clearForm").click(function(){
-					$("#carStyle_styleName").val('');
-					$("#carStyle_series").val(''); 
-					$("#carStyle_series_parent").val('');
-					$("#carStyle_engine").val('');
+					$("#carSeries_seriesName").val('');
+					$("#carSeries_manufacturer").val('');
+					$("#carSeries_engine").val('');
 				});
-				
-				$('#carStyle_series_parent').change(function(){
-					if($(this).children('option:selected').val() != ''){
-						$.post('<%=basePath%>dict/queryDictList', {
-							"parent.id":$(this).children('option:selected').val()
-						}, function(data){
-							if(data.result == 'SUCCESS'){
-								$('#carStyle_series option').not(':first').remove();
-								for(var i=0; i<data.dicts.length; i++){
-									$("#carStyle_series").append("<option value='"+data.dicts[i].id+"'>"+data.dicts[i].name+"</option>");
-								}
-							}
-						});
-					}
-				});
-				
 				//查询
 				$("#query").click(function(){
 					pageLoad();
 				});
 				//新增
 				$("#add").click(function(){
-					location.href = '<%=basePath%>carStyle/toCarStyleEdit?id=';
-					//$.show('新增系统车型','<%=basePath%>carStyle/toCarStyleEdit?id=',450,200,"A");
+					$.show('新增车系','<%=basePath%>carSeries/toCarSeriesEdit?id=',600,500,"A");
 				});
 				//修改
 				$("#update").click(function(){
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						location.href = '<%=basePath%>carStyle/toCarStyleEdit?id='+ids[0];
-						//$.show('修改系统车型','<%=basePath%>carStyle/toCarStyleEdit?id='+ids[0],450,200,'A');
+						$.show('修改车系','<%=basePath%>carSeries/toCarSeriesEdit?id='+ids[0],600,500,'A');
 					}else{
 						$.prompt('请选择一条数据',{
 							title: '提示',
@@ -79,10 +60,12 @@
 			        				if(v==0){
 			        					$.prompt.close();
 			        				}else if(v==1){
-			        					$.post("<%=basePath%>carStyle/doCarStyleDelete", 
+			        					$.post("<%=basePath%>carSeries/doCarSeriesDelete", 
 			        						{
 			        							"ids": array2String(getSelectedIdArray()),
-			        							"names":array2String(getSelectedArrayByName("styleName"))
+			        							"names":array2String(getSelectedArrayByName("seriesName")),
+			        							"logos":array2String(getSelectedArrayByName("manufacturerLogoPath")),
+			        							"series":array2String(getSelectedArrayByName("seriesImgPath"))
 			        						}, function(data){
 						   					if(data.result=="SUCCESS"){
 						   						$.prompt.goToState('state1', true);
@@ -125,31 +108,20 @@
 				$("#queryForm").submit();
 			}
 			function showDetail(id){
-				$.show('车型详细信息','<%=basePath%>carStyle/toCarStyleDetail?id='+id,400,250,'A');
+				$.show('车系详细信息','<%=basePath%>carSeries/toCarSeriesDetail?id='+id,600,500,'A');
 			}
 		</script>
 	</head>
 	<body>
-	<form action="<%=basePath%>carStyle/showCarStyleList" id="queryForm">
+	<form action="<%=basePath%>carSeries/showCarSeriesList" id="queryForm">
 	<div class="maintitle">
-		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;车型管理</div>
-		<h1>车型管理</h1>
+		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;<a href="javascript:void(0);">车辆管理</a>&gt;车系管理</div>
+		<h1>车系管理</h1>
 	</div>
 	<div class="button_nde">
-		车型名称：<input type="text" id="carStyle_styleName" name="styleName" value="${carStyle.styleName}" class="input"/>
-		生产厂商：<select id="carStyle_series_parent" name="series.parent.id">
-					<option value="" <c:if test="carStyle == null or carStyle.series == null or carStyle.series.parent == null or carStyle.series.parent.id == ''"></c:if>>--请选择--</option>
-					<c:forEach items="${manufacturers}" var="parent">
-					<option value="${parent.id}" <c:if test="${carStyle.series.parent.id == parent.id}">selected="true"</c:if>>${parent.name}</option>
-					</c:forEach>
-				</select>
-		车型系列：<select id="carStyle_series" name="series.id">
-					<option value="" <c:if test="carStyle == null or carStyle.series == null or carStyle.series.id == ''"></c:if>>--请选择--</option>
-					<c:forEach items="${serieses}" var="parent">
-					<option value="${parent.id}" <c:if test="${carStyle.series.id == parent.id}">selected="true"</c:if>>${parent.name}</option>
-					</c:forEach>
-				</select>
-		发动机：<input type="text" id="carStyle_engine" name="engine" value="${carStyle.engine}" class="input"/>
+		车系名称：<input type="text" id="carSeries_seriesName" name="seriesName" value="${carSeries.seriesName}" class="input"/>
+		生产厂商：<input type="text" id="carSeries_manufacturer" name="manufacturer" value="${carSeries.manufacturer}" class="input"/>
+		发动机：<input type="text" id="carSeries_engine" name="engine" value="${carSeries.engine}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
@@ -163,18 +135,22 @@
 		<table width="100%" border="0" cellspacing="1" cellpadding="0" class="show">
 			<tr>
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
-				<th>车型名称</th>
-				<th>车型系列</th>
+				<th>车系名称</th>
 				<th>生产厂商</th>
 				<th>发动机</th>
+				<th>车辆图片</th>
+				<th style="display: none;">车辆图片</th>
+				<th style="display: none;">生产厂商标志</th>
 			</tr>
-			<c:forEach items="${carStyles}" var="parent">
+			<c:forEach items="${carSeriesList}" var="parent">
 			<tr>
 				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
-				<td name="styleName" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.styleName}"/></a></td>
-				<td name="series" align="center"><c:out value="${parent.series.name}"/></td>
-				<td name="manufacturer" align="center"><c:out value="${parent.series.parent.name}"/></td>
+				<td name="seriesName" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.seriesName}"/></a></td>
+				<td name="manufacturer" align="center"><c:out value="${parent.manufacturer}"/></td>
 				<td name="engine" align="center"><c:out value="${parent.engine}"/></td>
+				<td align="center" style="width:111px;"><img alt="" src="<%=basePath%><c:out value="${parent.seriesImgPath}"/>" style="width:111px; height:85px;"></td>
+				<td name="seriesImgPath" align="center" style="display: none;"><c:out value="${parent.seriesImgPath}"/></td>
+				<td name="manufacturerLogoPath" align="center" style="display: none;"><c:out value="${parent.manufacturerLogoPath}"/></td>
 			</tr>
 			</c:forEach>
 		</table>

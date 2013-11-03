@@ -6,21 +6,21 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.carrental.sm.bean.system.Admin;
-import com.carrental.sm.bean.system.CarStyle;
+import com.carrental.sm.bean.system.CarSeries;
 import com.carrental.sm.common.bean.Pager;
 
 /**
- * 车型管理
+ * 车系管理
  * 
  * @author 张霄鹏
  */
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public interface ICarStyleService {
+public interface ICarSeriesService {
 
 	/**
-	 * 查询车型信息
+	 * 查询车系信息
 	 */
-	List<CarStyle> queryList(CarStyle carStyle, Pager pager);
+	List<CarSeries> queryList(CarSeries carSeries, Pager pager);
 
 	/**
 	 * 新增
@@ -28,7 +28,7 @@ public interface ICarStyleService {
 	 * @author 张霄鹏
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	String add(CarStyle carStyle, Admin loginUser);
+	String add(CarSeries carSeries, Admin loginUser);
 
 	/**
 	 * 修改
@@ -36,7 +36,7 @@ public interface ICarStyleService {
 	 * @author 张霄鹏
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	String update(CarStyle carStyle, Admin loginUser);
+	String update(CarSeries carSeries, Admin loginUser);
 
 	/**
 	 * 批量删除-假删

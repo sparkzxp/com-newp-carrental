@@ -17,7 +17,4 @@ public interface Constants {
 
 	String DEFAULT_PASSWORD = "123456";
 	String OPERATION_SUCCESS = "SUCCESS";
-
-	String DICT_CAR_MANUFACTURER = "CAR_MANUFACTURER";
-	String DICT_CAR_SERIES = "CAR_SERIES";
 }

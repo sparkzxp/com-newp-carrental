@@ -24,6 +24,7 @@ import com.carrental.sm.service.system.IDictionaryService;
  * @author 张霄鹏
  * 
  */
+@Deprecated
 @Service
 public class DictionaryService implements IDictionaryService {
 

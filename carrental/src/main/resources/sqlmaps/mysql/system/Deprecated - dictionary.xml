@@ -110,7 +110,7 @@
 			UPDATED_DT = NOW(),
 			NAME = #{name},
 			VALUE = #{value},
-			TYPE_NAME = #{typeName}.
+			TYPE_NAME = #{typeName},
 			TYPE_VALUE = #{typeValue},
 			PARENT_ID = #{parent.id}
 			
