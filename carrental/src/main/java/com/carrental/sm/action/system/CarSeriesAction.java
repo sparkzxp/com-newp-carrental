@@ -43,8 +43,6 @@ public class CarSeriesAction {
 
 	@InitBinder
 	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
-		// binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf,
-		// true));
 		binder.registerCustomEditor(Timestamp.class, new CustomTimestampEditor(sdf, true));
 	}
 
