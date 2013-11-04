@@ -7,13 +7,6 @@
 		<result property="createdDt" column="CREATED_DT" />
 		<result property="updatedDt" column="UPDATED_DT" />
 		<result property="typeName" column="TYPE_NAME" />
-		<result property="rentFee" column="RENT_FEE" />
-		<result property="insuranceFee" column="INSURANCE_FEE" />
-		<result property="fuelFee" column="FUEL_FEE" />
-		<result property="exceedMinuteToHour" column="EXCEED_MINUTE_TO_HOUR" />
-		<result property="exceedHourFee" column="EXCEED_HOUR_FEE" />
-		<result property="exceedMeterToKilometer" column="EXCEED_METER_TO_KILOMETER" />
-		<result property="exceedKilometerFee" column="EXCEED_KILOMETER_FEE" />
 		<result property="loadLimit" column="LOAD_LIMIT" />
 		<result property="content" column="CONTENT" />
 		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
@@ -29,11 +22,6 @@
 				</if>
 				<if test="rentType.typeName != null and rentType.typeName != ''">
 					and T.TYPE_NAME like '%${rentType.typeName}%'
-				</if>
-				<if test="rentType.rentFee != null and rentType.rentFee != ''">
-				<![CDATA[
-					and T.RENT_FEE <= #{rentType.rentFee}
-				]]>
 				</if>
 				<if test="rentType.loadLimit != null and rentType.loadLimit != ''">
 				<![CDATA[
@@ -52,9 +40,6 @@
 				<if test="rentType.typeName != null and rentType.typeName != ''">
 					and T.TYPE_NAME = #{rentType.typeName}
 				</if>
-				<if test="rentType.rentFee != null and rentType.rentFee != ''">
-					and T.RENT_FEE = #{rentType.rentFee}
-				</if>
 				<if test="rentType.loadLimit != null and rentType.loadLimit != ''">
 					and T.LOAD_LIMIT = #{rentType.loadLimit}
 				</if>
@@ -70,15 +55,26 @@
 	<select id="queryList" resultMap="rentTypeRstMap" parameterType="map">
 		SELECT T.* FROM `T_RENT_TYPE` T
 		<include refid="query_where" />
-		order by T.RENT_FEE asc
+		order by T.TYPE_NAME asc
 		<include refid="limit"/>
 	</select>
 	
 	<select id="queryEqualsList" resultMap="rentTypeRstMap" parameterType="map">
 		SELECT T.* FROM `T_RENT_TYPE` T
 		<include refid="queryEquals_where" />
-		order by T.RENT_FEE asc
+		order by T.TYPE_NAME asc
 		<include refid="limit"/>
+	</select>
+	
+	<select id="queryByRentTypeId" resultMap="rentTypeRstMap" parameterType="string">
+		SELECT T.* FROM `T_RENT_TYPE` T
+		where T.ID = #{id}
+	</select>
+	
+	<select id="queryByCarSeriesIds" resultMap="rentTypeRstMap" parameterType="string">
+		SELECT T.* FROM `T_RENT_TYPE` T
+		join T_RENTTYPE_CARSERIES RC on RC.TYPE_ID = T.ID
+		where RC.SERIES_ID = #{_parameter}
 	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
@@ -97,12 +93,10 @@
 		</selectKey>
 		INSERT INTO `T_RENT_TYPE`(
 			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
-			TYPE_NAME, RENT_FEE, INSURANCE_FEE, FUEL_FEE, EXCEED_MINUTE_TO_HOUR,
-			EXCEED_HOUR_FEE, EXCEED_METER_TO_KILOMETER, EXCEED_KILOMETER_FEE, LOAD_LIMIT, CONTENT
+			TYPE_NAME, LOAD_LIMIT, CONTENT
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
-			#{typeName}, #{rentFee}, #{insuranceFee}, #{fuelFee}, #{exceedMinuteToHour},
-			#{exceedHourFee}, #{exceedMeterToKilometer}, #{exceedKilometerFee}, #{loadLimit}, #{content}
+			#{typeName}, #{loadLimit}, #{content}
 		)
 	</insert>
 	
@@ -111,13 +105,6 @@
 			UPDATED_USER = #{updatedUser.id},
 			UPDATED_DT = NOW(),
 			TYPE_NAME = #{typeName},
-			RENT_FEE = #{rentFee},
-			INSURANCE_FEE = #{insuranceFee},
-			FUEL_FEE = #{fuelFee},
-			EXCEED_MINUTE_TO_HOUR = #{exceedMinuteToHour},
-			EXCEED_HOUR_FEE = #{exceedHourFee},
-			EXCEED_METER_TO_KILOMETER = #{exceedMeterToKilometer},
-			EXCEED_KILOMETER_FEE = #{exceedKilometerFee},
 			LOAD_LIMIT = #{loadLimit},
 			CONTENT = #{content}
 			

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="businessNpc">
+	<resultMap id="businessRstMap" type="business">
+		<id property="id" column="ID"/>
+		<result property="createdDt" column="CREATED_DT" />
+		<result property="updatedDt" column="UPDATED_DT" />
+		<result property="businessType" column="BUSINESS_TYPE" />
+		<result property="rentFee" column="RENT_FEE" />
+		<result property="insuranceFee" column="INSURANCE_FEE" />
+		<result property="fuelFee" column="FUEL_FEE" />
+		<result property="exceedMinuteToHour" column="EXCEED_MINUTE_TO_HOUR" />
+		<result property="exceedHourFee" column="EXCEED_HOUR_FEE" />
+		<result property="exceedMeterToKilometer" column="EXCEED_METER_TO_KILOMETER" />
+		<result property="exceedKilometerFee" column="EXCEED_KILOMETER_FEE" />
+		<result property="content" column="CONTENT" />
+		<association property="rentType" column="RENTTYPE_ID" select="rentTypeNpc.queryByRentTypeId"/>
+		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="business != null">
+				<if test="business.id != null and business.id != ''">
+					and T.ID = #{business.id}
+				</if>
+				<if test="business.businessType != null and business.businessType != ''">
+					and T.BUSINESS_TYPE = #{business.businessType}
+				</if>
+				<if test="business.rentFee != null and business.rentFee != ''">
+				<![CDATA[
+					and T.RENT_FEE <= #{business.rentFee}
+				]]>
+				</if>
+				<if test="business.rentType != null">
+					<if test="business.rentType.id != null and business.rentType.id != ''">
+						and T.RENTTYPE_ID = #{business.rentType.id}
+					</if>
+					<if test="business.rentType.typeName != null and business.rentType.typeName != ''">
+						and RT.TYPE_NAME like '%${business.rentType.typeName}%'
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="business != null">
+				<if test="business.id != null and business.id != ''">
+					and T.ID = #{business.id}
+				</if>
+				<if test="business.businessType != null and business.businessType != ''">
+					and T.BUSINESS_TYPE = #{business.businessType}
+				</if>
+				<if test="business.rentFee != null and business.rentFee != ''">
+					and T.RENT_FEE = #{business.rentFee}
+				</if>
+			</if>
+				<if test="business.rentType != null">
+					<if test="business.rentType.id != null and business.rentType.id != ''">
+						and T.RENTTYPE_ID = #{business.rentType.id}
+					</if>
+					<if test="business.rentType.typeName != null and business.rentType.typeName != ''">
+						and RT.TYPE_NAME = #{business.rentType.typeName}
+					</if>
+				</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="businessRstMap" parameterType="map">
+		SELECT T.* FROM `T_BUSINESS` T
+		left join T_RENT_TYPE RT on RT.ID = T.RENTTYPE_ID
+		<include refid="query_where" />
+		order by T.RENT_FEE asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryEqualsList" resultMap="businessRstMap" parameterType="map">
+		SELECT T.* FROM `T_BUSINESS` T
+		left join T_RENT_TYPE RT on RT.ID = T.RENTTYPE_ID
+		<include refid="queryEquals_where" />
+		order by T.RENT_FEE asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.ID) FROM T_BUSINESS T
+		left join T_RENT_TYPE RT on RT.ID = T.RENTTYPE_ID
+		<include refid="query_where"/>
+	</select>
+	
+	<insert id="add" parameterType="business">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `T_BUSINESS`(
+			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
+			BUSINESS_TYPE, RENT_FEE, INSURANCE_FEE, FUEL_FEE, EXCEED_MINUTE_TO_HOUR,
+			EXCEED_HOUR_FEE, EXCEED_METER_TO_KILOMETER, EXCEED_KILOMETER_FEE, CONTENT, RENTTYPE_ID
+		) VALUES (
+			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
+			#{businessType}, #{rentFee}, #{insuranceFee}, #{fuelFee}, #{exceedMinuteToHour},
+			#{exceedHourFee}, #{exceedMeterToKilometer}, #{exceedKilometerFee}, #{content}, #{rentType.id}
+		)
+	</insert>
+	
+	<update id="update" parameterType="business">
+		update `T_BUSINESS` set
+			UPDATED_USER = #{updatedUser.id},
+			UPDATED_DT = NOW(),
+			BUSINESS_TYPE = #{businessType},
+			RENT_FEE = #{rentFee},
+			INSURANCE_FEE = #{insuranceFee},
+			FUEL_FEE = #{fuelFee},
+			EXCEED_MINUTE_TO_HOUR = #{exceedMinuteToHour},
+			EXCEED_HOUR_FEE = #{exceedHourFee},
+			EXCEED_METER_TO_KILOMETER = #{exceedMeterToKilometer},
+			EXCEED_KILOMETER_FEE = #{exceedKilometerFee},
+			CONTENT = #{content},
+			RENTTYPE_ID = #{rentType.id}
+			
+			WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="string">
+		delete from `T_BUSINESS` where ID in (${_parameter})
+	</delete>
+</mapper>

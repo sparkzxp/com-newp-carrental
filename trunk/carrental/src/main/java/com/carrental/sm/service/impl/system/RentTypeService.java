@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.carrental.sm.bean.system.Admin;
-import com.carrental.sm.bean.system.Log;
 import com.carrental.sm.bean.system.CarSeries;
+import com.carrental.sm.bean.system.Log;
 import com.carrental.sm.bean.system.RentType;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
@@ -20,6 +20,7 @@ import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.ILogDao;
 import com.carrental.sm.dao.system.IRentTypeDao;
+import com.carrental.sm.service.system.ICarSeriesService;
 import com.carrental.sm.service.system.IRentTypeService;
 
 /**
@@ -33,6 +34,8 @@ public class RentTypeService implements IRentTypeService {
 	private IRentTypeDao rentTypeDao;
 	@Autowired
 	private ILogDao logDao;
+	@Autowired
+	private ICarSeriesService carSeriesService;
 
 	public List<RentType> queryList(RentType rentType, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -47,14 +50,18 @@ public class RentTypeService implements IRentTypeService {
 		return rentTypeDao.queryList(params);
 	}
 
-	public String add(RentType rentType, String resourceIds, Admin loginUser) {
+	public String add(RentType rentType, String carSeriesIds, Admin loginUser) {
 		if (checkExist(rentType)) {
 			return "租用类型名称已存在";
+		}
+		String check = checkCarSeriesRelation(rentType, carSeriesIds);
+		if (!"FALSE".equals(check)) {
+			return check;
 		}
 		this.rentTypeDao.add(rentType);
 
 		List<CarSeries> carSeriesList = new ArrayList<CarSeries>();
-		for (String s : resourceIds.split(",")) {
+		for (String s : carSeriesIds.split(",")) {
 			CarSeries r = new CarSeries();
 			r.setId(s);
 			carSeriesList.add(r);
@@ -71,15 +78,19 @@ public class RentTypeService implements IRentTypeService {
 		return Constants.OPERATION_SUCCESS;
 	}
 
-	public String update(RentType rentType, String resourceIds, Admin loginUser) {
+	public String update(RentType rentType, String carSeriesIds, Admin loginUser) {
 		if (checkExist(rentType)) {
 			return "租用类型名称已存在";
+		}
+		String check = checkCarSeriesRelation(rentType, carSeriesIds);
+		if (!"FALSE".equals(check)) {
+			return check;
 		}
 		this.rentTypeDao.update(rentType);
 
 		this.rentTypeDao.deleteCarSeriesList(rentType.getId());
 		List<CarSeries> carSeriesList = new ArrayList<CarSeries>();
-		for (String s : resourceIds.split(",")) {
+		for (String s : carSeriesIds.split(",")) {
 			CarSeries r = new CarSeries();
 			r.setId(s);
 			carSeriesList.add(r);
@@ -142,6 +153,35 @@ public class RentTypeService implements IRentTypeService {
 				return true;
 			}
 		}
+	}
+
+	/**
+	 * 验证该车系是否与别的租用类型已关联
+	 * 
+	 * @author 张霄鹏
+	 * @return 未关联：FALSE
+	 */
+	private String checkCarSeriesRelation(RentType rentType, String carSeriesIds) {
+		String result = "FALSE";
+		// 根据carSeriesIds查询关联表中是否有id信息
+		if (StringUtils.isNotEmpty(carSeriesIds)) {
+			List<RentType> list = this.rentTypeDao.queryByCarSeriesIds(carSeriesIds);
+			if (CollectionUtils.isNotEmpty(list)) {
+				if (null == rentType || StringUtils.isEmpty(rentType.getId())) {
+					// 有且是新增操作，返回已关联
+					result = "车系 " + list.get(0).getCarSeriesList().get(0).getSeriesName() + " 已经被其它租用类型关联使用";
+				} else {
+					// 有且是更新操作，在循环比对id后，有一条不一样，返回已关联
+					for (RentType rt : list) {
+						if (!rt.getId().equals(rentType.getId())) {
+							result = "车系 " + rentType.getCarSeriesList().get(0).getSeriesName() + " 已经被其它租用类型关联使用";
+							break;
+						}
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 }
