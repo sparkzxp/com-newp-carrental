@@ -83,14 +83,15 @@
 		<include refid="limit"/>
 	</select>
 	
+	<select id="queryListByIds" resultMap="carSeriesRstMap" parameterType="string">
+		SELECT T.* FROM `T_CAR_SERIES` T
+		where T.ID in (${ids})
+		order by T.SERIES_NAME asc
+	</select>
+	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.ID) FROM T_CAR_SERIES T
 		<include refid="query_where"/>
-	</select>
-	
-	<select id="queryByCarSeriesId" resultMap="carSeriesRstMap" parameterType="string">
-		SELECT T.* FROM `T_CAR_SERIES` T
-		where T.id = #{id}
 	</select>
 	
 	<select id="queryByRentTypeId" resultMap="carSeriesRstMap" parameterType="string">

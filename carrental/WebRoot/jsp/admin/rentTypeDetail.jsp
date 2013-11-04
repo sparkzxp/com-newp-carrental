@@ -30,34 +30,6 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用费用(元)：</td>
-                <td colspan="3">${rentType.rentFee}</td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">保险费用(元)：</td>
-                <td colspan="3">${rentType.insuranceFee}</td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">油费(燃油附加费)(元)：</td>
-                <td colspan="3">${rentType.fuelFee}</td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超多少分钟算一小时：</td>
-                <td colspan="3">${rentType.exceedMinuteToHour}</td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超小时费(元/小时)：</td>
-                <td colspan="3">${rentType.exceedHourFee}</td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超多少里算一公里：</td>
-                <td colspan="3">${rentType.exceedMeterToKilometer}</td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超公里费(元/公里)：</td>
-                <td colspan="3">${rentType.exceedKilometerFee}</td>
-            </tr>
-            <tr>
                 <td align="right" height="25px">限载人数：</td>
                 <td colspan="3">${rentType.loadLimit}</td>
             </tr>

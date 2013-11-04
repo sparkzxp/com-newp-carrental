@@ -33,6 +33,14 @@ public interface IRentTypeDao {
 	List<RentType> queryEqualsList(Map<String, Object> params);
 
 	/**
+	 * 根据多个车系ID查询车系信息
+	 * 
+	 * @author 张霄鹏
+	 * @return List<RentType>
+	 */
+	List<RentType> queryByCarSeriesIds(String ids);
+
+	/**
 	 * 条件查询列表数量
 	 * 
 	 * @author 张霄鹏

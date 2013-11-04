@@ -137,34 +137,6 @@
 				</td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用费用(元)：</td>
-                <td><input type="text" name="rentFee" value="${rentType.rentFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">保险费用(元)：</td>
-                <td><input type="text" name="insuranceFee" value="${rentType.insuranceFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">油费(燃油附加费)(元)：</td>
-                <td><input type="text" name="fuelFee" value="${rentType.fuelFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超多少分钟算一小时：</td>
-                <td><input type="text" name="exceedMinuteToHour" value="${rentType.exceedMinuteToHour}" style="width:200px;" class="{required:true,digits:true,min:0,max:59}"/></td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超小时费(元/小时)：</td>
-                <td><input type="text" name="exceedHourFee" value="${rentType.exceedHourFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超多少里算一公里：</td>
-                <td><input type="text" name="exceedMeterToKilometer" value="${rentType.exceedMeterToKilometer}" style="width:200px;" class="{required:true,digits:true,min:0,max:999}"/></td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">超公里费(元/公里)：</td>
-                <td><input type="text" name="exceedKilometerFee" value="${rentType.exceedKilometerFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
-            </tr>
-            <tr>
                 <td align="right" height="25px">限载人数：</td>
                 <td><input type="text" name="loadLimit" value="${rentType.loadLimit}" style="width:200px;" class="{required:true,digits:true,min:0,max:120}"/></td>
             </tr>

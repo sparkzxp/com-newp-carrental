@@ -51,6 +51,18 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentType/showRentTypeList')">租用类型管理</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>car/showCarList')">车辆管理</a></li>
 </ul>
+<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>driver/showDriverList')">司机管理</a></p>
+<ul>
+</ul>
+<p><a href="javascript:void(0);">业务管理</a></p>
+<ul>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=点到点代驾')">点到点代驾</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=机场及车站接送')">机场及车站接送</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=市用半日租')">市用半日租</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=市用全日租')">市用全日租</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=会务车辆安排')">会务车辆安排</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=周边省市包车')">周边省市包车</a></li>
+</ul>
 </div>
 </body>
 </html>
