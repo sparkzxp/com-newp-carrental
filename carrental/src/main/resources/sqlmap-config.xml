@@ -56,6 +56,7 @@
 		<typeAlias alias="role" type="com.carrental.sm.bean.system.Role" />
 		<typeAlias alias="company" type="com.carrental.sm.bean.system.Company" />
 		<typeAlias alias="carSeries" type="com.carrental.sm.bean.system.CarSeries" />
+		<typeAlias alias="rentType" type="com.carrental.sm.bean.system.RentType" />
 		<!-- <typeAlias alias="dict" type="com.carrental.sm.bean.system.Dictionary" /> -->
 	</typeAliases>
 	<mappers>
@@ -66,6 +67,7 @@
 		<mapper resource="sqlmaps/mysql/system/role.xml" />
 		<mapper resource="sqlmaps/mysql/system/company.xml" />
 		<mapper resource="sqlmaps/mysql/system/carSeries.xml" />
+		<mapper resource="sqlmaps/mysql/system/rentType.xml" />
 		<!-- <mapper resource="sqlmaps/mysql/system/dictionary.xml" /> -->
 	</mappers>
 </configuration>  

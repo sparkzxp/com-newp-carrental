@@ -88,9 +88,15 @@
 		<include refid="query_where"/>
 	</select>
 	
-	<select id="queryByCarSeriesId" resultMap="carSeriesRstMap" parameterType="map">
+	<select id="queryByCarSeriesId" resultMap="carSeriesRstMap" parameterType="string">
 		SELECT T.* FROM `T_CAR_SERIES` T
 		where T.id = #{id}
+	</select>
+	
+	<select id="queryByRentTypeId" resultMap="carSeriesRstMap" parameterType="string">
+		SELECT T.* FROM `T_CAR_SERIES` T
+		join T_RENTTYPE_CARSERIES RC on RC.SERIES_ID = T.ID
+		where RC.TYPE_ID = #{typeId}
 	</select>
 	
 	<insert id="add" parameterType="carSeries">

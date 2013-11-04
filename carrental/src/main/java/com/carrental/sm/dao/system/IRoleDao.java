@@ -63,14 +63,14 @@ public interface IRoleDao {
 	Integer delete(String ids);
 
 	/**
-	 * 为角色增加资源
+	 * 为角色增加资源关联
 	 * 
 	 * @author 张霄鹏
 	 */
 	String addResources(Role role);
 
 	/**
-	 * 删除角色名下资源
+	 * 删除角色名下资源关联
 	 * 
 	 * @author 张霄鹏
 	 */
