@@ -94,10 +94,21 @@
 		<include refid="query_where"/>
 	</select>
 	
-	<select id="queryByRenttypeId" resultMap="carSeriesRstMap" parameterType="string">
+	<select id="queryByCarSeriesId" resultMap="carSeriesRstMap" parameterType="string">
 		SELECT T.* FROM `t_car_series` T
-		join T_renttype_carseries RC on RC.series_id = T.id
+		where T.id = #{id}
+	</select>
+	
+	<select id="queryByRentTypeId" resultMap="carSeriesRstMap" parameterType="string">
+		SELECT T.* FROM `t_car_series` T
+		join t_renttype_carseries RC on RC.series_id = T.id
 		where RC.type_id = #{typeId}
+	</select>
+	
+	<select id="queryByCouponId" resultMap="carSeriesRstMap" parameterType="string">
+		SELECT T.* FROM `t_car_series` T
+		join t_coupon_carseries CC on CC.series_id = T.id
+		where CC.coupon_id = #{couponId}
 	</select>
 	
 	<insert id="add" parameterType="carSeries">

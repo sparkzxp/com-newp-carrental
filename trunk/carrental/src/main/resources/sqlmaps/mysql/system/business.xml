@@ -6,7 +6,7 @@
 		<id property="id" column="id"/>
 		<result property="createdDt" column="created_dt" />
 		<result property="updatedDt" column="updated_dt" />
-		<result property="businesstype" column="business_type" />
+		<result property="businessType" column="business_type" />
 		<result property="rentFee" column="rent_fee" />
 		<result property="insuranceFee" column="insurance_fee" />
 		<result property="fuelFee" column="fuel_fee" />
@@ -15,7 +15,7 @@
 		<result property="exceedMeterToKilometer" column="exceed_meter_to_kilometer" />
 		<result property="exceedKilometerFee" column="exceed_kilometer_fee" />
 		<result property="content" column="content" />
-		<association property="renttype" column="renttype_id" select="renttypeNpc.queryByRenttypeId"/>
+		<association property="rentType" column="renttype_id" select="rentTypeNpc.queryByRentTypeId"/>
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
@@ -26,20 +26,20 @@
 				<if test="business.id != null and business.id != ''">
 					and T.id = #{business.id}
 				</if>
-				<if test="business.businesstype != null and business.businesstype != ''">
-					and T.business_type = #{business.businesstype}
+				<if test="business.businessType != null and business.businessType != ''">
+					and T.business_type = #{business.businessType}
 				</if>
 				<if test="business.rentFee != null and business.rentFee != ''">
 				<![CDATA[
 					and T.rent_fee <= #{business.rentFee}
 				]]>
 				</if>
-				<if test="business.renttype != null">
-					<if test="business.renttype.id != null and business.renttype.id != ''">
-						and T.renttype_id = #{business.renttype.id}
+				<if test="business.rentType != null">
+					<if test="business.rentType.id != null and business.rentType.id != ''">
+						and T.renttype_id = #{business.rentType.id}
 					</if>
-					<if test="business.renttype.typeName != null and business.renttype.typeName != ''">
-						and RT.type_name like '%${business.renttype.typeName}%'
+					<if test="business.rentType.typeName != null and business.rentType.typeName != ''">
+						and RT.type_name like '%${business.rentType.typeName}%'
 					</if>
 				</if>
 			</if>
@@ -51,19 +51,19 @@
 				<if test="business.id != null and business.id != ''">
 					and T.id = #{business.id}
 				</if>
-				<if test="business.businesstype != null and business.businesstype != ''">
-					and T.business_type = #{business.businesstype}
+				<if test="business.businessType != null and business.businessType != ''">
+					and T.business_type = #{business.businessType}
 				</if>
 				<if test="business.rentFee != null and business.rentFee != ''">
 					and T.rent_fee = #{business.rentFee}
 				</if>
 			</if>
-				<if test="business.renttype != null">
-					<if test="business.renttype.id != null and business.renttype.id != ''">
-						and T.renttype_id = #{business.renttype.id}
+				<if test="business.rentType != null">
+					<if test="business.rentType.id != null and business.rentType.id != ''">
+						and T.renttype_id = #{business.rentType.id}
 					</if>
-					<if test="business.renttype.typeName != null and business.renttype.typeName != ''">
-						and RT.type_name = #{business.renttype.typeName}
+					<if test="business.rentType.typeName != null and business.rentType.typeName != ''">
+						and RT.type_name = #{business.rentType.typeName}
 					</if>
 				</if>
 		</where>
@@ -76,7 +76,7 @@
 
 	<select id="queryList" resultMap="businessRstMap" parameterType="map">
 		SELECT T.* FROM `t_business` T
-		left join t_RENt_type RT on RT.id = T.renttype_id
+		left join t_rent_type RT on RT.id = T.renttype_id
 		<include refid="query_where" />
 		order by T.rent_fee asc
 		<include refid="limit"/>
@@ -84,7 +84,7 @@
 	
 	<select id="queryEqualsList" resultMap="businessRstMap" parameterType="map">
 		SELECT T.* FROM `t_business` T
-		left join t_RENt_type RT on RT.id = T.renttype_id
+		left join t_rent_type RT on RT.id = T.renttype_id
 		<include refid="queryEquals_where" />
 		order by T.rent_fee asc
 		<include refid="limit"/>
@@ -92,7 +92,7 @@
 	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.id) FROM t_business T
-		left join t_RENt_type RT on RT.id = T.renttype_id
+		left join t_rent_type RT on RT.id = T.renttype_id
 		<include refid="query_where"/>
 	</select>
 	
@@ -106,8 +106,8 @@
 			exceed_hour_fee, exceed_meter_to_kilometer, exceed_kilometer_fee, content, renttype_id
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
-			#{businesstype}, #{rentFee}, #{insuranceFee}, #{fuelFee}, #{exceedMinuteToHour},
-			#{exceedHourFee}, #{exceedMeterToKilometer}, #{exceedKilometerFee}, #{content}, #{renttype.id}
+			#{businessType}, #{rentFee}, #{insuranceFee}, #{fuelFee}, #{exceedMinuteToHour},
+			#{exceedHourFee}, #{exceedMeterToKilometer}, #{exceedKilometerFee}, #{content}, #{rentType.id}
 		)
 	</insert>
 	
@@ -115,7 +115,7 @@
 		update `t_business` set
 			updated_user = #{updatedUser.id},
 			updated_dt = NOW(),
-			business_type = #{businesstype},
+			business_type = #{businessType},
 			rent_fee = #{rentFee},
 			insurance_fee = #{insuranceFee},
 			fuel_fee = #{fuelFee},
@@ -124,7 +124,7 @@
 			exceed_meter_to_kilometer = #{exceedMeterToKilometer},
 			exceed_kilometer_fee = #{exceedKilometerFee},
 			content = #{content},
-			renttype_id = #{renttype.id}
+			renttype_id = #{rentType.id}
 			
 			WHERE id = #{id}
 	</update>

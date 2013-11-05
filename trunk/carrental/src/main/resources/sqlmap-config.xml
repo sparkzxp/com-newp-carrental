@@ -60,6 +60,7 @@
 		<typeAlias alias="car" type="com.carrental.sm.bean.system.Car" />
 		<typeAlias alias="business" type="com.carrental.sm.bean.system.Business" />
 		<typeAlias alias="driver" type="com.carrental.sm.bean.system.Driver" />
+		<typeAlias alias="coupon" type="com.carrental.sm.bean.system.Coupon" />
 		<!-- <typeAlias alias="dict" type="com.carrental.sm.bean.system.Dictionary" /> -->
 	</typeAliases>
 	<mappers>
@@ -74,6 +75,7 @@
 		<mapper resource="sqlmaps/mysql/system/car.xml" />
 		<mapper resource="sqlmaps/mysql/system/business.xml" />
 		<mapper resource="sqlmaps/mysql/system/driver.xml" />
+		<mapper resource="sqlmaps/mysql/system/coupon.xml" />
 		<!-- <mapper resource="sqlmaps/mysql/system/dictionary.xml" /> -->
 	</mappers>
 </configuration>  

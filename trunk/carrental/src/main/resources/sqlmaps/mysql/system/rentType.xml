@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="renttypeNpc">
-	<resultMap id="renttypeRstMap" type="renttype">
+<mapper namespace="rentTypeNpc">
+	<resultMap id="rentTypeRstMap" type="rentType">
 		<id property="id" column="id"/>
 		<result property="createdDt" column="created_dt" />
 		<result property="updatedDt" column="updated_dt" />
@@ -11,21 +11,21 @@
 		<result property="content" column="content" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
-		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByRenttypeId" column="id" />
+		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByRentTypeId" column="id" />
 	</resultMap>
 
 	<sql id="query_where">
 		<where>
-			<if test="renttype != null">
-				<if test="renttype.id != null and renttype.id != ''">
-					and T.id = #{renttype.id}
+			<if test="rentType != null">
+				<if test="rentType.id != null and rentType.id != ''">
+					and T.id = #{rentType.id}
 				</if>
-				<if test="renttype.typeName != null and renttype.typeName != ''">
-					and T.type_name like '%${renttype.typeName}%'
+				<if test="rentType.typeName != null and rentType.typeName != ''">
+					and T.type_name like '%${rentType.typeName}%'
 				</if>
-				<if test="renttype.loadLimit != null and renttype.loadLimit != ''">
+				<if test="rentType.loadLimit != null and rentType.loadLimit != ''">
 				<![CDATA[
-					and T.load_limit >= #{renttype.loadLimit}
+					and T.load_limit >= #{rentType.loadLimit}
 				]]>
 				</if>
 			</if>
@@ -33,15 +33,15 @@
 	</sql>
 	<sql id="queryEquals_where">
 		<where>
-			<if test="renttype != null">
-				<if test="renttype.id != null and renttype.id != ''">
-					and T.id = #{renttype.id}
+			<if test="rentType != null">
+				<if test="rentType.id != null and rentType.id != ''">
+					and T.id = #{rentType.id}
 				</if>
-				<if test="renttype.typeName != null and renttype.typeName != ''">
-					and T.type_name = #{renttype.typeName}
+				<if test="rentType.typeName != null and rentType.typeName != ''">
+					and T.type_name = #{rentType.typeName}
 				</if>
-				<if test="renttype.loadLimit != null and renttype.loadLimit != ''">
-					and T.load_limit = #{renttype.loadLimit}
+				<if test="rentType.loadLimit != null and rentType.loadLimit != ''">
+					and T.load_limit = #{rentType.loadLimit}
 				</if>
 			</if>
 		</where>
@@ -52,26 +52,26 @@
 		</if>
 	</sql>
 
-	<select id="queryList" resultMap="renttypeRstMap" parameterType="map">
+	<select id="queryList" resultMap="rentTypeRstMap" parameterType="map">
 		SELECT T.* FROM `t_rent_type` T
 		<include refid="query_where" />
 		order by T.type_name asc
 		<include refid="limit"/>
 	</select>
 	
-	<select id="queryEqualsList" resultMap="renttypeRstMap" parameterType="map">
+	<select id="queryEqualsList" resultMap="rentTypeRstMap" parameterType="map">
 		SELECT T.* FROM `t_rent_type` T
 		<include refid="queryEquals_where" />
 		order by T.type_name asc
 		<include refid="limit"/>
 	</select>
 	
-	<select id="queryByRenttypeId" resultMap="renttypeRstMap" parameterType="string">
+	<select id="queryByRentTypeId" resultMap="rentTypeRstMap" parameterType="string">
 		SELECT T.* FROM `t_rent_type` T
 		where T.id = #{id}
 	</select>
 	
-	<select id="queryByCarSeriesIds" resultMap="renttypeRstMap" parameterType="string">
+	<select id="queryByCarSeriesIds" resultMap="rentTypeRstMap" parameterType="string">
 		SELECT T.* FROM `t_rent_type` T
 		join t_renttype_carseries RC on RC.type_id = T.id
 		where RC.series_id = #{_parameter}
@@ -82,12 +82,7 @@
 		<include refid="query_where"/>
 	</select>
 	
-	<select id="queryByCityId" resultMap="renttypeRstMap" parameterType="map">
-		SELECT T.* FROM `t_rent_type` T
-		where T.id = #{id}
-	</select>
-	
-	<insert id="add" parameterType="renttype">
+	<insert id="add" parameterType="rentType">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -100,7 +95,7 @@
 		)
 	</insert>
 	
-	<update id="update" parameterType="renttype">
+	<update id="update" parameterType="rentType">
 		update `t_rent_type` set
 			updated_user = #{updatedUser.id},
 			updated_dt = NOW(),
@@ -115,7 +110,7 @@
 		delete from `t_rent_type` where id in (${_parameter})
 	</delete>
 	
-	<insert id="addCarSeriesList" parameterType="renttype">
+	<insert id="addCarSeriesList" parameterType="rentType">
 		INSERT INTO t_renttype_carseries (
 			type_id, series_id
 		) VALUES 
@@ -126,7 +121,7 @@
 		</foreach>
 	</insert>
 	
-	<delete id="deleteResources" parameterType="string">
+	<delete id="deleteCarSeriesList" parameterType="string">
 		delete from `t_renttype_carseries` where type_id in (${_parameter})
 	</delete>
 </mapper>

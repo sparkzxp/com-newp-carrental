@@ -63,6 +63,9 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=会务车辆安排')">会务车辆安排</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=周边省市包车')">周边省市包车</a></li>
 </ul>
+<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>coupon/showCouponList?isDelete=0')">活动优惠管理</a></p>
+<ul>
+</ul>
 </div>
 </body>
 </html>

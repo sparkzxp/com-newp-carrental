@@ -96,11 +96,6 @@
 		<include refid="query_where"/>
 	</select>
 	
-	<select id="queryByCityId" resultMap="carRstMap" parameterType="map">
-		SELECT T.* FROM `t_car` T
-		where T.id = #{id}
-	</select>
-	
 	<insert id="add" parameterType="car">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
