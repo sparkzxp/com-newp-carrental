@@ -3,41 +3,41 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="carNpc">
 	<resultMap id="carRstMap" type="car">
-		<id property="id" column="ID"/>
-		<result property="createdDt" column="CREATED_DT" />
-		<result property="updatedDt" column="UPDATED_DT" />
-		<result property="plateNumber" column="PLATE_NUMBER" />
-		<result property="purchaser" column="PURCHASER" />
-		<result property="purchaserPhone" column="PURCHASER_PHONE" />
-		<result property="purchaseDate" column="PURCHASE_DATE" />
-		<result property="purchasePrice" column="PURCHASE_PRICE" />
-		<result property="content" column="CONTENT" />
-		<association property="carSeries" column="SERIES_ID" select="carSeriesNpc.queryByCarSeriesId"/>
-		<association property="city" column="CITY_ID" select="cityNpc.queryByCityId"/>
-		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
-		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="plateNumber" column="plate_number" />
+		<result property="purchaser" column="purchaser" />
+		<result property="purchaserPhone" column="purchaser_phone" />
+		<result property="purchaseDate" column="purchase_date" />
+		<result property="purchasePrice" column="purchase_price" />
+		<result property="content" column="content" />
+		<association property="carSeries" column="series_id" select="carSeriesNpc.queryByCarSeriesId"/>
+		<association property="city" column="city_id" select="cityNpc.queryByCityId"/>
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
 
 	<sql id="query_where">
 		<where>
 			<if test="car != null">
 				<if test="car.id != null and car.id != ''">
-					and T.ID = #{car.id}
+					and T.id = #{car.id}
 				</if>
 				<if test="car.plateNumber != null and car.plateNumber != ''">
-					and T.PLATE_NUMBER like '%${car.plateNumber}%'
+					and T.plate_number like '%${car.plateNumber}%'
 				</if>
 				<if test="car.carSeries != null">
 					<if test="car.carSeries.id != null and car.carSeries.id != ''">
-						and T.SERIES_ID = #{car.carSeries.id}
+						and T.series_id = #{car.carSeries.id}
 					</if>
 					<if test="car.carSeries.seriesName != null and car.carSeries.seriesName != ''">
-						and CS.SERIES_NAME like '%${car.carSeries.seriesName}%'
+						and CS.series_name like '%${car.carSeries.seriesName}%'
 					</if>
 				</if>
 				<if test="car.city != null">
 					<if test="car.city.id != null and car.city.id != ''">
-						and T.CITY_ID = #{car.city.id}
+						and T.city_id = #{car.city.id}
 					</if>
 				</if>
 			</if>
@@ -47,22 +47,22 @@
 		<where>
 			<if test="car != null">
 				<if test="car.id != null and car.id != ''">
-					and T.ID = #{car.id}
+					and T.id = #{car.id}
 				</if>
 				<if test="car.plateNumber != null and car.plateNumber != ''">
-					and T.PLATE_NUMBER = #{car.plateNumber}
+					and T.plate_number = #{car.plateNumber}
 				</if>
 				<if test="car.carSeries != null">
 					<if test="car.carSeries.id != null and car.carSeries.id != ''">
-						and T.SERIES_ID = #{car.carSeries.id}
+						and T.series_id = #{car.carSeries.id}
 					</if>
 					<if test="car.carSeries.seriesName != null and car.carSeries.seriesName != ''">
-						and CS.SERIES_NAME like '%${car.carSeries.seriesName}%'
+						and CS.series_name like '%${car.carSeries.seriesName}%'
 					</if>
 				</if>
 				<if test="car.city != null">
 					<if test="car.city.id != null and car.city.id != ''">
-						and T.CITY_ID = #{car.city.id}
+						and T.city_id = #{car.city.id}
 					</if>
 				</if>
 			</if>
@@ -75,29 +75,29 @@
 	</sql>
 
 	<select id="queryList" resultMap="carRstMap" parameterType="map">
-		SELECT T.* FROM `T_CAR` T
-		left join T_CAR_SERIES CS on CS.ID = T.SERIES_ID
+		SELECT T.* FROM `t_car` T
+		left join t_car_series CS on CS.id = T.series_id
 		<include refid="query_where" />
-		order by T.PLATE_NUMBER asc
+		order by T.plate_number asc
 		<include refid="limit"/>
 	</select>
 	
 	<select id="queryEqualsList" resultMap="carRstMap" parameterType="map">
-		SELECT T.* FROM `T_CAR` T
-		left join T_CAR_SERIES CS on CS.ID = T.SERIES_ID
+		SELECT T.* FROM `t_car` T
+		left join t_car_series CS on CS.id = T.series_id
 		<include refid="queryEquals_where" />
-		order by T.PLATE_NUMBER asc
+		order by T.plate_number asc
 		<include refid="limit"/>
 	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
-		select count(T.ID) FROM T_CAR T
-		left join T_CAR_SERIES CS on CS.ID = T.SERIES_ID
+		select count(T.id) FROM t_car T
+		left join t_car_series CS on CS.id = T.series_id
 		<include refid="query_where"/>
 	</select>
 	
 	<select id="queryByCityId" resultMap="carRstMap" parameterType="map">
-		SELECT T.* FROM `T_CAR` T
+		SELECT T.* FROM `t_car` T
 		where T.id = #{id}
 	</select>
 	
@@ -105,10 +105,10 @@
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO `T_CAR`(
-			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
-			PLATE_NUMBER, PURCHASER, PURCHASER_PHONE, PURCHASE_DATE, PURCHASE_PRICE,
-			SERIES_ID, CITY_ID, CONTENT
+		INSERT INTO `t_car`(
+			created_user, created_dt, updated_user, updated_dt,
+			plate_number, purchaser, purchaser_phone, purchase_date, purchase_price,
+			series_id, city_id, content
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{plateNumber}, #{purchaser}, #{purchaserPhone}, #{purchaseDate}, #{purchasePrice},
@@ -117,22 +117,22 @@
 	</insert>
 	
 	<update id="update" parameterType="car">
-		update `T_CAR` set
-			UPDATED_USER = #{updatedUser.id},
-			UPDATED_DT = NOW(),
-			PLATE_NUMBER = #{plateNumber},
-			PURCHASER = #{purchaser},
-			PURCHASER_PHONE = #{purchaserPhone},
-			PURCHASE_DATE = #{purchaseDate},
-			PURCHASE_PRICE = #{purchasePrice},
-			SERIES_ID = #{carSeries.id},
-			CITY_ID = #{city.id},
-			CONTENT = #{content}
+		update `t_car` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			plate_number = #{plateNumber},
+			purchaser = #{purchaser},
+			purchaser_phone = #{purchaserPhone},
+			purchase_date = #{purchaseDate},
+			purchase_price = #{purchasePrice},
+			series_id = #{carSeries.id},
+			city_id = #{city.id},
+			content = #{content}
 			
-			WHERE ID = #{id}
+			WHERE id = #{id}
 	</update>
 	
 	<delete id="delete" parameterType="string">
-		delete from `T_CAR` where ID in (${_parameter})
+		delete from `t_car` where id in (${_parameter})
 	</delete>
 </mapper>

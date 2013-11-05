@@ -3,31 +3,31 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="companyNpc">
 	<resultMap id="companyRstMap" type="company">
-		<id property="id" column="ID"/>
-		<result property="createdDt" column="CREATED_DT" />
-		<result property="updatedDt" column="UPDATED_DT" />
-		<result property="name" column="NAME" />
-		<result property="address" column="ADDRESS" />
-		<result property="tel" column="TEL" />
-		<result property="postcode" column="POSTCODE" />
-		<result property="fax" column="FAX" />
-		<result property="content" column="CONTENT" />
-		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
-		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="name" column="name" />
+		<result property="address" column="address" />
+		<result property="tel" column="tel" />
+		<result property="postcode" column="postcode" />
+		<result property="fax" column="fax" />
+		<result property="content" column="content" />
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
 
 	<select id="queryList" resultMap="companyRstMap" parameterType="map">
-		SELECT T.* FROM `T_company` T
+		SELECT T.* FROM `t_company` T
 	</select>
 	
 	<insert id="add" parameterType="company">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO `T_company`(
-			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
-			NAME, ADDRESS, TEL, POSTCODE, FAX,
-			CONTENT
+		INSERT INTO `t_company`(
+			created_user, created_dt, updated_user, updated_dt,
+			name, address, tel, postcode, fax,
+			content
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{name}, #{address}, #{tel}, #{postcode}, #{fax},
@@ -36,16 +36,16 @@
 	</insert>
 	
 	<update id="update" parameterType="company">
-		update `T_company` set
-			UPDATED_USER = #{updatedUser.id},
-			UPDATED_DT = NOW(),
-			NAME = #{name},
-			ADDRESS = #{address},
-			TEL = #{tel},
-			POSTCODE = #{postcode},
-			FAX = #{fax},
-			CONTENT = #{content}
+		update `t_company` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			name = #{name},
+			address = #{address},
+			tel = #{tel},
+			postcode = #{postcode},
+			fax = #{fax},
+			content = #{content}
 			
-			WHERE ID = #{id}
+			WHERE id = #{id}
 	</update>
 </mapper>

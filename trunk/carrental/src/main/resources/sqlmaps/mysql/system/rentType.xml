@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="rentTypeNpc">
-	<resultMap id="rentTypeRstMap" type="rentType">
-		<id property="id" column="ID"/>
-		<result property="createdDt" column="CREATED_DT" />
-		<result property="updatedDt" column="UPDATED_DT" />
-		<result property="typeName" column="TYPE_NAME" />
-		<result property="loadLimit" column="LOAD_LIMIT" />
-		<result property="content" column="CONTENT" />
-		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
-		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
-		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByRentTypeId" column="id" />
+<mapper namespace="renttypeNpc">
+	<resultMap id="renttypeRstMap" type="renttype">
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="typeName" column="type_name" />
+		<result property="loadLimit" column="load_limit" />
+		<result property="content" column="content" />
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
+		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByRenttypeId" column="id" />
 	</resultMap>
 
 	<sql id="query_where">
 		<where>
-			<if test="rentType != null">
-				<if test="rentType.id != null and rentType.id != ''">
-					and T.ID = #{rentType.id}
+			<if test="renttype != null">
+				<if test="renttype.id != null and renttype.id != ''">
+					and T.id = #{renttype.id}
 				</if>
-				<if test="rentType.typeName != null and rentType.typeName != ''">
-					and T.TYPE_NAME like '%${rentType.typeName}%'
+				<if test="renttype.typeName != null and renttype.typeName != ''">
+					and T.type_name like '%${renttype.typeName}%'
 				</if>
-				<if test="rentType.loadLimit != null and rentType.loadLimit != ''">
+				<if test="renttype.loadLimit != null and renttype.loadLimit != ''">
 				<![CDATA[
-					and T.LOAD_LIMIT >= #{rentType.loadLimit}
+					and T.load_limit >= #{renttype.loadLimit}
 				]]>
 				</if>
 			</if>
@@ -33,15 +33,15 @@
 	</sql>
 	<sql id="queryEquals_where">
 		<where>
-			<if test="rentType != null">
-				<if test="rentType.id != null and rentType.id != ''">
-					and T.ID = #{rentType.id}
+			<if test="renttype != null">
+				<if test="renttype.id != null and renttype.id != ''">
+					and T.id = #{renttype.id}
 				</if>
-				<if test="rentType.typeName != null and rentType.typeName != ''">
-					and T.TYPE_NAME = #{rentType.typeName}
+				<if test="renttype.typeName != null and renttype.typeName != ''">
+					and T.type_name = #{renttype.typeName}
 				</if>
-				<if test="rentType.loadLimit != null and rentType.loadLimit != ''">
-					and T.LOAD_LIMIT = #{rentType.loadLimit}
+				<if test="renttype.loadLimit != null and renttype.loadLimit != ''">
+					and T.load_limit = #{renttype.loadLimit}
 				</if>
 			</if>
 		</where>
@@ -52,72 +52,72 @@
 		</if>
 	</sql>
 
-	<select id="queryList" resultMap="rentTypeRstMap" parameterType="map">
-		SELECT T.* FROM `T_RENT_TYPE` T
+	<select id="queryList" resultMap="renttypeRstMap" parameterType="map">
+		SELECT T.* FROM `t_rent_type` T
 		<include refid="query_where" />
-		order by T.TYPE_NAME asc
+		order by T.type_name asc
 		<include refid="limit"/>
 	</select>
 	
-	<select id="queryEqualsList" resultMap="rentTypeRstMap" parameterType="map">
-		SELECT T.* FROM `T_RENT_TYPE` T
+	<select id="queryEqualsList" resultMap="renttypeRstMap" parameterType="map">
+		SELECT T.* FROM `t_rent_type` T
 		<include refid="queryEquals_where" />
-		order by T.TYPE_NAME asc
+		order by T.type_name asc
 		<include refid="limit"/>
 	</select>
 	
-	<select id="queryByRentTypeId" resultMap="rentTypeRstMap" parameterType="string">
-		SELECT T.* FROM `T_RENT_TYPE` T
-		where T.ID = #{id}
-	</select>
-	
-	<select id="queryByCarSeriesIds" resultMap="rentTypeRstMap" parameterType="string">
-		SELECT T.* FROM `T_RENT_TYPE` T
-		join T_RENTTYPE_CARSERIES RC on RC.TYPE_ID = T.ID
-		where RC.SERIES_ID = #{_parameter}
-	</select>
-	
-	<select id="count" resultType="int" parameterType="map">
-		select count(T.ID) FROM T_RENT_TYPE T
-		<include refid="query_where"/>
-	</select>
-	
-	<select id="queryByCityId" resultMap="rentTypeRstMap" parameterType="map">
-		SELECT T.* FROM `T_RENT_TYPE` T
+	<select id="queryByRenttypeId" resultMap="renttypeRstMap" parameterType="string">
+		SELECT T.* FROM `t_rent_type` T
 		where T.id = #{id}
 	</select>
 	
-	<insert id="add" parameterType="rentType">
+	<select id="queryByCarSeriesIds" resultMap="renttypeRstMap" parameterType="string">
+		SELECT T.* FROM `t_rent_type` T
+		join t_renttype_carseries RC on RC.type_id = T.id
+		where RC.series_id = #{_parameter}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_rent_type T
+		<include refid="query_where"/>
+	</select>
+	
+	<select id="queryByCityId" resultMap="renttypeRstMap" parameterType="map">
+		SELECT T.* FROM `t_rent_type` T
+		where T.id = #{id}
+	</select>
+	
+	<insert id="add" parameterType="renttype">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO `T_RENT_TYPE`(
-			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
-			TYPE_NAME, LOAD_LIMIT, CONTENT
+		INSERT INTO `t_rent_type`(
+			created_user, created_dt, updated_user, updated_dt,
+			type_name, load_limit, content
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{typeName}, #{loadLimit}, #{content}
 		)
 	</insert>
 	
-	<update id="update" parameterType="rentType">
-		update `T_RENT_TYPE` set
-			UPDATED_USER = #{updatedUser.id},
-			UPDATED_DT = NOW(),
-			TYPE_NAME = #{typeName},
-			LOAD_LIMIT = #{loadLimit},
-			CONTENT = #{content}
+	<update id="update" parameterType="renttype">
+		update `t_rent_type` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			type_name = #{typeName},
+			load_limit = #{loadLimit},
+			content = #{content}
 			
-			WHERE ID = #{id}
+			WHERE id = #{id}
 	</update>
 	
 	<delete id="delete" parameterType="string">
-		delete from `T_RENT_TYPE` where ID in (${_parameter})
+		delete from `t_rent_type` where id in (${_parameter})
 	</delete>
 	
-	<insert id="addCarSeriesList" parameterType="rentType">
-		INSERT INTO T_RENTTYPE_CARSERIES (
-			TYPE_ID, SERIES_ID
+	<insert id="addCarSeriesList" parameterType="renttype">
+		INSERT INTO t_renttype_carseries (
+			type_id, series_id
 		) VALUES 
 		<foreach collection="carSeriesList" item="carSeries" index="index" separator=",">
 		(
@@ -127,6 +127,6 @@
 	</insert>
 	
 	<delete id="deleteResources" parameterType="string">
-		delete from `T_RENTTYPE_CARSERIES` where TYPE_ID in (${_parameter})
+		delete from `t_renttype_carseries` where type_id in (${_parameter})
 	</delete>
 </mapper>

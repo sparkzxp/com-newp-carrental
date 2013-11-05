@@ -3,27 +3,27 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cityNpc">
 	<resultMap id="cityRstMap" type="city">
-		<id property="id" column="ID"/>
-		<result property="createdDt" column="CREATED_DT" />
-		<result property="updatedDt" column="UPDATED_DT" />
-		<result property="cityName" column="CITY_NAME" />
-		<result property="cityCode" column="CITY_CODE" />
-		<result property="multiple" column="MULTIPLE" />
-		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
-		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="cityName" column="city_name" />
+		<result property="cityCode" column="city_code" />
+		<result property="multiple" column="multiple" />
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
 
 	<sql id="query_where">
 		<where>
 			<if test="city != null">
 				<if test="city.id != null and city.id != ''">
-					and T.ID = #{city.id}
+					and T.id = #{city.id}
 				</if>
 				<if test="city.cityName != null and city.cityName != ''">
-					and T.CITY_NAME like '%${city.cityName}%'
+					and T.city_name like '%${city.cityName}%'
 				</if>
 				<if test="city.cityCode != null and city.cityCode != ''">
-					and T.CITY_CODE like '%${city.cityCode}%'
+					and T.city_code like '%${city.cityCode}%'
 				</if>
 			</if>
 		</where>
@@ -32,13 +32,13 @@
 		<where>
 			<if test="city != null">
 				<if test="city.id != null and city.id != ''">
-					and T.ID = #{city.id}
+					and T.id = #{city.id}
 				</if>
 				<if test="city.cityName != null and city.cityName != ''">
-					and T.CITY_NAME = #{city.cityName}
+					and T.city_name = #{city.cityName}
 				</if>
 				<if test="city.cityCode != null and city.cityCode != ''">
-					and T.CITY_CODE = #{city.cityCode}
+					and T.city_code = #{city.cityCode}
 				</if>
 			</if>
 		</where>
@@ -50,26 +50,26 @@
 	</sql>
 
 	<select id="queryList" resultMap="cityRstMap" parameterType="map">
-		SELECT T.* FROM `T_CITY` T
+		SELECT T.* FROM `t_city` T
 		<include refid="query_where" />
-		order by T.CITY_NAME asc
+		order by T.city_name asc
 		<include refid="limit"/>
 	</select>
 	
 	<select id="queryEqualsList" resultMap="cityRstMap" parameterType="map">
-		SELECT T.* FROM `T_CITY` T
+		SELECT T.* FROM `t_city` T
 		<include refid="queryEquals_where" />
-		order by T.CITY_NAME asc
+		order by T.city_name asc
 		<include refid="limit"/>
 	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
-		select count(T.ID) FROM T_CITY T
+		select count(T.id) FROM t_city T
 		<include refid="query_where"/>
 	</select>
 	
 	<select id="queryByCityId" resultMap="cityRstMap" parameterType="map">
-		SELECT T.* FROM `T_CITY` T
+		SELECT T.* FROM `t_city` T
 		where T.id = #{id}
 	</select>
 	
@@ -77,9 +77,9 @@
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO `T_CITY`(
-			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
-			CITY_NAME, CITY_CODE, MULTIPLE
+		INSERT INTO `t_city`(
+			created_user, created_dt, updated_user, updated_dt,
+			city_name, city_code, multiple
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{cityName}, #{cityCode}, #{multiple}
@@ -87,17 +87,17 @@
 	</insert>
 	
 	<update id="update" parameterType="city">
-		update `T_CITY` set
-			UPDATED_USER = #{updatedUser.id},
-			UPDATED_DT = NOW(),
-			CITY_NAME = #{cityName},
-			CITY_CODE = #{cityCode},
-			MULTIPLE = #{multiple}
+		update `t_city` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			city_name = #{cityName},
+			city_code = #{cityCode},
+			multiple = #{multiple}
 			
-			WHERE ID = #{id}
+			WHERE id = #{id}
 	</update>
 	
 	<delete id="delete" parameterType="string">
-		delete from `T_CITY` where ID in (${_parameter})
+		delete from `t_city` where id in (${_parameter})
 	</delete>
 </mapper>

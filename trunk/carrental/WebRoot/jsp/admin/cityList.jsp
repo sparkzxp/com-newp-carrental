@@ -117,7 +117,7 @@
 	</div>
 	<div class="button_nde">
 		城市名称：<input type="text" id="city_cityName" name="cityName" value="${city.cityName}" class="input"/>
-		城市编码：<input type="text" id="city_cityCode" name="cityCode" value="${city.cityCode}" class="input"/>
+		城市编号：<input type="text" id="city_cityCode" name="cityCode" value="${city.cityCode}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
@@ -132,7 +132,7 @@
 			<tr>
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>城市名称</th>
-				<th>城市编码</th>
+				<th>城市编号</th>
 				<th>物价倍数</th>
 			</tr>
 			<c:forEach items="${citys}" var="parent">

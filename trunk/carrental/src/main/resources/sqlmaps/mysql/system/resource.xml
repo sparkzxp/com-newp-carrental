@@ -3,20 +3,20 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="resourceNpc">
 	<resultMap id="resourceRstMap" type="resource">
-		<id property="id" column="ID"/>
-		<result property="name" column="NAME" />
-		<result property="type" column="TYPE" />
-		<result property="parentId" column="PARENT_ID" />
+		<id property="id" column="id"/>
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="parentId" column="parent_id" />
 	</resultMap>
 
 	<sql id="query_where">
 		<where>
 			<if test="resource != null">
 				<if test="resource.id != null and resource.id != ''">
-					and T.ID = #{resource.id}
+					and T.id = #{resource.id}
 				</if>
 				<if test="resource.type != null and resource.type != ''">
-					and T.TYPE = #{resource.type}
+					and T.type = #{resource.type}
 				</if>
 			</if>
 		</where>
@@ -28,20 +28,20 @@
 	</sql>
 
 	<select id="queryList" resultMap="resourceRstMap" parameterType="map">
-		SELECT T.* FROM `T_RESOURCE` T
+		SELECT T.* FROM `t_resource` T
 		<include refid="query_where" />
-		order by T.TYPE asc, T.NAME asc
+		order by T.type asc, T.name asc
 		<include refid="limit"/>
 	</select>
 
 	<select id="queryByRoleId" resultMap="resourceRstMap" parameterType="string">
-		SELECT T.* FROM `T_RESOURCE` T
-		join T_ROLE_RESOURCE RR on RR.RESOURCE_ID = T.ID
-		where RR.ROLE_ID = #{roleId}
+		SELECT T.* FROM `t_resource` T
+		join t_role_resource RR on RR.resource_id = T.id
+		where RR.role_id = #{roleId}
 	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
-		select count(T.ID) FROM T_RESOURCE T
+		select count(T.id) FROM t_resource T
 		<include refid="query_where"/>
 	</select>
 	
@@ -49,23 +49,23 @@
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO `T_RESOURCE`(
-			NAME, TYPE, PARENT_ID
+		INSERT INTO `t_resource`(
+			name, type, parent_id
 		) VALUES (
 			#{name}, #{type}, #{parentId}
 		)
 	</insert>
 	
 	<update id="update" parameterType="resource">
-		update `T_RESOURCE` set
-			NAME = #{name},
-			TYPE = #{type},
-			PARENT_ID = #{parentId}
+		update `t_resource` set
+			name = #{name},
+			type = #{type},
+			parent_id = #{parentId}
 			
-			WHERE ID = #{id}
+			WHERE id = #{id}
 	</update>
 	
 	<delete id="delete" parameterType="string">
-		delete from `T_RESOURCE` where ID in (${_parameter}) or PARENT_ID in (${_parameter})
+		delete from `t_resource` where id in (${_parameter}) or parent_id in (${_parameter})
 	</delete>
 </mapper>

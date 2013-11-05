@@ -62,7 +62,7 @@
                 <td><input type="text" name="name" value="${dict.name}" style="width:200px;" class="{required:true,maxlengthCN:50}"/></td>
             </tr>
             <tr>
-                <td align="right" height="25px">${title}编码：</td>
+                <td align="right" height="25px">${title}编号：</td>
                 <td>
                 	<input type="text" name="value" value="${dict.value}" style="width:200px;" class="{required:true,maxlengthCN:50}"/>
                 </td>

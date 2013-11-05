@@ -10,12 +10,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- 导出 carrental 的数据库结构
-DROP DATABASE IF EXISTS `carrental`;
-CREATE DATABASE IF NOT EXISTS `carrental` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `carrental`;
-
-
 -- 导出  表 carrental.t_admin 结构
 DROP TABLE IF EXISTS `t_admin`;
 CREATE TABLE IF NOT EXISTS `t_admin` (
@@ -56,28 +50,28 @@ INSERT INTO `t_admin` (`id`, `admin_name`, `login_name`, `login_pwd`, `email`, `
 -- 导出  表 carrental.t_business 结构
 DROP TABLE IF EXISTS `t_business`;
 CREATE TABLE IF NOT EXISTS `t_business` (
-  `ID` int(10) NOT NULL AUTO_INCREMENT,
-  `CREATED_USER` varchar(50) NOT NULL,
-  `CREATED_DT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `UPDATED_USER` varchar(50) NOT NULL,
-  `UPDATED_DT` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `BUSINESS_TYPE` varchar(50) NOT NULL,
-  `RENT_FEE` smallint(6) NOT NULL,
-  `INSURANCE_FEE` smallint(6) NOT NULL,
-  `FUEL_FEE` smallint(6) NOT NULL,
-  `EXCEED_MINUTE_TO_HOUR` tinyint(4) NOT NULL DEFAULT '20',
-  `EXCEED_HOUR_FEE` smallint(6) NOT NULL,
-  `EXCEED_METER_TO_KILOMETER` smallint(6) NOT NULL DEFAULT '400',
-  `EXCEED_KILOMETER_FEE` smallint(6) NOT NULL,
-  `CONTENT` varchar(2000) DEFAULT NULL,
-  `RENTTYPE_ID` varchar(50) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `created_user` varchar(50) NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_user` varchar(50) NOT NULL,
+  `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `business_type` varchar(50) NOT NULL,
+  `rent_fee` smallint(6) NOT NULL,
+  `insurance_fee` smallint(6) NOT NULL,
+  `fuel_fee` smallint(6) NOT NULL,
+  `exceed_minute_to_hour` tinyint(4) NOT NULL DEFAULT '20',
+  `exceed_hour_fee` smallint(6) NOT NULL,
+  `exceed_meter_to_kilometer` smallint(6) NOT NULL DEFAULT '400',
+  `exceed_kilometer_fee` smallint(6) NOT NULL,
+  `content` varchar(2000) DEFAULT NULL,
+  `renttype_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_business 的数据：~1 rows (大约)
+-- 正在导出表  carrental.t_business 的数据：~2 rows (大约)
 DELETE FROM `t_business`;
 /*!40000 ALTER TABLE `t_business` DISABLE KEYS */;
-INSERT INTO `t_business` (`ID`, `CREATED_USER`, `CREATED_DT`, `UPDATED_USER`, `UPDATED_DT`, `BUSINESS_TYPE`, `RENT_FEE`, `INSURANCE_FEE`, `FUEL_FEE`, `EXCEED_MINUTE_TO_HOUR`, `EXCEED_HOUR_FEE`, `EXCEED_METER_TO_KILOMETER`, `EXCEED_KILOMETER_FEE`, `CONTENT`, `RENTTYPE_ID`) VALUES
+INSERT INTO `t_business` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `business_type`, `rent_fee`, `insurance_fee`, `fuel_fee`, `exceed_minute_to_hour`, `exceed_hour_fee`, `exceed_meter_to_kilometer`, `exceed_kilometer_fee`, `content`, `renttype_id`) VALUES
 	(1, '1', '2013-11-04 16:23:18', '1', '2013-11-04 16:23:18', '点到点代驾', 600, 10, 20, 20, 150, 400, 10, '', '1'),
 	(2, '1', '2013-11-04 16:32:26', '1', '2013-11-04 16:32:26', '点到点代驾', 110, 2, 3, 4, 5, 6, 7, '8', '2');
 /*!40000 ALTER TABLE `t_business` ENABLE KEYS */;
@@ -86,26 +80,26 @@ INSERT INTO `t_business` (`ID`, `CREATED_USER`, `CREATED_DT`, `UPDATED_USER`, `U
 -- 导出  表 carrental.t_car 结构
 DROP TABLE IF EXISTS `t_car`;
 CREATE TABLE IF NOT EXISTS `t_car` (
-  `ID` int(10) NOT NULL AUTO_INCREMENT,
-  `CREATED_USER` varchar(50) NOT NULL,
-  `CREATED_DT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `UPDATED_USER` varchar(50) NOT NULL,
-  `UPDATED_DT` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `PLATE_NUMBER` varchar(50) NOT NULL,
-  `PURCHASER` varchar(50) NOT NULL,
-  `PURCHASER_PHONE` varchar(50) NOT NULL,
-  `PURCHASE_DATE` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `PURCHASE_PRICE` decimal(10,2) NOT NULL,
-  `SERIES_ID` varchar(50) NOT NULL,
-  `CITY_ID` varchar(50) NOT NULL,
-  `CONTENT` varchar(2000) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `created_user` varchar(50) NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_user` varchar(50) NOT NULL,
+  `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `plate_number` varchar(50) NOT NULL,
+  `purchaser` varchar(50) NOT NULL,
+  `purchaser_phone` varchar(50) NOT NULL,
+  `purchase_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `purchase_price` decimal(10,2) NOT NULL,
+  `series_id` varchar(50) NOT NULL,
+  `city_id` varchar(50) NOT NULL,
+  `content` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  carrental.t_car 的数据：~2 rows (大约)
 DELETE FROM `t_car`;
 /*!40000 ALTER TABLE `t_car` DISABLE KEYS */;
-INSERT INTO `t_car` (`ID`, `CREATED_USER`, `CREATED_DT`, `UPDATED_USER`, `UPDATED_DT`, `PLATE_NUMBER`, `PURCHASER`, `PURCHASER_PHONE`, `PURCHASE_DATE`, `PURCHASE_PRICE`, `SERIES_ID`, `CITY_ID`, `CONTENT`) VALUES
+INSERT INTO `t_car` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `plate_number`, `purchaser`, `purchaser_phone`, `purchase_date`, `purchase_price`, `series_id`, `city_id`, `content`) VALUES
 	(1, '1', '2013-11-04 14:46:19', '1', '2013-11-04 14:46:19', '沪B25D86', '于果', '138594658', '2013-10-27 00:00:00', 36.20, '2', '3', ''),
 	(2, '1', '2013-11-04 14:47:46', '1', '2013-11-04 14:47:46', '沪B25796', '于果', '1385963223', '2013-10-27 00:00:00', 38.22, '3', '1', '');
 /*!40000 ALTER TABLE `t_car` ENABLE KEYS */;
@@ -198,6 +192,34 @@ INSERT INTO `t_company` (`id`, `name`, `address`, `tel`, `postcode`, `fax`, `con
 /*!40000 ALTER TABLE `t_company` ENABLE KEYS */;
 
 
+-- 导出  表 carrental.t_driver 结构
+DROP TABLE IF EXISTS `t_driver`;
+CREATE TABLE IF NOT EXISTS `t_driver` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `created_user` varchar(50) NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_user` varchar(50) NOT NULL,
+  `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `driver_name` varchar(20) NOT NULL,
+  `driver_code` varchar(20) NOT NULL,
+  `sex` varchar(5) NOT NULL,
+  `driver_years` tinyint(4) NOT NULL,
+  `entry_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `content` varchar(2000) DEFAULT NULL,
+  `is_delete` varchar(2) NOT NULL DEFAULT '0',
+  `city_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  carrental.t_driver 的数据：~0 rows (大约)
+DELETE FROM `t_driver`;
+/*!40000 ALTER TABLE `t_driver` DISABLE KEYS */;
+INSERT INTO `t_driver` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `driver_name`, `driver_code`, `sex`, `driver_years`, `entry_date`, `content`, `is_delete`, `city_id`) VALUES
+	(1, '1', '2013-11-05 12:18:33', '1', '2013-11-05 12:18:33', '林鑫', 'B05051', '男', 5, '2013-10-28 00:00:00', '', '0', '1'),
+	(2, '1', '2013-11-05 12:22:53', '1', '2013-11-05 12:22:53', '罗翔', 'B05052', '女', 4, '2013-10-27 00:00:00', '', '0', '3');
+/*!40000 ALTER TABLE `t_driver` ENABLE KEYS */;
+
+
 -- 导出  表 carrental.t_log 结构
 DROP TABLE IF EXISTS `t_log`;
 CREATE TABLE IF NOT EXISTS `t_log` (
@@ -208,9 +230,9 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   `content` varchar(500) NOT NULL,
   `level` varchar(2) NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~58 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~61 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -274,21 +296,23 @@ INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `le
 	(58, '1', '2013-11-04 16:21:50', '新增租用类型信息', '用户：系统管理员 于 2013-11-04 16:21:50 新增了名为：舒适车型 的租用类型信息', '5'),
 	(59, '1', '2013-11-04 16:23:03', '修改业务信息', '用户：系统管理员 于 2013-11-04 16:23:03 修改了类型为：点到点代驾 的业务信息', '5'),
 	(60, '1', '2013-11-04 16:23:18', '修改业务信息', '用户：系统管理员 于 2013-11-04 16:23:18 修改了类型为：点到点代驾 的业务信息', '5'),
-	(61, '1', '2013-11-04 16:32:26', '新增业务信息', '用户：系统管理员 于 2013-11-04 16:32:26 新增了类型为：点到点代驾 的业务信息', '5');
+	(61, '1', '2013-11-04 16:32:26', '新增业务信息', '用户：系统管理员 于 2013-11-04 16:32:26 新增了类型为：点到点代驾 的业务信息', '5'),
+	(62, '1', '2013-11-05 12:18:33', '新增司机信息', '用户：系统管理员 于 2013-11-05 12:18:33 新增了名为：林鑫 的司机信息', '5'),
+	(63, '1', '2013-11-05 12:22:53', '新增司机信息', '用户：系统管理员 于 2013-11-05 12:22:53 新增了名为：罗翔 的司机信息', '5');
 /*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
 
 
 -- 导出  表 carrental.t_renttype_carseries 结构
 DROP TABLE IF EXISTS `t_renttype_carseries`;
 CREATE TABLE IF NOT EXISTS `t_renttype_carseries` (
-  `TYPE_ID` int(10) NOT NULL,
-  `SERIES_ID` int(10) NOT NULL
+  `type_id` int(10) NOT NULL,
+  `series_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 正在导出表  carrental.t_renttype_carseries 的数据：~3 rows (大约)
 DELETE FROM `t_renttype_carseries`;
 /*!40000 ALTER TABLE `t_renttype_carseries` DISABLE KEYS */;
-INSERT INTO `t_renttype_carseries` (`TYPE_ID`, `SERIES_ID`) VALUES
+INSERT INTO `t_renttype_carseries` (`type_id`, `series_id`) VALUES
 	(1, 3),
 	(1, 2),
 	(2, 4);
@@ -298,21 +322,21 @@ INSERT INTO `t_renttype_carseries` (`TYPE_ID`, `SERIES_ID`) VALUES
 -- 导出  表 carrental.t_rent_type 结构
 DROP TABLE IF EXISTS `t_rent_type`;
 CREATE TABLE IF NOT EXISTS `t_rent_type` (
-  `ID` int(10) NOT NULL AUTO_INCREMENT,
-  `CREATED_USER` varchar(50) NOT NULL,
-  `CREATED_DT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `UPDATED_USER` varchar(50) NOT NULL,
-  `UPDATED_DT` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `TYPE_NAME` varchar(50) NOT NULL,
-  `LOAD_LIMIT` tinyint(4) NOT NULL,
-  `CONTENT` varchar(2000) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `created_user` varchar(50) NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_user` varchar(50) NOT NULL,
+  `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `type_name` varchar(50) NOT NULL,
+  `load_limit` tinyint(4) NOT NULL,
+  `content` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  carrental.t_rent_type 的数据：~2 rows (大约)
 DELETE FROM `t_rent_type`;
 /*!40000 ALTER TABLE `t_rent_type` DISABLE KEYS */;
-INSERT INTO `t_rent_type` (`ID`, `CREATED_USER`, `CREATED_DT`, `UPDATED_USER`, `UPDATED_DT`, `TYPE_NAME`, `LOAD_LIMIT`, `CONTENT`) VALUES
+INSERT INTO `t_rent_type` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `type_name`, `load_limit`, `content`) VALUES
 	(1, '1', '2013-11-04 10:56:43', '1', '2013-11-04 10:56:43', '豪华车型', 4, ''),
 	(2, '1', '2013-11-04 16:21:50', '1', '2013-11-04 16:21:50', '舒适车型', 4, '');
 /*!40000 ALTER TABLE `t_rent_type` ENABLE KEYS */;
