@@ -4,22 +4,22 @@
 <mapper namespace="adminNpc">
 	<!-- 返回值映射关系 -->
 	<resultMap id="adminRstMap" type="admin">
-		<id property="id" column="ID"/>
-		<result property="createdDt" column="CREATED_DT" />
-		<result property="updatedDt" column="UPDATED_DT" />
-		<result property="adminName" column="ADMIN_NAME" />
-		<result property="password" column="LOGIN_PWD"/>
-		<result property="loginName" column="LOGIN_NAME"/>
-		<result property="type" column="TYPE"/>
-		<result property="isDelete" column="IS_DELETE"/>
-		<result property="email" column="EMAIL"/>
-		<result property="phone" column="PHONE"/>
-		<result property="companyName" column="COMPANY_NAME"/>
-		<result property="inBlacklist" column="IN_BLACKLIST"/>
-		<association property="city" column="CITY_ID" select="cityNpc.queryByCityId"/>
-		<association property="role" column="ROLE_ID" select="roleNpc.queryByRoleId"/>
-		<association property="createdUser" column="CREATED_USER" select="adminNpc.queryByAdminId"/>
-		<association property="updatedUser" column="UPDATED_USER" select="adminNpc.queryByAdminId"/>
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="adminName" column="admin_name" />
+		<result property="password" column="login_pwd"/>
+		<result property="loginName" column="login_name"/>
+		<result property="type" column="type"/>
+		<result property="isDelete" column="is_delete"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="companyName" column="company_name"/>
+		<result property="inBlacklist" column="in_blacklist"/>
+		<association property="city" column="city_id" select="cityNpc.queryByCityId"/>
+		<association property="role" column="role_id" select="roleNpc.queryByRoleId"/>
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
 	
 	<!-- 查询条件 -->
@@ -27,32 +27,32 @@
 		<where>
 			<if test="admin != null">
 				<if test="admin.id !=null and admin.id != ''">
-					and T.ID = ${admin.id}
+					and T.id = ${admin.id}
 				</if>
 				<if test="admin.loginName !=null and admin.loginName != ''">
-					and T.LOGIN_NAME like '%${admin.loginName}%'
+					and T.login_name like '%${admin.loginName}%'
 				</if>
 				<if test="admin.adminName !=null and admin.adminName != ''">
-					and T.ADMIN_NAME like '%${admin.adminName}%'
+					and T.admin_name like '%${admin.adminName}%'
 				</if>
 				<if test="admin.email !=null and admin.email != ''">
-					and T.EMAIL like '%${admin.email}%'
+					and T.email like '%${admin.email}%'
 				</if>
 				<if test="admin.phone !=null and admin.phone != ''">
-					and T.PHONE like '%${admin.phone}%'
+					and T.phone like '%${admin.phone}%'
 				</if>
 				<if test="admin.type !=null and admin.type != ''">
-					and T.TYPE like '${admin.type}%'
+					and T.type like '${admin.type}%'
 				</if>
 				<if test="admin.isDelete !=null and admin.isDelete != ''">
-					and T.IS_DELETE = #{admin.isDelete}
+					and T.is_delete = #{admin.isDelete}
 				</if>
 				<if test="admin.inBlacklist !=null and admin.inBlacklist != ''">
-					and T.IN_BLACKLIST = #{admin.inBlacklist}
+					and T.in_blacklist = #{admin.inBlacklist}
 				</if>
 				<if test="admin.city != null">
 					<if test="admin.city.id != null and admin.city.id != ''">
-						and T.CITY_ID = #{admin.city.id}
+						and T.city_id = #{admin.city.id}
 					</if>
 				</if>
 			</if>
@@ -65,30 +65,30 @@
 	</sql>
 
 	<select id="queryByLoginName" resultMap="adminRstMap" parameterType="map">
-		SELECT T.* FROM T_ADMIN T
-		where T.LOGIN_NAME = #{admin.loginName}
+		SELECT T.* FROM t_admin T
+		where T.login_name = #{admin.loginName}
 		<if test="admin != null">
 			<if test="admin.type !=null and admin.type != ''">
-				and T.TYPE like '${admin.type}%'
+				and T.type like '${admin.type}%'
 			</if>
 			<if test="admin.isDelete !=null and admin.isDelete != ''">
-				and T.IS_DELETE = #{admin.isDelete}
+				and T.is_delete = #{admin.isDelete}
 			</if>
 		</if>
 	</select>
 	<select id="queryByAdminId" resultMap="adminRstMap" parameterType="map">
-		SELECT T.* FROM T_ADMIN T
-		where T.ID = #{id}
+		SELECT T.* FROM t_admin T
+		where T.id = #{id}
 	</select>
 	<!-- 条件查询 -->
 	<select id="queryList" resultMap="adminRstMap" parameterType="map">
-		SELECT T.* FROM T_ADMIN T
+		SELECT T.* FROM t_admin T
 		<include refid="where"/>
 		<include refid="limit"/>
 	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
-		select count(T.ID) FROM T_ADMIN T
+		select count(T.id) FROM t_admin T
 		<include refid="where"/>
 	</select>
 	
@@ -96,10 +96,10 @@
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO T_ADMIN(
-			CREATED_USER, CREATED_DT, UPDATED_USER, UPDATED_DT,
-			ADMIN_NAME, LOGIN_NAME, LOGIN_PWD, TYPE, CITY_ID,
-			ROLE_ID, EMAIL, PHONE, COMPANY_NAME, IN_BLACKLIST
+		INSERT INTO t_admin(
+			created_user, created_dt, updated_user, updated_dt,
+			admin_name, login_name, login_pwd, type, city_id,
+			role_id, email, phone, company_name, in_blacklist
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{adminName}, #{loginName}, #{password}, #{type}, #{city.id},
@@ -108,44 +108,44 @@
 	</insert>
 	
 	<update id="update" parameterType="admin">
-		update `T_ADMIN` set
-			UPDATED_USER = #{updatedUser.id},
-			UPDATED_DT = NOW(),
-			ADMIN_NAME = #{adminName},
-			LOGIN_NAME = #{loginName},
-			LOGIN_PWD = #{password},
-			TYPE = #{type},
-			CITY_ID = #{city.id},
-			ROLE_ID = #{role.id},
-			EMAIL = #{email},
-			PHONE = #{phone},
-			COMPANY_NAME = #{companyName},
-			IN_BLACKLIST = #{inBlacklist}
+		update `t_admin` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			admin_name = #{adminName},
+			login_name = #{loginName},
+			login_pwd = #{password},
+			type = #{type},
+			city_id = #{city.id},
+			role_id = #{role.id},
+			email = #{email},
+			phone = #{phone},
+			company_name = #{companyName},
+			in_blacklist = #{inBlacklist}
 			
 			WHERE id = #{id}
 	</update>
 	
 	<update id="deleteAll" parameterType="string">
-		update `T_ADMIN` set
-			IS_DELETE = '1'
-			where ID in (${_parameter})
+		update `t_admin` set
+			is_delete = '1'
+			where id in (${_parameter})
 	</update>
 	
 	<update id="intoBlacklist" parameterType="string">
-		update `T_ADMIN` set
-			IN_BLACKLIST = '1'
-			where ID in (${_parameter})
+		update `t_admin` set
+			in_blacklist = '1'
+			where id in (${_parameter})
 	</update>
 	
 	<update id="outofBlacklist" parameterType="string">
-		update `T_ADMIN` set
-			IN_BLACKLIST = '0'
-			where ID in (${_parameter})
+		update `t_admin` set
+			in_blacklist = '0'
+			where id in (${_parameter})
 	</update>
 	
 	<update id="resetPwd" parameterType="map">
-		update `T_ADMIN` set
-			LOGIN_PWD = #{password}
-			where ID in (${ids})
+		update `t_admin` set
+			login_pwd = #{password}
+			where id in (${ids})
 	</update>
 </mapper>
