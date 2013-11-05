@@ -192,6 +192,56 @@ INSERT INTO `t_company` (`id`, `name`, `address`, `tel`, `postcode`, `fax`, `con
 /*!40000 ALTER TABLE `t_company` ENABLE KEYS */;
 
 
+-- 导出  表 carrental.t_coupon 结构
+DROP TABLE IF EXISTS `t_coupon`;
+CREATE TABLE IF NOT EXISTS `t_coupon` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `created_user` varchar(50) NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_user` varchar(50) NOT NULL,
+  `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `coupon_title` varchar(100) NOT NULL,
+  `coupon_type` varchar(20) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `full_kilometer` smallint(6) DEFAULT NULL,
+  `free_kilometer` smallint(6) DEFAULT NULL,
+  `rent_days` smallint(6) DEFAULT NULL,
+  `free_days` smallint(6) DEFAULT NULL,
+  `content` varchar(2000) DEFAULT NULL,
+  `is_delete` varchar(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  carrental.t_coupon 的数据：~0 rows (大约)
+DELETE FROM `t_coupon`;
+/*!40000 ALTER TABLE `t_coupon` DISABLE KEYS */;
+INSERT INTO `t_coupon` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `coupon_title`, `coupon_type`, `start_date`, `end_date`, `full_kilometer`, `free_kilometer`, `rent_days`, `free_days`, `content`, `is_delete`) VALUES
+	(1, '1', '2013-11-05 20:30:16', '1', '2013-11-05 20:30:16', '国庆送礼第一波', '公里满就送', '2013-10-27 00:00:00', '2013-10-29 00:00:00', 100, 10, NULL, NULL, '', '0'),
+	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-05 20:31:42', '国庆送礼第二波', '天数租就送', '2013-10-27 00:00:00', '2013-10-30 00:00:00', NULL, NULL, 5, 1, '', '0'),
+	(3, '1', '2013-11-05 20:32:04', '1', '2013-11-05 20:32:04', '国庆送礼第三波', '指定车系打折', '2013-10-27 00:00:00', '2013-10-30 00:00:00', NULL, NULL, NULL, NULL, '', '0');
+/*!40000 ALTER TABLE `t_coupon` ENABLE KEYS */;
+
+
+-- 导出  表 carrental.t_coupon_carseries 结构
+DROP TABLE IF EXISTS `t_coupon_carseries`;
+CREATE TABLE IF NOT EXISTS `t_coupon_carseries` (
+  `coupon_id` varchar(50) NOT NULL,
+  `series_id` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  carrental.t_coupon_carseries 的数据：~0 rows (大约)
+DELETE FROM `t_coupon_carseries`;
+/*!40000 ALTER TABLE `t_coupon_carseries` DISABLE KEYS */;
+INSERT INTO `t_coupon_carseries` (`coupon_id`, `series_id`) VALUES
+	('1', ''),
+	('2', ''),
+	('3', '3'),
+	('3', '2'),
+	('3', '4');
+/*!40000 ALTER TABLE `t_coupon_carseries` ENABLE KEYS */;
+
+
 -- 导出  表 carrental.t_driver 结构
 DROP TABLE IF EXISTS `t_driver`;
 CREATE TABLE IF NOT EXISTS `t_driver` (
@@ -211,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `t_driver` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_driver 的数据：~0 rows (大约)
+-- 正在导出表  carrental.t_driver 的数据：~2 rows (大约)
 DELETE FROM `t_driver`;
 /*!40000 ALTER TABLE `t_driver` DISABLE KEYS */;
 INSERT INTO `t_driver` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `driver_name`, `driver_code`, `sex`, `driver_years`, `entry_date`, `content`, `is_delete`, `city_id`) VALUES
@@ -230,9 +280,9 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   `content` varchar(500) NOT NULL,
   `level` varchar(2) NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~61 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~63 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -298,7 +348,10 @@ INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `le
 	(60, '1', '2013-11-04 16:23:18', '修改业务信息', '用户：系统管理员 于 2013-11-04 16:23:18 修改了类型为：点到点代驾 的业务信息', '5'),
 	(61, '1', '2013-11-04 16:32:26', '新增业务信息', '用户：系统管理员 于 2013-11-04 16:32:26 新增了类型为：点到点代驾 的业务信息', '5'),
 	(62, '1', '2013-11-05 12:18:33', '新增司机信息', '用户：系统管理员 于 2013-11-05 12:18:33 新增了名为：林鑫 的司机信息', '5'),
-	(63, '1', '2013-11-05 12:22:53', '新增司机信息', '用户：系统管理员 于 2013-11-05 12:22:53 新增了名为：罗翔 的司机信息', '5');
+	(63, '1', '2013-11-05 12:22:53', '新增司机信息', '用户：系统管理员 于 2013-11-05 12:22:53 新增了名为：罗翔 的司机信息', '5'),
+	(64, '1', '2013-11-05 20:30:16', '新增优惠活动信息', '用户：系统管理员 于 2013-11-05 20:30:16 新增了名为：国庆送礼第一波 的优惠活动信息', '5'),
+	(65, '1', '2013-11-05 20:31:42', '新增优惠活动信息', '用户：系统管理员 于 2013-11-05 20:31:42 新增了名为：国庆送礼第二波 的优惠活动信息', '5'),
+	(66, '1', '2013-11-05 20:32:04', '新增优惠活动信息', '用户：系统管理员 于 2013-11-05 20:32:04 新增了名为：国庆送礼第三波 的优惠活动信息', '5');
 /*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
 
 
