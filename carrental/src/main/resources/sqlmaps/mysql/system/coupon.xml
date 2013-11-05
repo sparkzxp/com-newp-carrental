@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="couponNpc">
+	<resultMap id="couponRstMap" type="coupon">
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="couponTitle" column="coupon_title" />
+		<result property="couponType" column="coupon_type" />
+		<result property="startDate" column="start_date" />
+		<result property="endDate" column="end_date" />
+		<result property="fullKilometer" column="full_kilometer" />
+		<result property="freeKilometer" column="free_kilometer" />
+		<result property="rentDays" column="rent_days" />
+		<result property="freeDays" column="free_days" />
+		<result property="content" column="content" />
+		<result property="isDelete" column="is_delete" />
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
+		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByCouponId" column="id" />
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="coupon != null">
+				<if test="coupon.id != null and coupon.id != ''">
+					and T.id = #{coupon.id}
+				</if>
+				<if test="coupon.couponTitle != null and coupon.couponTitle != ''">
+					and T.coupon_title like '%${coupon.couponTitle}%'
+				</if>
+				<if test="coupon.couponType != null and coupon.couponType != ''">
+					and T.coupon_type = #{coupon.couponType}
+				</if>
+				<if test="coupon.isDelete != null and coupon.isDelete != ''">
+					and T.is_delete = #{coupon.isDelete}
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="coupon != null">
+				<if test="coupon.id != null and coupon.id != ''">
+					and T.id = #{coupon.id}
+				</if>
+				<if test="coupon.couponTitle != null and coupon.couponTitle != ''">
+					and T.coupon_title = #{coupon.couponTitle}
+				</if>
+				<if test="coupon.couponType != null and coupon.couponType != ''">
+					and T.coupon_type = #{coupon.couponType}
+				</if>
+				<if test="coupon.isDelete != null and coupon.isDelete != ''">
+					and T.is_delete = #{coupon.isDelete}
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="couponRstMap" parameterType="map">
+		SELECT T.* FROM `t_coupon` T
+		<include refid="query_where" />
+		order by T.start_date desc, T.coupon_title asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryEqualsList" resultMap="couponRstMap" parameterType="map">
+		SELECT T.* FROM `t_coupon` T
+		<include refid="queryEquals_where" />
+		order by T.start_date desc, T.coupon_title asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_coupon T
+		<include refid="query_where"/>
+	</select>
+	
+	<insert id="add" parameterType="coupon">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `t_coupon`(
+			created_user, created_dt, updated_user, updated_dt,
+			coupon_title, coupon_type, start_date, end_date, full_kilometer,
+			free_kilometer, rent_days, free_days, content, is_delete
+		) VALUES (
+			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
+			#{couponTitle}, #{couponType}, #{startDate}, #{endDate}, #{fullKilometer},
+			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, '0'
+		)
+	</insert>
+	
+	<update id="update" parameterType="coupon">
+		update `t_coupon` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			coupon_title = #{couponTitle},
+			coupon_type = #{couponType},
+			start_date = #{startDate},
+			end_date = #{endDate},
+			full_kilometer = #{fullKilometer},
+			free_kilometer = #{freeKilometer},
+			rent_days = #{rentDays},
+			free_days = #{freeDays},
+			content = #{content}
+			
+			WHERE id = #{id}
+	</update>
+	
+	<update id="delete" parameterType="string">
+		update `t_coupon` set
+			is_delete = '1'
+			where id in (${_parameter})
+	</update>
+	
+	<insert id="addCarSeriesList" parameterType="coupon">
+		INSERT INTO t_coupon_carseries (
+			coupon_id, series_id
+		) VALUES 
+		<foreach collection="carSeriesList" item="carSeries" index="index" separator=",">
+		(
+			#{id}, #{carSeries.id}
+		)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteCarSeriesList" parameterType="string">
+		delete from `t_coupon_carseries` where coupon_id in (${_parameter})
+	</delete>
+</mapper>
