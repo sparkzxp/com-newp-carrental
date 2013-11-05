@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="driverNpc">
+	<resultMap id="driverRstMap" type="driver">
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="driverName" column="driver_name" />
+		<result property="driverCode" column="driver_code" />
+		<result property="sex" column="sex" />
+		<result property="driverYears" column="driver_years" />
+		<result property="entryDate" column="entry_date" />
+		<result property="content" column="content" />
+		<result property="isDelete" column="is_delete" />
+		<association property="city" column="city_id" select="cityNpc.queryByCityId"/>
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="driver != null">
+				<if test="driver.id != null and driver.id != ''">
+					and T.id = #{driver.id}
+				</if>
+				<if test="driver.driverName != null and driver.driverName != ''">
+					and T.driver_name like '%${driver.driverName}%'
+				</if>
+				<if test="driver.driverCode != null and driver.driverCode != ''">
+					and T.driver_code like '%${driver.driverCode}%'
+				</if>
+				<if test="driver.city != null">
+					<if test="driver.city.id != null and driver.city.id != ''">
+						and T.city_id = #{driver.city.id}
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="driver != null">
+				<if test="driver.id != null and driver.id != ''">
+					and T.id = #{driver.id}
+				</if>
+				<if test="driver.driverName != null and driver.driverName != ''">
+					and T.driver_name = #{driver.driverName}
+				</if>
+				<if test="driver.driverCode != null and driver.driverCode != ''">
+					and T.driver_code = #{driver.driverCode}
+				</if>
+				<if test="driver.city != null">
+					<if test="driver.city.id != null and driver.city.id != ''">
+						and T.city_id = #{driver.city.id}
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="driverRstMap" parameterType="map">
+		SELECT T.* FROM `t_driver` T
+		<include refid="query_where" />
+		order by T.driver_name asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryEqualsList" resultMap="driverRstMap" parameterType="map">
+		SELECT T.* FROM `t_driver` T
+		<include refid="queryEquals_where" />
+		order by T.driver_name asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_driver T
+		<include refid="query_where"/>
+	</select>
+	
+	<select id="queryByDriverId" resultMap="driverRstMap" parameterType="map">
+		SELECT T.* FROM `t_driver` T
+		where T.id = #{id}
+	</select>
+	
+	<insert id="add" parameterType="driver">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `t_driver`(
+			created_user, created_dt, updated_user, updated_dt,
+			driver_name, driver_code, sex, driver_years, entry_date,
+			content, city_id, is_delete
+		) VALUES (
+			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
+			#{driverName}, #{driverCode}, #{sex}, #{driverYears}, #{entryDate},
+			#{content}, #{city.id}, '0'
+		)
+	</insert>
+	
+	<update id="update" parameterType="driver">
+		update `t_driver` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			driver_name = #{driverName},
+			driver_code = #{driverCode},
+			sex = #{sex},
+			driver_years = #{driverYears},
+			entry_date = #{entryDate},
+			content = #{content},
+			city_id = #{city.id}
+			
+			WHERE id = #{id}
+	</update>
+	
+	<update id="delete" parameterType="string">
+		update `t_driver` set
+			is_delete = '1' 
+			where id in (${_parameter})
+	</update>
+</mapper>
