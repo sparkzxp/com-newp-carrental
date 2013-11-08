@@ -68,7 +68,7 @@
 		<include refid="query_where"/>
 	</select>
 	
-	<select id="queryByCityId" resultMap="cityRstMap" parameterType="map">
+	<select id="queryByCityId" resultMap="cityRstMap" parameterType="string">
 		SELECT T.* FROM `t_city` T
 		where T.id = #{id}
 	</select>

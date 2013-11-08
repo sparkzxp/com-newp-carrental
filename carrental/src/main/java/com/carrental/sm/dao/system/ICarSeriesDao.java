@@ -61,4 +61,12 @@ public interface ICarSeriesDao {
 	 * @author 张霄鹏
 	 */
 	Integer delete(String ids);
+
+	/**
+	 * 根据租用类型查询车系信息
+	 * 
+	 * @author 张霄鹏
+	 * @return List<CarSeries>
+	 */
+	List<CarSeries> queryByRentTypeId(String rentTypeId);
 }

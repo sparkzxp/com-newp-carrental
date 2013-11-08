@@ -41,6 +41,14 @@ public interface IRentTypeDao {
 	List<RentType> queryByCarSeriesIds(String ids);
 
 	/**
+	 * 根据业务类型查询租用类型信息
+	 * 
+	 * @author 张霄鹏
+	 * @return List<RentType>
+	 */
+	List<RentType> queryByBusinessType(String businessType);
+
+	/**
 	 * 条件查询列表数量
 	 * 
 	 * @author 张霄鹏

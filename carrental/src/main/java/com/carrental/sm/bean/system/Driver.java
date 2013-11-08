@@ -12,6 +12,8 @@ public class Driver extends BaseBean {
 
 	private String driverName;
 	private String driverCode;
+	private String phone;
+	private String address;
 	private String sex;
 	private Integer driverYears;
 	private Timestamp entryDate;
@@ -137,5 +139,35 @@ public class Driver extends BaseBean {
 	 */
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone
+	 *            the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address
+	 *            the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

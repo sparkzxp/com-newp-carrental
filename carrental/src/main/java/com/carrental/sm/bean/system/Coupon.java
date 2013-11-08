@@ -19,6 +19,7 @@ public class Coupon extends BaseBean {
 	private Integer freeKilometer;
 	private Integer rentDays;
 	private Integer freeDays;
+	private Double discount;
 	private String isDelete;
 	private List<CarSeries> carSeriesList;
 	private String content;
@@ -186,5 +187,20 @@ public class Coupon extends BaseBean {
 	 */
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	/**
+	 * @return the discount
+	 */
+	public Double getDiscount() {
+		return discount;
+	}
+
+	/**
+	 * @param discount
+	 *            the discount to set
+	 */
+	public void setDiscount(Double discount) {
+		this.discount = discount;
 	}
 }

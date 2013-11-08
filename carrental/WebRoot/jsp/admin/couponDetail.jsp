@@ -59,6 +59,10 @@
                 	</c:forEach>
                 </td>
             </tr>
+            <tr class="discount" style="display: none;">
+                <td align="right" height="25px">折扣：</td>
+                <td colspan="3">${parent.discount}</td>
+            </tr>
             <tr class="kmFree" style="display: none;">
                 <td align="right" height="25px">开满(公里)：</td>
                 <td colspan="3">${coupon.fullKilometer}</td>

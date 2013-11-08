@@ -23,6 +23,14 @@ public interface IRentTypeService {
 	List<RentType> queryList(RentType rentType, Pager pager);
 
 	/**
+	 * 根据业务类型查询租用类型信息
+	 * 
+	 * @author 张霄鹏
+	 * @return List<RentType>
+	 */
+	List<RentType> queryByBusinessType(String businessType);
+
+	/**
 	 * 新增
 	 * 
 	 * @author 张霄鹏

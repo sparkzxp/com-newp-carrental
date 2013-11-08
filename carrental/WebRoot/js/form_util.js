@@ -88,7 +88,7 @@ function getSelectedArrayByName(name){
 	return arry;
 }
 
-//获取表格中选中的值
+//获取表格中选中的值(单选，多选默认显示第一条)
 function getSelectedByName(name){
 	var _val = "";
 	$("input:checkbox").not(":first").each(function(){	

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rentCarNpc">
+	<resultMap id="rentCarRstMap" type="rentCar">
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="rentNumber" column="rent_number" />
+		<result property="rentStatus" column="rent_status" />
+		<result property="rentWay" column="rent_way" />
+		<result property="customer" column="customer" />
+		<result property="customerCompany" column="customer_company" />
+		<result property="customerPhone" column="customer_phone" />
+		<result property="customerEmail" column="customer_email" />
+		<result property="bookPickUpDt" column="book_pick_up_dt" />
+		<result property="bookPickUpAddress" column="book_pick_up_address" />
+		<result property="arriveFlightNo" column="arrive_flight_no" />
+		<result property="arriveFlightDt" column="arrive_flight_dt" />
+		<result property="takeOffFlightNo" column="take_off_flight_no" />
+		<result property="takeOfFlightDt" column="take_of_flight_dt" />
+		<result property="passengerNo" column="passenger_no" />
+		<result property="pickUpDt" column="pick_up_dt" />
+		<result property="startMileage" column="start_mileage" />
+		<result property="bookGiveBackDt" column="book_give_back_dt" />
+		<result property="bookGiveBackAddress" column="book_give_back_address" />
+		<result property="giveBackDt" column="give_back_dt" />
+		<result property="endMileage" column="end_mileage" />
+		<result property="rentFee" column="rent_fee" />
+		<result property="exceedKilometer" column="exceed_kilometer" />
+		<result property="exceedKilometerFee" column="exceed_kilometer_fee" />
+		<result property="exceedHour" column="exceed_hour" />
+		<result property="exceedHourFee" column="exceed_hour_fee" />
+		<result property="totalPrice" column="total_price" />
+		<association property="rentType" column="rent_type_id" select="rentTypeNpc.queryByRentTypeId"/>
+		<association property="carSeries" column="car_series_id" select="carSeriesNpc.queryByCarSeriesId"/>
+		<association property="city" column="city_id" select="cityNpc.queryByCityId"/>
+		<association property="car" column="car_id" select="carNpc.queryByCarId"/>
+		<association property="driver" column="driver_id" select="driverNpc.queryByDriverId"/>
+		<association property="bookUser" column="book_user_id" select="adminNpc.queryByAdminId"/>
+		<association property="business" column="business_id" select="businessNpc.queryByBusinessId"/>
+		<association property="coupon" column="coupon_id" select="couponNpc.queryByCouponId"/>
+		<association property="agent" column="agent_id" select="adminNpc.queryByAdminId"/>
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="rentCar != null">
+				<if test="rentCar.id != null and rentCar.id != ''">
+					and T.id = #{rentCar.id}
+				</if>
+				<if test="rentCar.createdDt != null and rentCar.createdDt != ''">
+					<!-- %Y-%m-%d %H-%i-%s.%f -->
+					and DATE_FORMAT(T.created_dt, '%Y-%m-%d') = DATE_FORMAT(#{rentCar.createdDt}, '%Y-%m-%d')
+				</if>
+				<if test="rentCar.rentNumber != null and rentCar.rentNumber != ''">
+					and T.rent_number like '%${rentCar.rentNumber}%'
+				</if>
+				<if test="rentCar.rentStatus != null and rentCar.rentStatus != ''">
+					and T.rent_status in ('${rentCar.rentStatus}')
+				</if>
+				<if test="rentCar.carSeries != null">
+					<if test="rentCar.carSeries.seriesName != null and rentCar.carSeries.seriesName != ''">
+						and CS.series_name like '%${rentCar.carSeries.seriesName}%'
+					</if>
+				</if>
+				<if test="rentCar.city != null">
+					<if test="rentCar.city.id != null and rentCar.city.id != ''">
+						and T.city_id like '%${rentCar.city.id}%'
+					</if>
+				</if>
+				<if test="rentCar.business != null">
+					<if test="rentCar.business.businessType != null and rentCar.business.businessType != ''">
+						and B.business_type = #{rentCar.business.businessType}
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="rentCar != null">
+				<if test="rentCar.id != null and rentCar.id != ''">
+					and T.id = #{rentCar.id}
+				</if>
+				<if test="rentCar.createdDt != null and rentCar.createdDt != ''">
+					and DATE_FORMAT(T.created_dt, '%Y-%m-%d') = DATE_FORMAT(#{rentCar.createdDt}, '%Y-%m-%d')
+				</if>
+				<if test="rentCar.rentNumber != null and rentCar.rentNumber != ''">
+					and T.rent_number = #{rentCar.rentNumber}
+				</if>
+				<if test="rentCar.rentStatus != null and rentCar.rentStatus != ''">
+					and T.rent_status = #{rentCar.rentStatus}
+				</if>
+				<if test="rentCar.carSeries != null">
+					<if test="rentCar.carSeries.seriesName != null and rentCar.carSeries.seriesName != ''">
+						and CS.series_name = #{rentCar.carSeries.seriesName}
+					</if>
+				</if>
+				<if test="rentCar.business != null">
+					<if test="rentCar.business.businessType != null and rentCar.business.businessType != ''">
+						and B.business_type = #{rentCar.business.businessType}
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="rentCarRstMap" parameterType="map">
+		SELECT T.* FROM `t_rent_car` T
+		join t_car_series CS on CS.id = T.car_series_id
+		join t_business B on B.id = T.business_id
+		<include refid="query_where" />
+		order by T.rent_status asc, T.created_dt asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryEqualsList" resultMap="rentCarRstMap" parameterType="map">
+		SELECT T.* FROM `t_rent_car` T
+		join t_car_series CS on CS.id = T.car_series_id
+		join t_business B on B.id = T.business_id
+		<include refid="queryEquals_where" />
+		order by T.rent_status asc, T.created_dt asc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_rent_car T
+		join t_car_series CS on CS.id = T.car_series_id
+		join t_business B on B.id = T.business_id
+		<include refid="query_where"/>
+	</select>
+	
+	<select id="queryByRentCarId" resultMap="rentCarRstMap" parameterType="string">
+		SELECT T.* FROM `t_rent_car` T
+		where T.id = #{id}
+	</select>
+	
+	<insert id="add" parameterType="rentCar">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `t_rent_car`(
+			created_user, created_dt, updated_user, updated_dt,
+			rent_number, rent_status, rent_way, customer, customer_company,
+			customer_phone, customer_email, book_pick_up_dt, book_pick_up_address,
+			arrive_flight_no, arrive_flight_dt, take_off_flight_no, take_of_flight_dt, passenger_no,
+			pick_up_dt, start_mileage, book_give_back_dt, book_give_back_address, give_back_dt,
+			end_mileage, rent_fee, exceed_kilometer, exceed_kilometer_fee, exceed_hour,
+			exceed_hour_fee, total_price, rent_type_id, car_series_id,
+			city_id, car_id, driver_id, book_user_id, business_id,
+			coupon_id, agent_id
+		) VALUES (
+			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
+			#{rentNumber}, #{rentStatus}, #{rentWay}, #{customer}, #{customerCompany},
+			#{customerPhone}, #{customerEmail}, #{bookPickUpDt}, #{bookPickUpAddress},
+			#{arriveFlightNo}, #{arriveFlightDt}, #{takeOffFlightNo}, #{takeOfFlightDt}, #{passengerNo},
+			#{pickUpDt}, #{startMileage}, #{bookGiveBackDt}, #{bookGiveBackAddress}, #{giveBackDt},
+			#{endMileage}, #{rentFee}, #{exceedKilometer}, ${exceedKilometerFee}, #{exceedHour},
+			#{exceedHourFee}, #{totalPrice}, #{rentType.id}, #{carSeries.id},
+			#{city.id}, #{car.id}, #{driver.id}, #{bookUser.id}, #{business.id},
+			#{coupon.id}, #{agent.id}
+			
+		)
+	</insert>
+	
+	<update id="update" parameterType="rentCar">
+		update `t_rent_car` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			rent_number = #{rentNumber},
+			rent_status = #{rentStatus},
+			rent_way = #{rentWay},
+			customer = #{customer},
+			customer_company = #{customerCompany},
+			customer_phone = #{customerPhone},
+			customer_email = #{customerEmail},
+			book_pick_up_dt = #{bookPickUpDt},
+			book_pick_up_address = #{bookPickUpAddress},
+			arrive_flight_no = #{arriveFlightNo},
+			arrive_flight_dt = #{arriveFlightDt},
+			take_off_flight_no = #{takeOffFlightNo},
+			take_of_flight_dt = #{takeOfFlightDt},
+			passenger_no = #{passengerNo},
+			pick_up_dt = #{pickUpDt},
+			start_mileage = #{startMileage},
+			book_give_back_dt = #{bookGiveBackDt},
+			book_give_back_address = #{bookGiveBackAddress},
+			give_back_dt = #{giveBackDt},
+			end_mileage = #{endMileage},
+			exceed_kilometer = #{exceedKilometer},
+			exceed_kilometer_fee = #{exceedKilometerFee},
+			exceed_hour = #{exceedHour},
+			exceed_hour_fee = #{exceedHourFee},
+			total_price = #{totalPrice},
+			rent_type_id = #{rentType.id},
+			car_series_id = #{carSeries.id},
+			city_id = #{city.id},
+			car_id = #{car.id},
+			driver_id = #{driver.id},
+			book_user_id = #{bookUser.id},
+			business_id = #{business.id},
+			coupon_id = #{coupon.id},
+			agent_id = #{agent.id}
+			
+			WHERE id = #{id}
+	</update>
+	
+	<update id="updatePart" parameterType="rentCar">
+		update `t_rent_car`
+			<set>
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			<if test="rentNumber != null and rentNumber != ''">
+			rent_number = #{rentNumber},
+			</if>
+			<if test="rentStatus != null and rentStatus != ''">
+			rent_status = #{rentStatus},
+			</if>
+			<if test="rentWay != null and rentWay != ''">
+			rent_way = #{rentWay},
+			</if>
+			<if test="customer != null and customer != ''">
+			customer = #{customer},
+			</if>
+			<if test="customerCompany != null and customerCompany != ''">
+			customer_company = #{customerCompany},
+			</if>
+			<if test="customerPhone != null and customerPhone != ''">
+			customer_phone = #{customerPhone},
+			</if>
+			<if test="customerEmail != null and customerEmail != ''">
+			customer_email = #{customerEmail},
+			</if>
+			<if test="bookPickUpDt != null and bookPickUpDt != ''">
+			book_pick_up_dt = #{bookPickUpDt},
+			</if>
+			<if test="bookPickUpAddress != null and bookPickUpAddress != ''">
+			book_pick_up_address = #{bookPickUpAddress},
+			</if>
+			<if test="arriveFlightNo != null and arriveFlightNo != ''">
+			arrive_flight_no = #{arriveFlightNo},
+			</if>
+			<if test="arriveFlightDt != null and arriveFlightDt != ''">
+			arrive_flight_dt = #{arriveFlightDt},
+			</if>
+			<if test="takeOffFlightNo != null and takeOffFlightNo != ''">
+			take_off_flight_no = #{takeOffFlightNo},
+			</if>
+			<if test="takeOfFlightDt != null and takeOfFlightDt != ''">
+			take_of_flight_dt = #{takeOfFlightDt},
+			</if>
+			<if test="passengerNo != null and passengerNo != ''">
+			passenger_no = #{passengerNo},
+			</if>
+			<if test="pickUpDt != null and pickUpDt != ''">
+			pick_up_dt = #{pickUpDt},
+			</if>
+			<if test="startMileage != null and startMileage != ''">
+			start_mileage = #{startMileage},
+			</if>
+			<if test="bookGiveBackDt != null and bookGiveBackDt != ''">
+			book_give_back_dt = #{bookGiveBackDt},
+			</if>
+			<if test="bookGiveBackAddress != null and bookGiveBackAddress != ''">
+			book_give_back_address = #{bookGiveBackAddress},
+			</if>
+			<if test="giveBackDt != null and giveBackDt != ''">
+			give_back_dt = #{giveBackDt},
+			</if>
+			<if test="endMileage != null and endMileage != ''">
+			end_mileage = #{endMileage},
+			</if>
+			<if test="exceedKilometer != null and exceedKilometer != ''">
+			exceed_kilometer = #{exceedKilometer},
+			</if>
+			<if test="exceedKilometerFee != null and exceedKilometerFee != ''">
+			exceed_kilometer_fee = #{exceedKilometerFee},
+			</if>
+			<if test="exceedHour != null and exceedHour != ''">
+			exceed_hour = #{exceedHour},
+			</if>
+			<if test="exceedHourFee != null and exceedHourFee != ''">
+			exceed_hour_fee = #{exceedHourFee},
+			</if>
+			<if test="totalPrice != null and totalPrice != ''">
+			total_price = #{totalPrice},
+			</if>
+			<if test="rentType != null and rentType.id != null and rentType.id != ''">
+			rent_type_id = #{rentType.id},
+			</if>
+			<if test="carSeries != null and carSeries.id != null and carSeries.id != ''">
+			car_series_id = #{carSeries.id},
+			</if>
+			<if test="city != null and city.id != null and city.id != ''">
+			city_id = #{city.id},
+			</if>
+			<if test="car != null and car.id != null and car.id != ''">
+			car_id = #{car.id},
+			</if>
+			<if test="driver != null and driver.id != null and driver.id != ''">
+			driver_id = #{driver.id},
+			</if>
+			<if test="bookUser != null and bookUser.id != null and bookUser.id != ''">
+			book_user_id = #{bookUser.id},
+			</if>
+			<if test="business != null and business.id != null and business.id != ''">
+			business_id = #{business.id},
+			</if>
+			<if test="coupon != null and coupon.id != null and coupon.id != ''">
+			coupon_id = #{coupon.id},
+			</if>
+			<if test="agent != null and agent.id != null and agent.id != ''">
+			agent_id = #{agent.id}
+			</if>
+			</set>
+			WHERE id = #{id}
+	</update>
+	
+	<update id="cancelRentCar" parameterType="string">
+		update `t_rent_car` set
+			rent_status = '1-A'
+			where id in (${_parameter})
+	</update>
+</mapper>

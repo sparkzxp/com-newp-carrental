@@ -133,6 +133,7 @@
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>司机名称</th>
 				<th>司机编号</th>
+				<th>联系电话</th>
 				<th>司机驾龄(年)</th>
 			</tr>
 			<c:forEach items="${drivers}" var="parent">
@@ -140,6 +141,7 @@
 				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
 				<td name="driverName" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.driverName}"/></a></td>
 				<td name="driverCode" align="center"><c:out value="${parent.driverCode}"/></td>
+				<td name="phone" align="center"><c:out value="${parent.phone}"/></td>
 				<td name="driverYears" align="center"><c:out value="${parent.driverYears}"/></td>
 			</tr>
 			</c:forEach>
