@@ -62,6 +62,25 @@ public class AdminAction {
 		}
 	}
 
+	/**
+	 * 显示popup弹出层
+	 */
+	@RequestMapping(value = "/showPopupUserList")
+	public String showPopupUserList(Admin admin, Pager pager, Model model, HttpServletRequest request) {
+		if (pager == null) {
+			pager = new Pager();
+		}
+		// 防止出现异地注册用户租车显示不出来
+		/*Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
+		if (null != role) {
+			admin.setCity(role.getCity());
+		}*/
+		List<Admin> admins = this.adminService.queryList(admin, pager);
+		model.addAttribute("admin", admin);
+		model.addAttribute("admins", admins);
+		return "admin/popupUserList";
+	}
+
 	@RequestMapping(value = "/toAdminEdit")
 	public String toAdminEdit(Admin admin, Model model, HttpServletRequest request) {
 		if (StringUtils.isNotEmpty(admin.getId())) {

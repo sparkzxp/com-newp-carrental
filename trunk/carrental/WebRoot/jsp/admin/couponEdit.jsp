@@ -181,6 +181,10 @@
                 	<input type="hidden" id="carSeriesIds" name="carSeriesIds"/>
 				</td>
             </tr>
+            <tr class="discount" style="display: none;">
+                <td align="right" height="25px">折扣：</td>
+                <td><input type="text" name="discount" value="${coupon.discount}" style="width:200px;" class="{required:true,number:true,min:0,max:10}"/></td>
+            </tr>
             <tr class="kmFree" style="display: none;">
                 <td align="right" height="25px">开满(公里)：</td>
                 <td><input type="text" name="fullKilometer" value="${coupon.fullKilometer}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
@@ -199,11 +203,11 @@
             </tr>
             <tr>
                 <td align="right" height="25px">开始时间：</td>
-                <td><input type="text" id="coupon_startDate" name="startDate" value="<fmt:formatDate value="${parent.startDate}" type="both" pattern="yyyy-MM-dd"/>" readonly="readonly" style="width:200px;" class="{required:true}"/></td>
+                <td><input type="text" id="coupon_startDate" name="startDate" value="<fmt:formatDate value="${coupon.startDate}" type="both" pattern="yyyy-MM-dd"/>" readonly="readonly" style="width:200px;" class="{required:true}"/></td>
             </tr>
             <tr>
                 <td align="right" height="25px">结束时间：</td>
-                <td><input type="text" id="coupon_endDate" name="endDate" value="<fmt:formatDate value="${parent.endDate}" type="both" pattern="yyyy-MM-dd"/>" readonly="readonly" style="width:200px;" class="{required:true}"/></td>
+                <td><input type="text" id="coupon_endDate" name="endDate" value="<fmt:formatDate value="${coupon.endDate}" type="both" pattern="yyyy-MM-dd"/>" readonly="readonly" style="width:200px;" class="{required:true}"/></td>
             </tr>
             <tr>
                 <td align="right" height="25px">备注说明：</td>

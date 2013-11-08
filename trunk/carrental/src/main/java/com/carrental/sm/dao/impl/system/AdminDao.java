@@ -25,6 +25,10 @@ public class AdminDao implements IAdminDao {
 		return this.sqlSession.selectList("adminNpc.queryList", params);
 	}
 
+	public List<Admin> queryEqualsList(Map<String, Object> params) {
+		return this.sqlSession.selectList("adminNpc.queryEqualsList", params);
+	}
+
 	public Integer count(Map<String, Object> params) {
 		return this.sqlSession.selectOne("adminNpc.count", params);
 	}

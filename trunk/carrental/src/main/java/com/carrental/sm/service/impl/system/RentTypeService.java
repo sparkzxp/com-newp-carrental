@@ -50,6 +50,10 @@ public class RentTypeService implements IRentTypeService {
 		return rentTypeDao.queryList(params);
 	}
 
+	public List<RentType> queryByBusinessType(String businessType) {
+		return rentTypeDao.queryByBusinessType(businessType);
+	}
+
 	public String add(RentType rentType, String carSeriesIds, Admin loginUser) {
 		if (checkExist(rentType)) {
 			return "租用类型名称已存在";

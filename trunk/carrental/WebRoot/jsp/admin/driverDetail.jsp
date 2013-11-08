@@ -28,6 +28,18 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" height="25px">联系电话：</td>
+                <td colspan="3">
+                	${driver.phone}
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">联系地址：</td>
+                <td colspan="3">
+                	${driver.address}
+                </td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">性别：</td>
                 <td colspan="3">
                 	${driver.sex}

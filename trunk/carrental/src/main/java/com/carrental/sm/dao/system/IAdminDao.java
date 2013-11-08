@@ -13,7 +13,7 @@ import com.carrental.sm.bean.system.Admin;
 public interface IAdminDao {
 
 	/**
-	 * 登录名查询用户信息
+	 * 登录名查询用户信息，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏
 	 * @return List<Admin>
@@ -21,6 +21,16 @@ public interface IAdminDao {
 	 *            :admin
 	 */
 	List<Admin> queryByLoginName(Map<String, Object> params);
+
+	/**
+	 * 条件查询全部用户信息
+	 * 
+	 * @author 张霄鹏
+	 * @return List<Admin>
+	 * @param params
+	 *            :pager,admin
+	 */
+	List<Admin> queryEqualsList(Map<String, Object> params);
 
 	/**
 	 * 条件查询全部用户信息

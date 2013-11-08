@@ -32,6 +32,10 @@ public class CarSeriesService implements ICarSeriesService {
 	@Autowired
 	private ILogDao logDao;
 
+	public List<CarSeries> queryByRentTypeId(String rentTypeId) {
+		return carSeriesDao.queryByRentTypeId(rentTypeId);
+	}
+
 	public List<CarSeries> queryList(CarSeries carSeries, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("carSeries", carSeries);

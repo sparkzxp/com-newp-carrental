@@ -89,6 +89,11 @@
 		order by T.plate_number asc
 		<include refid="limit"/>
 	</select>
+
+	<select id="queryByCarId" resultMap="carRstMap" parameterType="string">
+		SELECT T.* FROM `t_car` T
+		where T.id = #{id}
+	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.id) FROM t_car T

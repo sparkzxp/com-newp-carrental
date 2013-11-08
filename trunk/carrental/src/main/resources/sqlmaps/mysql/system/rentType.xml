@@ -77,6 +77,12 @@
 		where RC.series_id = #{_parameter}
 	</select>
 	
+	<select id="queryByBusinessType" resultMap="rentTypeRstMap" parameterType="string">
+		select distinct T.* from t_rent_type T
+		join t_business B on T.id = B.renttype_id
+		where B.business_type = #{businessType}
+	</select>
+	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.id) FROM t_rent_type T
 		<include refid="query_where"/>

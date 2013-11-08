@@ -58,6 +58,41 @@
 			</if>
 		</where>
 	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="admin != null">
+				<if test="admin.id !=null and admin.id != ''">
+					and T.id = ${admin.id}
+				</if>
+				<if test="admin.loginName !=null and admin.loginName != ''">
+					and T.login_name = #{admin.loginName}
+				</if>
+				<if test="admin.adminName !=null and admin.adminName != ''">
+					and T.admin_name = #{admin.adminName}
+				</if>
+				<if test="admin.email !=null and admin.email != ''">
+					and T.email = #{admin.email}
+				</if>
+				<if test="admin.phone !=null and admin.phone != ''">
+					and T.phone = #{admin.phone}
+				</if>
+				<if test="admin.type !=null and admin.type != ''">
+					and T.type = #{admin.type}
+				</if>
+				<if test="admin.isDelete !=null and admin.isDelete != ''">
+					and T.is_delete = #{admin.isDelete}
+				</if>
+				<if test="admin.inBlacklist !=null and admin.inBlacklist != ''">
+					and T.in_blacklist = #{admin.inBlacklist}
+				</if>
+				<if test="admin.city != null">
+					<if test="admin.city.id != null and admin.city.id != ''">
+						and T.city_id = #{admin.city.id}
+					</if>
+				</if>
+			</if>
+		</where>
+	</sql>
 	<sql id="limit">
 		<if test="pager != null">
 			limit ${pager.startIndex}, ${pager.pageSize}
@@ -84,6 +119,11 @@
 	<select id="queryList" resultMap="adminRstMap" parameterType="map">
 		SELECT T.* FROM t_admin T
 		<include refid="where"/>
+		<include refid="limit"/>
+	</select>
+	<select id="queryEqualsList" resultMap="adminRstMap" parameterType="map">
+		SELECT T.* FROM t_admin T
+		<include refid="queryEquals_where"/>
 		<include refid="limit"/>
 	</select>
 	

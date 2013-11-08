@@ -33,7 +33,7 @@
     	});
     	
     	$('#btn_submit').click(function(){
-    		if($('#admin_type').val() == 'CUSTOM_PERSONAL' && $.trim($('#admin_companyName').val()) == ''){
+    		if($('#admin_type').val() == 'CUSTOM_COMPANY' && $.trim($('#admin_companyName').val()) == ''){
     			$.prompt('企业用户请填写企业名称',{
 					title: '提示',
         			buttons: { "确认": false}

@@ -38,12 +38,20 @@
                 <td colspan="3">${business.fuelFee}</td>
             </tr>
             <tr>
+                <td align="right" height="25px">基础小时数(小时)：</td>
+                <td colspan="3">${business.baseHour}</td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">超多少分钟算一小时：</td>
                 <td colspan="3">${business.exceedMinuteToHour}</td>
             </tr>
             <tr>
                 <td align="right" height="25px">超小时费(元/小时)：</td>
                 <td colspan="3">${business.exceedHourFee}</td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">基础公里数(公里)：</td>
+                <td colspan="3">${business.baseKilometer}</td>
             </tr>
             <tr>
                 <td align="right" height="25px">超多少里算一公里：</td>

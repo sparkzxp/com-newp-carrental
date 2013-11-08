@@ -8,6 +8,8 @@
 		<result property="updatedDt" column="updated_dt" />
 		<result property="driverName" column="driver_name" />
 		<result property="driverCode" column="driver_code" />
+		<result property="phone" column="phone" />
+		<result property="address" column="address" />
 		<result property="sex" column="sex" />
 		<result property="driverYears" column="driver_years" />
 		<result property="entryDate" column="entry_date" />
@@ -83,7 +85,7 @@
 		<include refid="query_where"/>
 	</select>
 	
-	<select id="queryByDriverId" resultMap="driverRstMap" parameterType="map">
+	<select id="queryByDriverId" resultMap="driverRstMap" parameterType="string">
 		SELECT T.* FROM `t_driver` T
 		where T.id = #{id}
 	</select>
@@ -95,11 +97,11 @@
 		INSERT INTO `t_driver`(
 			created_user, created_dt, updated_user, updated_dt,
 			driver_name, driver_code, sex, driver_years, entry_date,
-			content, city_id, is_delete
+			content, city_id, is_delete, phone, address
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{driverName}, #{driverCode}, #{sex}, #{driverYears}, #{entryDate},
-			#{content}, #{city.id}, '0'
+			#{content}, #{city.id}, '0', #{phone}, #{address}
 		)
 	</insert>
 	
@@ -113,7 +115,9 @@
 			driver_years = #{driverYears},
 			entry_date = #{entryDate},
 			content = #{content},
-			city_id = #{city.id}
+			city_id = #{city.id},
+			phone = #{phone},
+			address = #{address}
 			
 			WHERE id = #{id}
 	</update>

@@ -73,6 +73,18 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" height="25px">联系电话：</td>
+                <td>
+                	<input type="text" name="phone" value="${driver.phone}" style="width:200px;" class="{required:true,maxlengthCN:50}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">联系地址：</td>
+                <td>
+                	<input type="text" name="address" value="${driver.address}" style="width:200px;" class="{required:true,maxlengthCN:200}"/>
+                </td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">性别：</td>
                 <td>
                 	<input type="radio" name="sex" value="男" <c:if test="${driver.sex == '男'}">checked="checked"</c:if>/>男

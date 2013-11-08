@@ -81,12 +81,20 @@
                 <td><input type="text" name="fuelFee" value="${business.fuelFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>
             <tr>
+                <td align="right" height="25px">基础小时数(小时)：</td>
+                <td><input type="text" name="baseHour" value="${business.baseHour}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">超多少分钟算一小时：</td>
                 <td><input type="text" name="exceedMinuteToHour" value="${business.exceedMinuteToHour}" style="width:200px;" class="{required:true,digits:true,min:0,max:59}"/></td>
             </tr>
             <tr>
                 <td align="right" height="25px">超小时费(元/小时)：</td>
                 <td><input type="text" name="exceedHourFee" value="${business.exceedHourFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">基础公里数(公里)：</td>
+                <td><input type="text" name="baseKilometer" value="${business.baseKilometer}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>
             <tr>
                 <td align="right" height="25px">超多少里算一公里：</td>

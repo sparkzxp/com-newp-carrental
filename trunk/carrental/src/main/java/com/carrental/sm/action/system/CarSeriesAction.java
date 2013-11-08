@@ -160,4 +160,14 @@ public class CarSeriesAction {
 		}
 		return result;
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/queryListByRentType")
+	public Map<String, Object> queryListByRentType(String rentTypeId) {
+		List<CarSeries> list = this.carSeriesService.queryByRentTypeId(rentTypeId);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("result", Constants.OPERATION_SUCCESS);
+		result.put("list", list);
+		return result;
+	}
 }

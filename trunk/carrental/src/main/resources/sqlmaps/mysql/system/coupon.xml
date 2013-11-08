@@ -14,6 +14,7 @@
 		<result property="freeKilometer" column="free_kilometer" />
 		<result property="rentDays" column="rent_days" />
 		<result property="freeDays" column="free_days" />
+		<result property="discount" column="discount" />
 		<result property="content" column="content" />
 		<result property="isDelete" column="is_delete" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
@@ -36,6 +37,16 @@
 				<if test="coupon.isDelete != null and coupon.isDelete != ''">
 					and T.is_delete = #{coupon.isDelete}
 				</if>
+				<if test="coupon.startDate != null and coupon.startDate != ''">
+					<![CDATA[
+					and T.start_date <= #{coupon.startDate}
+					]]>
+				</if>
+				<if test="coupon.endDate != null and coupon.endDate != ''">
+					<![CDATA[
+					and T.end_date >= #{coupon.endDate}
+					]]>
+				</if>
 			</if>
 		</where>
 	</sql>
@@ -53,6 +64,16 @@
 				</if>
 				<if test="coupon.isDelete != null and coupon.isDelete != ''">
 					and T.is_delete = #{coupon.isDelete}
+				</if>
+				<if test="coupon.startDate != null and coupon.startDate != ''">
+					<![CDATA[
+					and T.start_date <= #{coupon.startDate}
+					]]>
+				</if>
+				<if test="coupon.endDate != null and coupon.endDate != ''">
+					<![CDATA[
+					and T.end_date >= #{coupon.endDate}
+					]]>
 				</if>
 			</if>
 		</where>
@@ -76,6 +97,11 @@
 		order by T.start_date desc, T.coupon_title asc
 		<include refid="limit"/>
 	</select>
+
+	<select id="queryByCouponId" resultMap="couponRstMap" parameterType="string">
+		SELECT T.* FROM `t_coupon` T
+		where T.id = #{id}
+	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.id) FROM t_coupon T
@@ -89,11 +115,13 @@
 		INSERT INTO `t_coupon`(
 			created_user, created_dt, updated_user, updated_dt,
 			coupon_title, coupon_type, start_date, end_date, full_kilometer,
-			free_kilometer, rent_days, free_days, content, is_delete
+			free_kilometer, rent_days, free_days, content, is_delete,
+			discount
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{couponTitle}, #{couponType}, #{startDate}, #{endDate}, #{fullKilometer},
-			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, '0'
+			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, '0',
+			#{discount}
 		)
 	</insert>
 	
@@ -109,7 +137,8 @@
 			free_kilometer = #{freeKilometer},
 			rent_days = #{rentDays},
 			free_days = #{freeDays},
-			content = #{content}
+			content = #{content},
+			discount = #{discount}
 			
 			WHERE id = #{id}
 	</update>

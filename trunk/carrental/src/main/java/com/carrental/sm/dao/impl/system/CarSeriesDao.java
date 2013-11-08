@@ -45,4 +45,8 @@ public class CarSeriesDao implements ICarSeriesDao {
 		return this.sqlSession.delete("carSeriesNpc.delete", ids);
 	}
 
+	public List<CarSeries> queryByRentTypeId(String rentTypeId) {
+		return this.sqlSession.selectList("carSeriesNpc.queryByRentTypeId", rentTypeId);
+	}
+
 }
