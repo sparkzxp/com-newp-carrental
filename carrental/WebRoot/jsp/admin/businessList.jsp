@@ -68,7 +68,8 @@
 						   						$.prompt.goToState('state1', true);
 						   						return false;
 						   					}else{
-						   						$.prompt.goToState('state2', true);
+						   						alert(data.result);
+						   						//$.prompt.goToState('state2', true);
 						   						return false;
 						   					}
 						   				}, "json");

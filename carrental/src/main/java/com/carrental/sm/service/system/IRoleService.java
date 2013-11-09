@@ -39,7 +39,7 @@ public interface IRoleService {
 	String update(Role role, String resourceIds, Admin loginUser);
 
 	/**
-	 * 批量删除-假删
+	 * 批量删除
 	 * 
 	 * @author 张霄鹏
 	 */

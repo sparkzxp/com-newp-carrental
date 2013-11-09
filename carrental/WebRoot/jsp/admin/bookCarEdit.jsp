@@ -308,7 +308,7 @@
             </tr>
             <tr>
                 <td align="right" height="25px">备注说明：</td>
-                <td>
+                <td colspan="3">
                 	<textarea name="content" rows="4" cols="30" class="{maxlengthCN:2000}">${car.content}</textarea>
                 </td>
             </tr>

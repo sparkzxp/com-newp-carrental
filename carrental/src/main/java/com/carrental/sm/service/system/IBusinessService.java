@@ -39,7 +39,7 @@ public interface IBusinessService {
 	String update(Business business, Admin loginUser);
 
 	/**
-	 * 批量删除-假删
+	 * 批量删除
 	 * 
 	 * @author 张霄鹏
 	 */
