@@ -62,6 +62,24 @@ public class DriverAction {
 		return "admin/driverList";
 	}
 
+	/**
+	 * 显示popup列表弹出层
+	 */
+	@RequestMapping(value = "/showPopupDriverList")
+	public String showPopupDriverList(Driver driver, Pager pager, Model model, HttpServletRequest request) {
+		if (pager == null) {
+			pager = new Pager();
+		}
+		/*Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
+		if (null != role) {
+			driver.setCity(role.getCity());
+		}*/
+		List<Driver> drivers = this.driverService.queryList(driver, pager);
+		model.addAttribute("driver", driver);
+		model.addAttribute("drivers", drivers);
+		return "admin/popupDriverList";
+	}
+
 	@RequestMapping(value = "/toDriverEdit")
 	public String toDriverEdit(Driver driver, Model model, HttpServletRequest request) {
 		if (StringUtils.isNotEmpty(driver.getId())) {

@@ -113,12 +113,6 @@
             </tr>
             </c:if>
             <tr>
-                <td width="20%" align="right" height="25px">乘客数量：</td>
-                <td colspan="3">
-                	${rentCar.passengerNo}
-                </td>
-            </tr>
-            <tr>
                 <td width="20%" align="right" height="25px">预订还车时间：</td>
                 <td width="30%">
                 	<fmt:formatDate value="${rentCar.bookGiveBackDt}" type="both" pattern="yyyy-MM-dd HH:mm"/>
@@ -129,23 +123,13 @@
                 </td>
             </tr>
             <tr>
-                <td width="20%" align="right" height="25px">创建人：</td>
-                <td width="30%">
-                	${rentCar.createdUser.adminName}
-                </td>
-                <td width="20%" align="right" height="25px">创建时间：</td>
-                <td width="30%">
-                	<fmt:formatDate value="${rentCar.createdDt}" type="both" pattern="yyyy-MM-dd HH:mm"/>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">修改人：</td>
+                <td align="right" height="25px">乘客数量：</td>
                 <td>
-                	${rentCar.updatedUser.adminName}
+                	${rentCar.passengerNo}
                 </td>
-                <td align="right" height="25px">修改时间：</td>
+                <td align="right" height="25px">预订确认员：</td>
                 <td>
-                	<fmt:formatDate value="${rentCar.updatedDt}" type="both" pattern="yyyy-MM-dd HH:mm"/>
+                	${rentCar.agent.adminName}
                 </td>
             </tr>
         </table>
