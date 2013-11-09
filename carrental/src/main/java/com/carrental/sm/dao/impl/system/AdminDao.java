@@ -37,6 +37,10 @@ public class AdminDao implements IAdminDao {
 		return this.sqlSession.selectOne("adminNpc.countByCityIds", cityIds);
 	}
 
+	public Integer countByRoleIds(String roleIds) {
+		return this.sqlSession.selectOne("adminNpc.countByRoleIds", roleIds);
+	}
+
 	public List<Admin> queryByLoginName(Map<String, Object> params) {
 		return this.sqlSession.selectList("adminNpc.queryByLoginName", params);
 	}

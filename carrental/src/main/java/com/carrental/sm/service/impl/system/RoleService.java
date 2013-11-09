@@ -18,6 +18,7 @@ import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
+import com.carrental.sm.dao.system.IAdminDao;
 import com.carrental.sm.dao.system.ILogDao;
 import com.carrental.sm.dao.system.IRoleDao;
 import com.carrental.sm.service.system.IRoleService;
@@ -33,6 +34,8 @@ public class RoleService implements IRoleService {
 	private IRoleDao roleDao;
 	@Autowired
 	private ILogDao logDao;
+	@Autowired
+	private IAdminDao adminDao;
 
 	public List<Role> queryList(Role role, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -97,7 +100,10 @@ public class RoleService implements IRoleService {
 	}
 
 	public String delete(String ids, String names, Admin loginUser) {
-		// TODO 验证是否被使用
+		// 验证是否被使用
+		if(this.adminDao.countByRoleIds(ids) > 0){
+			return "该角色有用户正在使用，请先修改用户角色信息";
+		}
 		this.roleDao.delete(ids);
 
 		this.roleDao.deleteResources(ids);

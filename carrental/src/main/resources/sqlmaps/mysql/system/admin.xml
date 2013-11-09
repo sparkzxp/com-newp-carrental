@@ -137,6 +137,11 @@
 		where T.is_delete = '0' and T.city_id in ('${_parameter}')
 	</select>
 	
+	<select id="countByRoleIds" resultType="int" parameterType="string">
+		select count(T.id) FROM t_admin T
+		where T.is_delete = '0' and T.role_id in ('${_parameter}')
+	</select>
+	
 	<insert id="add" parameterType="admin">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
