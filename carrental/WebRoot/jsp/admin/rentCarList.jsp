@@ -21,6 +21,8 @@
 				$("#clearForm").click(function(){
 					$("#rentCar_rentNumber").val('');
 					$("#rentCar_carSeries_seriesName").val(''); 
+					$("#rentCar_businessType").val(''); 
+					$("#rentCar_bookUser_phone").val(''); 
 				});
 				//查询
 				$("#query").click(function(){
@@ -32,7 +34,7 @@
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
 						if(getSelectedByName('rentStatus') == '2'){
-							$.show('分配车辆和司机','<%=basePath%>rentCar/toCarAndDriverAllot?id='+ids[0]+'&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
+							$.show('分配车辆和司机','<%=basePath%>rentCar/toCarAndDriverAllot?id='+ids[0],700,500,'A');
 						}else{
 							$.prompt('该预订还未生效或已出租，无法分配车辆和司机',{
 								title: '提示',
@@ -57,9 +59,29 @@
 			        			buttons: { "确认": false}
 			        		});
 						}else if(getSelectedByName('rentStatus') == '2'){
-							$.show('取车','<%=basePath%>rentCar/toCarPickUp?id='+ids[0]+'&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
+							$.show('取车','<%=basePath%>rentCar/toCarPickUp?id='+ids[0],700,500,'A');
 						}else{
 							$.prompt('该预订还未生效或已取车，请不要再次取车',{
+								title: '提示',
+			        			buttons: { "确认": false}
+			        		});
+						}
+					}else{
+						$.prompt('请选择一条数据',{
+							title: '提示',
+		        			buttons: { "确认": false}
+		        		});
+					}
+				});
+				//还车
+				$("#returnBack").click(function(){
+					// 状态为3的才允许修改
+					var ids = getSelectedIdArray();
+					if(ids.length==1){
+						if(getSelectedByName('rentStatus') == '3'){
+							$.show('取车','<%=basePath%>rentCar/toCarReturnBack?id='+ids[0],700,600,'A');
+						}else{
+							$.prompt('该预订还未生效或未取车，无法进行还车操作',{
 								title: '提示',
 			        			buttons: { "确认": false}
 			        		});
@@ -83,8 +105,6 @@
 	</head>
 	<body>
 	<form action="<%=basePath%>rentCar/showRentCarList" id="queryForm">
-    <input type="hidden" id="rentCar_business" name="business.businessType" value="${rentCar.business.businessType}"/>
-    <input type="hidden" id="rentCar_business_id" name="business.id" value="${rentCar.business.id}"/>
 	<div class="maintitle">
 		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;<a href="javascript:void(0);">车辆租用管理</a>&gt;<span class="title">车辆租用管理</span></div>
 		<h1><span class="title">车辆租用管理</span></h1>
@@ -92,12 +112,20 @@
 	<div class="button_nde">
 		预订号：<input type="text" id="rentCar_rentNumber" name="rentNumber" value="${rentCar.rentNumber}" class="input"/>
 		车系名称：<input type="text" id="rentCar_carSeries_seriesName" name="carSeries.seriesName" value="${rentCar.carSeries.seriesName}" class="input"/>
+		业务类型：<select id="rentCar_businessType" name="business.businessType">
+						<option value="">--请选择--</option>
+						<c:forEach items="${businesses}" var="parent">
+                		<option value="<c:out value="${parent.businessType}"/>" <c:if test="${parent.id == rentCar.business.businessType}">selected="true"</c:if>><c:out value="${parent.businessType}"/></option>
+                		</c:forEach>
+					</select>
+		预订人电话：<input type="text" id="rentCar_bookUser_phone" name="bookUser.phone" value="${rentCar.bookUser.phone}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
 	<div class="button_nde">
 		<a href="javascript:void(0);" id="allot"><span>分配车辆和司机</span></a>
 		<a href="javascript:void(0);" id="pickUp"><span>取车</span></a>
+		<a href="javascript:void(0);" id="returnBack"><span>还车</span></a>
 		<h6 class="clear"></h6>
 	</div>
 	<div class="content">
@@ -106,6 +134,7 @@
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>预订号</th>
 				<th>车系名称</th>
+				<th>业务类型</th>
 				<th>预订时间</th>
 				<th>预订取车时间</th>
 				<th>预订人电话</th>
@@ -119,6 +148,7 @@
 				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
 				<td name="rentNumber" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.rentNumber}"/></a></td>
 				<td name="carSeries" align="center"><c:out value="${parent.carSeries.seriesName}"/></td>
+				<td name="businessType" align="center"><c:out value="${parent.business.businessType}"/></td>
 				<td name="createdDt" align="center"><fmt:formatDate value="${parent.createdDt}" type="both" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td name="bookPickUpDt" align="center"><fmt:formatDate value="${parent.bookPickUpDt}" type="both" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td name="bookUser" align="center"><c:out value="${parent.bookUser.phone}"/></td>

@@ -22,7 +22,7 @@
     <script type="text/javascript">
     var api = frameElement.api, W = api.opener;
     $(function() {
-    	$("#rentCar_pickUpDt").addClass("Wdate").click(function(){
+    	$("#rentCar_giveBackDt").addClass("Wdate").click(function(){
 			WdatePicker({startDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd HH:mm'});
 		});
     	
@@ -30,14 +30,14 @@
     		if($('#editForm').valid()){
 	    		$.prompt(
 					{state0:{
-						html: '确认取车吗',
+						html: '确认还车吗',
 	        			buttons: { "确认": 1, "取消": 0},
 	        			submit:function(e,v,m,f){
 	        				e.preventDefault();
 	        				if(v==0){
 	        					$.prompt.close();
 	        				}else if(v==1){
-	        					$.post("<%=basePath%>rentCar/doRentCarPickUp", $('#editForm').serialize(), function(data){
+	        					$.post("<%=basePath%>rentCar/doRentCarReturnBack", $('#editForm').serialize(), function(data){
 				   					if(data.result=="SUCCESS"){
 				   						$.prompt.goToState('state1', true);
 				   						return false;
@@ -81,19 +81,33 @@
     <input type="hidden" name="id" value="${rentCar.id}"/>
     <input type="hidden" name="rentNumber" value="${rentCar.rentNumber}"/>
     <%@ include file="rentCarDetail_bookPart.jsp"%>
+    <%@ include file="rentCarDetail_allotCarAndDriverPart.jsp"%>
+    <%@ include file="rentCarDetail_pickUpCarPart.jsp"%>
     <%@ include file="rentCarDetail_userInfoPart.jsp"%>
     <div class="content">
         <table border="0" cellpadding="0" cellspacing="0" class="table" style="width: 99%;">
             <tr>
-                <td width="30%" align="right" height="25px">取车时间：</td>
+                <td width="30%" align="right" height="25px">还车时间：</td>
                 <td>
-                	<input type="text" id="rentCar_pickUpDt" name="pickUpDt" value="<fmt:formatDate value="${rentCar.pickUpDt}" type="both" pattern="yyyy-MM-dd HH:mm"/>" style="width:200px;" readonly="readonly" class="{required:true}"/>
+                	<input type="text" id="rentCar_giveBackDt" name="giveBackDt" value="<fmt:formatDate value="${rentCar.giveBackDt}" type="both" pattern="yyyy-MM-dd HH:mm"/>" style="width:200px;" readonly="readonly" class="{required:true}"/>
                 </td>
             </tr>
             <tr>
-                <td align="right" height="25px">起始里程数(公里)：</td>
+                <td align="right" height="25px">结束里程数(公里)：</td>
                 <td>
-                	<input type="text" id="rentCar_startMileage" name="startMileage" value="${rentCar.startMileage}" style="width:200px;" class="{required:true,number:true,min:0}"/>
+                	<input type="text" id="rentCar_endMileage" name="endMileage" value="${rentCar.endMileage}" style="width:200px;" class="{required:true,number:true,min:0}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">破损部分描述：</td>
+                <td>
+                	<input type="text" id="rentCar_brokenPart" name="brokenPart" value="${rentCar.brokenPart}" style="width:200px;" class="{required:true,maxlengthCN:200}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">破损补偿费用(元)：</td>
+                <td>
+                	<input type="text" id="rentCar_brokenFee" name="brokenFee" value="${rentCar.brokenFee}" style="width:200px;" class="{required:true,digits:true,min:0}"/>
                 </td>
             </tr>
             <tr>

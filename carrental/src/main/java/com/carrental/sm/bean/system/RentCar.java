@@ -39,12 +39,15 @@ public class RentCar extends BaseBean {
 	private String bookGiveBackAddress;// 预订还车地址
 	private Timestamp giveBackDt;// 还车时间
 	private Double endMileage;// 还车结束里程数
+	private String content;
 
 	private Integer rentFee;// 租用费用
 	private Integer exceedKilometer;// 超公里数
 	private Integer exceedKilometerFee;// 超公里费
 	private Integer exceedHour;// 超小时数
 	private Integer exceedHourFee;// 超小时费
+	private String brokenPart;// 破损部分
+	private Integer brokenFee;// 破损补偿费用
 	private Integer totalPrice;// 总计
 
 	/**
@@ -570,5 +573,50 @@ public class RentCar extends BaseBean {
 	 */
 	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	/**
+	 * @return the brokenPart
+	 */
+	public String getBrokenPart() {
+		return brokenPart;
+	}
+
+	/**
+	 * @param brokenPart
+	 *            the brokenPart to set
+	 */
+	public void setBrokenPart(String brokenPart) {
+		this.brokenPart = brokenPart;
+	}
+
+	/**
+	 * @return the brokenFee
+	 */
+	public Integer getBrokenFee() {
+		return brokenFee;
+	}
+
+	/**
+	 * @param brokenFee
+	 *            the brokenFee to set
+	 */
+	public void setBrokenFee(Integer brokenFee) {
+		this.brokenFee = brokenFee;
+	}
+
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content
+	 *            the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
 	}
 }

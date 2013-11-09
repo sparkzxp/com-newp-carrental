@@ -65,9 +65,7 @@
             </tr>
             <tr>
                 <td align="right" height="25px">备注说明：</td>
-                <td colspan="3">
-                	${driver.content}
-                </td>
+                <td colspan="3">${fn:replace(driver.content,vEnter,"<br>")}</td>
             </tr>
             <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>

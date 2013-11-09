@@ -2,6 +2,10 @@
     <div class="content">
         <table width="99%" border="1px" cellpadding="0" cellspacing="0" class="table">
             <tr>
+                <td width="20%" align="right" height="25px">备注说明：</td>
+                <td colspan="3">${fn:replace(rentCar.content,vEnter,"<br>")}</td>
+            </tr>
+            <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>
                 <td width="30%">
                 	${rentCar.createdUser.adminName}

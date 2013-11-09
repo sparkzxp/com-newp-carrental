@@ -115,9 +115,7 @@
             </tr>
             <tr>
                 <td align="right" height="25px">备注说明：</td>
-                <td colspan="3">
-                	${carSeries.content}
-                </td>
+                <td colspan="3">${fn:replace(carSeries.content,vEnter,"<br>")}</td>
             </tr>
             <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>

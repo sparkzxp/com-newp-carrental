@@ -32,6 +32,7 @@ import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
+import com.carrental.sm.service.system.IBusinessService;
 import com.carrental.sm.service.system.ICityService;
 import com.carrental.sm.service.system.ICouponService;
 import com.carrental.sm.service.system.IRentCarService;
@@ -62,6 +63,8 @@ public class RentCarAction {
 	private ICouponService couponService;
 	@Autowired
 	private IAdminService adminService;
+	@Autowired
+	private IBusinessService businessService;
 
 	// -----------------------------------车辆预订管理 start---------------------------------------
 	@RequestMapping(value = "/showBookCarList")
@@ -236,6 +239,7 @@ public class RentCarAction {
 		// TODO 预订确认后发送邮件和短信
 		return result;
 	}
+
 	// -----------------------------------车辆预订管理 end---------------------------------------
 
 	// -----------------------------------车辆租用管理 end---------------------------------------
@@ -251,6 +255,7 @@ public class RentCarAction {
 		List<RentCar> rentCars = this.rentCarService.queryList(rentCar, pager);
 		model.addAttribute("rentCar", rentCar);
 		model.addAttribute("rentCars", rentCars);
+		model.addAttribute("businesses", this.businessService.queryList(null, null));
 		return "admin/rentCarList";
 	}
 
@@ -289,7 +294,28 @@ public class RentCarAction {
 		// TODO 取车后与致昱监控系统中的车辆调度平台对接
 		return result;
 	}
+
+	@RequestMapping(value = "/toCarReturnBack")
+	public String toCarReturnBack(RentCar rentCar, Model model) {
+		rentCar = this.rentCarService.queryList(rentCar, null).get(0);
+		model.addAttribute("rentCar", rentCar);
+		return "admin/rentCar_returnBackCar";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/doRentCarReturnBack")
+	public Map<String, String> doRentCarReturnBack(RentCar rentCar, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		rentCar.setUpdatedUser(_admin);
+		rentCar.setRentStatus(Constants.RENT_STATUS_RETURN_BACK_CAR);
+		result.put("result", this.rentCarService.returnBackRentCar(rentCar, _admin));
+		// TODO 还车后与致昱监控系统中的车辆调度平台对接
+		return result;
+	}
+
 	// -----------------------------------车辆租用管理 end---------------------------------------
+
 	@ResponseBody
 	@RequestMapping(value = "/doRentCarUpdatePart", method = RequestMethod.POST)
 	public Map<String, String> doRentCarUpdatePart(RentCar rentCar, HttpServletRequest request) {

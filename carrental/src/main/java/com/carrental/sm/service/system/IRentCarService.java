@@ -84,4 +84,12 @@ public interface IRentCarService {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	String pickUpRentCar(RentCar rentCar, Admin _admin);
+
+	/**
+	 * 还车
+	 * 
+	 * @author 张霄鹏
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String returnBackRentCar(RentCar rentCar, Admin _admin);
 }

@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<base href="<%=basePath%>">
-    <title>车辆预订管理 详细</title>
+    <title>车辆租用管理 详细</title>
     <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
     <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />
@@ -111,6 +111,12 @@
                 	<input type="text" id="rentCar_car_plateNumber" name="car.plateNumber" value="${rentCar.car.plateNumber}" style="width:200px;" readonly="readonly" class="{required:true}"/>
                 	<input type="hidden" id="rentCar_carId" name="car.id" value="${rentCar.car.id}"/>
                 	<a href="javascript:void(0);" onclick="showCarList()">选择</a>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">备注说明：</td>
+                <td>
+                	<textarea name="content" rows="4" cols="30" class="{maxlengthCN:2000}">${car.content}</textarea>
                 </td>
             </tr>
             <tr>

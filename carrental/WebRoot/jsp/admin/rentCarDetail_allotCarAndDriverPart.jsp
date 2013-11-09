@@ -4,7 +4,9 @@
         	<c:if test="${rentCar.driver != null and rentCar.driver.id != ''}">
             <tr>
                 <td width="20%" align="right" height="25px">司机姓名：</td>
-                <td colspan="3">${rentCar.driver.driverName}</td>
+                <td width="30%">${rentCar.driver.driverName}</td>
+                <td width="20%" align="right" height="25px">联系电话：</td>
+                <td width="30%">${rentCar.driver.phone}</td>
             </tr>
             </c:if>
             <c:if test="${rentCar.car != null and rentCar.car.id != ''}">

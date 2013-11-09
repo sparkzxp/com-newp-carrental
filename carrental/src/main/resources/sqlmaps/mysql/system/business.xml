@@ -10,6 +10,7 @@
 		<result property="rentFee" column="rent_fee" />
 		<result property="insuranceFee" column="insurance_fee" />
 		<result property="fuelFee" column="fuel_fee" />
+		<result property="driverFee" column="driver_fee" />
 		<result property="baseHour" column="base_hour" />
 		<result property="exceedMinuteToHour" column="exceed_minute_to_hour" />
 		<result property="exceedHourFee" column="exceed_hour_fee" />
@@ -111,12 +112,12 @@
 			created_user, created_dt, updated_user, updated_dt,
 			business_type, rent_fee, insurance_fee, fuel_fee, exceed_minute_to_hour,
 			exceed_hour_fee, exceed_meter_to_kilometer, exceed_kilometer_fee, content, renttype_id,
-			base_hour, base_kilometer
+			base_hour, base_kilometer, driver_fee
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{businessType}, #{rentFee}, #{insuranceFee}, #{fuelFee}, #{exceedMinuteToHour},
 			#{exceedHourFee}, #{exceedMeterToKilometer}, #{exceedKilometerFee}, #{content}, #{rentType.id},
-			#{baseHour}, #{baseKilometer}
+			#{baseHour}, #{baseKilometer}, #{driverFee}
 		)
 	</insert>
 	
@@ -135,7 +136,8 @@
 			content = #{content},
 			renttype_id = #{rentType.id},
 			base_hour = #{baseHour},
-			base_kilometer = #{baseKilometer}
+			base_kilometer = #{baseKilometer},
+			driver_fee = #{driverFee}
 			
 			WHERE id = #{id}
 	</update>

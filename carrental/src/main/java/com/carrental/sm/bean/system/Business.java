@@ -12,6 +12,7 @@ public class Business extends BaseBean {
 	private Integer rentFee;// 租用费用
 	private Integer insuranceFee;// 保险费用
 	private Integer fuelFee;// 油费
+	private Integer driverFee;// 代驾费用
 	private Integer baseHour;// 基础小时数
 	private Integer exceedMinuteToHour;// 超多少分钟算一小时
 	private Integer exceedHourFee;// 超小时费
@@ -199,6 +200,21 @@ public class Business extends BaseBean {
 	 */
 	public void setBaseKilometer(Integer baseKilometer) {
 		this.baseKilometer = baseKilometer;
+	}
+
+	/**
+	 * @return the driverFee
+	 */
+	public Integer getDriverFee() {
+		return driverFee;
+	}
+
+	/**
+	 * @param driverFee
+	 *            the driverFee to set
+	 */
+	public void setDriverFee(Integer driverFee) {
+		this.driverFee = driverFee;
 	}
 
 }
