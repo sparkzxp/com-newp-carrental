@@ -88,7 +88,6 @@ public class CityService implements ICityService {
 		if(this.roleDao.countByCityIds(ids) > 0){
 			return "不能删除有角色关联的城市";
 		}
-		// TODO 验证是否被使用
 		this.cityDao.delete(ids);
 
 		Log log = new Log();

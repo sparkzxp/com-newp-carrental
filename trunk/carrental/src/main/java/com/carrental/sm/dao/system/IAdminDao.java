@@ -59,6 +59,13 @@ public interface IAdminDao {
 	Integer countByCityIds(String cityIds);
 
 	/**
+	 * 根据角色ID查询未删除的关联用户数量
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer countByRoleIds(String roleIds);
+
+	/**
 	 * 新增
 	 * 
 	 * @author 张霄鹏
