@@ -75,14 +75,14 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showBookCarList?rentStatus=1\'&rentStatus=\'1-A\'&rentStatus=\'2&business.businessType=会务车辆安排')">会务车辆安排</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showBookCarList?rentStatus=1\'&rentStatus=\'1-A\'&rentStatus=\'2&business.businessType=周边省市包车')">周边省市包车</a></li>
 </ul>
-<p><a href="javascript:void(0);">车辆租用管理</a></p>
+<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3\'&rentStatus=\'4')">车辆租用管理</a></p>
 <ul>
-<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=点到点代驾')">点到点代驾</a></li>
+<%-- <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=点到点代驾')">点到点代驾</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=机场及车站接送')">机场及车站接送</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=市用半日租')">市用半日租</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=市用全日租')">市用全日租</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=会务车辆安排')">会务车辆安排</a></li>
-<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=周边省市包车')">周边省市包车</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=周边省市包车')">周边省市包车</a></li> --%>
 </ul>
 </div>
 </body>

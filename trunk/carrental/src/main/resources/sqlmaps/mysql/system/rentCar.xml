@@ -32,6 +32,9 @@
 		<result property="exceedHour" column="exceed_hour" />
 		<result property="exceedHourFee" column="exceed_hour_fee" />
 		<result property="totalPrice" column="total_price" />
+		<result property="brokenPart" column="broken_part" />
+		<result property="brokenFee" column="broken_fee" />
+		<result property="content" column="content" />
 		<association property="rentType" column="rent_type_id" select="rentTypeNpc.queryByRentTypeId"/>
 		<association property="carSeries" column="car_series_id" select="carSeriesNpc.queryByCarSeriesId"/>
 		<association property="city" column="city_id" select="cityNpc.queryByCityId"/>
@@ -76,6 +79,11 @@
 						and B.business_type = #{rentCar.business.businessType}
 					</if>
 				</if>
+				<if test="rentCar.bookUser != null">
+					<if test="rentCar.bookUser.phone != null and rentCar.bookUser.phone != ''">
+						and A.phone like '%${rentCar.bookUser.phone}%'
+					</if>
+				</if>
 			</if>
 		</where>
 	</sql>
@@ -104,6 +112,11 @@
 						and B.business_type = #{rentCar.business.businessType}
 					</if>
 				</if>
+				<if test="rentCar.bookUser != null">
+					<if test="rentCar.bookUser.phone != null and rentCar.bookUser.phone != ''">
+						and A.phone = #{rentCar.bookUser.phone}
+					</if>
+				</if>
 			</if>
 		</where>
 	</sql>
@@ -117,6 +130,7 @@
 		SELECT T.* FROM `t_rent_car` T
 		join t_car_series CS on CS.id = T.car_series_id
 		join t_business B on B.id = T.business_id
+		left join t_admin A on A.id = T.book_user_id
 		<include refid="query_where" />
 		order by T.rent_status asc, T.created_dt asc
 		<include refid="limit"/>
@@ -126,6 +140,7 @@
 		SELECT T.* FROM `t_rent_car` T
 		join t_car_series CS on CS.id = T.car_series_id
 		join t_business B on B.id = T.business_id
+		left join t_admin A on A.id = T.book_user_id
 		<include refid="queryEquals_where" />
 		order by T.rent_status asc, T.created_dt asc
 		<include refid="limit"/>
@@ -135,6 +150,7 @@
 		select count(T.id) FROM t_rent_car T
 		join t_car_series CS on CS.id = T.car_series_id
 		join t_business B on B.id = T.business_id
+		left join t_admin A on A.id = T.book_user_id
 		<include refid="query_where"/>
 	</select>
 	
@@ -156,7 +172,7 @@
 			end_mileage, rent_fee, exceed_kilometer, exceed_kilometer_fee, exceed_hour,
 			exceed_hour_fee, total_price, rent_type_id, car_series_id,
 			city_id, car_id, driver_id, book_user_id, business_id,
-			coupon_id, agent_id
+			coupon_id, agent_id, broken_part, broken_fee, content
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{rentNumber}, #{rentStatus}, #{rentWay}, #{customer}, #{customerCompany},
@@ -166,7 +182,7 @@
 			#{endMileage}, #{rentFee}, #{exceedKilometer}, ${exceedKilometerFee}, #{exceedHour},
 			#{exceedHourFee}, #{totalPrice}, #{rentType.id}, #{carSeries.id},
 			#{city.id}, #{car.id}, #{driver.id}, #{bookUser.id}, #{business.id},
-			#{coupon.id}, #{agent.id}
+			#{coupon.id}, #{agent.id}, #{brokenPart}, #{brokenFee}, #{content}
 			
 		)
 	</insert>
@@ -208,7 +224,10 @@
 			book_user_id = #{bookUser.id},
 			business_id = #{business.id},
 			coupon_id = #{coupon.id},
-			agent_id = #{agent.id}
+			agent_id = #{agent.id},
+			broken_part = #{brokenPart},
+			broken_fee = #{brokenFee},
+			content = #{content}
 			
 			WHERE id = #{id}
 	</update>
@@ -318,7 +337,19 @@
 			coupon_id = #{coupon.id},
 			</if>
 			<if test="agent != null and agent.id != null and agent.id != ''">
-			agent_id = #{agent.id}
+			agent_id = #{agent.id},
+			</if>
+			<if test="brokenPart != null and brokenPart != ''">
+			broken_part = #{brokenPart},
+			</if>
+			<if test="brokenFee != null and brokenFee != ''">
+			broken_fee = #{brokenFee},
+			</if>
+			<if test="brokenFee == null or brokenFee == ''">
+			broken_fee = 0,
+			</if>
+			<if test="content != null and content != ''">
+			content = #{content},
 			</if>
 			</set>
 			WHERE id = #{id}

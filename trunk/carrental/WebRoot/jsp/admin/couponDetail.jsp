@@ -89,7 +89,7 @@
             </tr>
             <tr>
                 <td align="right" height="25px">备注说明：</td>
-                <td colspan="3">${coupon.content}</td>
+                <td colspan="3">${fn:replace(coupon.content,vEnter,"<br>")}</td>
             </tr>
             <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>

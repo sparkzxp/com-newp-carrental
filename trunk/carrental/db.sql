@@ -53,13 +53,14 @@ DROP TABLE IF EXISTS `t_business`;
 CREATE TABLE IF NOT EXISTS `t_business` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `created_user` varchar(50) NOT NULL,
-  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_user` varchar(50) NOT NULL,
   `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `business_type` varchar(50) NOT NULL,
   `rent_fee` smallint(6) NOT NULL,
   `insurance_fee` smallint(6) NOT NULL,
   `fuel_fee` smallint(6) NOT NULL,
+  `driver_fee` smallint(6) NOT NULL,
   `exceed_minute_to_hour` tinyint(4) NOT NULL DEFAULT '20',
   `exceed_hour_fee` smallint(6) NOT NULL,
   `exceed_meter_to_kilometer` smallint(6) NOT NULL DEFAULT '400',
@@ -74,10 +75,10 @@ CREATE TABLE IF NOT EXISTS `t_business` (
 -- 正在导出表  carrental.t_business 的数据：~3 rows (大约)
 DELETE FROM `t_business`;
 /*!40000 ALTER TABLE `t_business` DISABLE KEYS */;
-INSERT INTO `t_business` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `business_type`, `rent_fee`, `insurance_fee`, `fuel_fee`, `exceed_minute_to_hour`, `exceed_hour_fee`, `exceed_meter_to_kilometer`, `exceed_kilometer_fee`, `content`, `renttype_id`, `base_hour`, `base_kilometer`) VALUES
-	(1, '1', '2013-11-04 16:23:18', '1', '2013-11-04 16:23:18', '点到点代驾', 600, 10, 20, 20, 150, 400, 10, '', '1', 0, 0),
-	(2, '1', '2013-11-04 16:32:26', '1', '2013-11-04 16:32:26', '点到点代驾', 110, 2, 3, 4, 5, 6, 7, '8', '2', 0, 0),
-	(3, '1', '2013-11-08 15:47:24', '1', '2013-11-08 15:47:24', '机场及车站接送', 450, 20, 5, 20, 50, 400, 10, '', '1', 10, 100);
+INSERT INTO `t_business` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `business_type`, `rent_fee`, `insurance_fee`, `fuel_fee`, `driver_fee`, `exceed_minute_to_hour`, `exceed_hour_fee`, `exceed_meter_to_kilometer`, `exceed_kilometer_fee`, `content`, `renttype_id`, `base_hour`, `base_kilometer`) VALUES
+	(1, '1', '2013-11-04 16:23:18', '1', '2013-11-04 16:23:18', '点到点代驾', 600, 10, 20, 10, 20, 150, 400, 10, '', '1', 5, 50),
+	(2, '1', '2013-11-04 16:32:26', '1', '2013-11-09 16:55:36', '点到点代驾', 110, 2, 3, 10, 4, 5, 6, 7, '备注\r\n说明', '2', 5, 40),
+	(3, '1', '2013-11-08 15:47:24', '1', '2013-11-08 15:47:24', '机场及车站接送', 450, 20, 5, 10, 20, 50, 400, 10, '', '1', 10, 100);
 /*!40000 ALTER TABLE `t_business` ENABLE KEYS */;
 
 
@@ -86,7 +87,7 @@ DROP TABLE IF EXISTS `t_car`;
 CREATE TABLE IF NOT EXISTS `t_car` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `created_user` varchar(50) NOT NULL,
-  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_user` varchar(50) NOT NULL,
   `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `plate_number` varchar(50) NOT NULL,
@@ -201,7 +202,7 @@ DROP TABLE IF EXISTS `t_coupon`;
 CREATE TABLE IF NOT EXISTS `t_coupon` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `created_user` varchar(50) NOT NULL,
-  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_user` varchar(50) NOT NULL,
   `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `coupon_title` varchar(100) NOT NULL,
@@ -251,7 +252,7 @@ DROP TABLE IF EXISTS `t_driver`;
 CREATE TABLE IF NOT EXISTS `t_driver` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `created_user` varchar(50) NOT NULL,
-  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_user` varchar(50) NOT NULL,
   `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `driver_name` varchar(20) NOT NULL,
@@ -286,9 +287,9 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   `content` varchar(500) NOT NULL,
   `level` varchar(2) NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~76 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~91 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -373,7 +374,16 @@ INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `le
 	(79, '1', '2013-11-09 11:15:37', '确认预订信息', '用户：系统管理员 于 2013-11-09 11:15:37 为预订号为：ZC20131103-1 的预订信息分配了车辆（沪B25796）和司机（林鑫）', '5'),
 	(80, '1', '2013-11-09 13:03:57', '取车', '用户：系统管理员 于 2013-11-09 13:03:57 为预订号为：ZC20131103-1 的预订信息领取了车辆', '5'),
 	(81, '1', '2013-11-09 13:05:15', '取车', '用户：系统管理员 于 2013-11-09 13:05:15 为预订号为：ZC20131103-1 的预订信息领取了车辆', '5'),
-	(82, '1', '2013-11-09 13:09:10', '取车', '用户：系统管理员 于 2013-11-09 13:09:10 为预订号为：ZC20131103-1 的预订信息领取了车辆', '5');
+	(82, '1', '2013-11-09 13:09:10', '取车', '用户：系统管理员 于 2013-11-09 13:09:10 为预订号为：ZC20131103-1 的预订信息领取了车辆', '5'),
+	(83, '1', '2013-11-09 14:03:39', '取车', '用户：系统管理员 于 2013-11-09 14:03:39 领取了预订号为：ZC20131103-1 的预订车辆', '5'),
+	(84, '1', '2013-11-09 16:05:16', '还车', '用户：系统管理员 于 2013-11-09 16:05:16 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(85, '1', '2013-11-09 16:09:10', '还车', '用户：系统管理员 于 2013-11-09 16:09:10 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(86, '1', '2013-11-09 16:16:00', '还车', '用户：系统管理员 于 2013-11-09 16:16:00 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(87, '1', '2013-11-09 16:17:05', '还车', '用户：系统管理员 于 2013-11-09 16:17:05 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(88, '1', '2013-11-09 16:17:56', '还车', '用户：系统管理员 于 2013-11-09 16:17:56 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(89, '1', '2013-11-09 16:20:40', '还车', '用户：系统管理员 于 2013-11-09 16:20:40 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(90, '1', '2013-11-09 16:39:23', '还车', '用户：系统管理员 于 2013-11-09 16:39:23 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(91, '1', '2013-11-09 16:55:36', '修改业务信息', '用户：系统管理员 于 2013-11-09 16:55:36 修改了类型为：点到点代驾 的业务信息', '5');
 /*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
 
 
@@ -399,7 +409,7 @@ DROP TABLE IF EXISTS `t_rent_car`;
 CREATE TABLE IF NOT EXISTS `t_rent_car` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `created_user` varchar(50) NOT NULL,
-  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_user` varchar(50) NOT NULL,
   `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `rent_number` varchar(50) NOT NULL,
@@ -437,15 +447,18 @@ CREATE TABLE IF NOT EXISTS `t_rent_car` (
   `business_id` varchar(50) NOT NULL,
   `coupon_id` varchar(50) DEFAULT NULL,
   `agent_id` varchar(50) NOT NULL,
+  `broken_part` varchar(200) DEFAULT NULL,
+  `broken_fee` mediumint(9) DEFAULT NULL,
+  `content` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  carrental.t_rent_car 的数据：~2 rows (大约)
 DELETE FROM `t_rent_car`;
 /*!40000 ALTER TABLE `t_rent_car` DISABLE KEYS */;
-INSERT INTO `t_rent_car` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `rent_number`, `rent_status`, `rent_way`, `customer`, `customer_company`, `customer_phone`, `customer_email`, `book_pick_up_dt`, `book_pick_up_address`, `arrive_flight_no`, `arrive_flight_dt`, `take_off_flight_no`, `take_of_flight_dt`, `passenger_no`, `pick_up_dt`, `start_mileage`, `book_give_back_dt`, `book_give_back_address`, `give_back_dt`, `end_mileage`, `rent_fee`, `exceed_kilometer`, `exceed_kilometer_fee`, `exceed_hour`, `exceed_hour_fee`, `total_price`, `rent_type_id`, `car_series_id`, `city_id`, `car_id`, `driver_id`, `book_user_id`, `business_id`, `coupon_id`, `agent_id`) VALUES
-	(1, '1', '2013-11-09 13:09:10', '1', '2013-11-09 13:09:10', 'ZC20131103-1', '3', 'Call', '葛XX', 'XXX公司', '13811111114', '', '2013-11-15 15:29:00', 'ABC', '', NULL, '', NULL, 2, '2013-11-09 13:03:00', 586.3, '2013-11-15 20:29:00', 'EFG', NULL, NULL, 150, NULL, 10, NULL, 7, NULL, '1', '3', '1', '2', '1', '16', '2', '3', '1'),
-	(2, '1', '2013-11-08 17:03:48', '1', '2013-11-08 15:57:21', 'ZC20131103-1', '2', 'Call', '于XX', 'XXXX公司', '13822222222', '', '2013-11-18 15:55:00', 'QWE', 'FLT555', '2013-11-18 17:55:00', '', NULL, 3, NULL, NULL, '2013-11-18 21:55:00', 'CXZ', NULL, NULL, 612, NULL, 14, NULL, 68, NULL, '1', '2', '1', NULL, NULL, '6', '3', '3', '1');
+INSERT INTO `t_rent_car` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `rent_number`, `rent_status`, `rent_way`, `customer`, `customer_company`, `customer_phone`, `customer_email`, `book_pick_up_dt`, `book_pick_up_address`, `arrive_flight_no`, `arrive_flight_dt`, `take_off_flight_no`, `take_of_flight_dt`, `passenger_no`, `pick_up_dt`, `start_mileage`, `book_give_back_dt`, `book_give_back_address`, `give_back_dt`, `end_mileage`, `rent_fee`, `exceed_kilometer`, `exceed_kilometer_fee`, `exceed_hour`, `exceed_hour_fee`, `total_price`, `rent_type_id`, `car_series_id`, `city_id`, `car_id`, `driver_id`, `book_user_id`, `business_id`, `coupon_id`, `agent_id`, `broken_part`, `broken_fee`, `content`) VALUES
+	(1, '1', '2013-11-09 14:03:39', '1', '2013-11-09 16:39:23', 'ZC20131103-1', '4', 'Call', '葛XX', 'XXX公司', '13811111114', '', '2013-11-15 15:29:00', 'ABC', '', NULL, '', NULL, 2, '2013-11-09 13:03:00', 586.3, '2013-11-15 20:29:00', 'EFG', '2013-11-15 21:04:00', 662.4, 150, 37, 10, 1, 7, 542, '1', '3', '1', '2', '1', '16', '2', '3', '1', '无', 0, NULL),
+	(2, '1', '2013-11-08 17:03:48', '1', '2013-11-08 15:57:21', 'ZC20131103-1', '2', 'Call', '于XX', 'XXXX公司', '13822222222', '', '2013-11-18 15:55:00', 'QWE', 'FLT555', '2013-11-18 17:55:00', '', NULL, 3, NULL, NULL, '2013-11-18 21:55:00', 'CXZ', NULL, NULL, 612, NULL, 14, NULL, 68, NULL, '1', '2', '1', NULL, NULL, '6', '3', '3', '1', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `t_rent_car` ENABLE KEYS */;
 
 
@@ -454,7 +467,7 @@ DROP TABLE IF EXISTS `t_rent_type`;
 CREATE TABLE IF NOT EXISTS `t_rent_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `created_user` varchar(50) NOT NULL,
-  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_user` varchar(50) NOT NULL,
   `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `type_name` varchar(50) NOT NULL,

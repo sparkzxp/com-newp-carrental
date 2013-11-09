@@ -307,6 +307,12 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" height="25px">备注说明：</td>
+                <td>
+                	<textarea name="content" rows="4" cols="30" class="{maxlengthCN:2000}">${car.content}</textarea>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="4" align="center"><div class="button_nde">
                 	<input type="button" id="btn_submit" class="btn" value="提交"/>
                 	<input type="button" id="btn_close" class="btn" value="关闭" onclick="javascript:api.close();"/>

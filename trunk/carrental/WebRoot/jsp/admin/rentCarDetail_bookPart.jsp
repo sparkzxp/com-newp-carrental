@@ -16,13 +16,63 @@
                 </td>
             </tr>
             <tr>
-                <td width="20%" align="right" height="25px">租用车系：</td>
-                <td width="30%">
+                <td align="right" height="25px">租用车系：</td>
+                <td>
                 	${rentCar.carSeries.seriesName}
                 </td>
-                <td width="20%" align="right" height="25px">预订方式：</td>
-                <td width="30%">
+                <td align="right" height="25px">预订方式：</td>
+                <td>
                 	${rentCar.rentWay}
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">租用费用(元/天)：</td>
+                <td>
+                	${rentCar.rentFee}
+                </td>
+                <td align="right" height="25px">代驾费用(元)：</td>
+                <td>
+                	${rentCar.business.driverFee}
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">保险费用(元/小时)：</td>
+                <td>
+                	${rentCar.business.insuranceFee}
+                </td>
+                <td align="right" height="25px">油费/燃油附加费(元)：</td>
+                <td>
+                	${rentCar.business.fuelFee}
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">基础公里数(公里)：</td>
+                <td>
+                	${rentCar.business.baseKilometer}
+                </td>
+                <td align="right" height="25px">基础小时数(小时)：</td>
+                <td>
+                	${rentCar.business.baseHour}
+                </td>
+            </tr>
+            <tr>
+            	<td align="right" height="25px">超多少里算一公里：</td>
+                <td>
+                	${rentCar.business.exceedMeterToKilometer}
+                </td>
+            	<td align="right" height="25px">超公里费(元/公里)：</td>
+                <td>
+                	${rentCar.exceedKilometerFee}
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">超多少分钟算一小时：</td>
+                <td>
+                	${rentCar.business.exceedMinuteToHour}
+                </td>
+                <td align="right" height="25px">超小时费(元/小时)：</td>
+                <td>
+                	${rentCar.exceedHourFee}
                 </td>
             </tr>
             <tr>

@@ -73,6 +73,10 @@
                 <td><input type="text" name="rentFee" value="${business.rentFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>
             <tr>
+                <td align="right" height="25px">代驾费用(元)：</td>
+                <td><input type="text" name="driverFee" value="${business.driverFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">保险费用(元)：</td>
                 <td><input type="text" name="insuranceFee" value="${business.insuranceFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>

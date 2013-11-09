@@ -26,8 +26,12 @@
                 <td colspan="3">${business.rentType.typeName}</td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用费用(元)：</td>
-                <td colspan="3">${business.rentFee}</td>
+                <td align="right" height="25px">代驾费用(元)：</td>
+                <td colspan="3">${business.driverFee}</td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">保险费用(元)：</td>
+                <td colspan="3">${business.insuranceFee}</td>
             </tr>
             <tr>
                 <td align="right" height="25px">保险费用(元)：</td>
@@ -63,7 +67,7 @@
             </tr>
             <tr>
                 <td align="right" height="25px">备注说明：</td>
-                <td colspan="3">${business.content}</td>
+                <td colspan="3">${fn:replace(business.content,vEnter,"<br>")}</td>
             </tr>
             <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>
