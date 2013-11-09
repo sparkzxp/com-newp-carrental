@@ -136,6 +136,30 @@ public class RentCarService implements IRentCarService {
 		return Constants.OPERATION_SUCCESS;
 	}
 
+	public String allotRentCar(RentCar rentCar, Admin loginUser) {
+		this.rentCarDao.updatePart(rentCar);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		log.setTitle("分配车辆和司机");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 为预订号为：" + rentCar.getRentNumber() + " 的预订信息分配了车辆（" + rentCar.getCar().getPlateNumber() + "）和司机（" + rentCar.getDriver().getDriverName() + "）");
+		log.setLevel("5");
+		this.logDao.add(log);
+		return Constants.OPERATION_SUCCESS;
+	}
+
+	public String pickUpRentCar(RentCar rentCar, Admin loginUser) {
+		this.rentCarDao.updatePart(rentCar);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		log.setTitle("取车");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 为预订号为：" + rentCar.getRentNumber() + " 的预订信息领取了车辆");
+		log.setLevel("5");
+		this.logDao.add(log);
+		return Constants.OPERATION_SUCCESS;
+	}
+
 	private void initFee(RentCar rentCar) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("city", rentCar.getCity());

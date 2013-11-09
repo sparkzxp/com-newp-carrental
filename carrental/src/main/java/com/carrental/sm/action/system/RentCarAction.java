@@ -196,7 +196,7 @@ public class RentCarAction {
 			rentCar.setRentNumber("ZC" + DateUtil.formatDate("yyyyMMhh") + "-" + (this.rentCarService.count(_r) + 1));
 			rentCar.setCreatedUser(_admin);
 			result.put("result", this.rentCarService.add(rentCar, _newer, _admin));
-			// TODO 生成预订信邮件和短信
+			// TODO 后台预订直接生成预订信邮件和短信
 		}
 		result.put("id", rentCar.getId());
 		return result;
@@ -233,10 +233,63 @@ public class RentCarAction {
 		rentCar.setUpdatedUser(_admin);
 		rentCar.setRentStatus(Constants.RENT_STATUS_BOOK_EFFECT);
 		result.put("result", this.rentCarService.confirmRentCar(rentCar, _admin));
+		// TODO 预订确认后发送邮件和短信
 		return result;
 	}
 	// -----------------------------------车辆预订管理 end---------------------------------------
 
+	// -----------------------------------车辆租用管理 end---------------------------------------
+	@RequestMapping(value = "/showRentCarList")
+	public String rentCarList(RentCar rentCar, Pager pager, Model model, HttpServletRequest request) {
+		if (pager == null) {
+			pager = new Pager();
+		}
+		Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
+		if (null != role) {
+			rentCar.setCity(role.getCity());
+		}
+		List<RentCar> rentCars = this.rentCarService.queryList(rentCar, pager);
+		model.addAttribute("rentCar", rentCar);
+		model.addAttribute("rentCars", rentCars);
+		return "admin/rentCarList";
+	}
+
+	@RequestMapping(value = "/toCarAndDriverAllot")
+	public String toCarAndDriverAllot(RentCar rentCar, Model model) {
+		rentCar = this.rentCarService.queryList(rentCar, null).get(0);
+		model.addAttribute("rentCar", rentCar);
+		return "admin/rentCar_allotCarAndDriver";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/doRentCarAllot")
+	public Map<String, String> doRentCarAllot(RentCar rentCar, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		rentCar.setUpdatedUser(_admin);
+		result.put("result", this.rentCarService.allotRentCar(rentCar, _admin));
+		return result;
+	}
+
+	@RequestMapping(value = "/toCarPickUp")
+	public String toCarPickUp(RentCar rentCar, Model model) {
+		rentCar = this.rentCarService.queryList(rentCar, null).get(0);
+		model.addAttribute("rentCar", rentCar);
+		return "admin/rentCar_pickUpCar";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/doRentCarPickUp")
+	public Map<String, String> doRentCarPickUp(RentCar rentCar, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		rentCar.setUpdatedUser(_admin);
+		rentCar.setRentStatus(Constants.RENT_STATUS_PICK_UP_CAR);
+		result.put("result", this.rentCarService.pickUpRentCar(rentCar, _admin));
+		// TODO 取车后与致昱监控系统中的车辆调度平台对接
+		return result;
+	}
+	// -----------------------------------车辆租用管理 end---------------------------------------
 	@ResponseBody
 	@RequestMapping(value = "/doRentCarUpdatePart", method = RequestMethod.POST)
 	public Map<String, String> doRentCarUpdatePart(RentCar rentCar, HttpServletRequest request) {

@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>用户管理</title>
+		<title>车辆管理</title>
 		<base href="<%=basePath%>">
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 		<link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
@@ -12,15 +12,15 @@
 		<script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/form_util.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/common/pager.js"></script>
+		<script type="text/javascript" src="<%=basePath%>plugin/dialog/dialog.js"></script>
 		<script type="text/javascript" src="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.js"></script>
 		<script type="text/javascript">
 		var api = frameElement.api, W = api.opener;
 			$(function(){
 				//清空
 				$("#clearForm").click(function(){
-					$("#admin_adminName").val('');
-					$("#admin_phone").val('');
-					$("#admin_email").val('');
+					$("#car_plateNumber").val('');
+					$("#car_seriesName").val(''); 
 				});
 				//查询
 				$("#query").click(function(){
@@ -30,8 +30,8 @@
 				$("#ok").click(function(){
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						var data = '[{"id":"'+getSelectedByName('id')+'","adminName":"'+getSelectedByName('adminName')+'"}]';
-						W.loadUserData(eval(data)[0]);
+						var data = '[{"id":"'+getSelectedByName('id')+'","plateNumber":"'+getSelectedByName('plateNumber')+'"}]';
+						W.loadCarData(eval(data)[0]);
 						setTimeout(function(){api.close();},100);
 					}else{
 						$.prompt('请选择一条数据',{
@@ -46,19 +46,15 @@
 				$("#queryForm").submit();
 			}
 			function showDetail(id){
-				$.show('用户详细信息','<%=basePath%>admin/toAdminDetail?id='+id,400,300,'Z');
+				$.show('车辆详细信息','<%=basePath%>car/toCarDetail?id='+id,500,400,'Z');
 			}
 		</script>
 	</head>
 	<body>
-	<form action="<%=basePath%>admin/showPopupUserList" id="queryForm">
-	<input type="hidden" id="admin_type" name="type" value="${admin.type}"/>
-	<input type="hidden" id="admin_inBlacklist" name="inBlacklist" value="${admin.inBlacklist}"/>
-	<input type="hidden" id="admin_isDelete" name="isDelete" value="0"/>
+	<form action="<%=basePath%>car/showPopupCarList" id="queryForm">
 	<div class="button_nde">
-		用户姓名：<input type="text" id="admin_adminName" name="adminName" value="${admin.adminName}" class="input"/>
-		移动电话：<input type="text" id="admin_phone" name="phone" value="${admin.phone}" class="input"/>
-		邮箱地址：<input type="text" id="admin_email" name="email" value="${admin.email}" class="input"/>
+		车牌号码：<input type="text" id="car_plateNumber" name="plateNumber" value="${car.plateNumber}" class="input"/>
+		车系名称：<input type="text" id="car_seriesName" name="carSeries.seriesName" value="${car.carSeries.seriesName}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
@@ -70,26 +66,18 @@
 		<table width="100%" border="0" cellspacing="1" cellpadding="0" class="show">
 			<tr>
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
-				<th>用户姓名</th>
-				<th>登录账号</th>
-				<th>移动电话</th>
-				<th>邮箱地址</th>
+				<th>车牌号码</th>
+				<th>车系名称</th>
+				<th>采购时间</th>
 				<th>所在城市</th>
-				<th>用户类型</th>
 			</tr>
-			<c:forEach items="${admins}" var="parent">
+			<c:forEach items="${cars}" var="parent">
 			<tr>
 				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
-				<td name="adminName" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.adminName}"/></a></td>
-				<td name="loginName" align="center"><c:out value="${parent.loginName}"/></td>
-				<td name="phone" align="center"><c:out value="${parent.phone}"/></td>
-				<td name="email" align="center"><c:out value="${parent.email}"/></td>
+				<td name="plateNumber" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.plateNumber}"/></a></td>
+				<td name="carSeries" align="center"><c:out value="${parent.carSeries.seriesName}"/></td>
+				<td name="purchaseDate" align="center"><fmt:formatDate value="${parent.purchaseDate}" type="both" pattern="yyyy-MM-dd"/></td>
 				<td name="city" align="center"><c:out value="${parent.city.cityName}"/></td>
-				<td name="type" align="center">
-					<c:if test="${parent.type == 'CUSTOM_PERSONAL'}">个人用户</c:if>
-                	<c:if test="${parent.type == 'CUSTOM_COMPANY'}">企业用户</c:if>
-                	<c:if test="${parent.type == 'ADMIN'}">系统用户</c:if>
-				</td>
 			</tr>
 			</c:forEach>
 		</table>

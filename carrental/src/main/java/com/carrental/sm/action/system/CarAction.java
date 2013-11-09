@@ -65,6 +65,24 @@ public class CarAction {
 		return "admin/carList";
 	}
 
+	/**
+	 * 显示popup列表弹出层
+	 */
+	@RequestMapping(value = "/showPopupCarList")
+	public String showPopupCarList(Car car, Pager pager, Model model, HttpServletRequest request) {
+		if (pager == null) {
+			pager = new Pager();
+		}
+		/*Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
+		if (null != role) {
+			car.setCity(role.getCity());
+		}*/
+		List<Car> cars = this.carService.queryList(car, pager);
+		model.addAttribute("car", car);
+		model.addAttribute("cars", cars);
+		return "admin/popupCarList";
+	}
+
 	@RequestMapping(value = "/toCarEdit")
 	public String toCarEdit(Car car, Model model, HttpServletRequest request) {
 		if (StringUtils.isNotEmpty(car.getId())) {

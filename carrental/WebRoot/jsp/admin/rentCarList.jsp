@@ -26,19 +26,15 @@
 				$("#query").click(function(){
 					pageLoad();
 				});
-				//新增
-				$("#add").click(function(){
-					$.show('新增系统车辆预订','<%=basePath%>rentCar/toBookCarEdit?id=&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,"A");
-				});
-				//修改
-				$("#update").click(function(){
-					// 状态为1的才允许修改
+				//分配车辆和司机
+				$("#allot").click(function(){
+					// 状态为2的才允许修改
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						if(getSelectedByName('rentStatus') == '1'){
-							$.show('修改系统车辆预订','<%=basePath%>rentCar/toBookCarEdit?id='+ids[0]+'&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
+						if(getSelectedByName('rentStatus') == '2'){
+							$.show('分配车辆和司机','<%=basePath%>rentCar/toCarAndDriverAllot?id='+ids[0]+'&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
 						}else{
-							$.prompt('该预订已生效或已取消，请不要修改',{
+							$.prompt('该预订还未生效或已出租，无法分配车辆和司机',{
 								title: '提示',
 			        			buttons: { "确认": false}
 			        		});
@@ -50,88 +46,20 @@
 		        		});
 					}
 				});
-				//取消订单
-				$("#cancel").click(function(){
+				//取车
+				$("#pickUp").click(function(){
+					// 状态为2的才允许修改
 					var ids = getSelectedIdArray();
-					var rentStatus = getSelectedArrayByName('rentStatus');
-					if(ids.length==0){
-						$.prompt('请选择至少一条数据',{
-							title: '提示',
-		        			buttons: { "确认": false}
-		        		});
-					}else{
-						var flag = false;
-						for(var i=0; i<rentStatus.length; i++){
-							if(rentStatus[i] == '3' || rentStatus[i] == '4'){
-								flag = true;
-								break;
-							}
-						}
-						if(flag){
-							$.prompt('有租车的车辆还未归还或已完成租车，请不要取消订单',{
+					if(ids.length==1){
+						if(getSelectedByName('car') == '' || getSelectedByName('driver') == ''){
+							$.prompt('取车前请先分配车辆和司机',{
 								title: '提示',
 			        			buttons: { "确认": false}
 			        		});
+						}else if(getSelectedByName('rentStatus') == '2'){
+							$.show('取车','<%=basePath%>rentCar/toCarPickUp?id='+ids[0]+'&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
 						}else{
-							$.prompt(
-								{state0:{
-									html: '确定要取消订单吗',
-				        			buttons: { "确认": 1, "取消": 0},
-				        			submit:function(e,v,m,f){
-				        				e.preventDefault();
-				        				if(v==0){
-				        					$.prompt.close();
-				        				}else if(v==1){
-				        					$.post("<%=basePath%>rentCar/doRentCarCancel", 
-				        						{
-				        							"ids": array2String(getSelectedIdArray()),
-				        							"names":array2String(getSelectedArrayByName("rentNumber"))
-				        						}, function(data){
-							   					if(data.result=="SUCCESS"){
-							   						$.prompt.goToState('state1', true);
-							   						return false;
-							   					}else{
-							   						$.prompt.goToState('state2', true);
-							   						return false;
-							   					}
-							   				}, "json");
-				        				}
-				        			}
-				        		},
-				        		state1:{
-				        			html: '操作成功!点击确定返回列表',
-				        			buttons: { "确认": true},
-				        			submit:function(e,v,m,f){
-				        				e.preventDefault();
-				        				if(v){
-				        					$.prompt.close();
-				        					pageLoad();
-				        				}
-				        			}
-				        		},
-				        		state2:{
-				        			html: '操作失败',
-				        			buttons: { "确认": true},
-				        			submit:function(e,v,m,f){
-				        				e.preventDefault();
-				        				if(v){
-				        					$.prompt.goToState('state0');
-				        				}
-				        			}
-				        		}}
-							);
-						}
-					}
-				});
-				//确认订单
-				$("#confirm").click(function(){
-					// 状态为1的才允许修改
-					var ids = getSelectedIdArray();
-					if(ids.length==1){
-						if(getSelectedByName('rentStatus') == '1'){
-							$.show('修改系统车辆预订','<%=basePath%>rentCar/toBookCarConfirm?id='+ids[0]+'&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
-						}else{
-							$.prompt('该预订已生效或已取消，不需要确认',{
+							$.prompt('该预订还未生效或已取车，请不要再次取车',{
 								title: '提示',
 			        			buttons: { "确认": false}
 			        		});
@@ -143,19 +71,18 @@
 		        		});
 					}
 				});
-				
 			});
 			//重新提交表单刷新页面
 			function pageLoad(){
 				$("#queryForm").submit();
 			}
 			function showDetail(id){
-				$.show('车辆预订详细信息','<%=basePath%>rentCar/toBookCarDetail?id='+id,700,500,'A');
+				$.show('车辆预订详细信息','<%=basePath%>rentCar/toRentCarDetail?id='+id,700,500,'A');
 			}
 		</script>
 	</head>
 	<body>
-	<form action="<%=basePath%>rentCar/showBookCarList" id="queryForm">
+	<form action="<%=basePath%>rentCar/showRentCarList" id="queryForm">
     <input type="hidden" id="rentCar_business" name="business.businessType" value="${rentCar.business.businessType}"/>
     <input type="hidden" id="rentCar_business_id" name="business.id" value="${rentCar.business.id}"/>
 	<div class="maintitle">
@@ -169,11 +96,8 @@
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
 	<div class="button_nde">
-		<a href="javascript:void(0);" id="add"><span>新增</span></a>
-		<a href="javascript:void(0);" id="update"><span>修改</span></a>
-		<a href="javascript:void(0);" id="cancel"><span>取消订单</span></a>
-		<a href="javascript:void(0);" id="confirm"><span>确认订单</span></a>
-		<a href="javascript:void(0);" id=""><span>分配车辆和司机</span></a>
+		<a href="javascript:void(0);" id="allot"><span>分配车辆和司机</span></a>
+		<a href="javascript:void(0);" id="pickUp"><span>取车</span></a>
 		<h6 class="clear"></h6>
 	</div>
 	<div class="content">
@@ -187,6 +111,8 @@
 				<th>预订人电话</th>
 				<th>订单状态</th>
 				<th style="display: none;">订单状态码</th>
+				<th style="display: none;">车牌号码</th>
+				<th style="display: none;">司机姓名</th>
 			</tr>
 			<c:forEach items="${rentCars}" var="parent">
 			<tr>
@@ -204,6 +130,8 @@
 					<c:if test="${parent.rentStatus == '4'}">已归还</c:if>
 				</td>
 				<td style="display: none;" name="rentStatus" align="center"><c:out value="${parent.rentStatus}"/></td>
+				<td style="display: none;" name="car" align="center"><c:out value="${parent.car.plateNumber}"/></td>
+				<td style="display: none;" name="driver" align="center"><c:out value="${parent.driver.driverName}"/></td>
 			</tr>
 			</c:forEach>
 		</table>

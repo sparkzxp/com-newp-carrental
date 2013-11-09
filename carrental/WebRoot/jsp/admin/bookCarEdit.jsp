@@ -148,7 +148,7 @@
     	$.show('选择预订人','<%=basePath%>admin/showPopupUserList?type=CUSTOM&isDelete=0&inBlacklist=0',600,400,"B");
     }
     
-    function loadData(data){
+    function loadUserData(data){
     	$('#bookUser_id').val(data.id);
     	$('#bookUser_adminName').val(data.adminName);
     }

@@ -22,6 +22,6 @@ public interface Constants {
 	String RENT_STATUS_NOT_ACCEPT = "1";
 	String RENT_STATUS_BOOK_CANCEL = "1-A";
 	String RENT_STATUS_BOOK_EFFECT = "2";
-	String RENT_STATUS_TAKE_CAR = "3";
+	String RENT_STATUS_PICK_UP_CAR = "3";
 	String RENT_STATUS_RETURN_BACK_CAR = "4";
 }

@@ -16,6 +16,7 @@
     <form name="editForm" id="editForm">
     <input type="hidden" name="id" value="${rentCar.id}"/>
     <%@ include file="rentCarDetail_bookPart.jsp"%>
+    <%@ include file="rentCarDetail_userInfoPart.jsp"%>
     <div class="button_nde" style="text-align: center;">
        	<input type="button" id="btn_close" class="btn" value="关闭" onclick="javascript:api.close();"/>
     </div>
