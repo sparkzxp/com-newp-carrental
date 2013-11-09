@@ -9,6 +9,7 @@
 		<result property="cityName" column="city_name" />
 		<result property="cityCode" column="city_code" />
 		<result property="multiple" column="multiple" />
+		<result property="isDelete" column="is_delete" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
@@ -25,6 +26,9 @@
 				<if test="city.cityCode != null and city.cityCode != ''">
 					and T.city_code like '%${city.cityCode}%'
 				</if>
+				<if test="city.isDelete != null and city.isDelete != ''">
+					and T.is_delete = #{city.isDelete}
+				</if>
 			</if>
 		</where>
 	</sql>
@@ -39,6 +43,9 @@
 				</if>
 				<if test="city.cityCode != null and city.cityCode != ''">
 					and T.city_code = #{city.cityCode}
+				</if>
+				<if test="city.isDelete != null and city.isDelete != ''">
+					and T.is_delete = #{city.isDelete}
 				</if>
 			</if>
 		</where>
@@ -79,10 +86,10 @@
 		</selectKey>
 		INSERT INTO `t_city`(
 			created_user, created_dt, updated_user, updated_dt,
-			city_name, city_code, multiple
+			city_name, city_code, multiple, is_delete
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
-			#{cityName}, #{cityCode}, #{multiple}
+			#{cityName}, #{cityCode}, #{multiple}, '0'
 		)
 	</insert>
 	
@@ -97,7 +104,9 @@
 			WHERE id = #{id}
 	</update>
 	
-	<delete id="delete" parameterType="string">
-		delete from `t_city` where id in (${_parameter})
-	</delete>
+	<update id="delete" parameterType="string">
+		update `t_city` set
+			is_delete = '1'
+			where id in (${_parameter})
+	</update>
 </mapper>

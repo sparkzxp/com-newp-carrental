@@ -12,6 +12,7 @@ public class City extends BaseBean {
 	private String cityName;
 	private String cityCode;
 	private Double multiple;// 价格倍数
+	private String isDelete;
 
 	/**
 	 * @return the cityName
@@ -56,6 +57,21 @@ public class City extends BaseBean {
 	 */
 	public void setMultiple(Double multiple) {
 		this.multiple = multiple;
+	}
+
+	/**
+	 * @return the isDelete
+	 */
+	public String getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * @param isDelete
+	 *            the isDelete to set
+	 */
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
 
 }

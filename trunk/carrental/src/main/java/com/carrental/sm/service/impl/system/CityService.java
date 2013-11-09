@@ -16,8 +16,10 @@ import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
+import com.carrental.sm.dao.system.IAdminDao;
 import com.carrental.sm.dao.system.ICityDao;
 import com.carrental.sm.dao.system.ILogDao;
+import com.carrental.sm.dao.system.IRoleDao;
 import com.carrental.sm.service.system.ICityService;
 
 /**
@@ -31,6 +33,10 @@ public class CityService implements ICityService {
 	private ICityDao cityDao;
 	@Autowired
 	private ILogDao logDao;
+	@Autowired
+	private IAdminDao adminDao;
+	@Autowired
+	private IRoleDao roleDao;
 
 	public List<City> queryList(City city, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -76,6 +82,12 @@ public class CityService implements ICityService {
 	}
 
 	public String delete(String ids, String names, Admin loginUser) {
+		if(this.adminDao.countByCityIds(ids) > 0){
+			return "不能删除有用户关联的城市";
+		}
+		if(this.roleDao.countByCityIds(ids) > 0){
+			return "不能删除有角色关联的城市";
+		}
 		// TODO 验证是否被使用
 		this.cityDao.delete(ids);
 

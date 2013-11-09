@@ -68,7 +68,8 @@
 						   						$.prompt.goToState('state1', true);
 						   						return false;
 						   					}else{
-						   						$.prompt.goToState('state2', true);
+						   						alert(data.result);
+						   						//$.prompt.goToState('state2', true);
 						   						return false;
 						   					}
 						   				}, "json");
@@ -111,6 +112,7 @@
 	</head>
 	<body>
 	<form action="<%=basePath%>city/showCityList" id="queryForm">
+	<input type="hidden" id="city_isDelete" name="isDelete" value="0"/>
 	<div class="maintitle">
 		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;城市管理</div>
 		<h1>城市管理</h1>
