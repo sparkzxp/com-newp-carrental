@@ -39,7 +39,7 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>admin/showAdminList?type=CUSTOM&isDelete=0&inBlacklist=1')">黑名单管理</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>admin/showAdminList?isDelete=0&inBlacklist=0')">用户密码管理</a></li>
 </ul>
-<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>city/showCityList')">城市管理</a></p>
+<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>city/showCityList?isDelete=0')">城市管理</a></p>
 <ul>
 </ul>
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>company/toCompanyEdit')">企业信息管理</a></p>

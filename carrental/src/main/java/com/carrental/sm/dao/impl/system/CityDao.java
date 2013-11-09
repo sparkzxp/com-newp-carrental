@@ -42,7 +42,7 @@ public class CityDao implements ICityDao {
 	}
 
 	public Integer delete(String ids) {
-		return this.sqlSession.delete("cityNpc.delete", ids);
+		return this.sqlSession.update("cityNpc.delete", ids);
 	}
 
 }

@@ -42,6 +42,13 @@ public interface IRoleDao {
 	Integer count(Map<String, Object> params);
 
 	/**
+	 * 根据城市ID查询未删除的关联用户数量
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer countByCityIds(String cityIds);
+
+	/**
 	 * 新增
 	 * 
 	 * @author 张霄鹏
