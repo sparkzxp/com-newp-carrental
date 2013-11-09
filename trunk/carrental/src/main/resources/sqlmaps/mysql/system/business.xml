@@ -78,7 +78,7 @@
 	</sql>
 
 	<select id="queryList" resultMap="businessRstMap" parameterType="map">
-		SELECT T.* FROM `t_business` T
+		SELECT distinct T.* FROM `t_business` T
 		left join t_rent_type RT on RT.id = T.renttype_id
 		<include refid="query_where" />
 		order by T.rent_fee asc
@@ -91,7 +91,7 @@
 	</select>
 	
 	<select id="queryEqualsList" resultMap="businessRstMap" parameterType="map">
-		SELECT T.* FROM `t_business` T
+		SELECT distinct T.* FROM `t_business` T
 		left join t_rent_type RT on RT.id = T.renttype_id
 		<include refid="queryEquals_where" />
 		order by T.rent_fee asc
@@ -99,7 +99,7 @@
 	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
-		select count(T.id) FROM t_business T
+		select count(distinct T.id) FROM t_business T
 		left join t_rent_type RT on RT.id = T.renttype_id
 		<include refid="query_where"/>
 	</select>

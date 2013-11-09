@@ -105,6 +105,7 @@
 	</head>
 	<body>
 	<form action="<%=basePath%>rentCar/showRentCarList" id="queryForm">
+	<input type="hidden" id="rentCar_rentStatus" name="rentStatus" value="${rentCar.rentStatus}"/>
 	<div class="maintitle">
 		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;<a href="javascript:void(0);">车辆租用管理</a>&gt;<span class="title">车辆租用管理</span></div>
 		<h1><span class="title">车辆租用管理</span></h1>
@@ -114,9 +115,12 @@
 		车系名称：<input type="text" id="rentCar_carSeries_seriesName" name="carSeries.seriesName" value="${rentCar.carSeries.seriesName}" class="input"/>
 		业务类型：<select id="rentCar_businessType" name="business.businessType">
 						<option value="">--请选择--</option>
-						<c:forEach items="${businesses}" var="parent">
-                		<option value="<c:out value="${parent.businessType}"/>" <c:if test="${parent.id == rentCar.business.businessType}">selected="true"</c:if>><c:out value="${parent.businessType}"/></option>
-                		</c:forEach>
+                		<option value="点到点代驾" <c:if test="${'点到点代驾' == rentCar.business.businessType}">selected="true"</c:if>>点到点代驾</option>
+                		<option value="机场及车站接送" <c:if test="${'机场及车站接送' == rentCar.business.businessType}">selected="true"</c:if>>机场及车站接送</option>
+                		<option value="市用半日租" <c:if test="${'市用半日租' == rentCar.business.businessType}">selected="true"</c:if>>市用半日租</option>
+                		<option value="市用全日租" <c:if test="${'市用全日租' == rentCar.business.businessType}">selected="true"</c:if>>市用全日租</option>
+                		<option value="会务车辆安排" <c:if test="${'会务车辆安排' == rentCar.business.businessType}">selected="true"</c:if>>会务车辆安排</option>
+                		<option value="周边省市包车" <c:if test="${'周边省市包车' == rentCar.business.businessType}">selected="true"</c:if>>周边省市包车</option>
 					</select>
 		预订人电话：<input type="text" id="rentCar_bookUser_phone" name="bookUser.phone" value="${rentCar.bookUser.phone}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">

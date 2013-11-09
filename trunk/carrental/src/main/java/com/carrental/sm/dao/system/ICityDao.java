@@ -56,7 +56,7 @@ public interface ICityDao {
 	Integer update(City city);
 
 	/**
-	 * 删除
+	 * 删除 - 假删
 	 * 
 	 * @author 张霄鹏
 	 */

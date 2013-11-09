@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Business;
 import com.carrental.sm.bean.system.CarSeries;
 import com.carrental.sm.bean.system.Coupon;
 import com.carrental.sm.bean.system.RentCar;
@@ -142,6 +143,12 @@ public class RentCarAction {
 			}
 		}
 
+		// 根据业务类型和租用类型查询业务ID
+		Business business = rentCar.getBusiness();
+		business.setRentType(rentCar.getRentType());
+		business = this.businessService.queryList(business, null).get(0);
+		rentCar.setBusiness(business);
+
 		// 是否新用户
 		Admin _newer = new Admin();
 		if (bookUserType.equals("1")) {
@@ -255,7 +262,6 @@ public class RentCarAction {
 		List<RentCar> rentCars = this.rentCarService.queryList(rentCar, pager);
 		model.addAttribute("rentCar", rentCar);
 		model.addAttribute("rentCars", rentCars);
-		model.addAttribute("businesses", this.businessService.queryList(null, null));
 		return "admin/rentCarList";
 	}
 

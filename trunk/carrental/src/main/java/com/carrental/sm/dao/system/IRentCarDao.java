@@ -42,6 +42,13 @@ public interface IRentCarDao {
 	Integer count(Map<String, Object> params);
 
 	/**
+	 * 根据业务ID查询关联的预订数量
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer countByBusinessIds(String businessIds);
+
+	/**
 	 * 新增
 	 * 
 	 * @author 张霄鹏

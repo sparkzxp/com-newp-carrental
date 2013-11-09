@@ -156,6 +156,7 @@
 	</head>
 	<body>
 	<form action="<%=basePath%>rentCar/showBookCarList" id="queryForm">
+    <input type="hidden" id="rentCar_rentStatus" name="rentStatus" value="${rentCar.rentStatus}"/>
     <input type="hidden" id="rentCar_business" name="business.businessType" value="${rentCar.business.businessType}"/>
     <input type="hidden" id="rentCar_business_id" name="business.id" value="${rentCar.business.id}"/>
 	<div class="maintitle">
