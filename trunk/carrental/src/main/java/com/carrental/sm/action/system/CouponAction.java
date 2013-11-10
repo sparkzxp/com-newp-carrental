@@ -70,7 +70,9 @@ public class CouponAction {
 		}
 		model.addAttribute("coupon", coupon);
 		// 车系树json
-		List<CarSeries> carSeriesList = this.carSeriesService.queryList(null, null);
+		CarSeries _carSeries = new CarSeries();
+		_carSeries.setIsDelete("0");
+		List<CarSeries> carSeriesList = this.carSeriesService.queryList(_carSeries, null);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject jsonObject;
 		for (CarSeries r : carSeriesList) {

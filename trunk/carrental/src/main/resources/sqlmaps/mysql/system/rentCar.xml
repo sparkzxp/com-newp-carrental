@@ -154,6 +154,11 @@
 		<include refid="query_where"/>
 	</select>
 	
+	<select id="countByCarIds" resultType="int" parameterType="string">
+		select count(T.id) FROM t_rent_car T
+		where T.car_id in ('${_parameter}')
+	</select>
+	
 	<select id="countByBusinessIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_rent_car T
 		where T.business_id in ('${_parameter}')

@@ -47,7 +47,7 @@ function toUrl(url){
 </ul>
 <p><a href="javascript:void(0);">车辆管理</a></p>
 <ul>
-<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>carSeries/showCarSeriesList')">车系管理</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>carSeries/showCarSeriesList?isDelete=0')">车系管理</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentType/showRentTypeList')">租用类型管理</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>car/showCarList')">车辆管理</a></li>
 </ul>

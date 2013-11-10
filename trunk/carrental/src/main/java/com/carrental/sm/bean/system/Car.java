@@ -18,6 +18,7 @@ public class Car extends BaseBean {
 	private CarSeries carSeries;// 车系
 	private City city;// 所属城市
 	private String content;
+	private String isDelete;
 
 	/**
 	 * @return the plateNumber
@@ -137,6 +138,21 @@ public class Car extends BaseBean {
 	 */
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	/**
+	 * @return the isDelete
+	 */
+	public String getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * @param isDelete
+	 *            the isDelete to set
+	 */
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
 
 }

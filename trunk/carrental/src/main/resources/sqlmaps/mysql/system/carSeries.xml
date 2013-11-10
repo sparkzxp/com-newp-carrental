@@ -23,6 +23,7 @@
 		<result property="ROZ" column="roz" />
 		<result property="marketDate" column="market_date" />
 		<result property="content" column="content" />
+		<result property="isDelete" column="is_delete" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
@@ -42,6 +43,9 @@
 				<if test="carSeries.engine != null and carSeries.engine != ''">
 					and T.engine like '%${carSeries.engine}%'
 				</if>
+				<if test="carSeries.isDelete != null and carSeries.isDelete != ''">
+					and T.is_delete = #{carSeries.isDelete}
+				</if>
 			</if>
 		</where>
 	</sql>
@@ -59,6 +63,9 @@
 				</if>
 				<if test="carSeries.engine != null and carSeries.engine != ''">
 					and T.engine = #{carSeries.engine}
+				</if>
+				<if test="carSeries.isDelete != null and carSeries.isDelete != ''">
+					and T.is_delete = #{carSeries.isDelete}
 				</if>
 			</if>
 		</where>
@@ -102,7 +109,7 @@
 	<select id="queryByRentTypeId" resultMap="carSeriesRstMap" parameterType="string">
 		SELECT T.* FROM `t_car_series` T
 		join t_renttype_carseries RC on RC.series_id = T.id
-		where RC.type_id = #{typeId}
+		where T.is_delete = '0' and RC.type_id = #{typeId}
 	</select>
 	
 	<select id="queryByCouponId" resultMap="carSeriesRstMap" parameterType="string">
@@ -120,13 +127,13 @@
 			style_name, level, engine, gearbox, lwh,
 			structrue, fuel_consumption, fuel_capacity, trunk_capacity, fuel_form,
 			roz, market_date, content, series_name, manufacturer,
-			series_img_path, manufacturer_logo_path
+			series_img_path, manufacturer_logo_path, is_delete
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{styleName}, #{level}, #{engine}, #{gearbox}, #{LWH},
 			#{structrue}, #{fuelConsumption}, #{fuelCapacity}, #{trunkCapacity}, #{fuelForm},
 			#{ROZ}, #{marketDate}, #{content}, #{seriesName}, #{manufacturer},
-			#{seriesImgPath}, #{manufacturerLogoPath}
+			#{seriesImgPath}, #{manufacturerLogoPath}, '0'
 		)
 	</insert>
 	
@@ -155,7 +162,9 @@
 			WHERE id = #{id}
 	</update>
 	
-	<delete id="delete" parameterType="string">
-		delete from `t_car_series` where id in (${_parameter})
-	</delete>
+	<update id="delete" parameterType="string">
+		update `t_car_series` set
+			is_delete = '1'
+			where id in (${_parameter})
+	</update>
 </mapper>

@@ -42,7 +42,7 @@ public class CarSeriesDao implements ICarSeriesDao {
 	}
 
 	public Integer delete(String ids) {
-		return this.sqlSession.delete("carSeriesNpc.delete", ids);
+		return this.sqlSession.update("carSeriesNpc.delete", ids);
 	}
 
 	public List<CarSeries> queryByRentTypeId(String rentTypeId) {

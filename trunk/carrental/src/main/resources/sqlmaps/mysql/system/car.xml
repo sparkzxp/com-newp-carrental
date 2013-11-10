@@ -101,6 +101,11 @@
 		<include refid="query_where"/>
 	</select>
 	
+	<select id="countByCarSeriesIds" resultType="int" parameterType="string">
+		select count(T.id) FROM t_car T
+		where T.series_id in ('${_parameter}')
+	</select>
+	
 	<insert id="add" parameterType="car">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()

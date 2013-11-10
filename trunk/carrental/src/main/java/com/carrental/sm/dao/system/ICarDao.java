@@ -42,6 +42,13 @@ public interface ICarDao {
 	Integer count(Map<String, Object> params);
 
 	/**
+	 * 根据车系ID查询未删除的关联车辆数量
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer countByCarSeriesIds(String carSeriesIds);
+
+	/**
 	 * 新增
 	 * 
 	 * @author 张霄鹏

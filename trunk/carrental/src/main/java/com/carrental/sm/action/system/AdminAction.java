@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.City;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
@@ -91,7 +92,9 @@ public class AdminAction {
 		if (null != _role) {
 			model.addAttribute("citys", this.cityService.queryList(_role.getCity(), null));
 		} else {
-			model.addAttribute("citys", this.cityService.queryList(null, null));
+			City _city = new City();
+			_city.setIsDelete("0");
+			model.addAttribute("citys", this.cityService.queryList(_city, null));
 		}
 		model.addAttribute("roles", this.roleService.queryList(null, null));
 		if (Constants.USER_ADMIN.equals(admin.getType())) {
