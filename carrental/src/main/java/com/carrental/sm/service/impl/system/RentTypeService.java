@@ -19,6 +19,7 @@ import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.ILogDao;
+import com.carrental.sm.dao.system.IRentCarDao;
 import com.carrental.sm.dao.system.IRentTypeDao;
 import com.carrental.sm.service.system.ICarSeriesService;
 import com.carrental.sm.service.system.IRentTypeService;
@@ -36,6 +37,8 @@ public class RentTypeService implements IRentTypeService {
 	private ILogDao logDao;
 	@Autowired
 	private ICarSeriesService carSeriesService;
+	@Autowired
+	private IRentCarDao rentCarDao;
 
 	public List<RentType> queryList(RentType rentType, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -112,7 +115,10 @@ public class RentTypeService implements IRentTypeService {
 	}
 
 	public String delete(String ids, String names, Admin loginUser) {
-		// TODO 验证是否被使用
+		// 验证是否被使用
+		if (this.rentCarDao.countByRentTypeIds(ids) > 0) {
+			return "所选租用类型已被租用或预订过，请不要删除";
+		}
 		this.rentTypeDao.delete(ids);
 
 		this.rentTypeDao.deleteCarSeriesList(ids);
