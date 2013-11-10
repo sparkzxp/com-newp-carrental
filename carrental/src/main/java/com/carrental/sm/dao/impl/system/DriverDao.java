@@ -42,7 +42,7 @@ public class DriverDao implements IDriverDao {
 	}
 
 	public Integer delete(String ids) {
-		return this.sqlSession.update("driverNpc.delete", ids);
+		return this.sqlSession.delete("driverNpc.delete", ids);
 	}
 
 }

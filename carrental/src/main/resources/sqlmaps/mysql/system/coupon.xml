@@ -16,7 +16,6 @@
 		<result property="freeDays" column="free_days" />
 		<result property="discount" column="discount" />
 		<result property="content" column="content" />
-		<result property="isDelete" column="is_delete" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByCouponId" column="id" />
@@ -33,9 +32,6 @@
 				</if>
 				<if test="coupon.couponType != null and coupon.couponType != ''">
 					and T.coupon_type = #{coupon.couponType}
-				</if>
-				<if test="coupon.isDelete != null and coupon.isDelete != ''">
-					and T.is_delete = #{coupon.isDelete}
 				</if>
 				<if test="coupon.startDate != null and coupon.startDate != ''">
 					<![CDATA[
@@ -61,9 +57,6 @@
 				</if>
 				<if test="coupon.couponType != null and coupon.couponType != ''">
 					and T.coupon_type = #{coupon.couponType}
-				</if>
-				<if test="coupon.isDelete != null and coupon.isDelete != ''">
-					and T.is_delete = #{coupon.isDelete}
 				</if>
 				<if test="coupon.startDate != null and coupon.startDate != ''">
 					<![CDATA[
@@ -115,13 +108,11 @@
 		INSERT INTO `t_coupon`(
 			created_user, created_dt, updated_user, updated_dt,
 			coupon_title, coupon_type, start_date, end_date, full_kilometer,
-			free_kilometer, rent_days, free_days, content, is_delete,
-			discount
+			free_kilometer, rent_days, free_days, content, discount
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{couponTitle}, #{couponType}, #{startDate}, #{endDate}, #{fullKilometer},
-			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, '0',
-			#{discount}
+			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, #{discount}
 		)
 	</insert>
 	
@@ -143,11 +134,9 @@
 			WHERE id = #{id}
 	</update>
 	
-	<update id="delete" parameterType="string">
-		update `t_coupon` set
-			is_delete = '1'
-			where id in (${_parameter})
-	</update>
+	<delete id="delete" parameterType="string">
+		delete from `t_coupon` where id in (${_parameter})
+	</delete>
 	
 	<insert id="addCarSeriesList" parameterType="coupon">
 		INSERT INTO t_coupon_carseries (

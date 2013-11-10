@@ -74,7 +74,7 @@
 	
 	<select id="countByCityIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_role T
-		where T.city_id in ('${_parameter}')
+		where T.city_id in (${_parameter})
 	</select>
 	
 	<select id="queryByRoleId" resultMap="roleRstMap" parameterType="map">

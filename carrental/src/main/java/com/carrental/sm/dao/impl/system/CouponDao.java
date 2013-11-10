@@ -42,7 +42,7 @@ public class CouponDao implements ICouponDao {
 	}
 
 	public Integer delete(String ids) {
-		return this.sqlSession.update("couponNpc.delete", ids);
+		return this.sqlSession.delete("couponNpc.delete", ids);
 	}
 
 	public String addCarSeriesList(Coupon coupon) {

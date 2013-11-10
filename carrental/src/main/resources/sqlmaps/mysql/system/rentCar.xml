@@ -156,12 +156,22 @@
 	
 	<select id="countByCarIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_rent_car T
-		where T.car_id in ('${_parameter}')
+		where T.car_id in (${_parameter})
+	</select>
+	
+	<select id="countByDriverIds" resultType="int" parameterType="string">
+		select count(T.id) FROM t_rent_car T
+		where T.driver_id in (${_parameter})
+	</select>
+	
+	<select id="countByCouponIds" resultType="int" parameterType="string">
+		select count(T.id) FROM t_rent_car T
+		where T.coupon_id in (${_parameter})
 	</select>
 	
 	<select id="countByBusinessIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_rent_car T
-		where T.business_id in ('${_parameter}')
+		where T.business_id in (${_parameter})
 	</select>
 	
 	<select id="queryByRentCarId" resultMap="rentCarRstMap" parameterType="string">

@@ -20,6 +20,7 @@ import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.ILogDao;
 import com.carrental.sm.dao.system.ICouponDao;
+import com.carrental.sm.dao.system.IRentCarDao;
 import com.carrental.sm.service.system.ICarSeriesService;
 import com.carrental.sm.service.system.ICouponService;
 
@@ -36,6 +37,8 @@ public class CouponService implements ICouponService {
 	private ILogDao logDao;
 	@Autowired
 	private ICarSeriesService carSeriesService;
+	@Autowired
+	private IRentCarDao rentCarDao;
 
 	public List<Coupon> queryList(Coupon coupon, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -100,7 +103,10 @@ public class CouponService implements ICouponService {
 	}
 
 	public String delete(String ids, String names, Admin loginUser) {
-		// TODO 验证是否被使用
+		// 验证是否被使用
+		if (this.rentCarDao.countByCouponIds(ids) > 0) {
+			return "优惠活动已被关联使用，请不要删除";
+		}
 		this.couponDao.delete(ids);
 
 		this.couponDao.deleteCarSeriesList(ids);
