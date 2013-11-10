@@ -142,10 +142,10 @@
 				<th>预订时间</th>
 				<th>预订取车时间</th>
 				<th>预订人电话</th>
+				<th>司机姓名</th>
 				<th>订单状态</th>
 				<th style="display: none;">订单状态码</th>
 				<th style="display: none;">车牌号码</th>
-				<th style="display: none;">司机姓名</th>
 			</tr>
 			<c:forEach items="${rentCars}" var="parent">
 			<tr>
@@ -156,6 +156,12 @@
 				<td name="createdDt" align="center"><fmt:formatDate value="${parent.createdDt}" type="both" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td name="bookPickUpDt" align="center"><fmt:formatDate value="${parent.bookPickUpDt}" type="both" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td name="bookUser" align="center"><c:out value="${parent.bookUser.phone}"/></td>
+				<td name="driver" align="center">
+					<c:choose>
+					<c:when test="${parent.driver == null || parent.driver.driverName == ''}"><span style="color: red;">未分配</span></c:when>
+					<c:otherwise><c:out value="${parent.driver.driverName}"/></c:otherwise>
+					</c:choose>
+				</td>
 				<td align="center">
 					<c:if test="${parent.rentStatus == '1'}"><span style="color: red;">已预订未受理</span></c:if>
 					<c:if test="${parent.rentStatus == '1-A'}">预订已取消</c:if>
@@ -165,7 +171,6 @@
 				</td>
 				<td style="display: none;" name="rentStatus" align="center"><c:out value="${parent.rentStatus}"/></td>
 				<td style="display: none;" name="car" align="center"><c:out value="${parent.car.plateNumber}"/></td>
-				<td style="display: none;" name="driver" align="center"><c:out value="${parent.driver.driverName}"/></td>
 			</tr>
 			</c:forEach>
 		</table>

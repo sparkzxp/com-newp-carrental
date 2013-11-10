@@ -2,6 +2,7 @@ package com.carrental.sm.action.system;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.City;
 import com.carrental.sm.bean.system.Driver;
+import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.ICityService;
 import com.carrental.sm.service.system.IDriverService;
+import com.carrental.sm.service.system.IRentCarService;
 
 /**
  * 司机管理
@@ -47,6 +50,8 @@ public class DriverAction {
 	private IDriverService driverService;
 	@Autowired
 	private ICityService cityService;
+	@Autowired
+	private IRentCarService rentCarService;
 
 	@RequestMapping(value = "/showDriverList")
 	public String driverList(Driver driver, Pager pager, Model model, HttpServletRequest request) {
@@ -67,15 +72,27 @@ public class DriverAction {
 	 * 显示popup列表弹出层
 	 */
 	@RequestMapping(value = "/showPopupDriverList")
-	public String showPopupDriverList(Driver driver, Pager pager, Model model, HttpServletRequest request) {
+	public String showPopupDriverList(Driver driver, String rentCarId, Pager pager, Model model, HttpServletRequest request) {
 		if (pager == null) {
 			pager = new Pager();
 		}
-		/*Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
-		if (null != role) {
-			driver.setCity(role.getCity());
-		}*/
-		List<Driver> drivers = this.driverService.queryList(driver, pager);
+
+		RentCar rentCar = new RentCar();
+		rentCar.setId(rentCarId);
+		rentCar = this.rentCarService.queryList(rentCar, null).get(0);
+		RentCar rentCarQuery = new RentCar();
+		// 为预订时间前后各留出2个小时的空余时间
+		Calendar pick = Calendar.getInstance();
+		pick.setTime(rentCar.getBookPickUpDt());
+		pick.add(Calendar.HOUR_OF_DAY, -2);
+		rentCarQuery.setBookPickUpDt(new Timestamp(pick.getTime().getTime()));
+
+		Calendar back = Calendar.getInstance();
+		back.setTime(rentCar.getBookGiveBackDt());
+		back.add(Calendar.HOUR_OF_DAY, 2);
+		rentCarQuery.setBookGiveBackDt(new Timestamp(back.getTime().getTime()));
+
+		List<Driver> drivers = this.driverService.queryList(driver, rentCarQuery, pager);
 		model.addAttribute("driver", driver);
 		model.addAttribute("drivers", drivers);
 		return "admin/popupDriverList";

@@ -80,8 +80,6 @@
     <form name="editForm" id="editForm">
     <input type="hidden" name="id" value="${rentCar.id}"/>
     <input type="hidden" name="rentNumber" value="${rentCar.rentNumber}"/>
-    <%@ include file="rentCarDetail_bookPart.jsp"%>
-    <%@ include file="rentCarDetail_userInfoPart.jsp"%>
     <div class="content">
         <table border="0" cellpadding="0" cellspacing="0" class="table" style="width: 99%;">
             <tr>
@@ -111,6 +109,8 @@
             </tr>
         </table>
     </div>
+    <%@ include file="rentCarDetail_bookPart.jsp"%>
+    <%@ include file="rentCarDetail_userInfoPart.jsp"%>
     </form>
 </body>
 </html>

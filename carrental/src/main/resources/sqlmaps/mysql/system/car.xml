@@ -41,6 +41,19 @@
 					</if>
 				</if>
 			</if>
+			<if test="rentCar != null">
+			<![CDATA[
+				and (
+					RC.id is null or (
+						DATE_FORMAT(RC.book_pick_up_dt, '%Y-%m-%d %H-%i') > DATE_FORMAT(#{rentCar.bookPickUpDt}, '%Y-%m-%d %H-%i') 
+						and DATE_FORMAT(RC.book_pick_up_dt, '%Y-%m-%d %H-%i') > DATE_FORMAT(#{rentCar.bookGiveBackDt}, '%Y-%m-%d %H-%i') 
+					) or ( 
+						DATE_FORMAT(RC.book_give_back_dt, '%Y-%m-%d %H-%i') < DATE_FORMAT(#{rentCar.bookPickUpDt}, '%Y-%m-%d %H-%i') 
+						and DATE_FORMAT(RC.book_give_back_dt, '%Y-%m-%d %H-%i') < DATE_FORMAT(#{rentCar.bookGiveBackDt}, '%Y-%m-%d %H-%i')
+					)
+				)
+			]]>
+			</if>
 		</where>
 	</sql>
 	<sql id="queryEquals_where">
@@ -77,6 +90,7 @@
 	<select id="queryList" resultMap="carRstMap" parameterType="map">
 		SELECT T.* FROM `t_car` T
 		left join t_car_series CS on CS.id = T.series_id
+		left join t_rent_car RC on RC.car_id = T.id
 		<include refid="query_where" />
 		order by T.plate_number asc
 		<include refid="limit"/>
@@ -98,6 +112,7 @@
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.id) FROM t_car T
 		left join t_car_series CS on CS.id = T.series_id
+		left join t_rent_car RC on RC.car_id = T.id
 		<include refid="query_where"/>
 	</select>
 	

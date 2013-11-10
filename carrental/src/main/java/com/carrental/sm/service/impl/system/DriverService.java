@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.Driver;
 import com.carrental.sm.bean.system.Log;
+import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
@@ -38,6 +39,20 @@ public class DriverService implements IDriverService {
 	public List<Driver> queryList(Driver driver, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("driver", driver);
+
+		if (pager != null) {
+			pager.setTotalSize(this.driverDao.count(params));
+			PagerUtil.setPager(pager);
+		}
+
+		params.put("pager", pager);
+		return driverDao.queryList(params);
+	}
+
+	public List<Driver> queryList(Driver driver, RentCar rentCar, Pager pager) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("driver", driver);
+		params.put("rentCar", rentCar);
 
 		if (pager != null) {
 			pager.setTotalSize(this.driverDao.count(params));

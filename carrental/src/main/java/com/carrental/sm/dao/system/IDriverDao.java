@@ -18,7 +18,7 @@ public interface IDriverDao {
 	 * @author 张霄鹏
 	 * @return List<Driver>
 	 * @param params
-	 *            :pager,driver
+	 *            :pager,driver,rentCar
 	 */
 	List<Driver> queryList(Map<String, Object> params);
 

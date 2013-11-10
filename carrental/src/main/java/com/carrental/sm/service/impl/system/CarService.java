@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.Car;
 import com.carrental.sm.bean.system.Log;
+import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
@@ -38,6 +39,20 @@ public class CarService implements ICarService {
 	public List<Car> queryList(Car car, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("car", car);
+
+		if (pager != null) {
+			pager.setTotalSize(this.carDao.count(params));
+			PagerUtil.setPager(pager);
+		}
+
+		params.put("pager", pager);
+		return carDao.queryList(params);
+	}
+
+	public List<Car> queryList(Car car, RentCar rentCar, Pager pager) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("car", car);
+		params.put("rentCar", rentCar);
 
 		if (pager != null) {
 			pager.setTotalSize(this.carDao.count(params));
