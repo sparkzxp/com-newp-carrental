@@ -63,6 +63,13 @@ public interface IRentCarDao {
 	Integer countByCouponIds(String couponIds);
 
 	/**
+	 * 根据租用类型ID查询关联的预订租车数量
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer countByRentTypeIds(String rentTypeIds);
+
+	/**
 	 * 根据业务ID查询关联的预订数量
 	 * 
 	 * @author 张霄鹏
