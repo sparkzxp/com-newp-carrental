@@ -90,7 +90,7 @@ public class CarSeriesAction {
 				// 保存
 				logoImgFile.transferTo(targetFile);
 				carSeries.setManufacturerLogoPath("upload/car_series/logo/" + logoFileName);
-				logger.info("上传文件成功：" + "upload/car_series/logo/" + logoFileName);
+				logger.info("上传文件成功：upload/car_series/logo/" + logoFileName);
 			}
 
 			if (carSeries.getSeriesImgUploadStatus()) {
@@ -105,7 +105,7 @@ public class CarSeriesAction {
 				// 保存
 				seriesImgFile.transferTo(targetFile);
 				carSeries.setSeriesImgPath("upload/car_series/series/" + seriesFileName);
-				logger.info("上传文件成功：" + "upload/car_series/series/" + seriesFileName);
+				logger.info("上传文件成功：upload/car_series/series/" + seriesFileName);
 			}
 
 			carSeries.setUpdatedUser(_admin);
@@ -118,19 +118,20 @@ public class CarSeriesAction {
 				model.addAttribute("result", this.carSeriesService.add(carSeries, _admin));
 			}
 			model.addAttribute("carSeries", carSeries);
+
+			if (carSeries.getManufacturerLogoUploadStatus() && StringUtils.isNotEmpty(oldManufacturerLogo)) {
+				FileUtil.deleteFile(request.getSession().getServletContext().getRealPath("/") + oldManufacturerLogo);
+				logger.info("删除文件成功：" + request.getSession().getServletContext().getRealPath("/") + oldManufacturerLogo);
+			}
+			if (carSeries.getSeriesImgUploadStatus() && StringUtils.isNotEmpty(oldSeriesImg)) {
+				FileUtil.deleteFile(request.getSession().getServletContext().getRealPath("/") + oldSeriesImg);
+				logger.info("删除文件成功：" + request.getSession().getServletContext().getRealPath("/") + oldSeriesImg);
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			model.addAttribute("result", e.getMessage());
 		}
 
-		if (carSeries.getManufacturerLogoUploadStatus() && StringUtils.isNotEmpty(oldManufacturerLogo)) {
-			FileUtil.deleteFile(request.getSession().getServletContext().getRealPath("/") + oldManufacturerLogo);
-			logger.info("删除文件成功：" + request.getSession().getServletContext().getRealPath("/") + oldManufacturerLogo);
-		}
-		if (carSeries.getSeriesImgUploadStatus() && StringUtils.isNotEmpty(oldSeriesImg)) {
-			FileUtil.deleteFile(request.getSession().getServletContext().getRealPath("/") + oldSeriesImg);
-			logger.info("删除文件成功：" + request.getSession().getServletContext().getRealPath("/") + oldSeriesImg);
-		}
 		return "admin/carSeriesEdit";
 	}
 
