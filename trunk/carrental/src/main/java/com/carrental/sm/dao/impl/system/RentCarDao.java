@@ -36,6 +36,14 @@ public class RentCarDao implements IRentCarDao {
 		return this.sqlSession.selectOne("rentCarNpc.countByCarIds", carIds);
 	}
 
+	public Integer countByDriverIds(String driverIds) {
+		return this.sqlSession.selectOne("rentCarNpc.countByDriverIds", driverIds);
+	}
+
+	public Integer countByCouponIds(String couponIds) {
+		return this.sqlSession.selectOne("rentCarNpc.countByCouponIds", couponIds);
+	}
+
 	public Integer countByBusinessIds(String businessIds) {
 		return this.sqlSession.selectOne("rentCarNpc.countByBusinessIds", businessIds);
 	}

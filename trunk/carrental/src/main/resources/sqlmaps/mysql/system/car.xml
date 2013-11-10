@@ -103,7 +103,7 @@
 	
 	<select id="countByCarSeriesIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_car T
-		where T.series_id in ('${_parameter}')
+		where T.series_id in (${_parameter})
 	</select>
 	
 	<insert id="add" parameterType="car">

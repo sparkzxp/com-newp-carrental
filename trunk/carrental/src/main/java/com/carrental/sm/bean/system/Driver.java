@@ -19,7 +19,6 @@ public class Driver extends BaseBean {
 	private Timestamp entryDate;
 	private City city;
 	private String content;
-	private String isDelete;
 
 	/**
 	 * @return the driverName
@@ -124,21 +123,6 @@ public class Driver extends BaseBean {
 	 */
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	/**
-	 * @return the isDelete
-	 */
-	public String getIsDelete() {
-		return isDelete;
-	}
-
-	/**
-	 * @param isDelete
-	 *            the isDelete to set
-	 */
-	public void setIsDelete(String isDelete) {
-		this.isDelete = isDelete;
 	}
 
 	/**

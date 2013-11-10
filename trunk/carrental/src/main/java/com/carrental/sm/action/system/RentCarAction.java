@@ -104,7 +104,6 @@ public class RentCarAction {
 		model.addAttribute("rentTypes", this.rentTypeService.queryByBusinessType(rentCar.getBusiness().getBusinessType()));
 
 		Coupon coupon = new Coupon();
-		coupon.setIsDelete("0");
 		Calendar startDate = Calendar.getInstance();
 		startDate.set(Calendar.HOUR_OF_DAY, 0);
 		startDate.set(Calendar.MINUTE, 0);

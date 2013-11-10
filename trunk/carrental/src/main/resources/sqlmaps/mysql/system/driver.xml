@@ -14,7 +14,6 @@
 		<result property="driverYears" column="driver_years" />
 		<result property="entryDate" column="entry_date" />
 		<result property="content" column="content" />
-		<result property="isDelete" column="is_delete" />
 		<association property="city" column="city_id" select="cityNpc.queryByCityId"/>
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
@@ -97,11 +96,11 @@
 		INSERT INTO `t_driver`(
 			created_user, created_dt, updated_user, updated_dt,
 			driver_name, driver_code, sex, driver_years, entry_date,
-			content, city_id, is_delete, phone, address
+			content, city_id, phone, address
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{driverName}, #{driverCode}, #{sex}, #{driverYears}, #{entryDate},
-			#{content}, #{city.id}, '0', #{phone}, #{address}
+			#{content}, #{city.id}, #{phone}, #{address}
 		)
 	</insert>
 	
@@ -122,9 +121,7 @@
 			WHERE id = #{id}
 	</update>
 	
-	<update id="delete" parameterType="string">
-		update `t_driver` set
-			is_delete = '1' 
-			where id in (${_parameter})
-	</update>
+	<delete id="delete" parameterType="string">
+		delete from `t_driver` where id in (${_parameter})
+	</delete>
 </mapper>
