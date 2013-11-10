@@ -132,9 +132,7 @@
                 <td align="right" height="25px">监管城市：</td>
                 <td>
                 	<select name="city.id" style="width:200px;">
-                		<c:if test="${removeTopCity == null}">
                 		<option value="" <c:if test="${role.city == null or role.city.id == ''}">selected="true"</c:if>>所有城市</option>
-                		</c:if>
                 		<c:forEach items="${citys}" var="parent">
                 		<option value="<c:out value="${parent.id}"/>" <c:if test="${parent.id == role.city.id}">selected="true"</c:if>><c:out value="${parent.cityName}"/></option>
                 		</c:forEach>
@@ -144,7 +142,7 @@
             <tr>
                 <td align="right" height="25px">拥有资源：</td>
                 <td>
-                	<textarea id="resourceSel" readonly="readonly" style="width:300px; height:60px;" onclick="showMenu();"></textarea>
+                	<textarea id="resourceSel" readonly="readonly" style="width:370px; height:180px;" onclick="showMenu();"></textarea>
                 	&nbsp;<a id="menuBtn" href="javascript:void(0)" onclick="showMenu();" style="font-size:12px;">选择</a>
                 	<input type="hidden" id="resourceIds" name="resourceIds"/>
 				</td>

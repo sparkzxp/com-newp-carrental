@@ -68,7 +68,6 @@ public class RoleAction {
 		model.addAttribute("role", role);
 		Role _role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
 		if (null != _role) {
-			model.addAttribute("removeTopCity", "YES");
 			model.addAttribute("citys", this.cityService.queryList(_role.getCity(), null));
 		} else {
 			City _city = new City();

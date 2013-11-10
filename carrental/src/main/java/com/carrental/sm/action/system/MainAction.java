@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Resource;
+import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.service.system.IAdminService;
@@ -77,6 +79,14 @@ public class MainAction {
 
 	@RequestMapping(value = "/left")
 	public String left(Model model, HttpServletRequest request) {
+		Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
+		StringBuffer resourceIds = new StringBuffer(",");
+		if (null != role) {
+			for (Resource r : role.getResources()) {
+				resourceIds.append(r.getId()).append(",");
+			}
+		}
+		model.addAttribute("resourceIds", resourceIds.toString());
 		return "admin/left";
 	}
 }
