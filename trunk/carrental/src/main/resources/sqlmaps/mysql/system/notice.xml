@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeNpc">
+	<resultMap id="noticeRstMap" type="notice">
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="updatedDt" column="updated_dt" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="imagePath" column="image_path" />
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="notice != null">
+				<if test="notice.id != null and notice.id != ''">
+					and T.id = #{notice.id}
+				</if>
+				<if test="notice.title != null and notice.title != ''">
+					and T.title like '%${notice.title}%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="queryEquals_where">
+		<where>
+			<if test="notice != null">
+				<if test="notice.id != null and notice.id != ''">
+					and T.id = #{notice.id}
+				</if>
+				<if test="notice.title != null and notice.title != ''">
+					and T.title = #{notice.title}
+				</if>
+			</if>
+		</where>
+	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="noticeRstMap" parameterType="map">
+		SELECT T.* FROM `t_notice` T
+		<include refid="query_where" />
+		order by T.updated_dt desc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="queryEqualsList" resultMap="noticeRstMap" parameterType="map">
+		SELECT T.* FROM `t_notice` T
+		<include refid="queryEquals_where" />
+		order by T.updated_dt desc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_notice T
+		<include refid="query_where"/>
+	</select>
+	
+	<insert id="add" parameterType="notice">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `t_notice`(
+			created_user, created_dt, updated_user, updated_dt,
+			title, content, image_path
+		) VALUES (
+			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
+			#{title}, #{content}, #{imagePath}
+		)
+	</insert>
+	
+	<update id="update" parameterType="notice">
+		update `t_notice` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			title = #{title},
+			content = #{content},
+			image_path = #{imagePath}
+			
+			WHERE id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="string">
+		delete from `t_notice` where id in (${_parameter})
+	</delete>
+</mapper>
