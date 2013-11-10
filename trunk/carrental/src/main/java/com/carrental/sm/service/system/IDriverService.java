@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.Driver;
+import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.bean.Pager;
 
 /**
@@ -21,6 +22,11 @@ public interface IDriverService {
 	 * 查询司机信息
 	 */
 	List<Driver> queryList(Driver driver, Pager pager);
+
+	/**
+	 * 查询司机信息，主要用于查询同城空闲司机信息
+	 */
+	List<Driver> queryList(Driver driver, RentCar rentCar, Pager pager);
 
 	/**
 	 * 新增

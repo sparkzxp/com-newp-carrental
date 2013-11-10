@@ -136,6 +136,7 @@
 				<th>司机编号</th>
 				<th>联系电话</th>
 				<th>司机驾龄(年)</th>
+				<th>所在城市</th>
 			</tr>
 			<c:forEach items="${drivers}" var="parent">
 			<tr>
@@ -144,6 +145,7 @@
 				<td name="driverCode" align="center"><c:out value="${parent.driverCode}"/></td>
 				<td name="phone" align="center"><c:out value="${parent.phone}"/></td>
 				<td name="driverYears" align="center"><c:out value="${parent.driverYears}"/></td>
+				<td name="city" align="center"><c:out value="${parent.city.cityName}"/></td>
 			</tr>
 			</c:forEach>
 		</table>

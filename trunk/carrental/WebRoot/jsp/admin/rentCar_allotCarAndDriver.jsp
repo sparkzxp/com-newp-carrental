@@ -70,8 +70,10 @@
     	});
     });
     
+    var dstr = '&rentCarId=${rentCar.id}';
+    
     function showDriverList(){
-    	$.show('选择司机','<%=basePath%>driver/showPopupDriverList?isDelete=0&city.id=${rentCar.city.id}',600,400,"B");
+    	$.show('选择司机','<%=basePath%>driver/showPopupDriverList?city.id=${rentCar.city.id}'+dstr,600,400,"B");
     }
     
     function loadDriverData(data){
@@ -80,7 +82,7 @@
     }
     
     function showCarList(){
-    	$.show('选择车辆','<%=basePath%>car/showPopupCarList?carSeries.id=${rentCar.carSeries.id}&city.id=${rentCar.city.id}',600,400,"B");
+    	$.show('选择车辆','<%=basePath%>car/showPopupCarList?carSeries.id=${rentCar.carSeries.id}&city.id=${rentCar.city.id}'+dstr,600,400,"B");
     }
     
     function loadCarData(data){
@@ -93,8 +95,6 @@
     <form name="editForm" id="editForm">
     <input type="hidden" name="id" value="${rentCar.id}"/>
     <input type="hidden" name="rentNumber" value="${rentCar.rentNumber}"/>
-    <%@ include file="rentCarDetail_bookPart.jsp"%>
-    <%@ include file="rentCarDetail_userInfoPart.jsp"%>
     <div class="content">
         <table border="0" cellpadding="0" cellspacing="0" class="table" style="width: 99%;">
             <tr>
@@ -128,6 +128,8 @@
             </tr>
         </table>
     </div>
+    <%@ include file="rentCarDetail_bookPart.jsp"%>
+    <%@ include file="rentCarDetail_userInfoPart.jsp"%>
     </form>
 </body>
 </html>

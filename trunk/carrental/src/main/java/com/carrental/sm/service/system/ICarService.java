@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.Car;
+import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.bean.Pager;
 
 /**
@@ -21,6 +22,11 @@ public interface ICarService {
 	 * 查询车辆信息
 	 */
 	List<Car> queryList(Car car, Pager pager);
+
+	/**
+	 * 查询车辆信息，主要用于查询同城空闲车辆信息
+	 */
+	List<Car> queryList(Car car, RentCar rentCar, Pager pager);
 
 	/**
 	 * 新增
