@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.City;
 import com.carrental.sm.bean.system.Resource;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
@@ -70,7 +71,9 @@ public class RoleAction {
 			model.addAttribute("removeTopCity", "YES");
 			model.addAttribute("citys", this.cityService.queryList(_role.getCity(), null));
 		} else {
-			model.addAttribute("citys", this.cityService.queryList(null, null));
+			City _city = new City();
+			_city.setIsDelete("0");
+			model.addAttribute("citys", this.cityService.queryList(_city, null));
 		}
 		// 资源树json
 		List<Resource> resources = this.resourceService.queryList(null, null);

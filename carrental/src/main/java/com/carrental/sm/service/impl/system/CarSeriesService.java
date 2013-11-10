@@ -16,6 +16,7 @@ import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
+import com.carrental.sm.dao.system.ICarDao;
 import com.carrental.sm.dao.system.ICarSeriesDao;
 import com.carrental.sm.dao.system.ILogDao;
 import com.carrental.sm.service.system.ICarSeriesService;
@@ -31,6 +32,8 @@ public class CarSeriesService implements ICarSeriesService {
 	private ICarSeriesDao carSeriesDao;
 	@Autowired
 	private ILogDao logDao;
+	@Autowired
+	private ICarDao carDao;
 
 	public List<CarSeries> queryByRentTypeId(String rentTypeId) {
 		return carSeriesDao.queryByRentTypeId(rentTypeId);
@@ -80,7 +83,10 @@ public class CarSeriesService implements ICarSeriesService {
 	}
 
 	public String delete(String ids, String names, Admin loginUser) {
-		// TODO 验证是否被使用
+		// 验证是否被使用
+		if (this.carDao.countByCarSeriesIds(ids) > 0) {
+			return "该车系已被关联使用，请不要删除";
+		}
 		this.carSeriesDao.delete(ids);
 
 		Log log = new Log();

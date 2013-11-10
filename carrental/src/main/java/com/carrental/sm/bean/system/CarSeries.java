@@ -30,6 +30,7 @@ public class CarSeries extends BaseBean {
 	private String ROZ;// 燃油标号
 	private Timestamp marketDate;// 上市时间
 	private String content;
+	private String isDelete;
 
 	/**
 	 * @return the seriesName
@@ -314,5 +315,20 @@ public class CarSeries extends BaseBean {
 	 */
 	public void setSeriesImgUploadStatus(Boolean seriesImgUploadStatus) {
 		this.seriesImgUploadStatus = seriesImgUploadStatus;
+	}
+
+	/**
+	 * @return the isDelete
+	 */
+	public String getIsDelete() {
+		return isDelete;
+	}
+
+	/**
+	 * @param isDelete
+	 *            the isDelete to set
+	 */
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
 }

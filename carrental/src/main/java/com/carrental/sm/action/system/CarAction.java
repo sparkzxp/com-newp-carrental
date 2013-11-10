@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.Car;
+import com.carrental.sm.bean.system.CarSeries;
+import com.carrental.sm.bean.system.City;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
@@ -90,12 +92,16 @@ public class CarAction {
 		}
 		model.addAttribute("car", car);
 
-		model.addAttribute("carSeriesList", this.carSeriesService.queryList(null, null));
+		CarSeries _carSeries = new CarSeries();
+		_carSeries.setIsDelete("0");
+		model.addAttribute("carSeriesList", this.carSeriesService.queryList(_carSeries, null));
 		Role _role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
 		if (null != _role) {
 			model.addAttribute("citys", this.cityService.queryList(_role.getCity(), null));
 		} else {
-			model.addAttribute("citys", this.cityService.queryList(null, null));
+			City _city = new City();
+			_city.setIsDelete("0");
+			model.addAttribute("citys", this.cityService.queryList(_city, null));
 		}
 		return "admin/carEdit";
 	}

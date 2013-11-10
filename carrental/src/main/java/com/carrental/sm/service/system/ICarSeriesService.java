@@ -39,7 +39,7 @@ public interface ICarSeriesService {
 	String update(CarSeries carSeries, Admin loginUser);
 
 	/**
-	 * 批量删除
+	 * 批量删除 - 假删
 	 * 
 	 * @author 张霄鹏
 	 */

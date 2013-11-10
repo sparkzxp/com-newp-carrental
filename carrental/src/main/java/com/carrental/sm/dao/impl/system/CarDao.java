@@ -32,6 +32,10 @@ public class CarDao implements ICarDao {
 		return this.sqlSession.selectOne("carNpc.count", params);
 	}
 
+	public Integer countByCarSeriesIds(String carSeriesIds) {
+		return this.sqlSession.selectOne("carNpc.countByCarSeriesIds", carSeriesIds);
+	}
+
 	public String add(Car car) {
 		this.sqlSession.insert("carNpc.add", car);
 		return String.valueOf(car.getId());

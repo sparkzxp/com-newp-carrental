@@ -18,6 +18,7 @@ import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.ICarDao;
 import com.carrental.sm.dao.system.ILogDao;
+import com.carrental.sm.dao.system.IRentCarDao;
 import com.carrental.sm.service.system.ICarService;
 
 /**
@@ -31,6 +32,8 @@ public class CarService implements ICarService {
 	private ICarDao carDao;
 	@Autowired
 	private ILogDao logDao;
+	@Autowired
+	private IRentCarDao rentCarDao;
 
 	public List<Car> queryList(Car car, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -76,7 +79,10 @@ public class CarService implements ICarService {
 	}
 
 	public String delete(String ids, String names, Admin loginUser) {
-		// TODO 验证是否被使用
+		// 验证是否被使用
+		if (this.rentCarDao.countByCarIds(ids) > 0) {
+			return "车辆已被出租使用，请不要删除";
+		}
 		this.carDao.delete(ids);
 
 		Log log = new Log();
