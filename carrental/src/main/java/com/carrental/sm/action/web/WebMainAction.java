@@ -1,4 +1,4 @@
-package com.carrental.sm.action.system;
+package com.carrental.sm.action.web;
 
 import java.util.List;
 
@@ -13,34 +13,48 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
-import com.carrental.sm.bean.system.Resource;
-import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
+import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
+import com.carrental.sm.service.system.ICompanyService;
+import com.carrental.sm.service.system.INoticeService;
 
 /**
- * 登录管理
+ * 首页管理
  * 
  * @author 张霄鹏
  */
 @Controller
-public class MainAction {
+public class WebMainAction {
 
 	@Autowired
-	private IAdminService adminService;// admin业务对象
+	private IAdminService adminService;
+	@Autowired
+	private INoticeService noticeService;
+	@Autowired
+	private ICompanyService companyService;
 
-	@RequestMapping(value = "admin")
-	public String admin() {
-		return "admin/login";
+	@RequestMapping(value = "web")
+	public String admin(Model model) {
+		initTop(model);
+		initBottom(model);
+		return "web/main";
+	}
+
+	@RequestMapping(value = "web/company")
+	public String top(Model model, HttpServletRequest request) {
+		initTop(model);
+		initBottom(model);
+		return "web/company";
 	}
 
 	/**
-	 * admin login
+	 * user login
 	 * 
 	 * @author 张霄鹏
 	 */
-	@RequestMapping(value = "main/login", method = RequestMethod.POST)
+	@RequestMapping(value = "web/login", method = RequestMethod.POST)
 	public String login(Admin admin, Model model, HttpServletRequest request) {
 		if (admin == null || StringUtils.isEmpty(admin.getLoginName()) || StringUtils.isEmpty(admin.getPassword())) {
 			return "admin/login";
@@ -55,7 +69,7 @@ public class MainAction {
 				request.getSession().setAttribute(Constants.SESSION_ADMIN_KEY, tmp);
 				request.getSession().setAttribute(Constants.SESSION_ROLE_KEY, tmp.getRole());
 				model.addAttribute("admin", tmp);
-				return "admin/main";
+				return "admin/web";
 			} else {
 				model.addAttribute("message", "密码错误");
 				return "admin/login";
@@ -64,33 +78,24 @@ public class MainAction {
 	}
 
 	/**
-	 * admin logout
+	 * user logout
 	 * 
 	 * @author 张霄鹏
 	 */
 	@ResponseBody
-	@RequestMapping(value = "main/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "web/logout", method = RequestMethod.POST)
 	public String logout(Model model, HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "logout";
 	}
 
-	@RequestMapping(value = "main/top")
-	public String top(Model model, HttpServletRequest request) {
-		model.addAttribute("admin", request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY));
-		return "admin/top";
+	private void initTop(Model model) {
+		Pager pager = new Pager();
+		pager.setPageSize(5);
+		model.addAttribute("notices", this.noticeService.queryList(null, pager));
 	}
 
-	@RequestMapping(value = "main/left")
-	public String left(Model model, HttpServletRequest request) {
-		Role role = (Role) request.getSession().getAttribute(Constants.SESSION_ROLE_KEY);
-		StringBuffer resourceIds = new StringBuffer(",");
-		if (null != role) {
-			for (Resource r : role.getResources()) {
-				resourceIds.append(r.getId()).append(",");
-			}
-		}
-		model.addAttribute("resourceIds", resourceIds.toString());
-		return "admin/left";
+	private void initBottom(Model model) {
+		model.addAttribute("company", this.companyService.queryList().get(0));
 	}
 }
