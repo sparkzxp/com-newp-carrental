@@ -15,7 +15,7 @@ $.ajaxSetup({cache: false });
 function logout(){
 	if(confirm("确认退出本系统吗？")){
 		$.post("<%=basePath%>main/logout", null, function(data) {
-			parent.location.href = "<%=basePath%>?logout=TRUE";
+			parent.location.href = "<%=basePath%>admin?logout=TRUE";
 		});
 	}
 }

@@ -1,0 +1,168 @@
+@charset "utf-8";
+*{padding:0px; margin:0px; line-height:1.8em;}
+html {_overflow-y:scroll;}
+body{
+    font-family: "微软雅黑",Arial, Tahoma,;   
+	font-size:12px;   
+	color:#666666;   
+	background:#f0f0f0 url(../../images/web/topnav_bg.gif) no-repeat center top;
+	}
+
+a{text-decoration: none;} 
+a:link{color:#7b7b7b;}
+a:visited{color:#7b7b7b;} 
+a:hover{color:#333333;text-decoration: none;} 
+a:active{color:#333333;}
+
+h1,h2,h3,h4,h5,h6{font-size:12px;}
+img{border: 0px;}
+.clear{clear:both;}
+
+ 
+table{text-align:justify;}
+checkbox{border: 0px;}
+input{border:0;}
+
+.button{border: 0px;}
+
+
+#wrapp{width:980px;margin:0 auto;}
+.topnav{height:41px;}
+.topnav blockquote{float:right;}
+.topnav blockquote a{margin:0 10px;font-size:14px;line-height:41px;}
+.topnav h1{font-weight:normal;font-size:14px;line-height:41px;}
+.topnav h1 span{color:#021c59;line-height:41px;}
+
+.menu{padding:4px 0 0 0;}
+.menu h1{background:url(../../images/web/cion01.gif) no-repeat 12px center;padding:0 0 0 25px;color:#ffffff;font-size:14px;line-height:39px;font-weight:normal;}
+.menu a{color:#ffffff;margin:0 5px;font-size:14px;line-height:40px;display:block;float:left;padding:0 17px;}
+.menu a:visited{color:#fff;}
+.menu a:hover{background:url(../../images/web/menu_current.gif) no-repeat center bottom;color:#fff;}
+.menu .current{background:url(../../images/web/menu_current.gif) no-repeat center bottom;color:#fff;}
+.menu a.current:visited{color:#fff;}
+.menu a.current:hover{color:#fff;}
+.logo{margin:17px;}
+
+.notice{line-height:35px;font-size:14px;}
+.notice a{line-height:35px;font-size:12px; text-decoration:underline;}
+.notice a span{color:#f00;margin:0 5px;}
+
+.banner{background:url(../../images/web/bannerbg.gif) no-repeat center top;padding:9px 17px 0 9px;height:452px;}
+.tran_bg{position:absolute;bottom:0;z-index:10;}
+.banner_img{position:relative;}
+.banner_letter{position:absolute;bottom:0;z-index:30;}
+.banner_letter h1{color:#ffffff;line-height:70px;font-size:20px;padding:0 0 0 10px;}
+.num{position:absolute;right:10px;bottom:24px;z-index:20;}
+.num a{color:#ffffff;padding:0 5px;line-height:22px;font-size:12px;display:block;float:left; cursor:pointer;}
+.num a:visited{color:#ffffff;}
+.num a:hover{color:#ffffff;background:#f00;}
+.num .current{color:#ffffff;background:#f00;}
+
+.i_sales h1{background:#e2e2e2;}
+.i_sales h1 a{float:right;color:#000; line-height:26px;margin:0 10px 0 0;text-decoration:underline;}
+.i_sales h1 a:visited{color:#000;}
+.i_sales h1 a:hover{color:#000;}
+
+.box{padding:10px;}
+
+.box20{padding:20px;}
+.i_sales{background:url(../../images/web/cion03.gif) repeat-x left bottom;padding:0 0 20px 0;margin:0 0 20px 0;}
+.i_sales .sale_img_show{border:1px solid #cccccc;}
+.i_sales dd{font-size:14px;color:#333;line-height:35px;padding:0 0 0 5px;}
+.i_sales dt{color:#999;padding:0 0 0 5px;}
+.i_sales blockquote{padding:10px;}
+.i_sales div{position:relative;width:240px;float:left;}
+.i_sales div .img{ top:193px;left:1px;position:absolute;}
+.i_sales div p{color:#f00;font-size:18px;margin:210px 0 0 0;position:absolute;left:15px;}
+.i_sales div p span{color:#d3d1d1; text-decoration:line-through;font-size:12px;}
+
+
+.rent_car{background:url(../../images/web/cion03.gif) repeat-x left bottom;padding:0 0 20px 0;margin:0 0 20px 0;}
+.rent_car blockquote{background:url(../../images/web/cion04.gif) no-repeat left top;padding:0 0 0 60px;}
+.rent_car h2 {border:1px solid #e2e2e2;width:445px;}
+.rent_car h2 img{border:5px solid #fff;}
+.rent_car div{position:relative;width:445px;margin:0 10px 0 0;float:left;}
+.rent_car div .img{ left:6px;position:absolute;top:254px;}
+.rent_car div .recommend{position:absolute;left:6px;top:6px;}
+.rent_car div p{color:#fff;font-size:22px;margin:270px 0 0 0;position:absolute;left:15px;z-index:20;}
+.rent_car dd{font-size:18px;color:#333;line-height:50px;padding:0 0 0 10px;}
+.rent_car dd span{color:#f00;}
+.rent_car dd a{float:right;background:#021c59;padding:0 10px;line-height:26px;color:#ffffff;font-size:14px;margin:10px 10px 0 0;}
+.rent_car dd a:visited{color:#ffffff;}
+.rent_car dd a:hover{color:#ffffff;}
+
+.i_hot{background:url(../../images/web/cion03.gif) repeat-x left bottom;padding:0 0 20px 0;margin:0 0 20px 0;}
+.i_hot .hot_img_show{border:4px solid #fff;}
+.i_hot div{position:relative;width:318px;margin:20px 0 0 8px;float:left;}
+.i_hot .img{top:-4px;position:absolute;}
+.i_hot .left8{left:8px;}
+.i_hot .left51{left:51px;}
+.i_hot dd{font-size:18px;color:#000;padding:0 0 0 10px;}
+.i_hot dt{color:#f00;font-size:16px;padding:0 0 0 10px;}
+.i_hot p a{background:#021c59;padding:0 10px;line-height:26px;color:#ffffff;font-size:14px;margin:0 0 0 10px}
+.i_hot p a:visited{color:#ffffff;}
+.i_hot p a:hover{color:#ffffff;}
+
+.help th{background:#021c59;line-height:35px;color:#ffffff;text-align:center;font-size:16px;}
+.help td {background:#ffffff;border-left:1px solid #c8c7c7;border-bottom:1px solid #c8c7c7;padding:10px 0;}
+.help .r{border-right:1px solid #c8c7c7;}
+.help td a{display:block;line-height:30px;text-align:center;font-size:14px;}
+
+.footer{border-top:1px solid #9f9f9f;background:#e2e2e2;margin:20px 0 0 0;}
+.footer div{background:url(../../images/web/footer.jpg) no-repeat right center;padding:10px 0;}
+.footer div p{padding:8px 0 0 0;}
+.footer div p a{margin:0 10px;}
+
+.main{border:1px solid #cdcbcc;background:#ffffff;padding:0 12px 12px 12px;margin:0 0 20px 0;}
+.place{background:url(../../images/web/cion03.gif) repeat-x left bottom;}
+.place h1{background:url(../../images/web/cion11.gif) no-repeat 8px center;padding:0 0 0 20px;color:#403f3f;font-size:16px;line-height:48px;font-weight:normal;}
+.place div{float:right;margin:15px 0 0 0;}
+.place div a{margin:0 10px; text-decoration:underline;}
+.place div span{margin:0 10px;}
+.content p{margin:0 0 15px 0;text-indent:2em;line-height:28px;font-size:14px;}
+.content h2{text-align:center;font-weight:normal;font-size:16px;padding:15px 0;}
+.content h3{font-size:12px;font-weight:normal;color:#021c59;text-align:center;border-bottom:2px solid #e1e1e1;padding:0 0 10px 0;margin:0 0 10px 0;}
+
+
+.sales div{margin:0 0 20px 0;border-bottom:2px solid #e1e1e1;padding:0 0 20px 0;}
+.sales div img{border:3px solid #a0a0a0;float:left;margin:0 20px 0 0;}
+.sales div h1 a{background:url(../../images/web/cion12.gif) no-repeat left 4px;padding:0 0 0 20px; text-decoration:underline;font-size:16px;color:#565656;line-height:44px;}
+.sales div h1 a:hover{background:url(../../images/web/cion13.gif) no-repeat left 4px;color:#c50d22;}
+.sales div p{padding:5px 0 0 15px;color:#565656;}
+.sales div p span{color:#021c59;}
+
+.page{font-weight:normal;}
+.page span{background:#c5c4c0;padding:0 5px;line-height:18px;margin:0 10px 0 0;display:block;float:right;color:#000;}
+.page a{background:#c5c4c0;padding:0 5px;line-height:18px;margin:0 10px 0 0;display:block;float:right;color:#000;}
+.page a:hover{background:#021c59;color:#ffffff;}
+
+#bdshare{margin:15px 0;}
+#bdshare span{ vertical-align:middle;line-height:16px;}
+#bdshare a{line-height:16px;}
+
+.work a{border:1px solid #909090;display:block;width:298px;float:left;margin:20px 15px 0 0;}
+.work a h1{line-height:40px;background:#909090;text-align:center;color:#ffffff;font-size:20px;font-weight:normal;}
+.work a p{text-indent:2em;border-top:1px solid #cdcbcc;padding:5px;}
+.work a:visited{color:#ffffff;}
+.work a:hover{border:1px solid #c50d22;color:#ffffff;}
+.work a:hover h1{background:#c50d22;}
+
+.work_detail_brief{background:#eeeeee;padding:8px;color:#000;font-size:14px;}
+
+.work_detail div{width:442px;margin:20px 15px 0 0;position:relative;float:left;}
+.work_detail div .recommend{position:absolute;left:4px;top:4px;}
+.work_detail .show{border:4px solid #dadada;}
+.work_detail div h1{background:#f0f0f0;line-height:50px;color:#403f3f;font-size:16px;font-weight:normal;padding:0 0 0 8px;}
+.work_detail div h2{color:#888888;font-weight:normal;line-height:30px;padding:0 0 0 8px;}
+.work_detail div p{color:#f00;font-size:20px;padding:0 0 0 8px;}
+.work_detail div p span{color:#403f3f;font-size:16px;margin:0 0 0 10px;  text-decoration:line-through;margin:0 10px 0 0;}
+
+.login{border:10px solid #d7d7d7;background:#ffffff url(../../images/web/login.jpg) no-repeat right bottom;}
+.login_title{background:url(../../images/web/cion03.gif) repeat-x left bottom;padding:20px 10px;}
+.login_title h1{float:right;font-weight:normal;font-size:14px;}
+.login_title h1 a{color:#c50d22;}
+.login_title h1 a:visited{color:#c50d22;}
+.login_title h1 a:hover{color:#c50d22;}
+.login .input{border-left:1px solid #8e8d88;border-top:1px solid #8e8d88;border-bottom:1px solid #d7d7cf;border-right:1px solid #d7d7cf;height:24px;line-height:24px;padding:0 8px;}
+.login .loginin{}
+
