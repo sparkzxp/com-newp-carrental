@@ -110,6 +110,23 @@ public class AdminService implements IAdminService {
 		return Constants.OPERATION_SUCCESS;
 	}
 
+	public String updatePart(Admin admin, Admin loginUser) {
+		this.adminDao.updatePart(admin);
+
+		Log log = new Log();
+		log.setCreatedUser(loginUser);
+		if (admin.getType().equals(Constants.USER_CUSTOM_PERSONAL)) {
+			log.setTitle("修改注册用户部分信息");
+			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + admin.getAdminName() + " 的注册用户的部分信息");
+		} else if (admin.getType().equals(Constants.USER_ADMIN)) {
+			log.setTitle("修改系统用户部分信息");
+			log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + admin.getAdminName() + " 的系统用户的部分信息");
+		}
+		log.setLevel("5");
+		this.logDao.add(log);
+		return Constants.OPERATION_SUCCESS;
+	}
+
 	public String delete(String ids, String names, Admin loginUser) {
 		this.adminDao.deleteAll(ids);
 

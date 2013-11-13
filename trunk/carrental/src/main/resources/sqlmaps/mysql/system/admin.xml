@@ -13,6 +13,8 @@
 		<result property="sex" column="sex"/>
 		<result property="type" column="type"/>
 		<result property="isDelete" column="is_delete"/>
+		<result property="address" column="address"/>
+		<result property="qq" column="qq"/>
 		<result property="email" column="email"/>
 		<result property="phone" column="phone"/>
 		<result property="companyName" column="company_name"/>
@@ -151,12 +153,12 @@
 			created_user, created_dt, updated_user, updated_dt,
 			admin_name, login_name, login_pwd, type, city_id,
 			role_id, email, phone, company_name, in_blacklist,
-			sex
+			sex, address, qq
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{adminName}, #{loginName}, #{password}, #{type}, #{city.id},
 			#{role.id}, #{email}, #{phone}, #{companyName}, #{inBlacklist},
-			#{sex}
+			#{sex}, #{address}. #{qq}
 		)
 	</insert>
 	
@@ -174,7 +176,56 @@
 			phone = #{phone},
 			company_name = #{companyName},
 			in_blacklist = #{inBlacklist},
-			sex = #{sex}
+			sex = #{sex},
+			address = #{address},
+			qq = #{qq}
+			
+			WHERE id = #{id}
+	</update>
+	
+	<update id="updatePart" parameterType="admin">
+		update `t_admin` set
+			updated_user = #{updatedUser.id},
+			updated_dt = NOW(),
+			<if test="adminName != null and adminName != ''">
+			admin_name = #{adminName},
+			</if>
+			<if test="loginName != null and loginName != ''">
+			login_name = #{loginName},
+			</if>
+			<if test="password != null and password != ''">
+			login_pwd = #{password},
+			</if>
+			<if test="type != null and type != ''">
+			type = #{type},
+			</if>
+			<if test="city != null and city.id != null and city.id != ''">
+			city_id = #{city.id},
+			</if>
+			<if test="role != null and role.id != null and role.id != ''">
+			role_id = #{role.id},
+			</if>
+			<if test="email != null and email != ''">
+			email = #{email},
+			</if>
+			<if test="phone != null and phone != ''">
+			phone = #{phone},
+			</if>
+			<if test="companyName != null and companyName != ''">
+			company_name = #{companyName},
+			</if>
+			<if test="inBlacklist != null and inBlacklist != ''">
+			in_blacklist = #{inBlacklist},
+			</if>
+			<if test="sex != null and sex != ''">
+			sex = #{sex},
+			</if>
+			<if test="address != null and address != ''">
+			address = #{address},
+			</if>
+			<if test="qq != null and qq != ''">
+			qq = #{qq}
+			</if>
 			
 			WHERE id = #{id}
 	</update>

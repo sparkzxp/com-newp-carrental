@@ -53,6 +53,14 @@ public interface IAdminService {
 	String update(Admin admin, Admin loginUser);
 
 	/**
+	 * 部分修改
+	 * 
+	 * @author 张霄鹏
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	String updatePart(Admin admin, Admin loginUser);
+
+	/**
 	 * 批量删除-假删
 	 * 
 	 * @author 张霄鹏

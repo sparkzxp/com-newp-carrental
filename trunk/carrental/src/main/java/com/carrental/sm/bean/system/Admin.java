@@ -17,6 +17,8 @@ public class Admin extends BaseBean {
 	private City city;
 	private Role role;
 
+	private String address;// 住址
+	private String qq;
 	private String email;
 	private String phone;
 	private String companyName;
@@ -209,5 +211,33 @@ public class Admin extends BaseBean {
 	 */
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 * @return the qq
+	 */
+	public String getQq() {
+		return qq;
+	}
+
+	/**
+	 * @param qq the qq to set
+	 */
+	public void setQq(String qq) {
+		this.qq = qq;
 	}
 }

@@ -104,9 +104,22 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" height="25px">联系地址：</td>
+                <td>
+                	<input type="text" name="address" value="${admin.address}" style="width:200px;" class="{maxlengthCN:200}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">QQ：</td>
+                <td>
+                	<input type="text" name="qq" value="${admin.qq}" style="width:200px;" class="{digits:true,maxlengthCN:20}"/>
+                </td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">所在城市：</td>
                 <td>
-                	<select name="city.id" style="width:200px;" class="{required:true}">
+                	<select name="city.id" style="width:200px;">
+                		<option value="">--请选择--</option>
                 		<c:forEach items="${citys}" var="parent">
                 		<option value="<c:out value="${parent.id}"/>" <c:if test="${parent.id == admin.city.id}">selected="true"</c:if>><c:out value="${parent.cityName}"/></option>
                 		</c:forEach>

@@ -80,6 +80,13 @@ public interface IAdminDao {
 	Integer update(Admin admin);
 
 	/**
+	 * 部分修改
+	 * 
+	 * @author 张霄鹏
+	 */
+	Integer updatePart(Admin admin);
+
+	/**
 	 * 批量删除-假删
 	 * 
 	 * @author 张霄鹏
