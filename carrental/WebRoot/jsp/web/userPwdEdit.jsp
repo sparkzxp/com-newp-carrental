@@ -7,8 +7,8 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>欢迎使用新广租车平台</title>
 <link href="<%=basePath%>css/web/style.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 
 <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/common/slide.js"></script>
@@ -50,22 +50,23 @@
     	
     	$('#btn_submit').click(function(){
     		if($('#editForm').valid()){
-	    		$.post('<%=basePath%>web/user/doRegist', $('#editForm').serialize(), function(data){
+	    		$.post('<%=basePath%>web/user/doUserPwdEdit', $('#editForm').serialize(), function(data){
 	        		if(data.result == 'SUCCESS'){
-	        			$.prompt('点击确定跳转首页',{
-							title: '注册成功',
+	        			$.prompt('您的密码已修改成功',{
+							title: '提示',
 		        			buttons: { "确定": true},
 		        			submit:function(e,v,m,f){
 		        				e.preventDefault();
 		        				if(v){
 		        					$.prompt.close();
-		        					window.location.href = '<%=basePath%>';
+		        					$('#user_password').val('');
+		        					$('#user_repassword').val('');
 		        				}
 		        			}
 		        		});
 	        		}else{
 	        			$.prompt(data.result,{
-							title: '注册失败',
+							title: '提示',
 		        			buttons: { "确定": false}
 		        		});
 	        		}
@@ -79,59 +80,47 @@
 <body>
 	<%@ include file="part_top.jsp"%>
 	<form name="editForm" id="editForm">
-	<div id="wrapp">
-		<div class="login">
-			<div class="login_title">
-				<h1>
-					如果您已经是我们的会员，请点击【<a href="<%=basePath%>web/user/toLogin">会员登录</a>】，直接使用吧。
-				</h1>
-				<img src="<%=basePath%>images/web/cion15.gif" width="331" height="25" />
+		<input type="hidden" id="user_id" name="id" value="${user.id}"/>
+		<input type="hidden" name="adminName" value="${user.adminName}"/>
+		<input type="hidden" name="type" value="${user.type}"/>
+		<div id="wrapp">
+			<div class="member_title">
+				<a href="<%=basePath%>web/user/toUserManage" class="current">个人信息</a><a href="javascript:void(0)">修改密码</a><a href="<%=basePath%>web/user/toRentHistory">租车历史</a>
+				<h6 class="clear"></h6>
+				<div class="member_main">
+					<h1>注：如果您忘记了密码，点击获取验证码，您将会接收到验证短信。输入您接收到的验证码您就可以设置新密码了！</h1>
+					<div style="padding: 50px 0">
+						<table width="100%" border="0" cellspacing="15" cellpadding="0">
+							<tr>
+								<td width="15%" align="right">手机号码：</td>
+								<td><input name="phone" type="text" class="input"
+									id="user_phone" value="${user.phone}" readonly="readonly"/><input type="button" id="pickCaptcha"
+									class="get" value="获取验证码" /></td>
+							</tr>
+							<tr>
+								<td align="right">验证码：</td>
+								<td><input name="phoneCaptcha" type="text" class="{required:true,digits:true,minlength:6,maxlength:6} input"/></td>
+							</tr>
+							<tr>
+								<td align="right">新密码：</td>
+								<td><input name="password" type="password" class="{required:true,minlengthCN:6,maxlengthCN:50,alphanumeric:true} input"
+									id="user_password" /></td>
+							</tr>
+							<tr>
+								<td align="right">确认密码：</td>
+								<td><input type="password" id="user_repassword" class="{required:true,minlengthCN:6,maxlengthCN:50,alphanumeric:true,equalTo:'#user_password'} input"/></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input type="button" id="btn_submit"
+									value="确定" class="loginin" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</div>
-
-			<table width="100%" border="0" cellspacing="26" cellpadding="0">
-				<tr>
-					<td width="25%" align="right"><font>*</font>邮箱地址：</td>
-					<td><input type="text" name="email"
-						class="{required:true,email:true,maxlengthCN:50} input" /> 请输入您的邮箱号码，我们会向您发送最新的优惠信息</td>
-				</tr>
-				<tr>
-					<td align="right"><font>*</font>手机号码：</td>
-					<td><input type="text" id="user_phone" name="phone"
-						class="{required:true,phoneCN:true,maxlengthCN:50} input" /><input type="button"
-						class="get" id="pickCaptcha" value="获取验证码" /> 请输入您的手机号码，以便我们向您确认预订信息</td>
-				</tr>
-				<tr>
-					<td align="right"><font>*</font>手机验证码：</td>
-					<td><input type="text" name="phoneCaptcha"
-						class="{required:true,digits:true,minlength:6,maxlength:6} input" /> 请输入验证码</td>
-				</tr>
-				<tr>
-					<td align="right"><font>*</font>密码：</td>
-					<td><input type="password" name="password" id="user_password"
-						class="{required:true,minlengthCN:6,maxlengthCN:50,alphanumeric:true} input" /> 请输入密码，6-20位字符</td>
-				</tr>
-				<tr>
-					<td align="right"><font>*</font>确认密码：</td>
-					<td><input type="password"
-						class="{required:true,minlengthCN:6,maxlengthCN:50,alphanumeric:true,equalTo:'#user_password'} input" /> 请再一次输入密码</td>
-				</tr>
-				<tr>
-					<td align="right"><font>*</font>姓名：</td>
-					<td><input type="text" name="adminName"
-						class="{required:true,maxlengthCN:50} input" /> <input name="sex" type="radio"
-						value="female" checked="checked" /> 女士 <input type="radio"
-						name="sex" value="male" /> 先生</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><input type="button" id="btn_submit"
-						value="立即注册" class="loginin" /></td>
-				</tr>
-			</table>
-
+			<%@ include file="part_help.jsp"%>
 		</div>
-		<%@ include file="part_help.jsp"%>
-	</div>
 	</form>
 	<%@ include file="part_bottom.jsp"%>
 </body>

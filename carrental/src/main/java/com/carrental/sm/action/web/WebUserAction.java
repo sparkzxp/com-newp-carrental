@@ -42,8 +42,8 @@ public class WebUserAction {
 	 * 用户登录页面
 	 */
 	@RequestMapping(value = "/toLogin")
-	public String toLogin(Model model) {
-		initTop(model);
+	public String toLogin(Model model, HttpServletRequest request) {
+		initTop(model, request);
 		initBottom(model);
 		return "web/login";
 	}
@@ -53,9 +53,42 @@ public class WebUserAction {
 	 */
 	@RequestMapping(value = "/toRegist")
 	public String toRegist(Model model, HttpServletRequest request) {
-		initTop(model);
+		initTop(model, request);
 		initBottom(model);
 		return "web/regist";
+	}
+
+	/**
+	 * 用户个人管理页面
+	 */
+	@RequestMapping(value = "/toUserManage")
+	public String toUserManage(Model model, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		return "web/userManage";
+	}
+
+	/**
+	 * 用户修改密码页面
+	 */
+	@RequestMapping(value = "/toUserPwdEdit")
+	public String toUserPwdEdit(Model model, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		return "web/userPwdEdit";
+	}
+
+	/**
+	 * 获取用户验证码
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/doPickCaptcha")
+	public Map<String, String> doPickCaptcha(Admin user, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+		Admin loginUser = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
+		// TODO 发送短信验证码，loginUser可能为null
+		result.put("result", Constants.OPERATION_SUCCESS);
+		return result;
 	}
 
 	/**
@@ -63,7 +96,8 @@ public class WebUserAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/doRegist")
-	public Map<String, String> doRegist(Admin user, Model model, HttpServletRequest request) {
+	public Map<String, String> doRegist(Admin user, String phoneCaptcha, HttpServletRequest request) {
+		// TODO 验证手机短信
 		Map<String, String> result = new HashMap<String, String>();
 		user.setIsDelete("0");
 		user.setInBlacklist("0");
@@ -99,12 +133,16 @@ public class WebUserAction {
 			result.put("result", "用户不存在");
 		} else {
 			Admin tmp = adminList.get(0);
-			if (tmp.getPassword().equals(MD5.MD5_32(user.getPassword()))) {
+			if (!tmp.getPassword().equals(MD5.MD5_32(user.getPassword()))) {
+				result.put("result", "密码错误");
+			} else if (tmp.getIsDelete().equals("1")) {
+				result.put("result", "用户不存在 - 2");
+			} else if (tmp.getInBlacklist().equals("1")) {
+				result.put("result", "用户不存在 - 3");
+			} else {
 				request.getSession().setAttribute(Constants.SESSION_WEB_USER_KEY, tmp);
 
 				result.put("result", Constants.OPERATION_SUCCESS);
-			} else {
-				result.put("result", "密码错误");
 			}
 		}
 		return result;
@@ -121,7 +159,47 @@ public class WebUserAction {
 		return "web/main";
 	}
 
-	private void initTop(Model model) {
+	/**
+	 * 修改用户个人信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/doUserManage", method = RequestMethod.POST)
+	public Map<String, String> doUserManage(Admin user, HttpServletRequest request) {
+		Map<String, String> result = new HashMap<String, String>();
+
+		if (user == null || StringUtils.isEmpty(user.getId())) {
+			result.put("result", "请重新登录");
+			return result;
+		}
+		Admin loginUser = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
+		user.setUpdatedUser(loginUser);
+		result.put("result", this.adminService.updatePart(user, loginUser));
+		request.getSession().setAttribute(Constants.SESSION_WEB_USER_KEY, this.adminService.queryList(new Admin(user.getId()), null).get(0));
+		return result;
+	}
+
+	/**
+	 * 修改用户密码
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/doUserPwdEdit", method = RequestMethod.POST)
+	public Map<String, String> doUserPwdEdit(Admin user, String phoneCaptcha, HttpServletRequest request) {
+		// TODO 验证手机短信
+		Map<String, String> result = new HashMap<String, String>();
+
+		if (user == null || StringUtils.isEmpty(user.getId())) {
+			result.put("result", "请重新登录");
+			return result;
+		}
+		Admin loginUser = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
+		result.put("result", this.adminService.resetPwd(user.getId(), user.getAdminName(), MD5.MD5_32(user.getPassword()), loginUser));
+		return result;
+	}
+
+	private void initTop(Model model, HttpServletRequest request) {
+		Admin user = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
+		model.addAttribute("user", user);
+
 		Pager pager = new Pager();
 		pager.setPageSize(5);
 		model.addAttribute("notices", this.noticeService.queryList(null, pager));

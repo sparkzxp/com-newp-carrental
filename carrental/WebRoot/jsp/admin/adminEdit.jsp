@@ -88,6 +88,18 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" height="25px">联系地址：</td>
+                <td>
+                	<input type="text" name="address" value="${admin.address}" style="width:200px;" class="{maxlengthCN:200}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">QQ：</td>
+                <td>
+                	<input type="text" name="qq" value="${admin.qq}" style="width:200px;" class="{digits:true,maxlengthCN:20}"/>
+                </td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">所在城市：</td>
                 <td>
                 	<select name="city.id" style="width:200px;" class="{required:true}">

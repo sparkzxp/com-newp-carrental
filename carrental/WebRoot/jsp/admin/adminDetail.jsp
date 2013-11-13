@@ -48,6 +48,18 @@
                 	${admin.email}
                 </td>
             </tr>
+            <tr>
+                <td align="right" height="25px">联系地址：</td>
+                <td colspan="3">
+                	${admin.address}
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">QQ：</td>
+                <td colspan="3">
+                	${admin.qq}
+                </td>
+            </tr>
             <c:if test="${admin.type == 'ADMIN'}">
             <tr>
                 <td align="right" height="25px">角色名称：</td>
@@ -64,7 +76,7 @@
                 	<c:if test="${admin.type == 'ADMIN'}">系统用户</c:if>
                 </td>
             </tr>
-            <c:if test="${admin.type == 'CUSTOM_PERSONAL'}">
+            <c:if test="${admin.type == 'CUSTOM_COMPANY'}">
 			<tr>
                 <td align="right" height="25px">企业名称：</td>
                 <td colspan="3">

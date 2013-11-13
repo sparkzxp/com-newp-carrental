@@ -54,6 +54,10 @@ public class AdminDao implements IAdminDao {
 		return this.sqlSession.update("adminNpc.update", admin);
 	}
 
+	public Integer updatePart(Admin admin) {
+		return this.sqlSession.update("adminNpc.updatePart", admin);
+	}
+
 	public Integer deleteAll(String ids) {
 		return this.sqlSession.update("adminNpc.deleteAll", ids);
 	}
