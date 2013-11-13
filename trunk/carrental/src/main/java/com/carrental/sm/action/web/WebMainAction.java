@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Notice;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.ICompanyService;
@@ -55,6 +56,29 @@ public class WebMainAction {
 		initTop(model, request);
 		initBottom(model);
 		return "web/businessList";
+	}
+
+	/**
+	 * 公告列表页面
+	 */
+	@RequestMapping(value = "/toNoticeList")
+	public String toNoticeList(Model model, Pager pager, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		model.addAttribute("noticeList", this.noticeService.queryList(null, pager));
+		model.addAttribute("pager", pager);
+		return "web/noticeList";
+	}
+
+	/**
+	 * 公告详细页面
+	 */
+	@RequestMapping(value = "/toNoticeDetail")
+	public String toNoticeDetail(Model model, Notice notice, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		model.addAttribute("notice", this.noticeService.queryList(notice, null).get(0));
+		return "web/noticeDetail";
 	}
 
 	private void initTop(Model model, HttpServletRequest request) {

@@ -42,7 +42,7 @@
 	<div class="notice">
 		公告：
 		<c:forEach items="${notices}" var="parent">
-			<a href="javascript:void(0)">${parent.title}<span><fmt:formatDate value="${parent.updatedDt}" type="both" pattern="yyyy.MM.dd"/></span></a>
+			<a href="<%=basePath%>web/toNoticeDetail?id=${parent.id}">${parent.title}<span><fmt:formatDate value="${parent.updatedDt}" type="both" pattern="yyyy.MM.dd"/></span></a>
 		</c:forEach>
 	</div>
 </div>

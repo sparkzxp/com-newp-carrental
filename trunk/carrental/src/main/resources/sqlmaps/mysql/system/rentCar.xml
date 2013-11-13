@@ -80,6 +80,9 @@
 					</if>
 				</if>
 				<if test="rentCar.bookUser != null">
+					<if test="rentCar.bookUser.id != null and rentCar.bookUser.id != ''">
+						and A.id = #{rentCar.bookUser.id}
+					</if>
 					<if test="rentCar.bookUser.phone != null and rentCar.bookUser.phone != ''">
 						and A.phone like '%${rentCar.bookUser.phone}%'
 					</if>
@@ -113,6 +116,9 @@
 					</if>
 				</if>
 				<if test="rentCar.bookUser != null">
+					<if test="rentCar.bookUser.id != null and rentCar.bookUser.id != ''">
+						and A.id = #{rentCar.bookUser.id}
+					</if>
 					<if test="rentCar.bookUser.phone != null and rentCar.bookUser.phone != ''">
 						and A.phone = #{rentCar.bookUser.phone}
 					</if>

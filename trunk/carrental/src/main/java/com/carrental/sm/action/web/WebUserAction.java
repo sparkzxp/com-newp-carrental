@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
 import com.carrental.sm.service.system.ICompanyService;
 import com.carrental.sm.service.system.INoticeService;
+import com.carrental.sm.service.system.IRentCarService;
 
 /**
  * 用户管理
@@ -37,6 +39,8 @@ public class WebUserAction {
 	private INoticeService noticeService;
 	@Autowired
 	private ICompanyService companyService;
+	@Autowired
+	private IRentCarService rentCarService;
 
 	/**
 	 * 用户登录页面
@@ -76,6 +80,21 @@ public class WebUserAction {
 		initTop(model, request);
 		initBottom(model);
 		return "web/userPwdEdit";
+	}
+
+	/**
+	 * 用户租车历史页面
+	 */
+	@RequestMapping(value = "/toUserRentHistory")
+	public String toUserRentHistory(Model model, Pager pager, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		Admin loginUser = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
+		RentCar rentCar = new RentCar();
+		rentCar.setBookUser(new Admin(loginUser.getId()));
+		model.addAttribute("rentCars", this.rentCarService.queryList(rentCar, pager));
+		model.addAttribute("pager", pager);
+		return "web/userRentHistory";
 	}
 
 	/**
