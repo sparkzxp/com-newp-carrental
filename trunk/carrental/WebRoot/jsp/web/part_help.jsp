@@ -11,7 +11,7 @@
 	<tr>
 		<td valign="top"><a href="javascript:void(0)">新广历程</a><a
 			href="javascript:void(0)">新广大事记</a><a href="javascript:void(0)">加入新广</a><a
-			href="<%=basePath%>/web/company">关于新广</a><a href="javascript:void(0)">联系我们</a></td>
+			href="<%=basePath%>/web/toCompany">关于新广</a><a href="javascript:void(0)">联系我们</a></td>
 		<td valign="top"><a href="javascript:void(0)">关于费用</a><a
 			href="javascript:void(0)">关于支付</a><a href="javascript:void(0)">关于优惠</a><a
 			href="javascript:void(0)">关于发票</a></td>

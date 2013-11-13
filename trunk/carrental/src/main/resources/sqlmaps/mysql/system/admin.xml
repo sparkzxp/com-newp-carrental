@@ -10,6 +10,7 @@
 		<result property="adminName" column="admin_name" />
 		<result property="password" column="login_pwd"/>
 		<result property="loginName" column="login_name"/>
+		<result property="sex" column="sex"/>
 		<result property="type" column="type"/>
 		<result property="isDelete" column="is_delete"/>
 		<result property="email" column="email"/>
@@ -149,11 +150,13 @@
 		INSERT INTO t_admin(
 			created_user, created_dt, updated_user, updated_dt,
 			admin_name, login_name, login_pwd, type, city_id,
-			role_id, email, phone, company_name, in_blacklist
+			role_id, email, phone, company_name, in_blacklist,
+			sex
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{adminName}, #{loginName}, #{password}, #{type}, #{city.id},
-			#{role.id}, #{email}, #{phone}, #{companyName}, #{inBlacklist}
+			#{role.id}, #{email}, #{phone}, #{companyName}, #{inBlacklist},
+			#{sex}
 		)
 	</insert>
 	
@@ -170,7 +173,8 @@
 			email = #{email},
 			phone = #{phone},
 			company_name = #{companyName},
-			in_blacklist = #{inBlacklist}
+			in_blacklist = #{inBlacklist},
+			sex = #{sex}
 			
 			WHERE id = #{id}
 	</update>

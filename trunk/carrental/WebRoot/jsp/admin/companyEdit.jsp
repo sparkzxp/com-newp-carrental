@@ -91,6 +91,7 @@
                 <td align="right" height="25px">公司介绍：</td>
                 <td>
                 	<textarea rows="8" cols="50" name="content" class="{required:true,maxlengthCN:5000}">${company.content}</textarea>
+                	<br/><span style="color: red;">公司介绍各段落之间请以&lt;p&gt;开头，以&lt;/p&gt;结尾</span>
                 </td>
             </tr>
             <tr>

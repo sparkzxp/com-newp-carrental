@@ -19,7 +19,10 @@
         <table width="99%" border="1px" cellpadding="0" cellspacing="0" class="table">
             <tr>
                 <td width="20%" align="right" height="25px">用户姓名：</td>
-                <td colspan="3">${admin.adminName}</td>
+                <td colspan="3">${admin.adminName}
+                	<c:if test="${admin.sex == 'male'}">先生</c:if>
+                	<c:if test="${admin.sex == 'female'}">女士</c:if>
+                </td>
             </tr>
             <tr>
                 <td align="right" height="25px">登录账号：</td>

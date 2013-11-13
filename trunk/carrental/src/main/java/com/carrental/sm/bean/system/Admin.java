@@ -11,6 +11,7 @@ public class Admin extends BaseBean {
 	private String adminName;// 姓名
 	private String loginName;// 登录名
 	private String password;// 密码
+	private String sex;
 	private String type;// 用户类型，CUSTOM_PERSONAL：个人注册用户，CUSTOM_PERSONAL：企业注册用户，ADMIN：系统用户
 	private String isDelete;// 是否删除
 	private City city;
@@ -188,9 +189,25 @@ public class Admin extends BaseBean {
 	}
 
 	/**
-	 * @param companyName the companyName to set
+	 * @param companyName
+	 *            the companyName to set
 	 */
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+
+	/**
+	 * @return the sex
+	 */
+	public String getSex() {
+		return sex;
+	}
+
+	/**
+	 * @param sex
+	 *            the sex to set
+	 */
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 }

@@ -20,6 +20,10 @@
     <script type="text/javascript">
     var api = frameElement.api, W = api.opener;
     $(function() {
+    	if($('#admin_id').val() == ''){
+    		$($(':radio')[0]).attr('checked', 'checked');
+    	}
+    	
     	$('#btn_submit').click(function(){
     		if($('#editForm').valid()){
 	    		$.post('<%=basePath%>admin/doAdminEdit', $('#editForm').serialize(), function(data){
@@ -52,7 +56,7 @@
 </head>
 <body>
     <form name="editForm" id="editForm">
-    <input type="hidden" name="id" value="${admin.id}"/>
+    <input type="hidden" id="admin_id" name="id" value="${admin.id}"/>
     <input type="hidden" name="type" value="${admin.type}"/>
     <input type="hidden" name="password" value="${admin.password}"/>
 	<input type="hidden" id="admin_inBlacklist" name="inBlacklist" value="${admin.inBlacklist}"/>
@@ -60,7 +64,10 @@
         <table border="0" cellpadding="0" cellspacing="0" class="table">
             <tr>
                 <td width="120px" align="right" height="25px">用户姓名：</td>
-                <td><input type="text" name="adminName" value="${admin.adminName}" style="width:200px;" class="{required:true,maxlengthCN:50}"/></td>
+                <td><input type="text" name="adminName" value="${admin.adminName}" style="width:200px;" class="{required:true,maxlengthCN:50}"/>
+                	<input name="sex" type="radio" value="female" <c:if test="${admin.sex == 'female'}">checked="checked"</c:if> /> 女士 <input type="radio"
+						name="sex" value="male" <c:if test="${admin.sex == 'male'}">checked="checked"</c:if>/> 先生
+                </td>
             </tr>
             <tr>
                 <td align="right" height="25px">登录账号：</td>
