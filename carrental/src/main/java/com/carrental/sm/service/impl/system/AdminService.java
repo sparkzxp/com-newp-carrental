@@ -65,8 +65,11 @@ public class AdminService implements IAdminService {
 	}
 
 	public String add(Admin admin, Admin loginUser) {
-		if (checkExist(admin)) {
+		if (checkLoginNameExist(admin)) {
 			return "登录账号已存在";
+		}
+		if (checkPhoneExist(admin)) {
+			return "手机号码已存在";
 		}
 		this.adminDao.add(admin);
 
@@ -85,8 +88,11 @@ public class AdminService implements IAdminService {
 	}
 
 	public String update(Admin admin, Admin loginUser) {
-		if (checkExist(admin)) {
+		if (checkLoginNameExist(admin)) {
 			return "登录账号已存在";
+		}
+		if (checkPhoneExist(admin)) {
+			return "手机号码已存在";
 		}
 		this.adminDao.update(admin);
 
@@ -161,12 +167,45 @@ public class AdminService implements IAdminService {
 	 * @author 张霄鹏
 	 * @return 存在：true，不存在：false
 	 */
-	private Boolean checkExist(Admin admin) {
+	private Boolean checkLoginNameExist(Admin admin) {
 		Admin _admin = new Admin();
 		_admin.setLoginName(admin.getLoginName());
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("admin", _admin);
 		List<Admin> admins = this.adminDao.queryByLoginName(params);
+		if (CollectionUtils.isEmpty(admins)) {
+			return false;
+		} else if (StringUtils.isEmpty(admin.getId())) {
+			// add
+			if (admins.size() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			// update
+			if (admins.size() > 1) {
+				return true;
+			} else if (admins.get(0).getId().equals(admin.getId())) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
+
+	/**
+	 * 验证手机号码是否存在
+	 * 
+	 * @author 张霄鹏
+	 * @return 存在：true，不存在：false
+	 */
+	private Boolean checkPhoneExist(Admin admin) {
+		Admin _admin = new Admin();
+		_admin.setPhone(admin.getPhone());
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("admin", _admin);
+		List<Admin> admins = this.adminDao.queryEqualsList(params);
 		if (CollectionUtils.isEmpty(admins)) {
 			return false;
 		} else if (StringUtils.isEmpty(admin.getId())) {

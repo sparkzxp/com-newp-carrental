@@ -9,8 +9,8 @@
 <link href="<%=basePath%>css/web/style.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/common/slide.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/common/adv.js"></script>
-
 <script type="text/javascript">
 	$.ajaxSetup({cache: false });
 
