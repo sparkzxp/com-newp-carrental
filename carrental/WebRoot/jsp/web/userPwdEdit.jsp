@@ -85,7 +85,7 @@
 		<input type="hidden" name="type" value="${user.type}"/>
 		<div id="wrapp">
 			<div class="member_title">
-				<a href="<%=basePath%>web/user/toUserManage" class="current">个人信息</a><a href="javascript:void(0)">修改密码</a><a href="<%=basePath%>web/user/toRentHistory">租车历史</a>
+				<a href="<%=basePath%>web/user/toUserManage" class="current">个人信息</a><a href="javascript:void(0)">修改密码</a><a href="<%=basePath%>web/user/toUserRentHistory">租车历史</a>
 				<h6 class="clear"></h6>
 				<div class="member_main">
 					<h1>注：如果您忘记了密码，点击获取验证码，您将会接收到验证短信。输入您接收到的验证码您就可以设置新密码了！</h1>

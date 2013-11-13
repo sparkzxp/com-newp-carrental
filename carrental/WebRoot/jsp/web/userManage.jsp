@@ -54,7 +54,7 @@
 		<input type="hidden" name="type" value="${user.type}"/>
 		<div id="wrapp">
 			<div class="member_title">
-				<a href="javascript:void(0)" class="current">个人信息</a><a href="<%=basePath%>web/user/toUserPwdEdit">修改密码</a><a href="<%=basePath%>web/user/toRentHistory">租车历史</a>
+				<a href="javascript:void(0)" class="current">个人信息</a><a href="<%=basePath%>web/user/toUserPwdEdit">修改密码</a><a href="<%=basePath%>web/user/toUserRentHistory">租车历史</a>
 				<h6 class="clear"></h6>
 				<div class="member_main">
 					<h1>登录账号和用户名不可修改！您可完善您的个人信息，以便于我们与您联系！</h1>

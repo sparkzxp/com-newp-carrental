@@ -77,6 +77,7 @@
                 <td align="right" height="25px">公告内容：</td>
                 <td>
                 	<textarea name="content" rows="5" cols="40" class="{required:true,maxlengthCN:5000}">${notice.content}</textarea>
+                	<br/><span style="color: red;">公告内容各段落之间请以&lt;p&gt;开头，以&lt;/p&gt;结尾</span>
                 </td>
             </tr>
             <tr>
