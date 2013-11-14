@@ -35,7 +35,7 @@
 						<li><a href="javascript:void(0)">半日租</a></li>
 					</ul></div>
 					<div><a href="<%=basePath%>/web/toBusinessList">业务介绍</a></div><div><a 
-					href="javascript:void(0)">优惠活动</a></div></td>
+					href="<%=basePath%>/web/toCouponList">优惠活动</a></div></td>
 			</tr>
 		</table>
 	</div>

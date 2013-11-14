@@ -32,7 +32,8 @@
             <tr>
                 <td align="right" height="25px">公告内容：</td>
                 <td colspan="3">
-                	${fn:replace(notice.content,vEnter,"<br>")}
+                	<%-- ${fn:replace(notice.content,vEnter,"<br>")} --%>
+                	${notice.content}
                 </td>
             </tr>
             <tr>

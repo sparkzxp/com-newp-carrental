@@ -232,8 +232,11 @@
                 <td><input type="text" id="coupon_endDate" name="endDate" value="<fmt:formatDate value="${coupon.endDate}" type="both" pattern="yyyy-MM-dd"/>" readonly="readonly" style="width:200px;" class="{required:true}"/></td>
             </tr>
             <tr>
-                <td align="right" height="25px">备注说明：</td>
-                <td><textarea name="content" rows="3" cols="35" class="{maxlengthCN:2000}">${coupon.content}</textarea></td>
+                <td align="right" height="25px">活动内容：</td>
+                <td>
+                	<textarea name="content" rows="3" cols="35" class="{required:true,maxlengthCN:5000}">${coupon.content}</textarea>
+                	<br/><span style="color: red;">活动内容各段落之间请以&lt;p&gt;开头，以&lt;/p&gt;结尾</span>
+                </td>
             </tr>
             <tr>
                 <td align="right" height="25px"></td>
