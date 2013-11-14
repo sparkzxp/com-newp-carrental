@@ -16,6 +16,7 @@
 		<result property="freeDays" column="free_days" />
 		<result property="discount" column="discount" />
 		<result property="content" column="content" />
+		<result property="imagePath" column="image_path" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByCouponId" column="id" />
@@ -108,11 +109,13 @@
 		INSERT INTO `t_coupon`(
 			created_user, created_dt, updated_user, updated_dt,
 			coupon_title, coupon_type, start_date, end_date, full_kilometer,
-			free_kilometer, rent_days, free_days, content, discount
+			free_kilometer, rent_days, free_days, content, discount,
+			image_path
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{couponTitle}, #{couponType}, #{startDate}, #{endDate}, #{fullKilometer},
-			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, #{discount}
+			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, #{discount},
+			#{imagePath}
 		)
 	</insert>
 	
@@ -129,7 +132,8 @@
 			rent_days = #{rentDays},
 			free_days = #{freeDays},
 			content = #{content},
-			discount = #{discount}
+			discount = #{discount},
+			image_path = #{imagePath}
 			
 			WHERE id = #{id}
 	</update>

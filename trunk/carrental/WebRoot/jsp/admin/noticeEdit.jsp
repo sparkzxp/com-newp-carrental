@@ -46,7 +46,13 @@
     	}
     	
     	$('#btn_submit').click(function(){
-    		if($('#editForm').valid()){
+    		if($("input[name=imageFile]").next("input[type=text]").val()==''){
+				$.prompt("请先上传公告图片",{
+					title: '提示',
+	    			buttons: { "确认": false}
+	    		});
+				return;
+   	   		}else if($('#editForm').valid()){
    	   			if($("input[name=imageFile]").next("input[type=text]").val() != $('#notice_imagePath').val()){
 	   				$('#notice_imageUploadStatus').val('true');
 	   			}

@@ -22,6 +22,8 @@ public class Coupon extends BaseBean {
 	private Double discount;
 	private List<CarSeries> carSeriesList;
 	private String content;
+	private String imagePath;
+	private Boolean imageUploadStatus;// 不存数据库
 
 	/**
 	 * @return the couponTitle
@@ -186,5 +188,35 @@ public class Coupon extends BaseBean {
 	 */
 	public void setDiscount(Double discount) {
 		this.discount = discount;
+	}
+
+	/**
+	 * @return the imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	/**
+	 * @param imagePath
+	 *            the imagePath to set
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	/**
+	 * @return the imageUploadStatus
+	 */
+	public Boolean getImageUploadStatus() {
+		return imageUploadStatus;
+	}
+
+	/**
+	 * @param imageUploadStatus
+	 *            the imageUploadStatus to set
+	 */
+	public void setImageUploadStatus(Boolean imageUploadStatus) {
+		this.imageUploadStatus = imageUploadStatus;
 	}
 }
