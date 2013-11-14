@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Coupon;
 import com.carrental.sm.bean.system.Notice;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.ICompanyService;
+import com.carrental.sm.service.system.ICouponService;
 import com.carrental.sm.service.system.INoticeService;
 
 /**
@@ -27,6 +29,8 @@ public class WebMainAction {
 	private INoticeService noticeService;
 	@Autowired
 	private ICompanyService companyService;
+	@Autowired
+	private ICouponService couponService;
 
 	/**
 	 * WEB首页
@@ -79,6 +83,29 @@ public class WebMainAction {
 		initBottom(model);
 		model.addAttribute("notice", this.noticeService.queryList(notice, null).get(0));
 		return "web/noticeDetail";
+	}
+
+	/**
+	 * 优惠活动列表页面
+	 */
+	@RequestMapping(value = "/toCouponList")
+	public String toCouponList(Model model, Pager pager, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		model.addAttribute("couponList", this.couponService.queryList(null, pager));
+		model.addAttribute("pager", pager);
+		return "web/couponList";
+	}
+
+	/**
+	 * 优惠活动详细页面
+	 */
+	@RequestMapping(value = "/toCouponDetail")
+	public String toCouponDetail(Model model, Coupon coupon, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		model.addAttribute("coupon", this.couponService.queryList(coupon, null).get(0));
+		return "web/couponDetail";
 	}
 
 	private void initTop(Model model, HttpServletRequest request) {

@@ -96,8 +96,8 @@
                 <td colspan="3"><fmt:formatDate value="${coupon.endDate}" type="both" pattern="yyyy-MM-dd"/></td>
             </tr>
             <tr>
-                <td align="right" height="25px">备注说明：</td>
-                <td colspan="3">${fn:replace(coupon.content,vEnter,"<br>")}</td>
+                <td align="right" height="25px">活动内容：</td>
+                <td colspan="3"><%-- ${fn:replace(coupon.content,vEnter,"<br>")} --%>${coupon.content}</td>
             </tr>
             <tr>
                 <td width="20%" align="right" height="25px">创建人：</td>

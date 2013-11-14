@@ -26,8 +26,9 @@
 					<h1>公司公告详细</h1>
 				</div>
 				<div class="box20 content">
-					<h2>${notice.title}</h2>
-					<h3>发布日期：<fmt:formatDate value="${notice.updatedDt}" type="both" pattern="yyyy/MM/dd HH:mm" /></h3>
+					<h2>${coupon.couponTitle}</h2>
+					<h3>活动日期：<fmt:formatDate value="${coupon.startDate}" type="both" pattern="yyyy/MM/dd"/>&nbsp;-&nbsp;<fmt:formatDate
+								value="${coupon.endDate}" type="both" pattern="yyyy/MM/dd"/></h3>
 					<!-- <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
 						<span class="bds_more">分享到：</span> <a class="bds_qzone">QQ空间</a> <a
 							class="bds_tsina">新浪微博</a> <a class="bds_tqq">腾讯微博</a> <a
@@ -47,10 +48,10 @@
 					</script> -->
 
 					<div align="center">
-						<img src="<%=basePath%>${notice.imagePath}" width="348" height="191" />
+						<img src="<%=basePath%>${coupon.imagePath}" width="348" height="191" />
 					</div>
 					<%-- ${fn:replace(parent.content,vEnter,"<br>")} --%>
-					${notice.content}
+					${coupon.content}
 				</div>
 			</div>
 			<%@ include file="part_help.jsp"%>
