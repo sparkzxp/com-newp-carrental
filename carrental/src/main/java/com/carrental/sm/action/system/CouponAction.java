@@ -1,5 +1,6 @@
 package com.carrental.sm.action.system;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +22,17 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.CarSeries;
 import com.carrental.sm.bean.system.Coupon;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
+import com.carrental.sm.common.DateUtil;
+import com.carrental.sm.common.FileUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.ICarSeriesService;
 import com.carrental.sm.service.system.ICouponService;
@@ -40,6 +46,7 @@ import com.carrental.sm.service.system.ICouponService;
 @RequestMapping("coupon")
 public class CouponAction {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	private Logger logger = Logger.getLogger(getClass());
 
 	@InitBinder
 	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
@@ -94,22 +101,50 @@ public class CouponAction {
 		return "admin/couponEdit";
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/doCouponEdit", method = RequestMethod.POST)
-	public Map<String, String> doCouponEdit(Coupon coupon, String carSeriesIds, HttpServletRequest request) {
-		Map<String, String> result = new HashMap<String, String>();
+	public String doCouponEdit(Coupon coupon, String carSeriesIds, @RequestParam(required = false) MultipartFile imageFile, Model model, HttpServletRequest request) {
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
-		coupon.setUpdatedUser(_admin);
-		if (StringUtils.isNotEmpty(coupon.getId())) {
-			// update
-			result.put("result", this.couponService.update(coupon, carSeriesIds, _admin));
-		} else {
-			// add
-			coupon.setCreatedUser(_admin);
-			result.put("result", this.couponService.add(coupon, carSeriesIds, _admin));
+
+		String oldImagePath = coupon.getImagePath();
+		try {
+			if (coupon.getImageUploadStatus()) {
+				if (null == imageFile) {
+					coupon.setImagePath("");
+				} else {
+					String imagePath = request.getSession().getServletContext().getRealPath("upload/coupon/image/" + DateUtil.getCurrentDate() + "/");
+					File root = new File(imagePath);
+					if (!root.isDirectory()) {
+						root.mkdirs();
+						logger.info("创建文件夹成功：" + imagePath);
+					}
+					String imageFileName = FileUtil.gainFileName(imageFile.getOriginalFilename());
+					File targetFile = new File(imagePath, imageFileName);
+					// 保存
+					imageFile.transferTo(targetFile);
+					coupon.setImagePath("upload/coupon/image/" + DateUtil.getCurrentDate() + "/" + imageFileName);
+					logger.info("上传文件成功：upload/coupon/image/" + DateUtil.getCurrentDate() + "/" + imageFileName);
+				}
+			}
+			coupon.setUpdatedUser(_admin);
+			if (StringUtils.isNotEmpty(coupon.getId())) {
+				// update
+				model.addAttribute("result", this.couponService.update(coupon, carSeriesIds, _admin));
+			} else {
+				// add
+				coupon.setCreatedUser(_admin);
+				model.addAttribute("result", this.couponService.add(coupon, carSeriesIds, _admin));
+			}
+			model.addAttribute("coupon", coupon);
+
+			if (coupon.getImageUploadStatus() && StringUtils.isNotEmpty(oldImagePath)) {
+				FileUtil.deleteFile(request.getSession().getServletContext().getRealPath("/") + oldImagePath);
+				logger.info("删除文件成功：" + request.getSession().getServletContext().getRealPath("/") + oldImagePath);
+			}
+		} catch (Exception e) {
+			logger.error(e);
+			model.addAttribute("result", e.getMessage());
 		}
-		result.put("id", coupon.getId());
-		return result;
+		return "admin/couponEdit";
 	}
 
 	@RequestMapping(value = "/toCouponDetail")

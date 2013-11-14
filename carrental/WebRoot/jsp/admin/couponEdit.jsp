@@ -23,6 +23,7 @@
     <script language="javascript" src="<%=basePath%>js/common/json2.js"></script>
 	<script type="text/javascript" src="<%=basePath%>plugin/ztree/jquery.ztree.core-3.2.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>plugin/ztree/jquery.ztree.excheck-3.2.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/common/fileEveryWhere.js"></script>
     <script type="text/javascript">
     var api = frameElement.api, W = api.opener;
     
@@ -97,12 +98,36 @@
 	}
    	
     $(function() {
+    	$("input:file").fileEveryWhere({
+			ButtonText : "浏览"
+		});
+    	
     	$("#coupon_startDate").addClass("Wdate").click(function(){
 			WdatePicker({startDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'});
 		});
     	$("#coupon_endDate").addClass("Wdate").click(function(){
 			WdatePicker({startDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd'});
 		});
+    	
+    	$("input[name=imageFile]").next("input[type=text]").val($('#coupon_imagePath').val());
+    	if('${result}' == 'SUCCESS'){
+    		$.prompt('操作成功',{
+				title: '提示',
+    			buttons: { "确认": true},
+    			submit:function(e,v,m,f){
+    				e.preventDefault();
+    				if(v){
+    					$.prompt.close();
+    					W.pageLoad();
+    				}
+    			}
+    		});
+    	}else if('${result}' != ''){
+    		$.prompt(data.result,{
+				title: '提示',
+    			buttons: { "确认": false}
+    		});
+    	}
     	
     	var zNodes = JSON.parse('${carSeriesJson}');
     	$.fn.zTree.init($("#carSeriesTree"), setting, zNodes);
@@ -120,28 +145,17 @@
 		$("#carSeriesIds").attr("value", k);
     	
     	$('#btn_submit').click(function(){
-    		if($('#editForm').valid()){
-	    		$.post('<%=basePath%>coupon/doCouponEdit', $('#editForm').serialize(), function(data){
-	        		if(data.result == 'SUCCESS'){
-	        			$('#id').val(data.id);
-	        			$.prompt('操作成功',{
-							title: '提示',
-		        			buttons: { "确认": true},
-		        			submit:function(e,v,m,f){
-		        				e.preventDefault();
-		        				if(v){
-		        					$.prompt.close();
-		        					W.pageLoad();
-		        				}
-		        			}
-		        		});
-	        		}else{
-	        			$.prompt(data.result,{
-							title: '提示',
-		        			buttons: { "确认": false}
-		        		});
-	        		}
-	    		}, "json");
+    		if($("input[name=imageFile]").next("input[type=text]").val()==''){
+				$.prompt("请先上传活动图片",{
+					title: '提示',
+	    			buttons: { "确认": false}
+	    		});
+				return;
+   	   		}else if($('#editForm').valid()){
+    			if($("input[name=imageFile]").next("input[type=text]").val() != $('#coupon_imagePath').val()){
+	   				$('#coupon_imageUploadStatus').val('true');
+	   			}
+   	   			$('#editForm').submit();
     		}
     	});
     	
@@ -154,8 +168,10 @@
     </script>
 </head>
 <body>
-    <form name="editForm" id="editForm">
+    <form name="editForm" id="editForm" enctype="multipart/form-data" method="post" action="<%=basePath%>coupon/doCouponEdit">
     <input type="hidden" name="id" value="${coupon.id}"/>
+    <input type="hidden" id="coupon_imagePath" name="imagePath" value="${coupon.imagePath}"/>
+    <input type="hidden" id="coupon_imageUploadStatus" name="imageUploadStatus" value="false"/>
     <div class="content" style="height: 370px;">
         <table border="0" cellpadding="0" cellspacing="0" class="table">
             <tr>
@@ -173,6 +189,12 @@
 					</select>
 				</td>
 			</tr>
+            <tr>
+                <td align="right" height="25px">活动图片：</td>
+                <td>
+                	<input type="file" name="imageFile"/>
+                </td>
+            </tr>
             <tr class="discount" style="display: none;">
                 <td align="right" height="25px">选择车系：</td>
                 <td>

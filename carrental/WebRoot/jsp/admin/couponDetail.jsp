@@ -51,6 +51,14 @@
                 <td align="right" height="25px">优惠活动类型：</td>
                 <td colspan="3">${coupon.couponType}</td>
             </tr>
+            <tr>
+                <td align="right" height="25px">活动图片：</td>
+                <td colspan="3">
+                	<c:if test="${coupon.imagePath != null and coupon.imagePath != ''}">
+                	<img alt="" src="<%=basePath%>${coupon.imagePath}"/>
+                	</c:if>
+                </td>
+            </tr>
             <tr class="discount" style="display: none;">
                 <td align="right" height="25px">选择车系：</td>
                 <td colspan="3">
