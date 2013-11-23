@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="businessDescNpc">
+	<resultMap id="businessDescRstMap" type="businessDesc">
+		<id property="id" column="id"/>
+		<result property="updatedDt" column="updated_dt" />
+		<result property="name" column="name" />
+		<result property="content" column="content" />
+		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
+	</resultMap>
+
+	<sql id="queryEquals_where">
+		<where>
+			<if test="businessDesc != null">
+				<if test="businessDesc.id != null and businessDesc.id != ''">
+					and T.id = #{businessDesc.id}
+				</if>
+				<if test="businessDesc.name != null and businessDesc.name != ''">
+					and T.name = #{businessDesc.name}
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="queryEqualsList" resultMap="businessDescRstMap" parameterType="map">
+		SELECT T.* FROM `t_business_desc` T
+		<include refid="queryEquals_where" />
+	</select>
+	
+	<update id="update" parameterType="businessDesc">
+		update `t_business_desc` set
+			name = #{name},
+			content = #{content}
+			WHERE id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="captchaNpc">
+	<resultMap id="captchaRstMap" type="captcha">
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="captcha" column="captcha" />
+		<result property="isUsed" column="is_used" />
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="captcha != null">
+				<if test="captcha.id != null and captcha.id != ''">
+					and T.id = #{captcha.id}
+				</if>
+				<if test="captcha.captcha != null and captcha.captcha != ''">
+					and T.captcha = #{captcha.captcha}
+				</if>
+				<if test="captcha.createdDt != null and captcha.createdDt != ''">
+					and date_add(T.created_dt, interval 15 minute) >= #{captcha.createdDt}
+				</if>
+			</if>
+		</where>
+	</sql>
+
+	<select id="queryList" resultMap="captchaRstMap" parameterType="map">
+		SELECT T.* FROM `t_captcha` T
+		<include refid="query_where" />
+		order by T.created_dt desc
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_captcha T
+		<include refid="query_where"/>
+	</select>
+	
+	<insert id="add" parameterType="captcha">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `t_captcha`(
+			created_user, created_dt,
+			captcha, isUsed
+		) VALUES (
+			#{createdUser.id}, NOW(),
+			#{captcha}, '0'
+		)
+	</insert>
+	
+	<update id="updateUsed" parameterType="captcha">
+		update `t_captcha` set
+			isUsed = '1'
+			WHERE id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageNpc">
+	<resultMap id="messageRstMap" type="message">
+		<id property="id" column="id"/>
+		<result property="createdDt" column="created_dt" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="receiveNo" column="receive_no" />
+		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
+	</resultMap>
+
+	<sql id="query_where">
+		<where>
+			<if test="message != null">
+				<if test="message.id != null and message.id != ''">
+					and T.id = #{message.id}
+				</if>
+				<if test="message.title != null and message.title != ''">
+					and T.title = #{message.title}
+				</if>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryList" resultMap="messageRstMap" parameterType="map">
+		SELECT T.* FROM `t_message` T
+		<include refid="query_where" />
+		order by T.created_dt desc
+		<include refid="limit"/>
+	</select>
+	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_message T
+		<include refid="query_where"/>
+	</select>
+	
+	<insert id="add" parameterType="message">
+		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO `t_message`(
+			created_user, created_dt,
+			title, content, receive_no
+		) VALUES (
+			#{createdUser.id}, NOW(),
+			#{title}, #{content}, #{receiveNo}
+		)
+	</insert>
+</mapper>
