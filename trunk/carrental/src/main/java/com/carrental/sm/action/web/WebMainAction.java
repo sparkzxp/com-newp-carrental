@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.BusinessDesc;
 import com.carrental.sm.bean.system.Coupon;
 import com.carrental.sm.bean.system.Notice;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.bean.Pager;
+import com.carrental.sm.service.system.IBusinessDescService;
 import com.carrental.sm.service.system.ICompanyService;
 import com.carrental.sm.service.system.ICouponService;
 import com.carrental.sm.service.system.INoticeService;
@@ -31,6 +33,8 @@ public class WebMainAction {
 	private ICompanyService companyService;
 	@Autowired
 	private ICouponService couponService;
+	@Autowired
+	private IBusinessDescService businessDescService;
 
 	/**
 	 * WEB首页
@@ -60,6 +64,17 @@ public class WebMainAction {
 		initTop(model, request);
 		initBottom(model);
 		return "web/businessList";
+	}
+
+	/**
+	 * 业务介绍详细页面
+	 */
+	@RequestMapping(value = "/toBusinessDetail")
+	public String toBusinessDetail(Model model, BusinessDesc businessDesc, HttpServletRequest request) {
+		initTop(model, request);
+		initBottom(model);
+		model.addAttribute("businessDesc", this.businessDescService.queryEqualsList(businessDesc).get(0));
+		return "web/businessDetail";
 	}
 
 	/**
