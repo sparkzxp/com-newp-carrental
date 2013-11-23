@@ -32,6 +32,10 @@ public class BusinessDao implements IBusinessDao {
 		return this.sqlSession.selectOne("businessNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("businessNpc.countEquals", params);
+	}
+
 	public String add(Business business) {
 		this.sqlSession.insert("businessNpc.add", business);
 		return String.valueOf(business.getId());

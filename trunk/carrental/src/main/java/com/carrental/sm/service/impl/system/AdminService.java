@@ -50,7 +50,7 @@ public class AdminService implements IAdminService {
 		params.put("admin", admin);
 
 		if (pager != null) {
-			pager.setTotalSize(this.adminDao.count(params));
+			pager.setTotalSize(this.adminDao.countEquals(params));
 			PagerUtil.setPager(pager);
 		}
 

@@ -18,7 +18,7 @@ public interface ICarDao {
 	 * @author 张霄鹏
 	 * @return List<Car>
 	 * @param params
-	 *            :pager,car
+	 *            :pager,car,rentCar(bookPickUpDt,bookGiveBackDt)
 	 */
 	List<Car> queryList(Map<String, Object> params);
 
@@ -33,13 +33,22 @@ public interface ICarDao {
 	List<Car> queryEqualsList(Map<String, Object> params);
 
 	/**
+	 * 条件查询列表数量，字符串类型like匹配
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :car,rentCar(bookPickUpDt,bookGiveBackDt)
+	 */
+	Integer count(Map<String, Object> params);
+
+	/**
 	 * 条件查询列表数量
 	 * 
 	 * @author 张霄鹏
 	 * @param params
 	 *            :car
 	 */
-	Integer count(Map<String, Object> params);
+	Integer countEquals(Map<String, Object> params);
 
 	/**
 	 * 根据车系ID查询未删除的关联车辆数量

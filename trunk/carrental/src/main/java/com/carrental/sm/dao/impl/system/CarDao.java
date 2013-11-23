@@ -32,6 +32,10 @@ public class CarDao implements ICarDao {
 		return this.sqlSession.selectOne("carNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("carNpc.countEquals", params);
+	}
+
 	public Integer countByCarSeriesIds(String carSeriesIds) {
 		return this.sqlSession.selectOne("carNpc.countByCarSeriesIds", carSeriesIds);
 	}

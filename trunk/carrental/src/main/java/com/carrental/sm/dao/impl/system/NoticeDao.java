@@ -32,6 +32,10 @@ public class NoticeDao implements INoticeDao {
 		return this.sqlSession.selectOne("noticeNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("noticeNpc.countEquals", params);
+	}
+
 	public String add(Notice notice) {
 		this.sqlSession.insert("noticeNpc.add", notice);
 		return String.valueOf(notice.getId());

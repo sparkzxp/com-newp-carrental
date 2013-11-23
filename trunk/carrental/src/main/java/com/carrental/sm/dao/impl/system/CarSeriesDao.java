@@ -32,6 +32,10 @@ public class CarSeriesDao implements ICarSeriesDao {
 		return this.sqlSession.selectOne("carSeriesNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("carSeriesNpc.countEquals", params);
+	}
+
 	public String add(CarSeries carSeries) {
 		this.sqlSession.insert("carSeriesNpc.add", carSeries);
 		return String.valueOf(carSeries.getId());

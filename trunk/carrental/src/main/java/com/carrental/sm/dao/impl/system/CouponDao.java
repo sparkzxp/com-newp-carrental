@@ -32,6 +32,10 @@ public class CouponDao implements ICouponDao {
 		return this.sqlSession.selectOne("couponNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("couponNpc.countEquals", params);
+	}
+
 	public String add(Coupon coupon) {
 		this.sqlSession.insert("couponNpc.add", coupon);
 		return String.valueOf(coupon.getId());

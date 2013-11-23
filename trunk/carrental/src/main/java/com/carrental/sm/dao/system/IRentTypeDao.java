@@ -33,6 +33,24 @@ public interface IRentTypeDao {
 	List<RentType> queryEqualsList(Map<String, Object> params);
 
 	/**
+	 * 条件查询列表数量，字符串类型like匹配
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :rentType
+	 */
+	Integer count(Map<String, Object> params);
+
+	/**
+	 * 条件查询列表数量
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :rentType
+	 */
+	Integer countEquals(Map<String, Object> params);
+
+	/**
 	 * 根据多个车系ID查询车系信息
 	 * 
 	 * @author 张霄鹏
@@ -47,15 +65,6 @@ public interface IRentTypeDao {
 	 * @return List<RentType>
 	 */
 	List<RentType> queryByBusinessType(String businessType);
-
-	/**
-	 * 条件查询列表数量
-	 * 
-	 * @author 张霄鹏
-	 * @param params
-	 *            :rentType
-	 */
-	Integer count(Map<String, Object> params);
 
 	/**
 	 * 新增

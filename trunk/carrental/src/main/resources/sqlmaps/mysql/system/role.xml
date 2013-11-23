@@ -72,6 +72,11 @@
 		<include refid="query_where"/>
 	</select>
 	
+	<select id="countEquals" resultType="int" parameterType="map">
+		select count(T.id) FROM t_role T
+		<include refid="queryEquals_where"/>
+	</select>
+	
 	<select id="countByCityIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_role T
 		where T.city_id in (${_parameter})

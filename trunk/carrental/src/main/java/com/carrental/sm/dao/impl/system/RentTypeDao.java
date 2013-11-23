@@ -28,16 +28,20 @@ public class RentTypeDao implements IRentTypeDao {
 		return this.sqlSession.selectList("rentTypeNpc.queryEqualsList", params);
 	}
 
+	public Integer count(Map<String, Object> params) {
+		return this.sqlSession.selectOne("rentTypeNpc.count", params);
+	}
+
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("rentTypeNpc.countEquals", params);
+	}
+
 	public List<RentType> queryByCarSeriesIds(String carSeriesIds) {
 		return this.sqlSession.selectList("rentTypeNpc.queryByCarSeriesIds", carSeriesIds);
 	}
 
 	public List<RentType> queryByBusinessType(String businessType) {
 		return this.sqlSession.selectList("rentTypeNpc.queryByBusinessType", businessType);
-	}
-
-	public Integer count(Map<String, Object> params) {
-		return this.sqlSession.selectOne("rentTypeNpc.count", params);
 	}
 
 	public String add(RentType rentType) {

@@ -33,13 +33,22 @@ public interface IRentCarDao {
 	List<RentCar> queryEqualsList(Map<String, Object> params);
 
 	/**
-	 * 条件查询列表数量
+	 * 条件查询列表数量，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏
 	 * @param params
 	 *            :rentCar
 	 */
 	Integer count(Map<String, Object> params);
+
+	/**
+	 * 条件查询列表数量
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :rentCar
+	 */
+	Integer countEquals(Map<String, Object> params);
 
 	/**
 	 * 根据车辆ID查询关联的预订租车数量

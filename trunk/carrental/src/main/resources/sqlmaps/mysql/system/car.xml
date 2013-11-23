@@ -116,6 +116,13 @@
 		<include refid="query_where"/>
 	</select>
 	
+	<select id="countEquals" resultType="int" parameterType="map">
+		select count(T.id) FROM t_car T
+		left join t_car_series CS on CS.id = T.series_id
+		left join t_rent_car RC on RC.car_id = T.id
+		<include refid="queryEquals_where"/>
+	</select>
+	
 	<select id="countByCarSeriesIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_car T
 		where T.series_id in (${_parameter})
