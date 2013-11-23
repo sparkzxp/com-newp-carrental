@@ -205,10 +205,9 @@ public class RentCarAction {
 			// add
 			RentCar _r = new RentCar();
 			_r.setCreatedDt(new Timestamp(new Date().getTime()));
-			rentCar.setRentNumber("ZC" + DateUtil.formatDate("yyyyMMhh") + "-" + (this.rentCarService.count(_r) + 1));
+			rentCar.setRentNumber("ZC" + DateUtil.formatCurrentDate("yyyyMMhh") + "-" + (this.rentCarService.count(_r) + 1));
 			rentCar.setCreatedUser(_admin);
 			result.put("result", this.rentCarService.add(rentCar, _newer, _admin));
-			// TODO 后台预订直接生成预订信邮件和短信
 		}
 		result.put("id", rentCar.getId());
 		return result;
@@ -245,7 +244,7 @@ public class RentCarAction {
 		rentCar.setUpdatedUser(_admin);
 		rentCar.setRentStatus(Constants.RENT_STATUS_BOOK_EFFECT);
 		result.put("result", this.rentCarService.confirmRentCar(rentCar, _admin));
-		// TODO 预订确认后发送邮件和短信
+
 		return result;
 	}
 

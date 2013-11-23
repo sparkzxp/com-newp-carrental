@@ -18,7 +18,7 @@
     	$('#btn_submit').click(function(){
     		$.prompt(
 				{state0:{
-					html: '确认此次预订吗',
+					html: '确认受理此次预订吗',
         			buttons: { "确认": 1, "取消": 0},
         			submit:function(e,v,m,f){
         				e.preventDefault();
@@ -73,7 +73,7 @@
     <%@ include file="rentCarDetail_bookPart.jsp"%>
     <%@ include file="rentCarDetail_userInfoPart.jsp"%>
     <div class="button_nde" style="text-align: center;">
-    	<input type="button" id="btn_submit" class="btn" value="确认"/>
+    	<input type="button" id="btn_submit" class="btn" value="确认受理"/>
        	<input type="button" id="btn_close" class="btn" value="关闭" onclick="javascript:api.close();"/>
     </div>
     </form>

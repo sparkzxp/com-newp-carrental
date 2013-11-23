@@ -12,6 +12,11 @@ public class MessageUtil {
 	public static String sendMessage(Message message) {
 		String result = Constants.OPERATION_SUCCESS;
 		// TODO 发送短信
+		try {
+			
+		} catch (Exception e) {
+			result = "";
+		}
 		return result;
 	}
 }

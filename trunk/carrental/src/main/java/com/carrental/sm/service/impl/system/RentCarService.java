@@ -13,15 +13,18 @@ import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.Business;
 import com.carrental.sm.bean.system.City;
 import com.carrental.sm.bean.system.Log;
+import com.carrental.sm.bean.system.Message;
 import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
+import com.carrental.sm.common.MessageUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.IAdminDao;
 import com.carrental.sm.dao.system.IBusinessDao;
 import com.carrental.sm.dao.system.ICityDao;
 import com.carrental.sm.dao.system.ILogDao;
+import com.carrental.sm.dao.system.IMessageDao;
 import com.carrental.sm.dao.system.IRentCarDao;
 import com.carrental.sm.service.system.IRentCarService;
 
@@ -42,6 +45,8 @@ public class RentCarService implements IRentCarService {
 	private ICityDao cityDao;
 	@Autowired
 	private IBusinessDao businessDao;
+	@Autowired
+	private IMessageDao messageDao;
 
 	public List<RentCar> queryList(RentCar rentCar, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -63,6 +68,7 @@ public class RentCarService implements IRentCarService {
 	}
 
 	public String add(RentCar rentCar, Admin newer, Admin loginUser) {
+		String result = Constants.OPERATION_SUCCESS;
 		// 判断预订人是否新用户
 		if (StringUtils.isEmpty(newer.getId())) {
 			this.adminDao.add(newer);
@@ -78,7 +84,22 @@ public class RentCarService implements IRentCarService {
 		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 新增了预订号为：" + rentCar.getRentNumber() + " 的预订租用信息");
 		log.setLevel("5");
 		this.logDao.add(log);
-		return Constants.OPERATION_SUCCESS;
+
+		// TODO 后台预订直接发送短信
+		if (Constants.RENT_STATUS_BOOK_EFFECT.equals(rentCar.getRentStatus())) {
+			RentCar _rentCar = new RentCar();
+			_rentCar.setId(rentCar.getId());
+			rentCar = this.queryList(_rentCar, null).get(0);
+			Message message = new Message();
+			message.setCreatedUser(loginUser);
+			message.setTitle("确认预订");
+			message.setReceiveNo(rentCar.getBookUser().getPhone());
+			message.setContent("亲爱的" + rentCar.getBookUser().getAdminName() + "您好，您于" + DateUtil.formatDate(rentCar.getCreatedDt(), "yyyy-MM-dd HH:mm") + "预订的订单已生效，预订取车时间为" + DateUtil.formatDate(rentCar.getBookPickUpDt(), "yyyy-MM-dd HH:mm") + "，查询编号为：" + rentCar.getRentNumber() + Constants.MESSAGE_SUFFIX);
+			this.messageDao.add(message);
+			result = MessageUtil.sendMessage(message);
+		}
+
+		return result;
 	}
 
 	public String update(RentCar rentCar, Admin newer, Admin loginUser) {
@@ -125,6 +146,7 @@ public class RentCarService implements IRentCarService {
 	}
 
 	public String confirmRentCar(RentCar rentCar, Admin loginUser) {
+		String result = Constants.OPERATION_SUCCESS;
 		this.rentCarDao.updatePart(rentCar);
 
 		Log log = new Log();
@@ -133,7 +155,20 @@ public class RentCarService implements IRentCarService {
 		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 确认了预订号为：" + rentCar.getRentNumber() + " 的预订信息");
 		log.setLevel("5");
 		this.logDao.add(log);
-		return Constants.OPERATION_SUCCESS;
+
+		// TODO 预订确认后发送短信
+		RentCar _rentCar = new RentCar();
+		_rentCar.setId(rentCar.getId());
+		rentCar = this.queryList(_rentCar, null).get(0);
+		Message message = new Message();
+		message.setCreatedUser(loginUser);
+		message.setTitle("确认预订");
+		message.setReceiveNo(rentCar.getBookUser().getPhone());
+		message.setContent("亲爱的" + rentCar.getBookUser().getAdminName() + "您好，您于" + DateUtil.formatDate(rentCar.getCreatedDt(), "yyyy-MM-dd HH:mm") + "预订的订单已生效，预订取车时间为" + DateUtil.formatDate(rentCar.getBookPickUpDt(), "yyyy-MM-dd HH:mm") + "，查询编号为：" + rentCar.getRentNumber() + Constants.MESSAGE_SUFFIX);
+		this.messageDao.add(message);
+		result = MessageUtil.sendMessage(message);
+
+		return result;
 	}
 
 	public String allotRentCar(RentCar rentCar, Admin loginUser) {
