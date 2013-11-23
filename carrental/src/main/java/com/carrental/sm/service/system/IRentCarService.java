@@ -62,7 +62,7 @@ public interface IRentCarService {
 	String cancelRentCar(String ids, String names, Admin loginUser);
 
 	/**
-	 * 确认订单
+	 * 确认订单，会发送短信
 	 * 
 	 * @author 张霄鹏
 	 */

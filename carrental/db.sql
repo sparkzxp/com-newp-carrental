@@ -17,8 +17,11 @@ CREATE TABLE IF NOT EXISTS `t_admin` (
   `admin_name` varchar(50) NOT NULL,
   `login_name` varchar(50) NOT NULL,
   `login_pwd` varchar(50) NOT NULL,
+  `sex` varchar(10) NOT NULL DEFAULT 'male',
   `email` varchar(50) NOT NULL,
   `phone` varchar(20) NOT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `qq` varchar(20) DEFAULT NULL,
   `company_name` varchar(200) DEFAULT NULL,
   `created_user` varchar(50) NOT NULL,
   `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -27,24 +30,26 @@ CREATE TABLE IF NOT EXISTS `t_admin` (
   `type` varchar(50) NOT NULL DEFAULT 'CUSTOM_PERSONAL',
   `is_delete` varchar(2) NOT NULL DEFAULT '0',
   `in_blacklist` varchar(2) NOT NULL DEFAULT '0',
-  `city_id` varchar(2) NOT NULL,
+  `city_id` varchar(2) DEFAULT NULL,
   `role_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_admin 的数据：~9 rows (大约)
+-- 正在导出表  carrental.t_admin 的数据：~11 rows (大约)
 DELETE FROM `t_admin`;
 /*!40000 ALTER TABLE `t_admin` DISABLE KEYS */;
-INSERT INTO `t_admin` (`id`, `admin_name`, `login_name`, `login_pwd`, `email`, `phone`, `company_name`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `type`, `is_delete`, `in_blacklist`, `city_id`, `role_id`) VALUES
-	(1, '系统管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '1', '2013-10-30 09:38:21', '1', '2013-10-30 09:38:25', 'ADMIN', '0', '0', '1', '1'),
-	(2, '赫兹租车', 'hezi', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '1', '2013-10-30 09:38:21', '1', '2013-10-30 20:16:12', 'ADMIN', '0', '0', '3', '3'),
-	(3, '得利租车', 'deli', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '1', '2013-10-30 09:38:21', '1', '2013-10-30 09:38:25', 'ADMIN', '0', '0', '1', '2'),
-	(6, '张XX', 'zhangxx', 'e10adc3949ba59abbe56e057f20f883e', '11@11.com', '13811111111', '', '1', '2013-10-30 10:41:04', '1', '2013-11-09 18:00:31', 'CUSTOM_PERSONAL', '0', '0', '3', NULL),
-	(7, 'ttt', 'tt', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '1', '2013-10-30 11:01:04', '1', '2013-10-30 11:29:27', 'CUSTOM_PERSONAL', '1', '0', '1', '2'),
-	(8, '123', '333', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '1', '2013-10-30 11:02:29', '1', '2013-10-30 11:02:29', 'ADMIN', '0', '0', '1', '2'),
-	(9, 'ttt3', 'tt2', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '1', '2013-10-30 11:29:11', '1', '2013-10-30 11:29:11', 'CUSTOM_PERSONAL', '1', '0', '1', '2'),
-	(10, 'hezi2', 'hezi2', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', '2', '2013-10-30 20:15:00', '2', '2013-10-30 20:15:00', 'CUSTOM_PERSONAL', '0', '1', '3', ''),
-	(16, '夏XX', '13811111113', 'e10adc3949ba59abbe56e057f20f883e', '11@13.com', '13811111113', 'XX公司', '1', '2013-11-08 15:30:00', '1', '2013-11-08 15:30:00', 'CUSTOM_COMPANY', '0', '0', '1', NULL);
+INSERT INTO `t_admin` (`id`, `admin_name`, `login_name`, `login_pwd`, `sex`, `email`, `phone`, `address`, `qq`, `company_name`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `type`, `is_delete`, `in_blacklist`, `city_id`, `role_id`) VALUES
+	(1, '系统管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'male', '', '', NULL, NULL, '', '1', '2013-10-30 09:38:21', '1', '2013-10-30 09:38:25', 'ADMIN', '0', '0', '1', '1'),
+	(2, '赫兹租车', 'hezi', 'e10adc3949ba59abbe56e057f20f883e', 'male', '', '', NULL, NULL, '', '1', '2013-10-30 09:38:21', '1', '2013-10-30 20:16:12', 'ADMIN', '0', '0', '3', '3'),
+	(3, '得利租车', 'deli', 'e10adc3949ba59abbe56e057f20f883e', 'male', '', '', NULL, NULL, '', '1', '2013-10-30 09:38:21', '1', '2013-10-30 09:38:25', 'ADMIN', '0', '0', '1', '2'),
+	(6, '张XX', '13811111111', 'e10adc3949ba59abbe56e057f20f883e', 'female', '11@11.com', '13811111111', '滨湖区泰康新村', '5695239', '', '1', '2013-10-30 10:41:04', '6', '2013-11-13 15:18:20', 'CUSTOM_PERSONAL', '0', '0', '3', NULL),
+	(7, 'ttt', 'tt', 'e10adc3949ba59abbe56e057f20f883e', 'male', '', '', NULL, NULL, '', '1', '2013-10-30 11:01:04', '1', '2013-10-30 11:29:27', 'CUSTOM_PERSONAL', '1', '0', '1', '2'),
+	(8, '123', '333', 'e10adc3949ba59abbe56e057f20f883e', 'male', '', '', NULL, NULL, '', '1', '2013-10-30 11:02:29', '1', '2013-10-30 11:02:29', 'ADMIN', '0', '0', '1', '2'),
+	(9, 'ttt3', 'tt2', 'e10adc3949ba59abbe56e057f20f883e', 'male', '', '', NULL, NULL, '', '1', '2013-10-30 11:29:11', '1', '2013-10-30 11:29:11', 'CUSTOM_PERSONAL', '1', '0', '1', '2'),
+	(10, 'hezi2', 'hezi2', 'e10adc3949ba59abbe56e057f20f883e', 'male', '', '', NULL, NULL, '', '2', '2013-10-30 20:15:00', '2', '2013-10-30 20:15:00', 'CUSTOM_PERSONAL', '0', '1', '3', ''),
+	(16, '夏XX', '13811111113', 'e10adc3949ba59abbe56e057f20f883e', 'male', '11@13.com', '13811111113', NULL, NULL, 'XX公司', '1', '2013-11-08 15:30:00', '1', '2013-11-08 15:30:00', 'CUSTOM_COMPANY', '0', '0', '1', NULL),
+	(17, '张XXX', '13811111112', 'e10adc3949ba59abbe56e057f20f883e', 'female', '111@11.com', '13811111112', NULL, NULL, NULL, '1', '2013-11-13 11:32:37', '1', '2013-11-13 11:32:37', 'CUSTOM_PERSONAL', '0', '0', NULL, NULL),
+	(18, '君XXX', '13811111114', 'e10adc3949ba59abbe56e057f20f883e', 'female', '111@11.com', '13811111114', NULL, NULL, NULL, '1', '2013-11-13 11:34:21', '1', '2013-11-13 11:34:21', 'CUSTOM_PERSONAL', '0', '0', NULL, NULL);
 /*!40000 ALTER TABLE `t_admin` ENABLE KEYS */;
 
 
@@ -82,6 +87,30 @@ INSERT INTO `t_business` (`id`, `created_user`, `created_dt`, `updated_user`, `u
 /*!40000 ALTER TABLE `t_business` ENABLE KEYS */;
 
 
+-- 导出  表 carrental.t_business_desc 结构
+DROP TABLE IF EXISTS `t_business_desc`;
+CREATE TABLE IF NOT EXISTS `t_business_desc` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `updated_user` varchar(50) NOT NULL,
+  `updated_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `name` varchar(50) NOT NULL,
+  `content` varchar(3000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  carrental.t_business_desc 的数据：~0 rows (大约)
+DELETE FROM `t_business_desc`;
+/*!40000 ALTER TABLE `t_business_desc` DISABLE KEYS */;
+INSERT INTO `t_business_desc` (`id`, `updated_user`, `updated_dt`, `name`, `content`) VALUES
+	(1, '1', '2013-11-23 11:01:18', '点到点代驾', '<p>点到点代驾说明</p>\r\n<p>驾龄超过5年的专业司机提供服务。 统一着装：衬衫、西裤、白手套，秋冬季节配深色西装外套。标准普通话，经过培训的统一话术，文明用语。</p>'),
+	(2, '1', '2013-11-23 10:06:57', '机场及车站接送', '机场及车站接送说明'),
+	(3, '1', '2013-11-23 10:07:19', '市用半日租', '市用半日租说明'),
+	(4, '1', '2013-11-23 10:07:34', '市用全日租', '市用全日租说明'),
+	(5, '1', '2013-11-23 10:08:10', '会务车辆安排', '会务车辆安排说明'),
+	(6, '1', '2013-11-23 10:08:25', '周边省市包车', '周边省市包车说明');
+/*!40000 ALTER TABLE `t_business_desc` ENABLE KEYS */;
+
+
 -- 导出  表 carrental.t_car 结构
 DROP TABLE IF EXISTS `t_car`;
 CREATE TABLE IF NOT EXISTS `t_car` (
@@ -99,14 +128,15 @@ CREATE TABLE IF NOT EXISTS `t_car` (
   `city_id` varchar(50) NOT NULL,
   `content` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_car 的数据：~2 rows (大约)
+-- 正在导出表  carrental.t_car 的数据：~3 rows (大约)
 DELETE FROM `t_car`;
 /*!40000 ALTER TABLE `t_car` DISABLE KEYS */;
 INSERT INTO `t_car` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `plate_number`, `purchaser`, `purchaser_phone`, `purchase_date`, `purchase_price`, `series_id`, `city_id`, `content`) VALUES
 	(2, '1', '2013-11-04 14:47:46', '1', '2013-11-04 14:47:46', '沪B25796', '于果', '1385963223', '2013-10-27 00:00:00', 38.22, '3', '1', ''),
-	(3, '1', '2013-11-10 09:34:28', '1', '2013-11-10 09:36:08', '沪B9842D', '吴XX', '13855555555', '2013-11-10 00:00:00', 33.00, '2', '1', '');
+	(3, '1', '2013-11-10 09:34:28', '1', '2013-11-10 09:36:08', '沪B9842D', '吴XX', '13855555555', '2013-11-10 00:00:00', 33.00, '2', '1', ''),
+	(4, '1', '2013-11-10 16:19:05', '1', '2013-11-10 17:33:57', '沪B5H36D', '王凡', '13852123625', '2013-10-27 00:00:00', 52.00, '2', '1', '');
 /*!40000 ALTER TABLE `t_car` ENABLE KEYS */;
 
 
@@ -195,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `t_company` (
 DELETE FROM `t_company`;
 /*!40000 ALTER TABLE `t_company` DISABLE KEYS */;
 INSERT INTO `t_company` (`id`, `name`, `address`, `tel`, `postcode`, `fax`, `content`, `created_user`, `created_dt`, `updated_user`, `updated_dt`) VALUES
-	(1, '新广得利租车', '上海', '8888888', '255', '33332', '       这是简介\r\n这也是简介', '1', '2013-11-01 11:36:32', '1', '2013-11-01 11:36:40');
+	(1, '新广得利租车', '上海市黄浦区陆家浜路721-723号', '0510-8888888', '214000', '0510-8888888', '<p>上海新广得利汽车租赁有限公司成立于二〇〇七年，前身是市属机关三产；是具有上海市经营资质的正规汽车租赁公司。</p>\r\n<p>公司注册以及实到资金均为人民币壹仟萬圆整，且拥有自营品牌汽车4S店多家，企业实力雄厚。</p>\r\n<p>公司营销团队具有丰富的实际经验，能为客户带来愉悦的租车体验。</p>\r\n<p>新广得利致力打造：</p>\r\n<p>★精品带驾服务</p>\r\n<p>★企业菁英自驾长租</p>\r\n<p>★管家式车辆托管</p>', '1', '2013-11-01 11:36:32', '1', '2013-11-12 11:59:20');
 /*!40000 ALTER TABLE `t_company` ENABLE KEYS */;
 
 
@@ -216,17 +246,18 @@ CREATE TABLE IF NOT EXISTS `t_coupon` (
   `rent_days` smallint(6) DEFAULT NULL,
   `free_days` smallint(6) DEFAULT NULL,
   `discount` decimal(10,1) DEFAULT NULL,
-  `content` varchar(2000) DEFAULT NULL,
+  `content` varchar(5000) NOT NULL,
+  `image_path` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  carrental.t_coupon 的数据：~3 rows (大约)
 DELETE FROM `t_coupon`;
 /*!40000 ALTER TABLE `t_coupon` DISABLE KEYS */;
-INSERT INTO `t_coupon` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `coupon_title`, `coupon_type`, `start_date`, `end_date`, `full_kilometer`, `free_kilometer`, `rent_days`, `free_days`, `discount`, `content`) VALUES
-	(1, '1', '2013-11-05 20:30:16', '1', '2013-11-05 20:30:16', '国庆送礼第一波', '公里满就送', '2013-10-27 00:00:00', '2013-10-29 00:00:00', 100, 10, NULL, NULL, NULL, ''),
-	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-05 20:31:42', '国庆送礼第二波', '天数租就送', '2013-10-27 00:00:00', '2013-10-30 00:00:00', NULL, NULL, 5, 1, NULL, ''),
-	(3, '1', '2013-11-08 14:32:46', '1', '2013-11-08 14:32:46', '国庆送礼第三波', '指定车系打折', '2013-10-27 00:00:00', '2013-11-30 00:00:00', NULL, NULL, NULL, NULL, 8.5, '');
+INSERT INTO `t_coupon` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `coupon_title`, `coupon_type`, `start_date`, `end_date`, `full_kilometer`, `free_kilometer`, `rent_days`, `free_days`, `discount`, `content`, `image_path`) VALUES
+	(1, '1', '2013-11-05 20:30:16', '1', '2013-11-05 20:30:16', '国庆送礼第一波', '公里满就送', '2013-10-27 00:00:00', '2013-10-29 00:00:00', 100, 10, NULL, NULL, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_951.jpg'),
+	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-05 20:31:42', '国庆送礼第二波', '天数租就送', '2013-10-27 00:00:00', '2013-10-30 00:00:00', NULL, NULL, 5, 1, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_952.jpg'),
+	(3, '1', '2013-11-08 14:32:46', '1', '2013-11-14 10:00:53', '国庆送礼第三波', '指定车系打折', '2013-10-27 00:00:00', '2013-11-30 00:00:00', NULL, NULL, NULL, NULL, 8.5, '<p>国庆给力活动开始啦！</p>\r\n<p>多款指定车系打折，奥迪A6L,宝马7系，总有你喜欢的一款。</p>\r\n<p>打折力度更是前所未有，快来订车吧！</p>', 'upload/coupon/image/2013-11-14/20131114094023_95.jpg');
 /*!40000 ALTER TABLE `t_coupon` ENABLE KEYS */;
 
 
@@ -266,14 +297,15 @@ CREATE TABLE IF NOT EXISTS `t_driver` (
   `content` varchar(2000) DEFAULT NULL,
   `city_id` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_driver 的数据：~2 rows (大约)
+-- 正在导出表  carrental.t_driver 的数据：~3 rows (大约)
 DELETE FROM `t_driver`;
 /*!40000 ALTER TABLE `t_driver` DISABLE KEYS */;
 INSERT INTO `t_driver` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `driver_name`, `driver_code`, `phone`, `address`, `sex`, `driver_years`, `entry_date`, `content`, `city_id`) VALUES
-	(1, '1', '2013-11-05 12:18:33', '1', '2013-11-05 12:18:33', '林鑫', 'B05051', '', '', '男', 5, '2013-10-28 00:00:00', '', '1'),
-	(2, '1', '2013-11-05 12:22:53', '1', '2013-11-05 12:22:53', '罗翔', 'B05052', '', '', '女', 4, '2013-10-27 00:00:00', '', '3');
+	(1, '1', '2013-11-05 12:18:33', '1', '2013-11-10 16:16:39', '林鑫', 'B05051', '13812312312', '林鑫HOME', '男', 5, '2013-10-28 00:00:00', '', '1'),
+	(2, '1', '2013-11-05 12:22:53', '1', '2013-11-10 16:16:51', '罗翔', 'B05052', '13812563241', '罗翔HOME', '女', 4, '2013-10-27 00:00:00', '', '3'),
+	(3, '1', '2013-11-10 16:17:27', '1', '2013-11-10 17:24:35', '张艺谋', 'B05053', '13812545263', '张艺谋HOME', '男', 3, '2013-10-27 00:00:00', '', '1');
 /*!40000 ALTER TABLE `t_driver` ENABLE KEYS */;
 
 
@@ -287,9 +319,9 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   `content` varchar(500) NOT NULL,
   `level` varchar(2) NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~113 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~154 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -435,8 +467,58 @@ INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `le
 	(140, '1', '2013-11-10 12:02:42', '修改角色信息', '用户：系统管理员 于 2013-11-10 12:02:42 修改了名为：系统管理员 的角色信息', '5'),
 	(141, '1', '2013-11-10 12:03:44', '修改角色信息', '用户：系统管理员 于 2013-11-10 12:03:44 修改了名为：南京业务员 的角色信息', '5'),
 	(142, '1', '2013-11-10 12:14:06', '修改角色信息', '用户：系统管理员 于 2013-11-10 12:14:06 修改了名为：上海业务员 的角色信息', '5'),
-	(143, '1', '2013-11-10 15:36:02', '修改角色信息', '用户：系统管理员 于 2013-11-10 15:36:02 修改了名为：系统管理员 的角色信息', '5');
+	(143, '1', '2013-11-10 15:36:02', '修改角色信息', '用户：系统管理员 于 2013-11-10 15:36:02 修改了名为：系统管理员 的角色信息', '5'),
+	(144, '1', '2013-11-10 16:16:39', '修改司机信息', '用户：系统管理员 于 2013-11-10 16:16:39 修改了名为：林鑫 的司机信息', '5'),
+	(145, '1', '2013-11-10 16:16:51', '修改司机信息', '用户：系统管理员 于 2013-11-10 16:16:51 修改了名为：罗翔 的司机信息', '5'),
+	(146, '1', '2013-11-10 16:17:27', '新增司机信息', '用户：系统管理员 于 2013-11-10 16:17:27 新增了名为：张艺谋 的司机信息', '5'),
+	(147, '1', '2013-11-10 16:19:05', '新增车辆信息', '用户：系统管理员 于 2013-11-10 16:19:05 新增了车牌号码为：沪B5H36D 的车辆信息', '5'),
+	(148, '1', '2013-11-10 16:19:32', '分配车辆和司机', '用户：系统管理员 于 2013-11-10 16:19:32 为预订号为：ZC20131103-2 的预订信息分配了车辆（沪B5H36D）和司机（张艺谋）', '5'),
+	(149, '1', '2013-11-10 17:04:47', '修改司机信息', '用户：系统管理员 于 2013-11-10 17:04:47 修改了名为：张艺谋 的司机信息', '5'),
+	(150, '1', '2013-11-10 17:06:28', '修改司机信息', '用户：系统管理员 于 2013-11-10 17:06:28 修改了名为：张艺谋 的司机信息', '5'),
+	(151, '1', '2013-11-10 17:15:38', '修改司机信息', '用户：系统管理员 于 2013-11-10 17:15:38 修改了名为：张艺谋 的司机信息', '5'),
+	(152, '1', '2013-11-10 17:24:35', '修改司机信息', '用户：系统管理员 于 2013-11-10 17:24:35 修改了名为：张艺谋 的司机信息', '5'),
+	(153, '1', '2013-11-10 17:33:38', '修改车辆信息', '用户：系统管理员 于 2013-11-10 17:33:38 修改了车牌号码为：沪B5H36D 的车辆信息', '5'),
+	(154, '1', '2013-11-10 17:33:57', '修改车辆信息', '用户：系统管理员 于 2013-11-10 17:33:57 修改了车牌号码为：沪B5H36D 的车辆信息', '5'),
+	(155, '1', '2013-11-11 12:59:09', '修改公司信息', '用户：系统管理员 于 2013-11-11 12:59:09 修改了公司信息', '5'),
+	(156, '1', '2013-11-11 13:02:38', '修改公司信息', '用户：系统管理员 于 2013-11-11 13:02:38 修改了公司信息', '5'),
+	(157, '1', '2013-11-11 13:31:35', '修改公司信息', '用户：系统管理员 于 2013-11-11 13:31:35 修改了公司信息', '5'),
+	(158, '1', '2013-11-11 13:31:47', '修改公司信息', '用户：系统管理员 于 2013-11-11 13:31:47 修改了公司信息', '5'),
+	(159, '1', '2013-11-12 11:59:20', '修改公司信息', '用户：系统管理员 于 2013-11-12 11:59:20 修改了公司信息', '5'),
+	(160, '1', '2013-11-13 10:55:30', '修改注册用户', '用户：系统管理员 于 2013-11-13 10:55:30 修改了名为：张XX 的注册用户', '5'),
+	(161, '17', '2013-11-13 11:32:37', '新增注册用户', '用户：张XXX 于 2013-11-13 11:32:37 新增了名为：张XXX 的注册用户', '5'),
+	(162, '18', '2013-11-13 11:34:21', '新增注册用户', '用户：君XXX 于 2013-11-13 11:34:21 新增了名为：君XXX 的注册用户', '5'),
+	(163, '6', '2013-11-13 15:18:20', '修改注册用户部分信息', '用户：张XX 于 2013-11-13 15:18:20 修改了名为：张XX 的注册用户的部分信息', '5'),
+	(164, '6', '2013-11-13 15:46:23', '修改用户密码', '用户：张XX 于 2013-11-13 15:46:23 修改了名为：张XX 的用户的密码', '5'),
+	(165, '6', '2013-11-13 15:47:35', '修改用户密码', '用户：张XX 于 2013-11-13 15:47:35 修改了名为：张XX 的用户的密码', '5'),
+	(166, '1', '2013-11-13 16:56:16', '修改公告信息', '用户：系统管理员 于 2013-11-13 16:56:16 修改了标题为：奥迪A6L来新车啦 的公告信息', '5'),
+	(167, '1', '2013-11-14 09:38:06', '修改优惠活动信息', '用户：系统管理员 于 2013-11-14 09:38:06 修改了名为：国庆送礼第三波 的优惠活动信息', '5'),
+	(168, '1', '2013-11-14 09:40:23', '修改优惠活动信息', '用户：系统管理员 于 2013-11-14 09:40:23 修改了名为：国庆送礼第三波 的优惠活动信息', '5'),
+	(169, '1', '2013-11-14 10:00:53', '修改优惠活动信息', '用户：系统管理员 于 2013-11-14 10:00:53 修改了名为：国庆送礼第三波 的优惠活动信息', '5'),
+	(170, '1', '2013-11-23 10:10:25', '新增资源信息', '用户：系统管理员 于 2013-11-23 10:10:25 新增了名为：业务描述管理 的资源信息', '5'),
+	(171, '1', '2013-11-23 10:10:37', '修改角色信息', '用户：系统管理员 于 2013-11-23 10:10:37 修改了名为：系统管理员 的角色信息', '5'),
+	(172, '1', '2013-11-23 10:10:44', '修改角色信息', '用户：系统管理员 于 2013-11-23 10:10:44 修改了名为：南京业务员 的角色信息', '5'),
+	(173, '1', '2013-11-23 10:10:50', '修改角色信息', '用户：系统管理员 于 2013-11-23 10:10:50 修改了名为：上海业务员 的角色信息', '5'),
+	(174, '1', '2013-11-23 10:14:12', '修改业务描述信息', '用户：系统管理员 于 2013-11-23 10:14:12 修改了名为：点到点代驾 的业务描述信息', '5'),
+	(175, '1', '2013-11-23 11:01:18', '修改业务描述信息', '用户：系统管理员 于 2013-11-23 11:01:18 修改了名为：点到点代驾 的业务描述信息', '5');
 /*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
+
+
+-- 导出  表 carrental.t_message 结构
+DROP TABLE IF EXISTS `t_message`;
+CREATE TABLE IF NOT EXISTS `t_message` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `created_user` varchar(50) NOT NULL,
+  `created_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `title` varchar(50) NOT NULL,
+  `content` varchar(2000) NOT NULL,
+  `receive_no` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  carrental.t_message 的数据：~0 rows (大约)
+DELETE FROM `t_message`;
+/*!40000 ALTER TABLE `t_message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_message` ENABLE KEYS */;
 
 
 -- 导出  表 carrental.t_notice 结构
@@ -449,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `t_notice` (
   `updated_dt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `title` varchar(200) NOT NULL,
   `content` varchar(5000) NOT NULL,
-  `image_path` varchar(200) DEFAULT NULL,
+  `image_path` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -457,7 +539,7 @@ CREATE TABLE IF NOT EXISTS `t_notice` (
 DELETE FROM `t_notice`;
 /*!40000 ALTER TABLE `t_notice` DISABLE KEYS */;
 INSERT INTO `t_notice` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `title`, `content`, `image_path`) VALUES
-	(2, '1', '2013-11-10 11:31:48', '1', '2013-11-10 11:31:48', '奥迪A6L来新车啦', '    好消息！\r\n    AUDI-A6L又有新车到啦，现在预订，享受全新的车辆体验！', 'upload/notice/image/2013-11-10/20131110113148_363.jpg');
+	(2, '1', '2013-11-13 16:56:16', '1', '2013-11-13 16:56:16', '奥迪A6L来新车啦', '<p>好消息！</p>\r\n<p>AUDI-A6L又有新车到啦，现在预订，享受全新的车辆体验！</p>', 'upload/notice/image/2013-11-10/20131110113148_363.jpg');
 /*!40000 ALTER TABLE `t_notice` ENABLE KEYS */;
 
 
@@ -532,9 +614,9 @@ DELETE FROM `t_rent_car`;
 /*!40000 ALTER TABLE `t_rent_car` DISABLE KEYS */;
 INSERT INTO `t_rent_car` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `rent_number`, `rent_status`, `rent_way`, `customer`, `customer_company`, `customer_phone`, `customer_email`, `book_pick_up_dt`, `book_pick_up_address`, `arrive_flight_no`, `arrive_flight_dt`, `take_off_flight_no`, `take_of_flight_dt`, `passenger_no`, `pick_up_dt`, `start_mileage`, `book_give_back_dt`, `book_give_back_address`, `give_back_dt`, `end_mileage`, `rent_fee`, `exceed_kilometer`, `exceed_kilometer_fee`, `exceed_hour`, `exceed_hour_fee`, `total_price`, `rent_type_id`, `car_series_id`, `city_id`, `car_id`, `driver_id`, `book_user_id`, `business_id`, `coupon_id`, `agent_id`, `broken_part`, `broken_fee`, `content`) VALUES
 	(1, '1', '2013-11-08 14:03:39', '1', '2013-11-09 16:39:23', 'ZC20131103-1', '4', 'Call', '葛XX', 'XXX公司', '13811111114', '', '2013-11-15 15:29:00', 'ABC', '', NULL, '', NULL, 2, '2013-11-09 13:03:00', 586.3, '2013-11-15 20:29:00', 'EFG', '2013-11-15 21:04:00', 662.4, 150, 37, 10, 1, 7, 542, '1', '3', '1', '2', '1', '16', '1', '3', '1', '无', 0, NULL),
-	(2, '1', '2013-11-08 17:03:48', '1', '2013-11-08 15:57:21', 'ZC20131103-2', '2', 'Call', '于XX', 'XXXX公司', '13822222222', '', '2013-11-18 15:55:00', 'QWE', 'FLT555', '2013-11-18 17:55:00', '', NULL, 3, NULL, NULL, '2013-11-18 21:55:00', 'CXZ', NULL, NULL, 612, NULL, 14, NULL, 68, NULL, '1', '2', '1', NULL, NULL, '6', '3', '3', '1', NULL, NULL, NULL),
+	(2, '1', '2013-11-08 17:03:48', '1', '2013-11-10 16:19:32', 'ZC20131103-2', '2', 'Call', '于XX', 'XXXX公司', '13822222222', '', '2013-11-18 15:55:00', 'QWE', 'FLT555', '2013-11-18 17:55:00', '', NULL, 3, NULL, NULL, '2013-11-18 21:55:00', 'CXZ', NULL, NULL, 612, NULL, 14, NULL, 68, NULL, '1', '2', '1', '4', '3', '6', '3', '3', '1', NULL, 0, NULL),
 	(3, '1', '2013-11-09 18:50:31', '1', '2013-11-09 18:50:31', 'ZC20131106-2', '2', 'Call', '吴XX', '', '13855555555', '', '2013-11-20 18:50:00', 'RRR', '', NULL, '', NULL, 1, NULL, NULL, '2013-11-21 18:50:00', 'QQQ', NULL, NULL, 88, NULL, 6, NULL, 4, NULL, '1', '3', '3', NULL, NULL, '6', '1', '', '1', NULL, NULL, 'WW\r\nRR'),
-	(4, '1', '2013-11-09 20:02:52', '1', '2013-11-09 20:02:52', 'ZC20131108-3', '2', 'PHONE', '袁XX', '', '13866666666', '', '2013-11-13 20:01:00', '555', '', NULL, '', NULL, 4, NULL, NULL, '2013-11-14 20:01:00', '444', NULL, NULL, 480, NULL, 8, NULL, 120, NULL, '1', '2', '3', NULL, NULL, '6', '1', '', '1', NULL, NULL, 'GG');
+	(4, '1', '2013-11-09 20:02:52', '1', '2013-11-09 20:02:52', 'ZC20131108-3', '2', 'PHONE', '袁XX', '', '13866666666', '', '2013-11-17 20:01:00', '555', '', NULL, '', NULL, 4, NULL, NULL, '2013-11-18 13:01:00', '444', NULL, NULL, 480, NULL, 8, NULL, 120, NULL, '1', '2', '1', NULL, NULL, '6', '1', '', '1', NULL, NULL, 'GG');
 /*!40000 ALTER TABLE `t_rent_car` ENABLE KEYS */;
 
 
@@ -569,9 +651,9 @@ CREATE TABLE IF NOT EXISTS `t_resource` (
   `type` varchar(50) NOT NULL,
   `parent_id` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_resource 的数据：~5 rows (大约)
+-- 正在导出表  carrental.t_resource 的数据：~31 rows (大约)
 DELETE FROM `t_resource`;
 /*!40000 ALTER TABLE `t_resource` DISABLE KEYS */;
 INSERT INTO `t_resource` (`id`, `name`, `type`, `parent_id`) VALUES
@@ -605,7 +687,8 @@ INSERT INTO `t_resource` (`id`, `name`, `type`, `parent_id`) VALUES
 	(28, '市用全日租', 'left-2', '24'),
 	(29, '会务车辆安排', 'left-2', '24'),
 	(30, '周边省市包车', 'left-2', '24'),
-	(31, '车辆租用管理', 'left-1', '0');
+	(31, '车辆租用管理', 'left-1', '0'),
+	(32, '业务描述管理', 'left-2', '16');
 /*!40000 ALTER TABLE `t_resource` ENABLE KEYS */;
 
 
@@ -626,9 +709,9 @@ CREATE TABLE IF NOT EXISTS `t_role` (
 DELETE FROM `t_role`;
 /*!40000 ALTER TABLE `t_role` DISABLE KEYS */;
 INSERT INTO `t_role` (`id`, `role_name`, `city_id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`) VALUES
-	(1, '系统管理员', '', '1', '2013-10-30 17:02:12', '1', '2013-11-10 15:36:02'),
-	(2, '上海业务员', '1', '1', '2013-10-30 17:04:27', '1', '2013-11-10 12:14:06'),
-	(3, '南京业务员', '3', '1', '2013-10-30 19:07:14', '1', '2013-11-10 12:03:44');
+	(1, '系统管理员', '', '1', '2013-10-30 17:02:12', '1', '2013-11-23 10:10:37'),
+	(2, '上海业务员', '1', '1', '2013-10-30 17:04:27', '1', '2013-11-23 10:10:50'),
+	(3, '南京业务员', '3', '1', '2013-10-30 19:07:14', '1', '2013-11-23 10:10:44');
 /*!40000 ALTER TABLE `t_role` ENABLE KEYS */;
 
 
@@ -639,62 +722,12 @@ CREATE TABLE IF NOT EXISTS `t_role_resource` (
   `resource_id` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_role_resource 的数据：~10 rows (大约)
+-- 正在导出表  carrental.t_role_resource 的数据：~82 rows (大约)
 DELETE FROM `t_role_resource`;
 /*!40000 ALTER TABLE `t_role_resource` DISABLE KEYS */;
 INSERT INTO `t_role_resource` (`role_id`, `resource_id`) VALUES
-	('3', '16'),
-	('3', '21'),
-	('3', '22'),
-	('3', '20'),
-	('3', '19'),
-	('3', '18'),
-	('3', '17'),
-	('3', '15'),
-	('3', '1'),
-	('3', '3'),
-	('3', '8'),
-	('3', '4'),
-	('3', '7'),
-	('3', '31'),
-	('3', '11'),
-	('3', '13'),
-	('3', '12'),
-	('3', '14'),
-	('3', '24'),
-	('3', '29'),
-	('3', '30'),
-	('3', '28'),
-	('3', '27'),
-	('3', '26'),
-	('3', '25'),
-	('2', '16'),
-	('2', '21'),
-	('2', '22'),
-	('2', '20'),
-	('2', '19'),
-	('2', '18'),
-	('2', '17'),
-	('2', '15'),
-	('2', '23'),
-	('2', '1'),
-	('2', '3'),
-	('2', '8'),
-	('2', '4'),
-	('2', '7'),
-	('2', '31'),
-	('2', '11'),
-	('2', '13'),
-	('2', '12'),
-	('2', '14'),
-	('2', '24'),
-	('2', '29'),
-	('2', '30'),
-	('2', '28'),
-	('2', '27'),
-	('2', '26'),
-	('2', '25'),
 	('1', '16'),
+	('1', '32'),
 	('1', '21'),
 	('1', '22'),
 	('1', '20'),
@@ -724,7 +757,60 @@ INSERT INTO `t_role_resource` (`role_id`, `resource_id`) VALUES
 	('1', '28'),
 	('1', '27'),
 	('1', '26'),
-	('1', '25');
+	('1', '25'),
+	('3', '16'),
+	('3', '32'),
+	('3', '21'),
+	('3', '22'),
+	('3', '20'),
+	('3', '19'),
+	('3', '18'),
+	('3', '17'),
+	('3', '15'),
+	('3', '1'),
+	('3', '3'),
+	('3', '8'),
+	('3', '4'),
+	('3', '7'),
+	('3', '31'),
+	('3', '11'),
+	('3', '13'),
+	('3', '12'),
+	('3', '14'),
+	('3', '24'),
+	('3', '29'),
+	('3', '30'),
+	('3', '28'),
+	('3', '27'),
+	('3', '26'),
+	('3', '25'),
+	('2', '16'),
+	('2', '32'),
+	('2', '21'),
+	('2', '22'),
+	('2', '20'),
+	('2', '19'),
+	('2', '18'),
+	('2', '17'),
+	('2', '15'),
+	('2', '23'),
+	('2', '1'),
+	('2', '3'),
+	('2', '8'),
+	('2', '4'),
+	('2', '7'),
+	('2', '31'),
+	('2', '11'),
+	('2', '13'),
+	('2', '12'),
+	('2', '14'),
+	('2', '24'),
+	('2', '29'),
+	('2', '30'),
+	('2', '28'),
+	('2', '27'),
+	('2', '26'),
+	('2', '25');
 /*!40000 ALTER TABLE `t_role_resource` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

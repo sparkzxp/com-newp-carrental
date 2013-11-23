@@ -19,11 +19,19 @@ public class DateUtil {
 		return DATE_FORMAT.format(new Date());
 	}
 
+	public static String getFormatDate(Date date) {
+		return DATE_FORMAT.format(date);
+	}
+
 	/**
 	 * @author 张霄鹏
 	 */
 	public static String getCurrentTime() {
 		return TIME_FORMAT.format(new Date());
+	}
+
+	public static String getFormatTime(Date date) {
+		return TIME_FORMAT.format(date);
 	}
 
 	/**
@@ -33,11 +41,20 @@ public class DateUtil {
 		return DATE_TIME_FORMAT.format(new Date());
 	}
 
+	public static String getFormatDateTime(Date date) {
+		return DATE_TIME_FORMAT.format(date);
+	}
+
 	/**
 	 * @author 张霄鹏
 	 */
-	public static String formatDate(String pattern) {
+	public static String formatCurrentDate(String pattern) {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		return sdf.format(new Date());
+	}
+
+	public static String formatDate(Date date, String pattern) {
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		return sdf.format(date);
 	}
 }
