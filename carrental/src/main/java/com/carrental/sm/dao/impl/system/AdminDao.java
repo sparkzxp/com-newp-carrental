@@ -33,6 +33,10 @@ public class AdminDao implements IAdminDao {
 		return this.sqlSession.selectOne("adminNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("adminNpc.countEquals", params);
+	}
+
 	public Integer countByCityIds(String cityIds) {
 		return this.sqlSession.selectOne("adminNpc.countByCityIds", cityIds);
 	}

@@ -6,6 +6,7 @@
 		<id property="id" column="id"/>
 		<result property="createdDt" column="created_dt" />
 		<result property="captcha" column="captcha" />
+		<result property="usedFor" column="used_for" />
 		<result property="isUsed" column="is_used" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
@@ -16,9 +17,12 @@
 				<if test="captcha.id != null and captcha.id != ''">
 					and T.id = #{captcha.id}
 				</if>
+				<if test="captcha.usedFor != null and captcha.usedFor != ''">
+					and T.used_for = #{captcha.usedFor}
+				</if>
+				</if>
 				<if test="captcha.captcha != null and captcha.captcha != ''">
 					and T.captcha = #{captcha.captcha}
-				</if>
 				<if test="captcha.createdDt != null and captcha.createdDt != ''">
 					and date_add(T.created_dt, interval 15 minute) >= #{captcha.createdDt}
 				</if>
@@ -43,10 +47,10 @@
 		</selectKey>
 		INSERT INTO `t_captcha`(
 			created_user, created_dt,
-			captcha, isUsed
+			captcha, isUsed, used_for
 		) VALUES (
 			#{createdUser.id}, NOW(),
-			#{captcha}, '0'
+			#{captcha}, '0', #{usedFor}
 		)
 	</insert>
 	

@@ -10,6 +10,7 @@ public class Captcha extends BaseBean {
 
 	private String captcha;
 	private String isUsed;
+	private String usedFor;
 
 	/**
 	 * @return the captcha
@@ -39,5 +40,20 @@ public class Captcha extends BaseBean {
 	 */
 	public void setIsUsed(String isUsed) {
 		this.isUsed = isUsed;
+	}
+
+	/**
+	 * @return the usedFor
+	 */
+	public String getUsedFor() {
+		return usedFor;
+	}
+
+	/**
+	 * @param usedFor
+	 *            the usedFor to set
+	 */
+	public void setUsedFor(String usedFor) {
+		this.usedFor = usedFor;
 	}
 }

@@ -43,13 +43,22 @@ public interface IAdminDao {
 	List<Admin> queryList(Map<String, Object> params);
 
 	/**
-	 * 条件查询列表数量
+	 * 条件查询列表数量，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏
 	 * @param params
 	 *            :admin
 	 */
 	Integer count(Map<String, Object> params);
+
+	/**
+	 * 条件查询列表数量
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :admin
+	 */
+	Integer countEquals(Map<String, Object> params);
 
 	/**
 	 * 根据城市ID查询未删除的关联用户数量

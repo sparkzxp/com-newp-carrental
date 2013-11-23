@@ -32,6 +32,10 @@ public class RoleDao implements IRoleDao {
 		return this.sqlSession.selectOne("roleNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("roleNpc.countEquals", params);
+	}
+
 	public Integer countByCityIds(String cityIds) {
 		return this.sqlSession.selectOne("roleNpc.countByCityIds", cityIds);
 	}

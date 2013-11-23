@@ -32,6 +32,10 @@ public class DriverDao implements IDriverDao {
 		return this.sqlSession.selectOne("driverNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("driverNpc.countEquals", params);
+	}
+
 	public String add(Driver driver) {
 		this.sqlSession.insert("driverNpc.add", driver);
 		return String.valueOf(driver.getId());

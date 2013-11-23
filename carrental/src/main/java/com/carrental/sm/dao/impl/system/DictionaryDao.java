@@ -33,6 +33,10 @@ public class DictionaryDao implements IDictionaryDao {
 		return this.sqlSession.selectOne("dictNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("dictNpc.countEquals", params);
+	}
+
 	public String add(Dictionary dict) {
 		this.sqlSession.insert("dictNpc.add", dict);
 		return String.valueOf(dict.getId());

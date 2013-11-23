@@ -34,13 +34,22 @@ public interface IDictionaryDao {
 	List<Dictionary> queryEqualsList(Map<String, Object> params);
 
 	/**
-	 * 条件查询列表数量
+	 * 条件查询列表数量，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏
 	 * @param params
 	 *            :dict
 	 */
 	Integer count(Map<String, Object> params);
+
+	/**
+	 * 条件查询列表数量
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :dict
+	 */
+	Integer countEquals(Map<String, Object> params);
 
 	/**
 	 * 新增

@@ -32,6 +32,10 @@ public class CityDao implements ICityDao {
 		return this.sqlSession.selectOne("cityNpc.count", params);
 	}
 
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("cityNpc.countEquals", params);
+	}
+
 	public String add(City city) {
 		this.sqlSession.insert("cityNpc.add", city);
 		return String.valueOf(city.getId());

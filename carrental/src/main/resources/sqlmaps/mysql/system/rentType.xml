@@ -66,6 +66,16 @@
 		<include refid="limit"/>
 	</select>
 	
+	<select id="count" resultType="int" parameterType="map">
+		select count(T.id) FROM t_rent_type T
+		<include refid="query_where"/>
+	</select>
+	
+	<select id="countEquals" resultType="int" parameterType="map">
+		select count(T.id) FROM t_rent_type T
+		<include refid="queryEquals_where"/>
+	</select>
+	
 	<select id="queryByRentTypeId" resultMap="rentTypeRstMap" parameterType="string">
 		SELECT T.* FROM `t_rent_type` T
 		where T.id = #{id}
@@ -81,11 +91,6 @@
 		select distinct T.* from t_rent_type T
 		join t_business B on T.id = B.renttype_id
 		where B.business_type = #{businessType}
-	</select>
-	
-	<select id="count" resultType="int" parameterType="map">
-		select count(T.id) FROM t_rent_type T
-		<include refid="query_where"/>
 	</select>
 	
 	<insert id="add" parameterType="rentType">

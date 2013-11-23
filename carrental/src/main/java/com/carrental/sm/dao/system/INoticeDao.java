@@ -33,13 +33,22 @@ public interface INoticeDao {
 	List<Notice> queryEqualsList(Map<String, Object> params);
 
 	/**
-	 * 条件查询列表数量
+	 * 条件查询列表数量，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏
 	 * @param params
 	 *            :notice
 	 */
 	Integer count(Map<String, Object> params);
+
+	/**
+	 * 条件查询列表数量
+	 * 
+	 * @author 张霄鹏
+	 * @param params
+	 *            :notice
+	 */
+	Integer countEquals(Map<String, Object> params);
 
 	/**
 	 * 新增

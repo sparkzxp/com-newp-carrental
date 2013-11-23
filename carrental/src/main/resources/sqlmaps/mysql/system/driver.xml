@@ -98,6 +98,12 @@
 		left join t_rent_car RC on RC.driver_id = T.id
 		<include refid="query_where"/>
 	</select>
+
+	<select id="countEquals" resultType="int" parameterType="map">
+		select count(T.id) FROM t_driver T
+		left join t_rent_car RC on RC.driver_id = T.id
+		<include refid="queryEquals_where"/>
+	</select>
 	
 	<select id="queryByDriverId" resultMap="driverRstMap" parameterType="string">
 		SELECT T.* FROM `t_driver` T

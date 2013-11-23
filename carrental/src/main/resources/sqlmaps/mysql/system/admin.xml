@@ -135,6 +135,11 @@
 		<include refid="where"/>
 	</select>
 	
+	<select id="countEquals" resultType="int" parameterType="map">
+		select count(T.id) FROM t_admin T
+		<include refid="queryEquals_where"/>
+	</select>
+	
 	<select id="countByCityIds" resultType="int" parameterType="string">
 		select count(T.id) FROM t_admin T
 		where T.is_delete = '0' and T.city_id in (${_parameter})
