@@ -93,6 +93,9 @@ function toUrl(url){
 <c:if test="${fn:indexOf(resourceIds, \",16,\") > -1}">
 <p><a href="javascript:void(0);">业务管理</a></p>
 <ul>
+<c:if test="${fn:indexOf(resourceIds, \",32,\") > -1}">
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>businessDesc/showBusinessDescList')">业务描述管理</a></li>
+</c:if>
 <c:if test="${fn:indexOf(resourceIds, \",17,\") > -1}">
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=点到点代驾')">点到点代驾</a></li>
 </c:if>

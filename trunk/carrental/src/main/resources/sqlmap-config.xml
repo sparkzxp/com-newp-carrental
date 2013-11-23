@@ -7,11 +7,11 @@
 		<!-- 配置全局性 cache 的 ( 开 / 关) default:true -->
 		<setting name="cacheEnabled" value="true" />
 
-		<!-- 是否使用 懒加载 关联对象 同 hibernate中的延迟加载 一样 default:true -->
+		<!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。默认：true -->
 		<setting name="lazyLoadingEnabled" value="true" />
 
-		<!-- [当对象使用延迟加载时 属性的加载取决于能被引用到的那些延迟属性,否则,按需加载(需要的是时候才去加载)] -->
-		<setting name="aggressiveLazyLoading" value="true" />
+		<!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载。默认：true -->
+		<setting name="aggressiveLazyLoading" value="false" />
 
 		<!-- 是否允许单条sql 返回多个数据集 (取决于驱动的兼容性) default:true -->
 		<setting name="multipleResultSetsEnabled" value="true" />
@@ -63,6 +63,8 @@
 		<typeAlias alias="coupon" type="com.carrental.sm.bean.system.Coupon" />
 		<typeAlias alias="rentCar" type="com.carrental.sm.bean.system.RentCar" />
 		<typeAlias alias="notice" type="com.carrental.sm.bean.system.Notice" />
+		<typeAlias alias="message" type="com.carrental.sm.bean.system.Message" />
+		<typeAlias alias="businessDesc" type="com.carrental.sm.bean.system.BusinessDesc" />
 		<!-- <typeAlias alias="dict" type="com.carrental.sm.bean.system.Dictionary" /> -->
 	</typeAliases>
 	<mappers>
@@ -80,6 +82,8 @@
 		<mapper resource="sqlmaps/mysql/system/coupon.xml" />
 		<mapper resource="sqlmaps/mysql/system/rentCar.xml" />
 		<mapper resource="sqlmaps/mysql/system/notice.xml" />
+		<mapper resource="sqlmaps/mysql/system/message.xml" />
+		<mapper resource="sqlmaps/mysql/system/businessDesc.xml" />
 		<!-- <mapper resource="sqlmaps/mysql/system/dictionary.xml" /> -->
 	</mappers>
 </configuration>  

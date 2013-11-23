@@ -40,7 +40,7 @@
 		</table>
 	</div>
 	<div class="notice">
-		公告：
+		公告：<a href="<%=basePath%>web/toNoticeList" class="more">更多公告</a>
 		<c:forEach items="${notices}" var="parent">
 			<a href="<%=basePath%>web/toNoticeDetail?id=${parent.id}">${parent.title}<span><fmt:formatDate value="${parent.updatedDt}" type="both" pattern="yyyy.MM.dd"/></span></a>
 		</c:forEach>
