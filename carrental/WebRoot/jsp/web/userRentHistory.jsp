@@ -31,48 +31,84 @@
 								<td><table width="100%" border="0" cellpadding="0"
 										cellspacing="8">
 										<tr>
-											<td width="12%">预定者姓名：</td>
-											<td width="38%">${parent.bookUser.adminName}</td>
-											<td width="12%">车 型：</td>
-											<td width="38%">${parent.carSeries.seriesName}</td>
+											<td width="10%">预定者姓名：</td>
+											<td width="13%">${parent.bookUser.adminName}</td>
+											<td width="10%">车 型：</td>
+											<td width="13%">${parent.carSeries.seriesName}</td>
+											<td width="10%">租用费用：</td>
+											<td width="13%">${parent.rentFee}(元/天)</td>
 										</tr>
 										<tr>
-											<td>租用费用(元)：</td>
-											<td>${parent.rentFee}</td>
 											<td>手机号码：</td>
 											<td>${parent.bookUser.phone}</td>
-										</tr>
-										<tr>
 											<td>邮箱地址：</td>
 											<td>${parent.bookUser.email}</td>
 											<td>业务类型：</td>
 											<td>${parent.business.businessType}</td>
 										</tr>
 										<tr>
-											<td>接待日期：</td>
+											<td>取车地点：</td>
+											<td>
+												${parent.bookPickUpAddress}
+											</td>
+											<td>取车时间：</td>
 											<td>
 												<c:if test="${parent.pickUpDt == null}"><span style="color: red;">未取车</span></c:if>
 												<c:if test="${parent.pickUpDt != null}">
 												<fmt:formatDate value="${parent.pickUpDt}" type="both" pattern="yyyy/MM/dd HH:mm"/>
 												</c:if>
 											</td>
-											<td>还车日期：</td>
+											<td>起始里程数：</td>
+											<td>
+												<c:choose>
+													<c:when test="${parent.startMileage == null or parent.startMileage == ''}"><span style="color: red;">暂无</span></c:when>
+													<c:otherwise>${parent.startMileage}(公里)</c:otherwise>
+												</c:choose>
+											</td>
+										</tr>
+										<tr>
+											<td>还车地点：</td>
+											<td>${parent.bookGiveBackAddress}</td>
+											<td>还车时间：</td>
 											<td>
 												<c:if test="${parent.giveBackDt == null}"><span style="color: red;">未还车</span></c:if>
 												<c:if test="${parent.giveBackDt != null}">
 												<fmt:formatDate value="${parent.giveBackDt}" type="both" pattern="yyyy/MM/dd HH:mm"/>
 												</c:if>
 											</td>
+											<td>结束里程数：</td>
+											<td>
+												<c:choose>
+													<c:when test="${parent.endMileage == null or parent.endMileage == ''}"><span style="color: red;">暂无</span></c:when>
+													<c:otherwise>${parent.endMileage}(公里)</c:otherwise>
+												</c:choose>
+											</td>
 										</tr>
 										<tr>
-											<td>接待地点：</td>
+											<td>超公里数：</td>
 											<td>
-												${parent.bookPickUpAddress}
+												<c:choose>
+													<c:when test="${parent.exceedKilometer == null or parent.exceedKilometer == ''}"><span style="color: red;">暂无</span></c:when>
+													<c:otherwise>${parent.exceedKilometer}(公里)</c:otherwise>
+												</c:choose>
 											</td>
-											<td>还车地点：</td>
-											<td>${parent.bookGiveBackAddress}</td>
+											<td>超小时数：</td>
+											<td>
+												<c:choose>
+													<c:when test="${parent.exceedHour == null or parent.exceedHour == ''}"><span style="color: red;">暂无</span></c:when>
+													<c:otherwise>${parent.exceedHour}(小时)</c:otherwise>
+												</c:choose>
+											</td>
+											<td>费用总计：</td>
+											<td>
+												<c:choose>
+													<c:when test="${parent.totalPrice == null or parent.totalPrice == ''}"><span style="color: red;">暂无</span></c:when>
+													<c:otherwise>${parent.totalPrice}(元)</c:otherwise>
+												</c:choose>
+											</td>
 										</tr>
-									</table></td>
+									</table>
+								</td>
 							</tr>
 						</table>
 						<h6 class="clear"></h6>

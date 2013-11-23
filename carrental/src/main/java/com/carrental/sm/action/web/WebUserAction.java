@@ -106,6 +106,9 @@ public class WebUserAction {
 		Map<String, String> result = new HashMap<String, String>();
 		Admin loginUser = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
 		// TODO 发送短信验证码，loginUser可能为null
+		int rnum = (int) ((Math.random() * 9 + 1) * 100000);
+		System.out.println(rnum);
+		
 		result.put("result", Constants.OPERATION_SUCCESS);
 		return result;
 	}

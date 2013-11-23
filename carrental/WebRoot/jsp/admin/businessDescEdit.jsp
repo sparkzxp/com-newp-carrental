@@ -51,14 +51,11 @@
 <body>
     <form name="editForm" id="editForm">
     <input type="hidden" name="id" value="${businessDesc.id}"/>
+    <input type="hidden" name="name" value="${businessDesc.name}"/>
     <div class="content">
         <table border="0" cellpadding="0" cellspacing="0" class="table">
             <tr>
-                <td width="120px" align="right" height="25px">业务名称：</td>
-                <td><input type="text" name="name" value="${businessDesc.name}" style="width:200px;" class="{required:true,maxlengthCN:50}"/></td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">业务说明：</td>
+                <td width="120px" align="right" height="25px">业务说明：</td>
                 <td><textarea name="content" rows="6" cols="45" class="{maxlengthCN:3000}">${businessDesc.content}</textarea>
                 	<br/><span style="color: red;">业务说明各段落之间请以&lt;p&gt;开头，以&lt;/p&gt;结尾</span>
                 </td>
