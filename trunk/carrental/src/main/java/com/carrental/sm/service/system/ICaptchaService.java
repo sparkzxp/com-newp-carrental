@@ -1,39 +1,34 @@
 package com.carrental.sm.service.system;
 
-import java.util.List;
-
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.carrental.sm.bean.system.Admin;
-import com.carrental.sm.bean.system.Company;
+import com.carrental.sm.bean.system.Captcha;
+import com.carrental.sm.common.MessageException;
 
 /**
- * 公司管理
+ * 验证码管理
  * 
  * @author 张霄鹏
  */
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public interface ICompanyService {
-
-	/**
-	 * 查询公司信息
-	 */
-	List<Company> queryList();
+public interface ICaptchaService {
 
 	/**
 	 * 新增
 	 * 
 	 * @author 张霄鹏
+	 * @throws MessageException
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
-	String add(Company company, Admin loginUser);
+	String add(Captcha captcha, Admin user, Admin loginUser) throws MessageException;
 
 	/**
-	 * 修改
+	 * 验证码已使用
 	 * 
 	 * @author 张霄鹏
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
-	String update(Company company, Admin loginUser);
+	String updateUsed(Captcha captcha, Admin loginUser);
 }

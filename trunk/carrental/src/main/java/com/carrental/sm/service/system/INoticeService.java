@@ -27,7 +27,7 @@ public interface INoticeService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String add(Notice notice, Admin loginUser);
 
 	/**
@@ -35,7 +35,7 @@ public interface INoticeService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String update(Notice notice, Admin loginUser);
 
 	/**
@@ -43,6 +43,6 @@ public interface INoticeService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String delete(String ids, String names, Admin loginUser);
 }

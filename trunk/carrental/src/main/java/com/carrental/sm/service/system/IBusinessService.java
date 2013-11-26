@@ -27,7 +27,7 @@ public interface IBusinessService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String add(Business business, Admin loginUser);
 
 	/**
@@ -35,7 +35,7 @@ public interface IBusinessService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String update(Business business, Admin loginUser);
 
 	/**
@@ -43,6 +43,6 @@ public interface IBusinessService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String delete(String ids, String names, Admin loginUser);
 }

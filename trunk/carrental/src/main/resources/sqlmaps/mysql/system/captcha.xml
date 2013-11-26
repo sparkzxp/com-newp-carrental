@@ -11,34 +11,43 @@
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
 
-	<sql id="query_where">
+	<sql id="queryEquals_where">
 		<where>
 			<if test="captcha != null">
 				<if test="captcha.id != null and captcha.id != ''">
 					and T.id = #{captcha.id}
 				</if>
+				<if test="captcha.isUsed != null and captcha.isUsed != ''">
+					and T.is_used = #{captcha.isUsed}
+				</if>
+				<if test="captcha.createdDt != null and captcha.createdDt != ''">
+					and date_add(T.created_dt, interval 15 minute) >= #{captcha.createdDt}
+				</if>
 				<if test="captcha.usedFor != null and captcha.usedFor != ''">
 					and T.used_for = #{captcha.usedFor}
 				</if>
-				</if>
 				<if test="captcha.captcha != null and captcha.captcha != ''">
 					and T.captcha = #{captcha.captcha}
-				<if test="captcha.createdDt != null and captcha.createdDt != ''">
-					and date_add(T.created_dt, interval 15 minute) >= #{captcha.createdDt}
 				</if>
 			</if>
 		</where>
 	</sql>
+	<sql id="limit">
+		<if test="pager != null">
+			limit ${pager.startIndex}, ${pager.pageSize}
+		</if>
+	</sql>
 
-	<select id="queryList" resultMap="captchaRstMap" parameterType="map">
+	<select id="queryEqualsList" resultMap="captchaRstMap" parameterType="map">
 		SELECT T.* FROM `t_captcha` T
-		<include refid="query_where" />
-		order by T.created_dt desc
+		<include refid="queryEquals_where" />
+		order by T.created_dt asc
+		<include refid="limit"/>
 	</select>
 	
-	<select id="count" resultType="int" parameterType="map">
+	<select id="countEquals" resultType="int" parameterType="map">
 		select count(T.id) FROM t_captcha T
-		<include refid="query_where"/>
+		<include refid="queryEquals_where"/>
 	</select>
 	
 	<insert id="add" parameterType="captcha">
@@ -47,7 +56,7 @@
 		</selectKey>
 		INSERT INTO `t_captcha`(
 			created_user, created_dt,
-			captcha, isUsed, used_for
+			captcha, is_used, used_for
 		) VALUES (
 			#{createdUser.id}, NOW(),
 			#{captcha}, '0', #{usedFor}

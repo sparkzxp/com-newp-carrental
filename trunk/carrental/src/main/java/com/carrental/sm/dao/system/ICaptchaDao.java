@@ -13,14 +13,14 @@ import com.carrental.sm.bean.system.Captcha;
 public interface ICaptchaDao {
 
 	/**
-	 * 条件查询全部验证码信息，字符串类型like匹配
+	 * 条件查询全部验证码信息
 	 * 
 	 * @author 张霄鹏
 	 * @return List<Captcha>
 	 * @param params
 	 *            :pager,captcha
 	 */
-	List<Captcha> queryList(Map<String, Object> params);
+	List<Captcha> queryEqualsList(Map<String, Object> params);
 
 	/**
 	 * 条件查询列表数量
@@ -29,7 +29,7 @@ public interface ICaptchaDao {
 	 * @param params
 	 *            :captcha
 	 */
-	Integer count(Map<String, Object> params);
+	Integer countEquals(Map<String, Object> params);
 
 	/**
 	 * 新增

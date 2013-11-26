@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.carrental.sm.common;
 
 import java.io.File;

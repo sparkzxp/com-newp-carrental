@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.RentCar;
+import com.carrental.sm.common.MessageException;
 import com.carrental.sm.common.bean.Pager;
 
 /**
@@ -33,16 +34,17 @@ public interface IRentCarService {
 	 * 新增
 	 * 
 	 * @author 张霄鹏
+	 * @throws MessageException 
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	String add(RentCar rentCar, Admin newer, Admin loginUser);
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
+	String add(RentCar rentCar, Admin newer, Admin loginUser) throws MessageException;
 
 	/**
 	 * 修改
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String update(RentCar rentCar, Admin newer, Admin loginUser);
 
 	/**
@@ -50,7 +52,7 @@ public interface IRentCarService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String updatePart(RentCar rentCar, Admin loginUser);
 
 	/**
@@ -58,23 +60,24 @@ public interface IRentCarService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String cancelRentCar(String ids, String names, Admin loginUser);
 
 	/**
 	 * 确认订单，会发送短信
 	 * 
 	 * @author 张霄鹏
+	 * @throws MessageException 
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	String confirmRentCar(RentCar rentCar, Admin _admin);
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
+	String confirmRentCar(RentCar rentCar, Admin _admin) throws MessageException;
 
 	/**
 	 * 为预订分配车辆和司机
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String allotRentCar(RentCar rentCar, Admin _admin);
 
 	/**
@@ -82,7 +85,7 @@ public interface IRentCarService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String pickUpRentCar(RentCar rentCar, Admin _admin);
 
 	/**
@@ -90,6 +93,6 @@ public interface IRentCarService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String returnBackRentCar(RentCar rentCar, Admin _admin);
 }

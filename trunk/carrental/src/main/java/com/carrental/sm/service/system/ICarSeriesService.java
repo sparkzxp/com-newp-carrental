@@ -27,7 +27,7 @@ public interface ICarSeriesService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String add(CarSeries carSeries, Admin loginUser);
 
 	/**
@@ -35,7 +35,7 @@ public interface ICarSeriesService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String update(CarSeries carSeries, Admin loginUser);
 
 	/**
@@ -43,7 +43,7 @@ public interface ICarSeriesService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String delete(String ids, String names, Admin loginUser);
 
 	/**

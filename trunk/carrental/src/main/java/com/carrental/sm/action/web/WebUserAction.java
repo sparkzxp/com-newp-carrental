@@ -1,5 +1,7 @@
 package com.carrental.sm.action.web;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Captcha;
 import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.MD5;
+import com.carrental.sm.common.MessageException;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
+import com.carrental.sm.service.system.ICaptchaService;
 import com.carrental.sm.service.system.ICompanyService;
 import com.carrental.sm.service.system.INoticeService;
 import com.carrental.sm.service.system.IRentCarService;
@@ -41,6 +46,8 @@ public class WebUserAction {
 	private ICompanyService companyService;
 	@Autowired
 	private IRentCarService rentCarService;
+	@Autowired
+	private ICaptchaService captchaService;
 
 	/**
 	 * 用户登录页面
@@ -105,11 +112,24 @@ public class WebUserAction {
 	public Map<String, String> doPickCaptcha(Admin user, HttpServletRequest request) {
 		Map<String, String> result = new HashMap<String, String>();
 		Admin loginUser = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
-		// TODO 发送短信验证码，loginUser可能为null
+
 		int rnum = (int) ((Math.random() * 9 + 1) * 100000);
-		System.out.println(rnum);
-		
-		result.put("result", Constants.OPERATION_SUCCESS);
+		Captcha captcha = new Captcha();
+		// 注册时loginUser可能为null
+		if (null == loginUser || StringUtils.isEmpty(loginUser.getId())) {
+			loginUser = new Admin(Constants.DEFAULT_ADMIN_ID);
+			captcha.setUsedFor(Constants.CAPTCHA_USERD_FOR_REGIST);
+		} else {
+			captcha.setUsedFor(Constants.CAPTCHA_USERD_FOR_MODIFY);
+		}
+		captcha.setCreatedUser(loginUser);
+		captcha.setCaptcha(String.valueOf(rnum));
+
+		try {
+			result.put("result", this.captchaService.add(captcha, user, loginUser));
+		} catch (MessageException e) {
+			result.put("result", e.getMessage());
+		}
 		return result;
 	}
 
@@ -118,8 +138,7 @@ public class WebUserAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/doRegist")
-	public Map<String, String> doRegist(Admin user, String phoneCaptcha, HttpServletRequest request) {
-		// TODO 验证手机短信
+	public Map<String, String> doRegist(Admin user, Captcha captcha, HttpServletRequest request) {
 		Map<String, String> result = new HashMap<String, String>();
 		user.setIsDelete("0");
 		user.setInBlacklist("0");
@@ -128,9 +147,15 @@ public class WebUserAction {
 		user.setPassword(MD5.MD5_32(user.getPassword()));
 		user.setCreatedUser(new Admin(Constants.DEFAULT_ADMIN_ID));
 		user.setUpdatedUser(user.getCreatedUser());
-		result.put("result", this.adminService.add(user, user));
 
-		request.getSession().setAttribute(Constants.SESSION_WEB_USER_KEY, user);
+		captcha.setUsedFor(Constants.CAPTCHA_USERD_FOR_REGIST);
+		captcha.setCreatedDt(new Timestamp(new Date().getTime()));
+		captcha.setIsUsed("0");
+		result.put("result", this.adminService.add(user, captcha));
+
+		if (result.get("result").toString().equals(Constants.OPERATION_SUCCESS)) {
+			request.getSession().setAttribute(Constants.SESSION_WEB_USER_KEY, user);
+		}
 		return result;
 	}
 
@@ -205,8 +230,7 @@ public class WebUserAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/doUserPwdEdit", method = RequestMethod.POST)
-	public Map<String, String> doUserPwdEdit(Admin user, String phoneCaptcha, HttpServletRequest request) {
-		// TODO 验证手机短信
+	public Map<String, String> doUserPwdEdit(Admin user, Captcha captcha, HttpServletRequest request) {
 		Map<String, String> result = new HashMap<String, String>();
 
 		if (user == null || StringUtils.isEmpty(user.getId())) {
@@ -214,7 +238,14 @@ public class WebUserAction {
 			return result;
 		}
 		Admin loginUser = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
-		result.put("result", this.adminService.resetPwd(user.getId(), user.getAdminName(), MD5.MD5_32(user.getPassword()), loginUser));
+
+		captcha.setUsedFor(Constants.CAPTCHA_USERD_FOR_REGIST);
+		captcha.setCreatedDt(new Timestamp(new Date().getTime()));
+		captcha.setIsUsed("0");
+
+		user.setPassword(MD5.MD5_32(user.getPassword()));
+
+		result.put("result", this.adminService.resetPwd(user, captcha, loginUser));
 		return result;
 	}
 

@@ -65,6 +65,7 @@
 		<typeAlias alias="notice" type="com.carrental.sm.bean.system.Notice" />
 		<typeAlias alias="message" type="com.carrental.sm.bean.system.Message" />
 		<typeAlias alias="businessDesc" type="com.carrental.sm.bean.system.BusinessDesc" />
+		<typeAlias alias="captcha" type="com.carrental.sm.bean.system.Captcha" />
 		<!-- <typeAlias alias="dict" type="com.carrental.sm.bean.system.Dictionary" /> -->
 	</typeAliases>
 	<mappers>
@@ -84,6 +85,7 @@
 		<mapper resource="sqlmaps/mysql/system/notice.xml" />
 		<mapper resource="sqlmaps/mysql/system/message.xml" />
 		<mapper resource="sqlmaps/mysql/system/businessDesc.xml" />
+		<mapper resource="sqlmaps/mysql/system/captcha.xml" />
 		<!-- <mapper resource="sqlmaps/mysql/system/dictionary.xml" /> -->
 	</mappers>
 </configuration>  

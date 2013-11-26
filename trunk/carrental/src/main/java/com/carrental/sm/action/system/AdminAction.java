@@ -185,7 +185,7 @@ public class AdminAction {
 				return result;
 			}
 		}
-		result.put("result", this.adminService.resetPwd(ids, names, password, _admin));
+		result.put("result", this.adminService.resetPwds(ids, names, password, _admin));
 		return result;
 	}
 }
