@@ -20,12 +20,12 @@ public class CaptchaDao implements ICaptchaDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<Captcha> queryList(Map<String, Object> params) {
-		return this.sqlSession.selectList("captchaNpc.queryList", params);
+	public List<Captcha> queryEqualsList(Map<String, Object> params) {
+		return this.sqlSession.selectList("captchaNpc.queryEqualsList", params);
 	}
 
-	public Integer count(Map<String, Object> params) {
-		return this.sqlSession.selectOne("captchaNpc.count", params);
+	public Integer countEquals(Map<String, Object> params) {
+		return this.sqlSession.selectOne("captchaNpc.countEquals", params);
 	}
 
 	public String add(Captcha captcha) {

@@ -17,6 +17,7 @@ import com.carrental.sm.bean.system.Message;
 import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
+import com.carrental.sm.common.MessageException;
 import com.carrental.sm.common.MessageUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
@@ -67,7 +68,7 @@ public class RentCarService implements IRentCarService {
 		return this.rentCarDao.count(params);
 	}
 
-	public String add(RentCar rentCar, Admin newer, Admin loginUser) {
+	public String add(RentCar rentCar, Admin newer, Admin loginUser) throws MessageException {
 		String result = Constants.OPERATION_SUCCESS;
 		// 判断预订人是否新用户
 		if (StringUtils.isEmpty(newer.getId())) {
@@ -92,11 +93,14 @@ public class RentCarService implements IRentCarService {
 			rentCar = this.queryList(_rentCar, null).get(0);
 			Message message = new Message();
 			message.setCreatedUser(loginUser);
-			message.setTitle("确认预订");
+			message.setTitle(Constants.MESSAGE_BOOK_COMFIRM);
 			message.setReceiveNo(rentCar.getBookUser().getPhone());
 			message.setContent("亲爱的" + rentCar.getBookUser().getAdminName() + "您好，您于" + DateUtil.formatDate(rentCar.getCreatedDt(), "yyyy-MM-dd HH:mm") + "预订的订单已生效，预订取车时间为" + DateUtil.formatDate(rentCar.getBookPickUpDt(), "yyyy-MM-dd HH:mm") + "，查询编号为：" + rentCar.getRentNumber() + Constants.MESSAGE_SUFFIX);
 			this.messageDao.add(message);
 			result = MessageUtil.sendMessage(message);
+			if (!Constants.OPERATION_SUCCESS.equals(result)) {
+				throw new MessageException(result);
+			}
 		}
 
 		return result;
@@ -145,7 +149,7 @@ public class RentCarService implements IRentCarService {
 		return Constants.OPERATION_SUCCESS;
 	}
 
-	public String confirmRentCar(RentCar rentCar, Admin loginUser) {
+	public String confirmRentCar(RentCar rentCar, Admin loginUser) throws MessageException {
 		String result = Constants.OPERATION_SUCCESS;
 		this.rentCarDao.updatePart(rentCar);
 
@@ -162,11 +166,14 @@ public class RentCarService implements IRentCarService {
 		rentCar = this.queryList(_rentCar, null).get(0);
 		Message message = new Message();
 		message.setCreatedUser(loginUser);
-		message.setTitle("确认预订");
+		message.setTitle(Constants.MESSAGE_BOOK_COMFIRM);
 		message.setReceiveNo(rentCar.getBookUser().getPhone());
 		message.setContent("亲爱的" + rentCar.getBookUser().getAdminName() + "您好，您于" + DateUtil.formatDate(rentCar.getCreatedDt(), "yyyy-MM-dd HH:mm") + "预订的订单已生效，预订取车时间为" + DateUtil.formatDate(rentCar.getBookPickUpDt(), "yyyy-MM-dd HH:mm") + "，查询编号为：" + rentCar.getRentNumber() + Constants.MESSAGE_SUFFIX);
 		this.messageDao.add(message);
 		result = MessageUtil.sendMessage(message);
+		if (!Constants.OPERATION_SUCCESS.equals(result)) {
+			throw new MessageException(result);
+		}
 
 		return result;
 	}

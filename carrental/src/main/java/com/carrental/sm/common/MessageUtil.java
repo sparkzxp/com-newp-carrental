@@ -13,9 +13,9 @@ public class MessageUtil {
 		String result = Constants.OPERATION_SUCCESS;
 		// TODO 发送短信
 		try {
-			
+			Integer.parseInt("s");
 		} catch (Exception e) {
-			result = "";
+			result = e.getMessage();
 		}
 		return result;
 	}

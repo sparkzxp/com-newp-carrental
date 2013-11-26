@@ -18,6 +18,21 @@
 <script type="text/javascript" src="<%=basePath%>plugin/jquery-validation-1.10.0/localization/messages_zh.js"></script>
 <script type="text/javascript" src="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.js"></script>
 	<script type="text/javascript">
+	var begin;
+	var secs = 0;
+	var interval = 1000;
+	function refreshCaptcha(){
+		if(secs > 0){
+			$('#pickCaptcha').val("获取验证码("+secs+")");
+			secs--;
+			begin = setTimeout('refreshCaptcha()', interval);
+		}else{
+			clearTimeout(begin);
+			$('#pickCaptcha').val("获取验证码");
+			$('#pickCaptcha').removeAttr("disabled");
+		}
+	}
+	
     $(function() {
     	$('#pickCaptcha').click(function(){
     		if($.trim($('#user_phone').val()) == ''){
@@ -26,6 +41,7 @@
         			buttons: { "确定": false}
         		});
     		}else{
+    			$(this).attr("disabled", "disabled");
 	    		$.post('<%=basePath%>web/user/doPickCaptcha', {'phone':$.trim($('#user_phone').val())}, function(data){
 	        		if(data.result == 'SUCCESS'){
 	        			$.prompt('验证码已发送到您的手机，请查收',{
@@ -35,6 +51,8 @@
 		        				e.preventDefault();
 		        				if(v){
 		        					$.prompt.close();
+		        					secs = 60;
+		        					begin = setTimeout('refreshCaptcha()', interval);
 		        				}
 		        			}
 		        		});
@@ -43,6 +61,7 @@
 							title: '提示',
 		        			buttons: { "确定": false}
 		        		});
+	        			$('#pickCaptcha').removeAttr("disabled");
 	        		}
 	    		}, "json");
     		}
@@ -99,7 +118,7 @@
 							</tr>
 							<tr>
 								<td align="right">验证码：</td>
-								<td><input name="phoneCaptcha" type="text" class="{required:true,digits:true,minlength:6,maxlength:6} input"/></td>
+								<td><input name="captcha" type="text" class="{required:true,digits:true,minlength:6,maxlength:6} input"/></td>
 							</tr>
 							<tr>
 								<td align="right">新密码：</td>

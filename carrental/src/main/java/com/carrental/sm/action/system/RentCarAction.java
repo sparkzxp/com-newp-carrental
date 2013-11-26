@@ -32,6 +32,7 @@ import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.MD5;
+import com.carrental.sm.common.MessageException;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
 import com.carrental.sm.service.system.IBusinessService;
@@ -207,7 +208,11 @@ public class RentCarAction {
 			_r.setCreatedDt(new Timestamp(new Date().getTime()));
 			rentCar.setRentNumber("ZC" + DateUtil.formatCurrentDate("yyyyMMhh") + "-" + (this.rentCarService.count(_r) + 1));
 			rentCar.setCreatedUser(_admin);
-			result.put("result", this.rentCarService.add(rentCar, _newer, _admin));
+			try {
+				result.put("result", this.rentCarService.add(rentCar, _newer, _admin));
+			} catch (MessageException e) {
+				result.put("result", e.getMessage());
+			}
 		}
 		result.put("id", rentCar.getId());
 		return result;
@@ -243,7 +248,11 @@ public class RentCarAction {
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
 		rentCar.setUpdatedUser(_admin);
 		rentCar.setRentStatus(Constants.RENT_STATUS_BOOK_EFFECT);
-		result.put("result", this.rentCarService.confirmRentCar(rentCar, _admin));
+		try {
+			result.put("result", this.rentCarService.confirmRentCar(rentCar, _admin));
+		} catch (MessageException e) {
+			result.put("result", e.getMessage());
+		}
 
 		return result;
 	}

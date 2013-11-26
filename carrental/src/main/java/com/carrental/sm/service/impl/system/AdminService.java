@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Captcha;
 import com.carrental.sm.bean.system.Log;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.PagerUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.IAdminDao;
+import com.carrental.sm.dao.system.ICaptchaDao;
 import com.carrental.sm.dao.system.ILogDao;
 import com.carrental.sm.service.system.IAdminService;
 
@@ -31,6 +33,8 @@ public class AdminService implements IAdminService {
 	private IAdminDao adminDao;
 	@Autowired
 	private ILogDao logDao;
+	@Autowired
+	private ICaptchaDao captchaDao;
 
 	public List<Admin> queryList(Admin admin, Pager pager) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -85,6 +89,24 @@ public class AdminService implements IAdminService {
 		log.setLevel("5");
 		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
+	}
+
+	public String add(Admin user, Captcha captcha) {
+		String result = Constants.OPERATION_SUCCESS;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("captcha", captcha);
+		List<Captcha> captchas = this.captchaDao.queryEqualsList(params);
+		// TODO 验证手机短信
+		if (CollectionUtils.isEmpty(captchas)) {
+			result = "验证码输入错误";
+		} else {
+			captcha = captchas.get(0);
+			result = this.add(user, user);
+			if (Constants.OPERATION_SUCCESS.equals(result)) {
+				this.captchaDao.updateUsed(captcha);
+			}
+		}
+		return result;
 	}
 
 	public String update(Admin admin, Admin loginUser) {
@@ -163,7 +185,7 @@ public class AdminService implements IAdminService {
 		return Constants.OPERATION_SUCCESS;
 	}
 
-	public String resetPwd(String ids, String names, String password, Admin loginUser) {
+	public String resetPwds(String ids, String names, String password, Admin loginUser) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("password", password);
 		params.put("ids", ids);
@@ -176,6 +198,24 @@ public class AdminService implements IAdminService {
 		log.setLevel("5");
 		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
+	}
+
+	public String resetPwd(Admin admin, Captcha captcha, Admin loginUser) {
+		String result = Constants.OPERATION_SUCCESS;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("captcha", captcha);
+		List<Captcha> captchas = this.captchaDao.queryEqualsList(params);
+		// TODO 验证手机短信
+		if (CollectionUtils.isEmpty(captchas)) {
+			result = "验证码输入错误";
+		} else {
+			captcha = captchas.get(0);
+			result = this.resetPwds(admin.getId(), admin.getAdminName(), admin.getPassword(), loginUser);
+			if (Constants.OPERATION_SUCCESS.equals(result)) {
+				this.captchaDao.updateUsed(captcha);
+			}
+		}
+		return result;
 	}
 
 	/**

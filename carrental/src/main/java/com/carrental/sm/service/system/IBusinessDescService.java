@@ -26,6 +26,6 @@ public interface IBusinessDescService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String update(BusinessDesc businessDesc, Admin loginUser);
 }

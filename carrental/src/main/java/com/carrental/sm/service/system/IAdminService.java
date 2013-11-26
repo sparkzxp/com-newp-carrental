@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.Captcha;
 import com.carrental.sm.common.bean.Pager;
 
 /**
@@ -41,7 +42,7 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String add(Admin admin, Admin loginUser);
 
 	/**
@@ -49,7 +50,7 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String update(Admin admin, Admin loginUser);
 
 	/**
@@ -57,7 +58,7 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String updatePart(Admin admin, Admin loginUser);
 
 	/**
@@ -65,7 +66,7 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String delete(String ids, String names, Admin loginUser);
 
 	/**
@@ -73,7 +74,7 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String intoBlacklist(String ids, String names, Admin loginUser);
 
 	/**
@@ -81,7 +82,7 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String outofBlacklist(String ids, String names, Admin loginUser);
 
 	/**
@@ -89,6 +90,23 @@ public interface IAdminService {
 	 * 
 	 * @author 张霄鹏
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	String resetPwd(String ids, String names, String password, Admin loginUser);
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
+	String resetPwds(String ids, String names, String password, Admin loginUser);
+
+	/**
+	 * 用户注册，需验证短信验证码
+	 * 
+	 * @author 张霄鹏
+	 */
+	String add(Admin user, Captcha captcha);
+
+	/**
+	 * WEB用户修改密码
+	 * 
+	 * @author 张霄鹏
+	 * @param user
+	 *            :id,name,password
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
+	String resetPwd(Admin user, Captcha captcha, Admin loginUser);
 }
