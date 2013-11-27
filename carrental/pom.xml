@@ -17,6 +17,7 @@
 		<tomcat.version>7.0.37</tomcat.version>
 		<mysql.version>5.1.26</mysql.version>
 		<jackson.version>1.9.13</jackson.version>
+		<cxf.version>2.7.7</cxf.version>
 	</properties>
 
 	<repositories>
@@ -97,6 +98,8 @@
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>${tomcat.version}</version>
 		</dependency>
+
+		<!-- mybatis start -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -117,6 +120,9 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+		<!-- mybatis end -->
+
+		<!-- json start -->
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
@@ -137,6 +143,7 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.8.3</version>
 		</dependency>
+		<!-- json end -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -172,5 +179,33 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.1</version>
 		</dependency>
+
+		<!-- cxf start -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.xmlschema</groupId>
+			<artifactId>xmlschema-core</artifactId>
+			<version>2.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.neethi</groupId>
+			<artifactId>neethi</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.woodstox</groupId>
+			<artifactId>woodstox-core-asl</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+		<!-- cxf end -->
 	</dependencies>
 </project>
