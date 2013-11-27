@@ -30,9 +30,9 @@ import com.carrental.sm.bean.system.RentCar;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
-import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.common.MessageException;
+import com.carrental.sm.common.RentCarUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
 import com.carrental.sm.service.system.IBusinessService;
@@ -206,7 +206,7 @@ public class RentCarAction {
 			// add
 			RentCar _r = new RentCar();
 			_r.setCreatedDt(new Timestamp(new Date().getTime()));
-			rentCar.setRentNumber("ZC" + DateUtil.formatCurrentDate("yyyyMMhh") + "-" + (this.rentCarService.count(_r) + 1));
+			rentCar.setRentNumber(RentCarUtil.newRentNumber(this.rentCarService.count(_r)));
 			rentCar.setCreatedUser(_admin);
 			try {
 				result.put("result", this.rentCarService.add(rentCar, _newer, _admin));
