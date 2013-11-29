@@ -42,8 +42,8 @@ public interface Constants {
 	String BUSINESS_TYPE_CONFERENCE = "会务车辆安排";
 	String BUSINESS_TYPE_PERIPHERY_PROVINCE = "周边省市包车";
 
-	// 优惠活动类型：公里满就送，天数租就送，指定车系打折
+	// 优惠活动类型：公里满就送，天数租就送，指定车型打折
 	String COUPON_TYPE_FREE_KILOMETER = "公里满就送";
 	String COUPON_TYPE_FREE_DAY = "天数租就送";
-	String COUPON_TYPE_DISCOUNT = "指定车系打折";
+	String COUPON_TYPE_DISCOUNT = "指定车型打折";
 }

@@ -27,15 +27,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.carrental.sm.bean.system.Admin;
-import com.carrental.sm.bean.system.CarSeries;
 import com.carrental.sm.bean.system.Coupon;
+import com.carrental.sm.bean.system.RentType;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
 import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.FileUtil;
 import com.carrental.sm.common.bean.Pager;
-import com.carrental.sm.service.system.ICarSeriesService;
 import com.carrental.sm.service.system.ICouponService;
+import com.carrental.sm.service.system.IRentTypeService;
 
 /**
  * 优惠活动管理
@@ -56,7 +56,7 @@ public class CouponAction {
 	@Autowired
 	private ICouponService couponService;
 	@Autowired
-	private ICarSeriesService carSeriesService;
+	private IRentTypeService rentTypeService;
 
 	@RequestMapping(value = "/showCouponList")
 	public String couponList(Coupon coupon, Pager pager, Model model, HttpServletRequest request) {
@@ -76,17 +76,16 @@ public class CouponAction {
 			coupon = this.couponService.queryList(coupon, null).get(0);
 		}
 		model.addAttribute("coupon", coupon);
-		// 车系树json
-		CarSeries _carSeries = new CarSeries();
-		_carSeries.setIsDelete("0");
-		List<CarSeries> carSeriesList = this.carSeriesService.queryList(_carSeries, null);
+
+		// 车型树json
+		List<RentType> rentTypes = this.rentTypeService.queryList(null, null);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject jsonObject;
-		for (CarSeries r : carSeriesList) {
+		for (RentType r : rentTypes) {
 			jsonObject = new JSONObject();
 			jsonObject.put("id", r.getId());
-			if (isUpdate && !CollectionUtils.isEmpty(coupon.getCarSeriesList())) {
-				for (CarSeries r2 : coupon.getCarSeriesList()) {
+			if (isUpdate && !CollectionUtils.isEmpty(coupon.getRentTypes())) {
+				for (RentType r2 : coupon.getRentTypes()) {
 					if (r.getId().equals(r2.getId())) {
 						jsonObject.put("checked", true);
 						break;
@@ -94,15 +93,15 @@ public class CouponAction {
 				}
 			}
 			jsonObject.put("pId", "0");
-			jsonObject.put("name", r.getSeriesName());
+			jsonObject.put("name", r.getTypeName());
 			jsonArray.add(jsonObject);
 		}
-		model.addAttribute("carSeriesJson", jsonArray.toString());
+		model.addAttribute("rentTypeJson", jsonArray.toString());
 		return "admin/couponEdit";
 	}
 
 	@RequestMapping(value = "/doCouponEdit", method = RequestMethod.POST)
-	public String doCouponEdit(Coupon coupon, String carSeriesIds, @RequestParam(required = false) MultipartFile imageFile, Model model, HttpServletRequest request) {
+	public String doCouponEdit(Coupon coupon, String rentTypeIds, @RequestParam(required = false) MultipartFile imageFile, Model model, HttpServletRequest request) {
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
 
 		String oldImagePath = coupon.getImagePath();
@@ -128,11 +127,11 @@ public class CouponAction {
 			coupon.setUpdatedUser(_admin);
 			if (StringUtils.isNotEmpty(coupon.getId())) {
 				// update
-				model.addAttribute("result", this.couponService.update(coupon, carSeriesIds, _admin));
+				model.addAttribute("result", this.couponService.update(coupon, rentTypeIds, _admin));
 			} else {
 				// add
 				coupon.setCreatedUser(_admin);
-				model.addAttribute("result", this.couponService.add(coupon, carSeriesIds, _admin));
+				model.addAttribute("result", this.couponService.add(coupon, rentTypeIds, _admin));
 			}
 			model.addAttribute("coupon", coupon);
 

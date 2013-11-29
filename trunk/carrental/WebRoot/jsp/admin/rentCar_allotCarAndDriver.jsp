@@ -21,6 +21,10 @@
     <script type="text/javascript">
     var api = frameElement.api, W = api.opener;
     $(function() {
+    	$('#rentCar_carSeries').change(function(){
+    		$('#rentCar_car_plateNumber').val('');
+    	});
+    	
     	$('#btn_submit').click(function(){
         	if($('#editForm').valid()){
 	    		$.prompt(
@@ -73,7 +77,7 @@
     var dstr = '&rentCarId=${rentCar.id}';
     
     function showDriverList(){
-    	$.show('选择司机','<%=basePath%>driver/showPopupDriverList?city.id=${rentCar.city.id}'+dstr,600,400,"B");
+   		$.show('选择司机','<%=basePath%>driver/showPopupDriverList?city.id=${rentCar.city.id}'+dstr,600,400,"B");
     }
     
     function loadDriverData(data){
@@ -82,7 +86,14 @@
     }
     
     function showCarList(){
-    	$.show('选择车辆','<%=basePath%>car/showPopupCarList?carSeries.id=${rentCar.carSeries.id}&city.id=${rentCar.city.id}'+dstr,600,400,"B");
+    	if($('#rentCar_carSeries').val() == ''){
+    		$.prompt('请先选择租用车系',{
+				title: '提示',
+    			buttons: { "确认": false}
+    		});
+    	}else{
+    		$.show('选择车辆','<%=basePath%>car/showPopupCarList?carSeries.id='+$('#rentCar_carSeries').val()+'&city.id=${rentCar.city.id}'+dstr,600,400,"B");
+    	}
     }
     
     function loadCarData(data){
@@ -103,6 +114,17 @@
                 	<input type="text" id="rentCar_driverName" name="driver.driverName" value="${rentCar.driver.driverName}" style="width:200px;" readonly="readonly" class="{required:true}"/>
                 	<input type="hidden" id="rentCar_driverId" name="driver.id" value="${rentCar.driver.id}"/>
                 	<a href="javascript:void(0);" onclick="showDriverList()">选择</a>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">租用车系：</td>
+                <td>
+                	<select id="rentCar_carSeries" name="carSeries.id" style="width:200px;" class="{required:true}">
+                		<option value="">--请选择--</option>
+                		<c:forEach items="${carSeriesList}" var="parent">
+                		<option value="<c:out value="${parent.id}"/>" <c:if test="${parent.id == rentCar.carSeries.id}">selected="true"</c:if>><c:out value="${parent.seriesName}"/></option>
+                		</c:forEach>
+                	</select>
                 </td>
             </tr>
             <tr>

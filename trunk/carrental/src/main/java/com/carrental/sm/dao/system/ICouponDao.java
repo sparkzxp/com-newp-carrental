@@ -71,17 +71,31 @@ public interface ICouponDao {
 	 */
 	Integer delete(String ids);
 
+//	/**
+//	 * 为优惠活动增加车系关联
+//	 * 
+//	 * @author 张霄鹏
+//	 */
+//	String addCarSeriesList(Coupon coupon);
+//
+//	/**
+//	 * 删除优惠活动名下车系关联
+//	 * 
+//	 * @author 张霄鹏
+//	 */
+//	Integer deleteCarSeriesList(String couponIds);
+	
 	/**
-	 * 为优惠活动增加车系关联
+	 * 为优惠活动增加车型关联
 	 * 
 	 * @author 张霄鹏
 	 */
-	String addCarSeriesList(Coupon coupon);
+	String addRentTypes(Coupon coupon);
 
 	/**
-	 * 删除优惠活动名下车系关联
+	 * 删除优惠活动名下车型关联
 	 * 
 	 * @author 张霄鹏
 	 */
-	Integer deleteCarSeriesList(String couponIds);
+	Integer deleteRentTypes(String couponIds);
 }

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.carrental.sm.bean.system.Admin;
-import com.carrental.sm.bean.system.CarSeries;
+import com.carrental.sm.bean.system.RentType;
 import com.carrental.sm.bean.system.Log;
 import com.carrental.sm.bean.system.Coupon;
 import com.carrental.sm.common.Constants;
@@ -21,7 +21,7 @@ import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.dao.system.ILogDao;
 import com.carrental.sm.dao.system.ICouponDao;
 import com.carrental.sm.dao.system.IRentCarDao;
-import com.carrental.sm.service.system.ICarSeriesService;
+import com.carrental.sm.service.system.IRentTypeService;
 import com.carrental.sm.service.system.ICouponService;
 
 /**
@@ -36,7 +36,7 @@ public class CouponService implements ICouponService {
 	@Autowired
 	private ILogDao logDao;
 	@Autowired
-	private ICarSeriesService carSeriesService;
+	private IRentTypeService rentTypeService;
 	@Autowired
 	private IRentCarDao rentCarDao;
 
@@ -53,20 +53,20 @@ public class CouponService implements ICouponService {
 		return couponDao.queryList(params);
 	}
 
-	public String add(Coupon coupon, String carSeriesIds, Admin loginUser) {
+	public String add(Coupon coupon, String rentTypeIds, Admin loginUser) {
 		if (checkExist(coupon)) {
 			return "优惠活动标题已存在";
 		}
 		this.couponDao.add(coupon);
 
-		List<CarSeries> carSeriesList = new ArrayList<CarSeries>();
-		for (String s : carSeriesIds.split(",")) {
-			CarSeries r = new CarSeries();
+		List<RentType> rentTypes = new ArrayList<RentType>();
+		for (String s : rentTypeIds.split(",")) {
+			RentType r = new RentType();
 			r.setId(s);
-			carSeriesList.add(r);
+			rentTypes.add(r);
 		}
-		coupon.setCarSeriesList(carSeriesList);
-		this.couponDao.addCarSeriesList(coupon);
+		coupon.setRentTypes(rentTypes);
+		this.couponDao.addRentTypes(coupon);
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);
@@ -77,21 +77,21 @@ public class CouponService implements ICouponService {
 		return Constants.OPERATION_SUCCESS;
 	}
 
-	public String update(Coupon coupon, String carSeriesIds, Admin loginUser) {
+	public String update(Coupon coupon, String rentTypeIds, Admin loginUser) {
 		if (checkExist(coupon)) {
 			return "优惠活动标题已存在";
 		}
 		this.couponDao.update(coupon);
 
-		this.couponDao.deleteCarSeriesList(coupon.getId());
-		List<CarSeries> carSeriesList = new ArrayList<CarSeries>();
-		for (String s : carSeriesIds.split(",")) {
-			CarSeries r = new CarSeries();
+		this.couponDao.deleteRentTypes(coupon.getId());
+		List<RentType> rentTypes = new ArrayList<RentType>();
+		for (String s : rentTypeIds.split(",")) {
+			RentType r = new RentType();
 			r.setId(s);
-			carSeriesList.add(r);
+			rentTypes.add(r);
 		}
-		coupon.setCarSeriesList(carSeriesList);
-		this.couponDao.addCarSeriesList(coupon);
+		coupon.setRentTypes(rentTypes);
+		this.couponDao.addRentTypes(coupon);
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);
@@ -109,7 +109,7 @@ public class CouponService implements ICouponService {
 		}
 		this.couponDao.delete(ids);
 
-		this.couponDao.deleteCarSeriesList(ids);
+		this.couponDao.deleteRentTypes(ids);
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);

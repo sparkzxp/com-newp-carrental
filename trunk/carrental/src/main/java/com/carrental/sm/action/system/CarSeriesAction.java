@@ -26,6 +26,7 @@ import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.CarSeries;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
+import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.FileUtil;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.ICarSeriesService;
@@ -79,7 +80,7 @@ public class CarSeriesAction {
 		String oldSeriesImg = carSeries.getSeriesImgPath();
 		try {
 			if (carSeries.getManufacturerLogoUploadStatus()) {
-				String logoPath = request.getSession().getServletContext().getRealPath("upload/car_series/logo/");
+				String logoPath = request.getSession().getServletContext().getRealPath("upload/car_series/logo/" + DateUtil.getCurrentDate() + "/");
 				File root = new File(logoPath);
 				if (!root.isDirectory()) {
 					root.mkdirs();
@@ -89,12 +90,12 @@ public class CarSeriesAction {
 				File targetFile = new File(logoPath, logoFileName);
 				// 保存
 				logoImgFile.transferTo(targetFile);
-				carSeries.setManufacturerLogoPath("upload/car_series/logo/" + logoFileName);
-				logger.info("上传文件成功：upload/car_series/logo/" + logoFileName);
+				carSeries.setManufacturerLogoPath("upload/car_series/logo/" + DateUtil.getCurrentDate() + "/" + logoFileName);
+				logger.info("上传文件成功：upload/car_series/logo/" + DateUtil.getCurrentDate() + "/" + logoFileName);
 			}
 
 			if (carSeries.getSeriesImgUploadStatus()) {
-				String seriesPath = request.getSession().getServletContext().getRealPath("upload/car_series/series/");
+				String seriesPath = request.getSession().getServletContext().getRealPath("upload/car_series/series/" + DateUtil.getCurrentDate() + "/");
 				File root = new File(seriesPath);
 				if (!root.isDirectory()) {
 					root.mkdirs();
@@ -104,8 +105,8 @@ public class CarSeriesAction {
 				File targetFile = new File(seriesPath, seriesFileName);
 				// 保存
 				seriesImgFile.transferTo(targetFile);
-				carSeries.setSeriesImgPath("upload/car_series/series/" + seriesFileName);
-				logger.info("上传文件成功：upload/car_series/series/" + seriesFileName);
+				carSeries.setSeriesImgPath("upload/car_series/series/" + DateUtil.getCurrentDate() + "/" + seriesFileName);
+				logger.info("上传文件成功：upload/car_series/series/" + DateUtil.getCurrentDate() + "/" + seriesFileName);
 			}
 
 			carSeries.setUpdatedUser(_admin);
@@ -162,6 +163,7 @@ public class CarSeriesAction {
 		return result;
 	}
 
+	@Deprecated
 	@ResponseBody
 	@RequestMapping(value = "/queryListByRentType")
 	public Map<String, Object> queryListByRentType(String rentTypeId) {

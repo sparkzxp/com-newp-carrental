@@ -142,7 +142,11 @@ public class WebUserAction {
 		Map<String, String> result = new HashMap<String, String>();
 		user.setIsDelete("0");
 		user.setInBlacklist("0");
-		user.setType(Constants.USER_CUSTOM_PERSONAL);
+		if (StringUtils.isNotEmpty(user.getCompanyName())) {
+			user.setType(Constants.USER_CUSTOM_COMPANY);
+		} else {
+			user.setType(Constants.USER_CUSTOM_PERSONAL);
+		}
 		user.setLoginName(user.getPhone());
 		user.setPassword(MD5.MD5_32(user.getPassword()));
 		user.setCreatedUser(new Admin(Constants.DEFAULT_ADMIN_ID));
@@ -155,6 +159,7 @@ public class WebUserAction {
 
 		if (result.get("result").toString().equals(Constants.OPERATION_SUCCESS)) {
 			request.getSession().setAttribute(Constants.SESSION_WEB_USER_KEY, user);
+			result.put("userId", user.getId());
 		}
 		return result;
 	}

@@ -26,7 +26,7 @@
 			$('.discount').hide();
 			$('.kmFree').hide();
 			$('.daysFree').show();
-		}else if(t == '指定车系打折'){
+		}else if(t == '指定车型打折'){
 			$('.discount').show();
 			$('.kmFree').hide();
 			$('.daysFree').hide();
@@ -60,10 +60,10 @@
                 </td>
             </tr>
             <tr class="discount" style="display: none;">
-                <td align="right" height="25px">选择车系：</td>
+                <td align="right" height="25px">选择车型：</td>
                 <td colspan="3">
-                	<c:forEach items="${coupon.carSeriesList}" var="parent">
-                	${parent.seriesName}&nbsp;
+                	<c:forEach items="${coupon.rentTypes}" var="parent">
+                	${parent.typeName}&nbsp;
                 	</c:forEach>
                 </td>
             </tr>

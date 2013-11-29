@@ -27,14 +27,21 @@
 					<div>
 						<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="150"><img src="<%=basePath%>${parent.carSeries.seriesImgPath}" height="130" /></td>
+								<td width="150">
+									<c:choose>
+									<c:when test="${null == parent.carSeries or '' == parent.carSeries.seriesImgPath}">
+										<img src="<%=basePath%>images/web/huodong.jpg" height="130" />
+									</c:when>
+									<c:otherwise><img src="<%=basePath%>${parent.carSeries.seriesImgPath}" height="130" /></c:otherwise>
+									</c:choose>
+								</td>
 								<td><table width="100%" border="0" cellpadding="0"
 										cellspacing="8">
 										<tr>
 											<td width="10%">预定者姓名：</td>
 											<td width="13%">${parent.bookUser.adminName}</td>
 											<td width="10%">车 型：</td>
-											<td width="13%">${parent.carSeries.seriesName}</td>
+											<td width="13%">${parent.rentType.typeName}</td>
 											<td width="10%">租用费用：</td>
 											<td width="13%">${parent.rentFee}(元/天)</td>
 										</tr>

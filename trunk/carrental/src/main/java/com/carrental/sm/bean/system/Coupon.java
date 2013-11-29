@@ -20,7 +20,8 @@ public class Coupon extends BaseBean {
 	private Integer rentDays;
 	private Integer freeDays;
 	private Double discount;
-	private List<CarSeries> carSeriesList;
+	private List<RentType> rentTypes;
+//	private List<CarSeries> carSeriesList;
 	private String content;
 	private String imagePath;
 	private Boolean imageUploadStatus;// 不存数据库
@@ -146,21 +147,6 @@ public class Coupon extends BaseBean {
 	}
 
 	/**
-	 * @return the carSeriesList
-	 */
-	public List<CarSeries> getCarSeriesList() {
-		return carSeriesList;
-	}
-
-	/**
-	 * @param carSeriesList
-	 *            the carSeriesList to set
-	 */
-	public void setCarSeriesList(List<CarSeries> carSeriesList) {
-		this.carSeriesList = carSeriesList;
-	}
-
-	/**
 	 * @return the content
 	 */
 	public String getContent() {
@@ -218,5 +204,19 @@ public class Coupon extends BaseBean {
 	 */
 	public void setImageUploadStatus(Boolean imageUploadStatus) {
 		this.imageUploadStatus = imageUploadStatus;
+	}
+
+	/**
+	 * @return the rentTypes
+	 */
+	public List<RentType> getRentTypes() {
+		return rentTypes;
+	}
+
+	/**
+	 * @param rentTypes the rentTypes to set
+	 */
+	public void setRentTypes(List<RentType> rentTypes) {
+		this.rentTypes = rentTypes;
 	}
 }

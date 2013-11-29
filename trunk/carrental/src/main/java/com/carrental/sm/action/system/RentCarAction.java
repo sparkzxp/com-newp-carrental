@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
 import com.carrental.sm.bean.system.Business;
-import com.carrental.sm.bean.system.CarSeries;
 import com.carrental.sm.bean.system.City;
 import com.carrental.sm.bean.system.Coupon;
 import com.carrental.sm.bean.system.RentCar;
+import com.carrental.sm.bean.system.RentType;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
@@ -89,7 +89,6 @@ public class RentCarAction {
 	public String toBookCarEdit(RentCar rentCar, Model model, HttpServletRequest request) {
 		if (StringUtils.isNotEmpty(rentCar.getId())) {
 			rentCar = this.rentCarService.queryList(rentCar, null).get(0);
-			model.addAttribute("carSeriesList", rentCar.getRentType().getCarSeriesList());
 		}
 		model.addAttribute("rentCar", rentCar);
 
@@ -111,36 +110,40 @@ public class RentCarAction {
 		startDate.set(Calendar.SECOND, 0);
 		startDate.set(Calendar.MILLISECOND, 0);
 		coupon.setStartDate(new Timestamp(startDate.getTime().getTime()));
-		Calendar endDate = Calendar.getInstance();
-		endDate.set(Calendar.HOUR_OF_DAY, 23);
-		endDate.set(Calendar.MINUTE, 59);
-		endDate.set(Calendar.SECOND, 59);
-		endDate.set(Calendar.MILLISECOND, 999);
-		coupon.setEndDate(new Timestamp(endDate.getTime().getTime()));
+		coupon.setEndDate(new Timestamp(startDate.getTime().getTime()));
 		model.addAttribute("coupons", this.couponService.queryList(coupon, null));
 		return "admin/bookCarEdit";
 	}
 
+	/**
+	 * 后台新增/修改预订信息，WEB在线预订
+	 * 
+	 * @param bookUserType
+	 *            :0-注册用户.1-新用户
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/doBookCarEdit", method = RequestMethod.POST)
 	public Map<String, String> doBookCarEdit(RentCar rentCar, String bookUserType, HttpServletRequest request) {
 		Map<String, String> result = new HashMap<String, String>();
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		if (null == _admin || StringUtils.isEmpty(_admin.getId())) {
+			_admin = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
+		}
 		rentCar.setUpdatedUser(_admin);
 
 		// 选取车系不是选择活动中指定的打折车系
 		if (null != rentCar.getCoupon() && StringUtils.isNotEmpty(rentCar.getCoupon().getId())) {
 			Coupon coupon = this.couponService.queryList(rentCar.getCoupon(), null).get(0);
 			rentCar.setCoupon(coupon);
-			if ("指定车系打折".equals(rentCar.getCoupon().getCouponType())) {
+			if ("指定车型打折".equals(rentCar.getCoupon().getCouponType())) {
 				boolean flag = true;
-				for (CarSeries cs : rentCar.getCoupon().getCarSeriesList()) {
-					if (cs.getId().equals(rentCar.getCarSeries().getId())) {
+				for (RentType rt : rentCar.getCoupon().getRentTypes()) {
+					if (rt.getId().equals(rentCar.getRentType().getId())) {
 						flag = false;
 					}
 				}
 				if (flag) {
-					result.put("result", "您选取的车系不是选择的优惠活动中指定的打折车系");
+					result.put("result", "您选取的车型不是选择的优惠活动中指定的打折车型");
 					return result;
 				}
 			}
@@ -197,7 +200,7 @@ public class RentCarAction {
 		}
 
 		rentCar.setAgent(_admin);
-		rentCar.setRentStatus(Constants.RENT_STATUS_BOOK_EFFECT);
+		// rentCar.setRentStatus(Constants.RENT_STATUS_BOOK_EFFECT);
 
 		if (StringUtils.isNotEmpty(rentCar.getId())) {
 			// update
@@ -279,6 +282,7 @@ public class RentCarAction {
 	public String toCarAndDriverAllot(RentCar rentCar, Model model) {
 		rentCar = this.rentCarService.queryList(rentCar, null).get(0);
 		model.addAttribute("rentCar", rentCar);
+		model.addAttribute("carSeriesList", rentCar.getRentType().getCarSeriesList());
 		return "admin/rentCar_allotCarAndDriver";
 	}
 

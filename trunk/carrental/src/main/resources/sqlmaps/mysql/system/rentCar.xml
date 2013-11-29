@@ -69,6 +69,11 @@
 						and CS.series_name like '%${rentCar.carSeries.seriesName}%'
 					</if>
 				</if>
+				<if test="rentCar.rentType != null">
+					<if test="rentCar.rentType.typeName != null and rentCar.rentType.typeName != ''">
+						and RT.type_name like '%${rentCar.rentType.typeName}%'
+					</if>
+				</if>
 				<if test="rentCar.city != null">
 					<if test="rentCar.city.id != null and rentCar.city.id != ''">
 						and T.city_id like '%${rentCar.city.id}%'
@@ -110,6 +115,11 @@
 						and CS.series_name = #{rentCar.carSeries.seriesName}
 					</if>
 				</if>
+				<if test="rentCar.rentType != null">
+					<if test="rentCar.rentType.typeName != null and rentCar.rentType.typeName != ''">
+						and RT.type_name = #{rentCar.rentType.typeName}
+					</if>
+				</if>
 				<if test="rentCar.business != null">
 					<if test="rentCar.business.businessType != null and rentCar.business.businessType != ''">
 						and B.business_type = #{rentCar.business.businessType}
@@ -134,7 +144,8 @@
 
 	<select id="queryList" resultMap="rentCarRstMap" parameterType="map">
 		SELECT T.* FROM `t_rent_car` T
-		join t_car_series CS on CS.id = T.car_series_id
+		join t_rent_type RT on RT.id = T.rent_type_id
+		left join t_car_series CS on CS.id = T.car_series_id
 		join t_business B on B.id = T.business_id
 		left join t_admin A on A.id = T.book_user_id
 		<include refid="query_where" />
@@ -144,7 +155,8 @@
 	
 	<select id="queryEqualsList" resultMap="rentCarRstMap" parameterType="map">
 		SELECT T.* FROM `t_rent_car` T
-		join t_car_series CS on CS.id = T.car_series_id
+		join t_rent_type RT on RT.id = T.rent_type_id
+		left join t_car_series CS on CS.id = T.car_series_id
 		join t_business B on B.id = T.business_id
 		left join t_admin A on A.id = T.book_user_id
 		<include refid="queryEquals_where" />
@@ -154,7 +166,8 @@
 	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.id) FROM t_rent_car T
-		join t_car_series CS on CS.id = T.car_series_id
+		join t_rent_type RT on RT.id = T.rent_type_id
+		left join t_car_series CS on CS.id = T.car_series_id
 		join t_business B on B.id = T.business_id
 		left join t_admin A on A.id = T.book_user_id
 		<include refid="query_where"/>
@@ -162,7 +175,8 @@
 	
 	<select id="countEquals" resultType="int" parameterType="map">
 		select count(T.id) FROM t_rent_car T
-		join t_car_series CS on CS.id = T.car_series_id
+		join t_rent_type RT on RT.id = T.rent_type_id
+		left join t_car_series CS on CS.id = T.car_series_id
 		join t_business B on B.id = T.business_id
 		left join t_admin A on A.id = T.book_user_id
 		<include refid="queryEquals_where"/>

@@ -16,13 +16,17 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用车系：</td>
+                <%-- <td align="right" height="25px">租用车系：</td>
                 <td>
                 	${rentCar.carSeries.seriesName}
-                </td>
+                </td> --%>
                 <td align="right" height="25px">预订方式：</td>
                 <td>
                 	${rentCar.rentWay}
+                </td>
+                <td align="right" height="25px">乘客数量：</td>
+                <td>
+                	${rentCar.passengerNo}
                 </td>
             </tr>
             <tr>
@@ -173,12 +177,8 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" height="25px">乘客数量：</td>
-                <td>
-                	${rentCar.passengerNo}
-                </td>
                 <td align="right" height="25px">预订确认员：</td>
-                <td>
+                <td colspan="3">
                 	${rentCar.agent.adminName}
                 </td>
             </tr>

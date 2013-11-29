@@ -20,7 +20,7 @@
 				//清空
 				$("#clearForm").click(function(){
 					$("#rentCar_rentNumber").val('');
-					$("#rentCar_carSeries_seriesName").val(''); 
+					$("#rentCar_rentType_typeName").val(''); 
 				});
 				//查询
 				$("#query").click(function(){
@@ -165,7 +165,7 @@
 	</div>
 	<div class="button_nde">
 		预订号：<input type="text" id="rentCar_rentNumber" name="rentNumber" value="${rentCar.rentNumber}" class="input"/>
-		车系名称：<input type="text" id="rentCar_carSeries_seriesName" name="carSeries.seriesName" value="${rentCar.carSeries.seriesName}" class="input"/>
+		车型名称：<input type="text" id="rentCar_rentType_typeName" name="rentType.typeName" value="${rentCar.rentType.typeName}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
@@ -192,7 +192,7 @@
 			<tr>
 				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
 				<td name="rentNumber" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.rentNumber}"/></a></td>
-				<td name="carSeries" align="center"><c:out value="${parent.carSeries.seriesName}"/></td>
+				<td name="rentType" align="center"><c:out value="${parent.rentType.typeName}"/></td>
 				<td name="createdDt" align="center"><fmt:formatDate value="${parent.createdDt}" type="both" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td name="bookPickUpDt" align="center"><fmt:formatDate value="${parent.bookPickUpDt}" type="both" pattern="yyyy-MM-dd HH:mm"/></td>
 				<td name="bookUser" align="center"><c:out value="${parent.bookUser.phone}"/></td>

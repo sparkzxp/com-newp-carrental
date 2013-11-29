@@ -51,7 +51,7 @@
     		$('.flight').show();
     	}
     	
-    	$('#rentCar_rentType').change(function(){
+    	<%-- $('#rentCar_rentType').change(function(){
     		if($(this).find('option:selected').val() != ''){
     			$.post('<%=basePath%>carSeries/queryListByRentType', {'rentTypeId':$(this).find('option:selected').val()}, function(data){
 					if(data.result == 'SUCCESS'){
@@ -62,7 +62,7 @@
 					}
     			},"json");
     		}
-    	});
+    	}); --%>
     	
     	$(":radio").change(function(){
     		if($(':radio[checked]').val()=='0'){
@@ -158,6 +158,7 @@
     <form name="editForm" id="editForm">
     <input type="hidden" id="rentCar_id" name="id" value="${rentCar.id}"/>
     <input type="hidden" name="rentNumber" value="${rentCar.rentNumber}"/>
+    <input type="hidden" name="rentStatus" value="2"/>
     <div class="content">
         <table border="0" cellpadding="0" cellspacing="0" class="table">
             <tr>
@@ -181,7 +182,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用车系：</td>
+                <%-- <td align="right" height="25px">租用车系：</td>
                 <td>
                 	<select id="rentCar_carSeries" name="carSeries.id" style="width:200px;" class="{required:true}">
                 		<option value="">--请选择--</option>
@@ -189,10 +190,14 @@
                 		<option value="<c:out value="${parent.id}"/>" <c:if test="${parent.id == rentCar.carSeries.id}">selected="true"</c:if>><c:out value="${parent.seriesName}"/></option>
                 		</c:forEach>
                 	</select>
-                </td>
+                </td> --%>
                 <td align="right" height="25px">预订方式：</td>
                 <td>
                 	<input type="text" name="rentWay" value="${rentCar.rentWay}" style="width:200px;" class="{required:true,maxlengthCN:20}"/>
+                </td>
+                <td align="right" height="25px">乘客数量：</td>
+                <td>
+                	<input type="text" name="passengerNo" value="${rentCar.passengerNo}" style="width:200px;" class="{required:true,number:true,min:0,max:100}"/>
                 </td>
             </tr>
             <tr>
@@ -288,12 +293,6 @@
                 <td align="right" height="25px">航班出发时间：</td>
                 <td>
                 	<input type="text" id="rentCar_takeOfFlightDt" name="takeOfFlightDt" value="<fmt:formatDate value="${rentCar.takeOfFlightDt}" type="both" pattern="yyyy-MM-dd HH:mm"/>" style="width:200px;" readonly="readonly"/>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" height="25px">乘客数量：</td>
-                <td colspan="3">
-                	<input type="text" name="passengerNo" value="${rentCar.passengerNo}" style="width:200px;" class="{required:true,number:true,min:0,max:100}"/>
                 </td>
             </tr>
             <tr>

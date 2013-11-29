@@ -22,8 +22,8 @@
 			<tr>
 				<td width="290"><h1 id="date">现在时间：</h1></td>
 				<td><div><a href="<%=basePath%>">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></div><div><a 
-					href="<%=basePath%>/web/toCompany">公司简介</a></div><div><a
-					href="javascript:void(0)">在线订车</a></div><div class="mainlevel"><a
+					href="<%=basePath%>web/toCompany">公司简介</a></div><div><a
+					href="<%=basePath%>web/rental/toChooseBusiness">在线订车</a></div><div class="mainlevel"><a
 					href="javascript:void(0)">接送机</a>
 					<ul>
 						<li><a href="javascript:void(0)">接机</a></li>
@@ -34,8 +34,8 @@
 						<li><a href="javascript:void(0)">全日组</a></li>
 						<li><a href="javascript:void(0)">半日租</a></li>
 					</ul></div>
-					<div><a href="<%=basePath%>/web/toBusinessList">业务介绍</a></div><div><a 
-					href="<%=basePath%>/web/toCouponList">优惠活动</a></div></td>
+					<div><a href="<%=basePath%>web/toBusinessList">业务介绍</a></div><div><a 
+					href="<%=basePath%>web/toCouponList">优惠活动</a></div></td>
 			</tr>
 		</table>
 	</div>
@@ -73,7 +73,7 @@
 		var time = "现在时间：" + year + "." + month + "." + day + "&nbsp;"
 				+ hour + ":" + minute;
 		document.getElementById("date").innerHTML = time;
-		setTimeout("show()", 3000);
+		setTimeout("show()", 30000);
 	}
 	window.onload = show;
 	

@@ -93,6 +93,12 @@
 		where B.business_type = #{businessType}
 	</select>
 	
+	<select id="queryByCouponId" resultMap="rentTypeRstMap" parameterType="string">
+		SELECT T.* FROM `t_rent_type` T
+		join t_coupon_renttype CR on CR.renttype_id = T.id
+		where CR.coupon_id = #{couponId}
+	</select>
+	
 	<insert id="add" parameterType="rentType">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()

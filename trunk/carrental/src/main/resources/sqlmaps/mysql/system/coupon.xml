@@ -19,7 +19,8 @@
 		<result property="imagePath" column="image_path" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
-		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByCouponId" column="id" />
+		<collection property="rentTypes" javaType="java.util.ArrayList" ofType="rentType" select="rentTypeNpc.queryByCouponId" column="id" />
+		<!-- <collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByCouponId" column="id" /> -->
 	</resultMap>
 
 	<sql id="query_where">
@@ -147,7 +148,7 @@
 		delete from `t_coupon` where id in (${_parameter})
 	</delete>
 	
-	<insert id="addCarSeriesList" parameterType="coupon">
+	<!-- <insert id="addCarSeriesList" parameterType="coupon">
 		INSERT INTO t_coupon_carseries (
 			coupon_id, series_id
 		) VALUES 
@@ -160,5 +161,20 @@
 	
 	<delete id="deleteCarSeriesList" parameterType="string">
 		delete from `t_coupon_carseries` where coupon_id in (${_parameter})
+	</delete> -->
+	
+	<insert id="addRentTypes" parameterType="coupon">
+		INSERT INTO t_coupon_renttype (
+			coupon_id, renttype_id
+		) VALUES 
+		<foreach collection="rentTypes" item="rentType" index="index" separator=",">
+		(
+			#{id}, #{rentType.id}
+		)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteRentTypes" parameterType="string">
+		delete from `t_coupon_renttype` where coupon_id in (${_parameter})
 	</delete>
 </mapper>
