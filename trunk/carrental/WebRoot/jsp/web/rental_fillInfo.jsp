@@ -164,6 +164,9 @@ form.cmxform label.error, label.error {
     				return false;
     			}
     		} */
+    		if($('#rentCar_coupon') != null && $('#rentCar_coupon').val() != ''){
+    			$('#rentCar_coupon_couponTitle').val($('#rentCar_coupon').find('option:selected').text());
+    		}
     		if($('#editForm').valid()){
     			<c:choose>
     			<c:when test="${user == null or user.id == null or user.id == '' }">
@@ -207,8 +210,9 @@ form.cmxform label.error, label.error {
 			<input type="hidden" name="rentType.id" id="rentCar_rentType" value="${rentCar.rentType.id}"/>
 			<input type="hidden" name="rentType.typeName" id="rentCar_rentType_typeName" value="${rentCar.rentType.typeName}"/>
 			<input type="hidden" name="business.rentType.id" id="rentCar_business_rentType" value="${rentCar.business.rentType.id}"/>
-			<input type="hidden" name="coupon.id" id="rentCar_coupon" value="${rentCar.coupon.id}"/>
-			
+
+			<input type="hidden" name="coupon.couponType" id="rentCar_coupon_couponType" value="${rentCar.coupon.couponType}"/>
+			<input type="hidden" name="coupon.couponTitle" id="rentCar_coupon_couponTitle" value="${rentCar.coupon.couponTitle}"/>
 			<input type="hidden" name="exceedHourFee" value="${rentCar.exceedHourFee}"/>
 			<input type="hidden" name="exceedKilometerFee" value="${rentCar.exceedKilometerFee}"/>
 			<input type="hidden" name="rentFee" value="${rentCar.rentFee}"/>
@@ -235,10 +239,8 @@ form.cmxform label.error, label.error {
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td valign="top">
-
 						<div class="car">
 							<h1>乘车信息</h1>
-
 							<blockquote>
 								<table width="100%" border="0" cellspacing="15" cellpadding="0">
 									<c:if test="${user == null or user.id == null or user.id == '' }">
@@ -276,6 +278,24 @@ form.cmxform label.error, label.error {
 						                <td align="right">预订人邮箱：</td>
 						                <td>
 						                	<input type="text" id="rentCar_bookUser_email" name="bookUser.email" value="${rentCar.bookUser.email}" style="width:200px;" class="{required:true,maxlengthCN:50} input"/>
+						                </td>
+						            </tr>
+									<tr>
+										<th colspan="2"></th>
+									</tr>
+									</c:if>
+									<c:if test="${coupons.size() > 0 and (rentCar.coupon == null or rentCar.coupon.couponType != '指定车型打折')}">
+									<tr>
+						                <td align="right">优惠活动：</td>
+						                <td>
+						                	<select id="rentCar_coupon" name="coupon.id" style="width:200px;">
+						                		<option value="">--请选择优惠活动--</option>
+						                		<c:forEach items="${coupons}" var="parent">
+						                		<c:if test="${parent.couponType != '指定车型打折'}">
+						                		<option value="${parent.id}" <c:if test="${parent.id == rentCar.coupon.id}">selected="true"</c:if>>${parent.couponTitle}</option>
+						                		</c:if>
+						                		</c:forEach>
+						                	</select>
 						                </td>
 						            </tr>
 									<tr>

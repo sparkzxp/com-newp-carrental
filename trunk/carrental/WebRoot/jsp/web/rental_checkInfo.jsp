@@ -46,8 +46,10 @@
 			<input type="hidden" name="rentType.id" id="rentCar_rentType" value="${rentCar.rentType.id}"/>
 			<input type="hidden" name="rentType.typeName" id="rentCar_rentType_typeName" value="${rentCar.rentType.typeName}"/>
 			<input type="hidden" name="business.rentType.id" id="rentCar_business_rentType" value="${rentCar.business.rentType.id}"/>
-			<input type="hidden" name="coupon.id" id="rentCar_coupon" value="${rentCar.coupon.id}"/>
 			
+			<input type="hidden" name="coupon.id" id="rentCar_coupon" value="${rentCar.coupon.id}"/>
+			<input type="hidden" name="coupon.couponType" id="rentCar_coupon_couponType" value="${rentCar.coupon.couponType}"/>
+			<input type="hidden" name="coupon.couponTitle" id="rentCar_coupon_couponTitle" value="${rentCar.coupon.couponTitle}"/>
 			<input type="hidden" name="exceedHourFee" value="${rentCar.exceedHourFee}"/>
 			<input type="hidden" name="exceedKilometerFee" value="${rentCar.exceedKilometerFee}"/>
 			<input type="hidden" name="rentFee" value="${rentCar.rentFee}"/>
@@ -148,6 +150,15 @@
 										<c:if test="${rentCar.business.fuelFee == null or rentCar.business.fuelFee == 0}">油</c:if>&nbsp;
 										<c:if test="${rentCar.business.insuranceFee == null or rentCar.business.insuranceFee == 0}">险</c:if>&nbsp;
 										<c:if test="${rentCar.business.driverFee == null or rentCar.business.driverFee == 0}">驾</c:if>
+									</td>
+								</tr>
+								<tr>
+									<td height="30" align="right">参加优惠活动：&nbsp;</td>
+									<td>
+										<c:choose>
+										<c:when test="${rentCar.coupon == null or rentCar.coupon.id == ''}">未参加优惠活动</c:when>
+										<c:otherwise>${rentCar.coupon.couponTitle}</c:otherwise>
+										</c:choose>
 									</td>
 								</tr>
 							</table>
