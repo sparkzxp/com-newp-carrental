@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -142,7 +143,7 @@ public class WebRentalAction {
 		rentCar.setBusiness(business);
 
 		double discount = 1;
-		if (null != rentCar.getCoupon() && StringUtils.isNotEmpty(rentCar.getCoupon().getId())) {
+		if (null != rentCar.getCoupon() && StringUtils.isNotEmpty(rentCar.getCoupon().getId()) && Constants.COUPON_TYPE_DISCOUNT.equals(rentCar.getCoupon().getCouponType())) {
 			List<Coupon> coupons = this.couponService.queryList(rentCar.getCoupon(), null);
 			if (CollectionUtils.isEmpty(coupons)) {
 				rentCar.setCoupon(null);
@@ -159,6 +160,27 @@ public class WebRentalAction {
 		rentCar.setExceedKilometerFee(Integer.parseInt(df.format(business.getExceedKilometerFee() * city.getMultiple() * discount)));
 
 		model.addAttribute("rentCar", rentCar);
+
+		Coupon coupon = new Coupon();
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(Calendar.HOUR_OF_DAY, 0);
+		startDate.set(Calendar.MINUTE, 0);
+		startDate.set(Calendar.SECOND, 0);
+		startDate.set(Calendar.MILLISECOND, 0);
+		coupon.setStartDate(new Timestamp(startDate.getTime().getTime()));
+		coupon.setEndDate(new Timestamp(startDate.getTime().getTime()));
+		List<Coupon> coupons = this.couponService.queryList(coupon, null);
+		if (CollectionUtils.isNotEmpty(coupons)) {
+			Iterator<Coupon> iterator = coupons.iterator();
+			Coupon c = null;
+			while (iterator.hasNext()) {
+				c = iterator.next();
+				if (c.getCouponType().equals(Constants.COUPON_TYPE_DISCOUNT)) {
+					iterator.remove();
+				}
+			}
+		}
+		model.addAttribute("coupons", coupons);
 	}
 
 	/**

@@ -121,7 +121,7 @@
 													<c:forEach items="${coupon.rentTypes}" var="rentType">
 													<c:if test="${rentType.typeName == parent.typeName}">
 													<c:set var="couponId" value="${coupon.id}"></c:set>
-													<li>优惠活动：${coupon.couponTitle}&nbsp;&nbsp;活动折扣：${coupon.discount}</li>
+													<li>优惠活动：${coupon.couponTitle}&nbsp;&nbsp;活动折扣：${coupon.discount}折</li>
 													</c:if>
 													</c:forEach>
 													</c:forEach>
