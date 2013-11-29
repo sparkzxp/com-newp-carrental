@@ -110,11 +110,11 @@ public class AdminService implements IAdminService {
 	}
 
 	public String update(Admin admin, Admin loginUser) {
-		if (checkLoginNameExist(admin)) {
-			return "登录账号已存在";
-		}
 		if (checkPhoneExist(admin)) {
 			return "手机号码已存在";
+		}
+		if (checkLoginNameExist(admin)) {
+			return "登录账号已存在";
 		}
 		this.adminDao.update(admin);
 

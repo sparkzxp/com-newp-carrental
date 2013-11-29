@@ -13,7 +13,7 @@ public class MessageUtil {
 		String result = Constants.OPERATION_SUCCESS;
 		// TODO 发送短信
 		try {
-			Integer.parseInt("s");
+//			Integer.parseInt("s");
 		} catch (Exception e) {
 			result = e.getMessage();
 		}

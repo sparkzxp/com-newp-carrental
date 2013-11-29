@@ -117,12 +117,6 @@
 		where T.is_delete = '0' and RC.type_id = #{typeId}
 	</select>
 	
-	<select id="queryByCouponId" resultMap="carSeriesRstMap" parameterType="string">
-		SELECT T.* FROM `t_car_series` T
-		join t_coupon_carseries CC on CC.series_id = T.id
-		where CC.coupon_id = #{couponId}
-	</select>
-	
 	<insert id="add" parameterType="carSeries">
 		<selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
 			SELECT LAST_INSERT_ID()

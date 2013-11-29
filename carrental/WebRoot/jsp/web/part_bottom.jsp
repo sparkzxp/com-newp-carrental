@@ -3,7 +3,7 @@
 <div class="footer">
 	<div id="wrapp">
 		<p>
-			<a href="<%=basePath%>/web/toCompany">关于新广</a>|<a href="javascript:void(0)">合作伙伴</a>|<a 
+			<a href="<%=basePath%>web/toCompany">关于新广</a>|<a href="javascript:void(0)">合作伙伴</a>|<a 
 				href="javascript:void(0)">营销中心</a>|<a href="javascript:void(0)">联系客服</a>|<a 
 				href="javascript:void(0)">诚征英才</a>|<a href="javascript:void(0)">联系我们</a>
 		</p>

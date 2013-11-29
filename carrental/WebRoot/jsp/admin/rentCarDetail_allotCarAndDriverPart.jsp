@@ -11,8 +11,12 @@
             </c:if>
             <c:if test="${rentCar.car != null and rentCar.car.id != ''}">
             <tr>
-                <td width="20%" align="right" height="25px">车牌号码：</td>
-                <td colspan="3">
+            	<td align="right" height="25px">租用车系：</td>
+                <td>
+                	${rentCar.carSeries.seriesName}
+                </td>
+                <td align="right" height="25px">车牌号码：</td>
+                <td>
                 	${rentCar.car.plateNumber}
                 </td>
             </tr>

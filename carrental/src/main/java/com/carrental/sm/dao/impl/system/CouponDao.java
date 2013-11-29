@@ -49,13 +49,22 @@ public class CouponDao implements ICouponDao {
 		return this.sqlSession.delete("couponNpc.delete", ids);
 	}
 
-	public String addCarSeriesList(Coupon coupon) {
-		this.sqlSession.insert("couponNpc.addCarSeriesList", coupon);
+//	public String addCarSeriesList(Coupon coupon) {
+//		this.sqlSession.insert("couponNpc.addCarSeriesList", coupon);
+//		return String.valueOf(coupon.getId());
+//	}
+//
+//	public Integer deleteCarSeriesList(String couponIds) {
+//		return this.sqlSession.delete("couponNpc.deleteCarSeriesList", couponIds);
+//	}
+	
+	public String addRentTypes(Coupon coupon) {
+		this.sqlSession.insert("couponNpc.addRentTypes", coupon);
 		return String.valueOf(coupon.getId());
 	}
 
-	public Integer deleteCarSeriesList(String couponIds) {
-		return this.sqlSession.delete("couponNpc.deleteCarSeriesList", couponIds);
+	public Integer deleteRentTypes(String couponIds) {
+		return this.sqlSession.delete("couponNpc.deleteRentTypes", couponIds);
 	}
 
 }

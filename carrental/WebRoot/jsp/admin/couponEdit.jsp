@@ -46,7 +46,7 @@
 	};
    	
    	function onCheck(e, treeId, treeNode) {
-		var zTree = $.fn.zTree.getZTreeObj("carSeriesTree"),
+		var zTree = $.fn.zTree.getZTreeObj("rentTypeTree"),
 		nodes = zTree.getCheckedNodes(true);
 		var v = "";
 		var k = "";
@@ -56,14 +56,14 @@
 		}
 		if (v.length > 0 ) v = v.substring(0, v.length-1);
 		if (k.length > 0 ) k = k.substring(0, k.length-1);
-		$("#carSeriesSel").attr("value", v);
-		$("#carSeriesIds").attr("value", k);
+		$("#rentTypeSel").attr("value", v);
+		$("#rentTypeIds").attr("value", k);
 	}
    	
    	function showMenu() {
-		var carSeriesObj = $("#carSeriesSel");
-		var carSeriesOffset = $("#carSeriesSel").offset();
-		$("#menuContent").css({left:carSeriesOffset.left + "px", top:carSeriesOffset.top + carSeriesObj.outerHeight() + "px"}).slideDown("fast");
+		var rentTypeObj = $("#rentTypeSel");
+		var rentTypeOffset = $("#rentTypeSel").offset();
+		$("#menuContent").css({left:rentTypeOffset.left + "px", top:rentTypeOffset.top + rentTypeObj.outerHeight() + "px"}).slideDown("fast");
 
 		$("body").bind("mousedown", onBodyDown);
 	}
@@ -72,7 +72,7 @@
 		$("body").unbind("mousedown", onBodyDown);
 	}
 	function onBodyDown(event) {
-		if (!(event.target.id == "menuBtn" || event.target.id == "carSeriesSel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+		if (!(event.target.id == "menuBtn" || event.target.id == "rentTypeSel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
 			hideMenu();
 		}
 	}
@@ -90,7 +90,7 @@
 			$('.discount').hide();
 			$('.kmFree').hide();
 			$('.daysFree').show();
-		}else if($('#coupon_couponType').find('option:selected').val() == '指定车系打折'){
+		}else if($('#coupon_couponType').find('option:selected').val() == '指定车型打折'){
 			$('.discount').show();
 			$('.kmFree').hide();
 			$('.daysFree').hide();
@@ -129,9 +129,9 @@
     		});
     	}
     	
-    	var zNodes = JSON.parse('${carSeriesJson}');
-    	$.fn.zTree.init($("#carSeriesTree"), setting, zNodes);
-    	var zTree = $.fn.zTree.getZTreeObj("carSeriesTree"),
+    	var zNodes = JSON.parse('${rentTypeJson}');
+    	$.fn.zTree.init($("#rentTypeTree"), setting, zNodes);
+    	var zTree = $.fn.zTree.getZTreeObj("rentTypeTree"),
 		nodes = zTree.getCheckedNodes(true);
 		var v = "";
 		var k = "";
@@ -141,8 +141,8 @@
 		}
 		if (v.length > 0 ) v = v.substring(0, v.length-1);
 		if (k.length > 0 ) k = k.substring(0, k.length-1);
-		$("#carSeriesSel").attr("value", v);
-		$("#carSeriesIds").attr("value", k);
+		$("#rentTypeSel").attr("value", v);
+		$("#rentTypeIds").attr("value", k);
     	
     	$('#btn_submit').click(function(){
     		if($("input[name=imageFile]").next("input[type=text]").val()==''){
@@ -185,7 +185,7 @@
 						<option value="">--请选择--</option>
 						<option value="公里满就送" <c:if test="${coupon.couponType == '公里满就送'}">selected="true"</c:if>>公里满就送</option>
 						<option value="天数租就送" <c:if test="${coupon.couponType == '天数租就送'}">selected="true"</c:if>>天数租就送</option>
-						<option value="指定车系打折" <c:if test="${coupon.couponType == '指定车系打折'}">selected="true"</c:if>>指定车系打折</option>
+						<option value="指定车型打折" <c:if test="${coupon.couponType == '指定车型打折'}">selected="true"</c:if>>指定车型打折</option>
 					</select>
 				</td>
 			</tr>
@@ -196,11 +196,11 @@
                 </td>
             </tr>
             <tr class="discount" style="display: none;">
-                <td align="right" height="25px">选择车系：</td>
+                <td align="right" height="25px">选择车型：</td>
                 <td>
-                	<textarea id="carSeriesSel" readonly="readonly" style="width:300px; height:60px;" onclick="showMenu();"></textarea>
+                	<textarea id="rentTypeSel" readonly="readonly" style="width:300px; height:60px;" onclick="showMenu();"></textarea>
                 	&nbsp;<a id="menuBtn" href="javascript:void(0)" onclick="showMenu();" style="font-size:12px;">选择</a>
-                	<input type="hidden" id="carSeriesIds" name="carSeriesIds"/>
+                	<input type="hidden" id="rentTypeIds" name="rentTypeIds"/>
 				</td>
             </tr>
             <tr class="discount" style="display: none;">
@@ -250,7 +250,7 @@
     </div>
     </form>
     <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
-		<ul id="carSeriesTree" class="ztree" style="clear:both;margin-top:0; width:250px; height: 250px;"></ul>
+		<ul id="rentTypeTree" class="ztree" style="clear:both;margin-top:0; width:250px; height: 250px;"></ul>
 	</div>
 </body>
 </html>

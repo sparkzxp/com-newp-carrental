@@ -122,7 +122,7 @@
 					<option value="">--请选择--</option>
 					<option value="公里满就送" <c:if test="${coupon.couponType == '公里满就送'}">selected="true"</c:if>>公里满就送</option>
 					<option value="天数租就送" <c:if test="${coupon.couponType == '天数租就送'}">selected="true"</c:if>>天数租就送</option>
-					<option value="指定车系打折" <c:if test="${coupon.couponType == '指定车系打折'}">selected="true"</c:if>>指定车系打折</option>
+					<option value="指定车型打折" <c:if test="${coupon.couponType == '指定车型打折'}">selected="true"</c:if>>指定车型打折</option>
 				</select>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">

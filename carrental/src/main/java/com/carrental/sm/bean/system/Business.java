@@ -22,6 +22,8 @@ public class Business extends BaseBean {
 	private String content;
 	private RentType rentType;
 
+	private String businessMore;// 不存数据库，标记是送机还是接机
+
 	/**
 	 * @return the businessType
 	 */
@@ -215,6 +217,20 @@ public class Business extends BaseBean {
 	 */
 	public void setDriverFee(Integer driverFee) {
 		this.driverFee = driverFee;
+	}
+
+	/**
+	 * @return the businessMore
+	 */
+	public String getBusinessMore() {
+		return businessMore;
+	}
+
+	/**
+	 * @param businessMore the businessMore to set
+	 */
+	public void setBusinessMore(String businessMore) {
+		this.businessMore = businessMore;
 	}
 
 }

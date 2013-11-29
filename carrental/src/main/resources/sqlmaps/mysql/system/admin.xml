@@ -163,7 +163,7 @@
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{adminName}, #{loginName}, #{password}, #{type}, #{city.id},
 			#{role.id}, #{email}, #{phone}, #{companyName}, #{inBlacklist},
-			#{sex}, #{address}. #{qq}
+			#{sex}, #{address}, #{qq}
 		)
 	</insert>
 	
