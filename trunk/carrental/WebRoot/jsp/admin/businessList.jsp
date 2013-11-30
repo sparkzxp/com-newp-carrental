@@ -135,7 +135,7 @@
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>业务名称</th>
 				<th>租用类型</th>
-				<th>租用价格(元)</th>
+				<th>起步价格(元)</th>
 				<th>超小时费(元/小时)</th>
 				<th>超公里费(元/公里)</th>
 			</tr>

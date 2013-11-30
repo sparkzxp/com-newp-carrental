@@ -12,8 +12,8 @@
 		<result property="endDate" column="end_date" />
 		<result property="fullKilometer" column="full_kilometer" />
 		<result property="freeKilometer" column="free_kilometer" />
-		<result property="rentDays" column="rent_days" />
-		<result property="freeDays" column="free_days" />
+		<result property="rentHours" column="rent_hours" />
+		<result property="freeHours" column="free_hours" />
 		<result property="discount" column="discount" />
 		<result property="content" column="content" />
 		<result property="imagePath" column="image_path" />
@@ -115,12 +115,12 @@
 		INSERT INTO `t_coupon`(
 			created_user, created_dt, updated_user, updated_dt,
 			coupon_title, coupon_type, start_date, end_date, full_kilometer,
-			free_kilometer, rent_days, free_days, content, discount,
+			free_kilometer, rent_hours, free_hours, content, discount,
 			image_path
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
 			#{couponTitle}, #{couponType}, #{startDate}, #{endDate}, #{fullKilometer},
-			#{freeKilometer}, #{rentDays}, #{freeDays}, #{content}, #{discount},
+			#{freeKilometer}, #{rentHours}, #{freeHours}, #{content}, #{discount},
 			#{imagePath}
 		)
 	</insert>
@@ -135,8 +135,8 @@
 			end_date = #{endDate},
 			full_kilometer = #{fullKilometer},
 			free_kilometer = #{freeKilometer},
-			rent_days = #{rentDays},
-			free_days = #{freeDays},
+			rent_hours = #{rentHours},
+			free_hours = #{freeHours},
 			content = #{content},
 			discount = #{discount},
 			image_path = #{imagePath}

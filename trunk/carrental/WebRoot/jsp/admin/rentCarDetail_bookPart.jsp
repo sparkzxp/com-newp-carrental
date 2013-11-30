@@ -30,7 +30,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用费用(元/天)：</td>
+                <td align="right" height="25px">起步价格(元)：</td>
                 <td>
                 	${rentCar.rentFee}
                 </td>
@@ -40,7 +40,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" height="25px">保险费用(元/小时)：</td>
+                <td align="right" height="25px">保险费用(元)：</td>
                 <td>
                 	${rentCar.business.insuranceFee}
                 </td>

@@ -17,19 +17,19 @@
 		if(t == ''){
 			$('.discount').hide();
 			$('.kmFree').hide();
-			$('.daysFree').hide();
+			$('.hoursFree').hide();
 		}else if(t == '公里满就送'){
 			$('.discount').hide();
 			$('.kmFree').show();
-			$('.daysFree').hide();
-		}else if(t == '天数租就送'){
+			$('.hoursFree').hide();
+		}else if(t == '小时满就送'){
 			$('.discount').hide();
 			$('.kmFree').hide();
-			$('.daysFree').show();
+			$('.hoursFree').show();
 		}else if(t == '指定车型打折'){
 			$('.discount').show();
 			$('.kmFree').hide();
-			$('.daysFree').hide();
+			$('.hoursFree').hide();
 		}
 	}
    	
@@ -79,13 +79,13 @@
                 <td align="right" height="25px">免费送(公里)：</td>
                 <td colspan="3">${coupon.freeKilometer}</td>
             </tr>
-            <tr class="daysFree" style="display: none;">
-                <td align="right" height="25px">租用(天)：</td>
-                <td colspan="3">${coupon.rentDays}</td>
+            <tr class="hoursFree" style="display: none;">
+                <td align="right" height="25px">租用(小时)：</td>
+                <td colspan="3">${coupon.rentHours}</td>
             </tr>
-            <tr class="daysFree" style="display: none;">
-                <td align="right" height="25px">免费送(天)：</td>
-                <td colspan="3">${coupon.freeDays}</td>
+            <tr class="hoursFree" style="display: none;">
+                <td align="right" height="25px">免费送(小时)：</td>
+                <td colspan="3">${coupon.freeHours}</td>
             </tr>
             <tr>
                 <td align="right" height="25px">开始时间：</td>

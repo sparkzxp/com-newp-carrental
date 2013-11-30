@@ -141,7 +141,7 @@
 									<td>${rentCar.exceedKilometerFee}元</td>
 								</tr>
 								<tr>
-									<td height="30" align="right">最低消费：&nbsp;</td>
+									<td height="30" align="right">起步价格：&nbsp;</td>
 									<td>${rentCar.rentFee}元</td>
 								</tr>
 								<tr>

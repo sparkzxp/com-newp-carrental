@@ -444,7 +444,7 @@ form.cmxform label.error, label.error {
 										<td>${rentCar.exceedKilometerFee}元</td>
 									</tr>
 									<tr>
-										<td height="30">最低消费：</td>
+										<td height="30">起步价格：</td>
 										<td>${rentCar.rentFee}元</td>
 									</tr>
 									<tr>
