@@ -281,8 +281,8 @@ CREATE TABLE IF NOT EXISTS `t_coupon` (
   `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `full_kilometer` smallint(6) DEFAULT NULL,
   `free_kilometer` smallint(6) DEFAULT NULL,
-  `rent_days` smallint(6) DEFAULT NULL,
-  `free_days` smallint(6) DEFAULT NULL,
+  `rent_hours` smallint(6) DEFAULT NULL,
+  `free_hours` smallint(6) DEFAULT NULL,
   `discount` decimal(10,1) DEFAULT NULL,
   `content` varchar(5000) NOT NULL,
   `image_path` varchar(200) NOT NULL,
@@ -292,9 +292,9 @@ CREATE TABLE IF NOT EXISTS `t_coupon` (
 -- 正在导出表  carrental.t_coupon 的数据：~3 rows (大约)
 DELETE FROM `t_coupon`;
 /*!40000 ALTER TABLE `t_coupon` DISABLE KEYS */;
-INSERT INTO `t_coupon` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `coupon_title`, `coupon_type`, `start_date`, `end_date`, `full_kilometer`, `free_kilometer`, `rent_days`, `free_days`, `discount`, `content`, `image_path`) VALUES
+INSERT INTO `t_coupon` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `coupon_title`, `coupon_type`, `start_date`, `end_date`, `full_kilometer`, `free_kilometer`, `rent_hours`, `free_hours`, `discount`, `content`, `image_path`) VALUES
 	(1, '1', '2013-11-05 20:30:16', '1', '2013-11-05 20:30:16', '国庆送礼第一波', '公里满就送', '2013-10-27 00:00:00', '2013-10-29 00:00:00', 100, 10, NULL, NULL, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_951.jpg'),
-	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-05 20:31:42', '国庆送礼第二波', '天数租就送', '2013-10-27 00:00:00', '2013-10-30 00:00:00', NULL, NULL, 5, 1, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_952.jpg'),
+	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-29 20:31:42', '国庆送礼第二波', '小时满就送', '2013-10-27 00:00:00', '2013-11-29 00:00:00', NULL, NULL, 5, 1, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_952.jpg'),
 	(3, '1', '2013-11-08 14:32:46', '1', '2013-11-29 14:53:08', '国庆送礼第三波', '指定车型打折', '2013-10-27 00:00:00', '2013-11-30 00:00:00', NULL, NULL, NULL, NULL, 8.5, '<p>国庆给力活动开始啦！</p>\r\n<p>多款指定车系打折，奥迪A6L,宝马7系，总有你喜欢的一款。</p>\r\n<p>打折力度更是前所未有，快来订车吧！</p>', 'upload/coupon/image/2013-11-14/20131114094023_95.jpg');
 /*!40000 ALTER TABLE `t_coupon` ENABLE KEYS */;
 
@@ -354,9 +354,9 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   `content` varchar(500) NOT NULL,
   `level` varchar(2) NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~227 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~160 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -568,7 +568,11 @@ INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `le
 	(209, '20', '2013-11-29 20:29:34', '新增注册用户', '用户：张霄鹏 于 2013-11-29 20:29:34 新增了名为：张霄鹏 的注册用户', '5'),
 	(210, '20', '2013-11-29 20:30:43', '新增验证码信息', '用户：张霄鹏 于 2013-11-29 20:30:43 新增了修改用户密码的验证码：209510', '5'),
 	(211, '21', '2013-11-29 20:32:16', '新增注册用户', '用户：张霄鹏 于 2013-11-29 20:32:16 新增了名为：张霄鹏 的注册用户', '5'),
-	(212, '21', '2013-11-29 21:27:17', '新增预订租用信息', '用户：张霄鹏 于 2013-11-29 21:27:17 新增了预订号为：ZC20131109-0002 的预订租用信息', '5');
+	(212, '21', '2013-11-29 21:27:17', '新增预订租用信息', '用户：张霄鹏 于 2013-11-29 21:27:17 新增了预订号为：ZC20131109-0002 的预订租用信息', '5'),
+	(213, '1', '2013-11-29 22:36:03', '新增预订租用信息', '用户：系统管理员 于 2013-11-29 22:36:03 新增了预订号为：ZC20131110-0003 的预订租用信息', '5'),
+	(214, '1', '2013-11-29 22:45:28', '取车', '用户：系统管理员 于 2013-11-29 22:45:28 领取了预订号为：ZC20131103-2 的预订车辆', '5'),
+	(215, '1', '2013-11-30 12:14:46', '还车', '用户：系统管理员 于 2013-11-30 12:14:46 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(216, '1', '2013-11-30 12:16:32', '还车', '用户：系统管理员 于 2013-11-30 12:16:32 归还了预订号为：ZC20131103-1 的车辆', '5');
 /*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
 
 
@@ -696,18 +700,19 @@ CREATE TABLE IF NOT EXISTS `t_rent_car` (
   `broken_fee` mediumint(9) DEFAULT NULL,
   `content` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_rent_car 的数据：~5 rows (大约)
+-- 正在导出表  carrental.t_rent_car 的数据：~7 rows (大约)
 DELETE FROM `t_rent_car`;
 /*!40000 ALTER TABLE `t_rent_car` DISABLE KEYS */;
 INSERT INTO `t_rent_car` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `rent_number`, `rent_status`, `rent_way`, `customer`, `customer_company`, `customer_phone`, `customer_email`, `book_pick_up_dt`, `book_pick_up_address`, `arrive_flight_no`, `arrive_flight_dt`, `take_off_flight_no`, `take_of_flight_dt`, `passenger_no`, `pick_up_dt`, `start_mileage`, `book_give_back_dt`, `book_give_back_address`, `give_back_dt`, `end_mileage`, `rent_fee`, `exceed_kilometer`, `exceed_kilometer_fee`, `exceed_hour`, `exceed_hour_fee`, `total_price`, `rent_type_id`, `car_series_id`, `city_id`, `car_id`, `driver_id`, `book_user_id`, `business_id`, `coupon_id`, `agent_id`, `broken_part`, `broken_fee`, `content`) VALUES
-	(1, '1', '2013-11-08 14:03:39', '1', '2013-11-29 14:16:48', 'ZC20131103-1', '4', 'Call', '葛XX', 'XXX公司', '13811111114', '', '2013-11-15 15:29:00', 'ABC', '', NULL, '', NULL, 2, '2013-11-09 13:03:00', 586.3, '2013-11-15 20:29:00', 'EFG', '2013-11-15 21:04:00', 662.4, 150, 26, 10, 1, 7, 457, '1', '3', '1', '2', '1', '16', '1', '3', '1', '无', 0, NULL),
-	(2, '1', '2013-11-08 17:03:48', '1', '2013-11-10 16:19:32', 'ZC20131103-2', '2', 'Call', '于XX', 'XXXX公司', '13822222222', '', '2013-11-18 15:55:00', 'QWE', 'FLT555', '2013-11-18 17:55:00', '', NULL, 3, NULL, NULL, '2013-11-18 21:55:00', 'CXZ', NULL, NULL, 612, NULL, 14, NULL, 68, NULL, '1', '2', '1', '4', '3', '6', '3', '3', '1', NULL, 0, NULL),
+	(1, '1', '2013-11-08 14:03:39', '1', '2013-11-30 12:16:32', 'ZC20131103-1', '4', 'Call', '葛XX', 'XXX公司', '13811111114', '', '2013-11-15 15:29:00', 'ABC', '', NULL, '', NULL, 2, '2013-11-09 13:03:00', 586.3, '2013-11-15 20:29:00', 'EFG', '2013-11-15 21:04:00', 662.4, 150, 26, 10, 1, 7, 457, '1', '3', '1', '2', '1', '16', '1', '3', '1', '无', 0, NULL),
+	(2, '1', '2013-11-08 17:03:48', '1', '2013-11-29 22:45:28', 'ZC20131103-2', '3', 'Call', '于XX', 'XXXX公司', '13822222222', '', '2013-11-18 15:55:00', 'QWE', 'FLT555', '2013-11-18 17:55:00', '', NULL, 3, '2013-11-29 22:45:00', 226.0, '2013-11-18 21:55:00', 'CXZ', NULL, NULL, 612, NULL, 14, NULL, 68, NULL, '1', '2', '1', '4', '3', '6', '3', '3', '1', NULL, 0, NULL),
 	(3, '1', '2013-11-09 18:50:31', '1', '2013-11-23 13:49:48', 'ZC20131106-2', '2', 'Call', '吴XX', '', '13855555555', '', '2013-11-20 18:50:00', 'RRR', '', NULL, '', NULL, 1, NULL, NULL, '2013-11-21 18:50:00', 'QQQ', NULL, NULL, 88, NULL, 6, NULL, 4, NULL, '1', '3', '3', NULL, NULL, '6', '1', '', '1', NULL, 0, 'WW\r\nRR'),
 	(4, '1', '2013-11-09 20:02:52', '1', '2013-11-09 20:02:52', 'ZC20131108-3', '2', 'PHONE', '袁XX', '', '13866666666', '', '2013-11-17 20:01:00', '555', '', NULL, '', NULL, 4, NULL, NULL, '2013-11-18 13:01:00', '444', NULL, NULL, 480, NULL, 8, NULL, 120, NULL, '1', '2', '1', NULL, NULL, '6', '1', '', '1', NULL, NULL, 'GG'),
 	(6, '1', '2013-11-29 14:15:56', '1', '2013-11-29 14:15:56', 'ZC20131102-0001', '2', 'net', 'aaa', 'bb', '123', '', '2013-11-29 14:14:00', 'cc', '', NULL, '', NULL, 3, NULL, NULL, '2013-11-29 19:14:00', 'dd', NULL, NULL, 176, NULL, 11, NULL, 8, NULL, '2', '4', '1', NULL, NULL, '18', '2', '3', '1', NULL, NULL, ''),
-	(7, '21', '2013-11-29 21:27:17', '21', '2013-11-29 21:27:17', 'ZC20131109-0002', '1', '网站在线预订', '吴XX', '', '1385556565', '', '2013-11-30 19:37:00', 'DDD', '', NULL, 'FT1990', '2013-11-30 20:37:00', 3, NULL, NULL, '2013-11-30 22:37:00', 'CCCC', NULL, NULL, 720, NULL, 16, NULL, 80, NULL, '1', NULL, '1', NULL, NULL, '21', '3', '', '21', NULL, NULL, NULL);
+	(7, '21', '2013-11-29 21:27:17', '21', '2013-11-29 21:27:17', 'ZC20131109-0002', '1', '网站在线预订', '吴XX', '', '1385556565', '', '2013-11-30 19:37:00', 'DDD', '', NULL, 'FT1990', '2013-11-30 20:37:00', 3, NULL, NULL, '2013-11-30 22:37:00', 'CCCC', NULL, NULL, 720, NULL, 16, NULL, 80, NULL, '1', NULL, '1', NULL, NULL, '21', '3', '', '21', NULL, NULL, NULL),
+	(8, '1', '2013-11-29 22:36:03', '1', '2013-11-29 22:36:03', 'ZC20131110-0003', '1', '网站在线预订', '吴XX', '', '1385556565', '', '2013-11-29 22:15:00', 'DDD', '', NULL, '', NULL, 3, NULL, NULL, '2013-11-29 22:15:00', 'CCCC', NULL, NULL, 960, NULL, 16, NULL, 240, NULL, '1', NULL, '1', NULL, NULL, '21', '1', '2', '1', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `t_rent_car` ENABLE KEYS */;
 
 

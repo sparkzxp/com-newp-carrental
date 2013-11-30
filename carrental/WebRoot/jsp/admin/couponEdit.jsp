@@ -81,19 +81,19 @@
 		if($('#coupon_couponType').find('option:selected').val() == ''){
 			$('.discount').hide();
 			$('.kmFree').hide();
-			$('.daysFree').hide();
+			$('.hoursFree').hide();
 		}else if($('#coupon_couponType').find('option:selected').val() == '公里满就送'){
 			$('.discount').hide();
 			$('.kmFree').show();
-			$('.daysFree').hide();
-		}else if($('#coupon_couponType').find('option:selected').val() == '天数租就送'){
+			$('.hoursFree').hide();
+		}else if($('#coupon_couponType').find('option:selected').val() == '小时满就送'){
 			$('.discount').hide();
 			$('.kmFree').hide();
-			$('.daysFree').show();
+			$('.hoursFree').show();
 		}else if($('#coupon_couponType').find('option:selected').val() == '指定车型打折'){
 			$('.discount').show();
 			$('.kmFree').hide();
-			$('.daysFree').hide();
+			$('.hoursFree').hide();
 		}
 	}
    	
@@ -184,7 +184,7 @@
                 	<select id="coupon_couponType" name="couponType" class="{required:true}">
 						<option value="">--请选择--</option>
 						<option value="公里满就送" <c:if test="${coupon.couponType == '公里满就送'}">selected="true"</c:if>>公里满就送</option>
-						<option value="天数租就送" <c:if test="${coupon.couponType == '天数租就送'}">selected="true"</c:if>>天数租就送</option>
+						<option value="小时满就送" <c:if test="${coupon.couponType == '小时满就送'}">selected="true"</c:if>>小时满就送</option>
 						<option value="指定车型打折" <c:if test="${coupon.couponType == '指定车型打折'}">selected="true"</c:if>>指定车型打折</option>
 					</select>
 				</td>
@@ -215,13 +215,13 @@
                 <td align="right" height="25px">免费送(公里)：</td>
                 <td><input type="text" name="freeKilometer" value="${coupon.freeKilometer}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>
-            <tr class="daysFree" style="display: none;">
-                <td align="right" height="25px">租用(天)：</td>
-                <td><input type="text" name="rentDays" value="${coupon.rentDays}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
+            <tr class="hoursFree" style="display: none;">
+                <td align="right" height="25px">租用(小时)：</td>
+                <td><input type="text" name="rentHours" value="${coupon.rentHours}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>
-            <tr class="daysFree" style="display: none;">
-                <td align="right" height="25px">免费送(天)：</td>
-                <td><input type="text" name="freeDays" value="${coupon.freeDays}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
+            <tr class="hoursFree" style="display: none;">
+                <td align="right" height="25px">免费送(小时)：</td>
+                <td><input type="text" name="freeHours" value="${coupon.freeHours}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>
             <tr>
                 <td align="right" height="25px">开始时间：</td>

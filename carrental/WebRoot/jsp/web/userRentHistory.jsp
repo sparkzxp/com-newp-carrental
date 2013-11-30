@@ -38,29 +38,34 @@
 								<td><table width="100%" border="0" cellpadding="0"
 										cellspacing="8">
 										<tr>
-											<td width="10%">预定者姓名：</td>
-											<td width="13%">${parent.bookUser.adminName}</td>
+											<td width="10%">预定编号：</td>
+											<td width="13%">${parent.rentNumber}</td>
 											<td width="10%">车 型：</td>
 											<td width="13%">${parent.rentType.typeName}</td>
 											<td width="10%">租用费用：</td>
 											<td width="13%">${parent.rentFee}(元/天)</td>
 										</tr>
 										<tr>
+											<td>预定人姓名：</td>
+											<td>${parent.bookUser.adminName}</td>
 											<td>手机号码：</td>
 											<td>${parent.bookUser.phone}</td>
-											<td>邮箱地址：</td>
-											<td>${parent.bookUser.email}</td>
 											<td>业务类型：</td>
 											<td>${parent.business.businessType}</td>
 										</tr>
 										<tr>
-											<td>取车地点：</td>
+											<td>预订取车地点：</td>
 											<td>
 												${parent.bookPickUpAddress}
 											</td>
-											<td>取车时间：</td>
 											<td>
-												<c:if test="${parent.pickUpDt == null}"><span style="color: red;">未取车</span></c:if>
+												<c:if test="${parent.pickUpDt == null}">预订取车时间：</c:if>
+												<c:if test="${parent.pickUpDt != null}">取车时间：</c:if>
+											</td>
+											<td>
+												<c:if test="${parent.pickUpDt == null}">
+												<fmt:formatDate value="${parent.bookPickUpDt}" type="both" pattern="yyyy/MM/dd HH:mm"/>
+												</c:if>
 												<c:if test="${parent.pickUpDt != null}">
 												<fmt:formatDate value="${parent.pickUpDt}" type="both" pattern="yyyy/MM/dd HH:mm"/>
 												</c:if>
@@ -74,11 +79,16 @@
 											</td>
 										</tr>
 										<tr>
-											<td>还车地点：</td>
+											<td>预订还车地点：</td>
 											<td>${parent.bookGiveBackAddress}</td>
-											<td>还车时间：</td>
 											<td>
-												<c:if test="${parent.giveBackDt == null}"><span style="color: red;">未还车</span></c:if>
+												<c:if test="${parent.giveBackDt == null}">预订还车时间：</c:if>
+												<c:if test="${parent.giveBackDt != null}">还车时间：</c:if>
+											</td>
+											<td>
+												<c:if test="${parent.giveBackDt == null}">
+												<fmt:formatDate value="${parent.bookGiveBackDt}" type="both" pattern="yyyy/MM/dd HH:mm"/>
+												</c:if>
 												<c:if test="${parent.giveBackDt != null}">
 												<fmt:formatDate value="${parent.giveBackDt}" type="both" pattern="yyyy/MM/dd HH:mm"/>
 												</c:if>

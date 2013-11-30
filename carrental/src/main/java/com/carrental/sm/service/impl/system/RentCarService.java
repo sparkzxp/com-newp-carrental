@@ -265,47 +265,44 @@ public class RentCarService implements IRentCarService {
 			distance++;
 		}
 
-		// 计算预订开了多少天，多少小时
-		long nd = 1000 * 24 * 60 * 60;// 一天的毫秒数
 		long nh = 1000 * 60 * 60;// 一小时的毫秒数
 		long nm = 1000 * 60;// 一分钟的毫秒数
-		long diff = rentCar.getBookGiveBackDt().getTime() - rentCar.getBookPickUpDt().getTime();
-		int bookDay = (int) (diff / nd);// 计算差多少天
-		int bookHour = (int) (diff % nd / nh);// 计算差多少小时
-		if (bookHour > 0) {
-			bookDay++;
-		}
 
-		// 计算实际超出了多少天，多少小时
-		diff = rentCar.getGiveBackDt().getTime() - rentCar.getBookGiveBackDt().getTime();
-		int day = (int) (diff / nd);
-		int hour = (int) (diff % nd / nh);
-		int min = (int) (diff % nd % nh / nm);// 计算差多少分钟
+		// 计算实际开了多少小时
+		long diff = rentCar.getGiveBackDt().getTime() - rentCar.getBookPickUpDt().getTime();
+		int hour = (int) (diff / nh);
+		int min = (int) (diff % nh / nm);// 计算差多少分钟
 		if (min >= rentCar.getBusiness().getExceedMinuteToHour()) {
 			hour++;
 		}
-		hour = hour + (day * 24);
 
-		// 计算预订的基础里程
-		int baseDistance = rentCar.getBusiness().getBaseKilometer() * bookDay;
+		// 计算预订的基础里程和基础小时
+		int baseDistance = rentCar.getBusiness().getBaseKilometer();
+		if (distance < baseDistance) {
+			distance = baseDistance;
+		}
+		int baseHour = rentCar.getBusiness().getBaseHour();
+		if (hour < baseHour) {
+			hour = baseHour;
+		}
 		if (null != rentCar.getCoupon() && StringUtils.isNotEmpty(rentCar.getCoupon().getId())) {
 			if (Constants.COUPON_TYPE_FREE_KILOMETER.equals(rentCar.getCoupon().getCouponType())) {
 				// 基础里程加上送的公里
-				baseDistance += baseDistance / rentCar.getCoupon().getFullKilometer() * rentCar.getCoupon().getFreeKilometer();
-			} else if (Constants.COUPON_TYPE_FREE_DAY.equals(rentCar.getCoupon().getCouponType())) {
-				// 扣除送的天数
-				bookDay -= bookDay / (rentCar.getCoupon().getRentDays() + rentCar.getCoupon().getFreeDays()) * rentCar.getCoupon().getFreeDays();
+				baseDistance += distance / rentCar.getCoupon().getFullKilometer() * rentCar.getCoupon().getFreeKilometer();
+			} else if (Constants.COUPON_TYPE_FREE_HOUR.equals(rentCar.getCoupon().getCouponType())) {
+				// 基础小时加上送的小时
+				baseHour += hour / rentCar.getCoupon().getRentHours() * rentCar.getCoupon().getFreeHours();
 			}
 		}
 
-		// 实际开的里程 - 计算优惠后预订的基础里程 = 实际超公里数
-		rentCar.setExceedKilometer(distance - baseDistance);
+		// 实际开的里程 - 计算优惠后的基础里程 = 实际超公里数(未满基础里程则为0)
+		rentCar.setExceedKilometer(distance - baseDistance < 0 ? 0 : distance - baseDistance);
 
-		// 实际超小时数
-		rentCar.setExceedHour(hour);
+		// 实际开的小时数 - 计算优惠后的基础小时数 = 实际超小时数(未满基础小时数则为0)
+		rentCar.setExceedHour(hour - baseHour < 0 ? 0 : hour - baseHour);
 
-		// 总计价格为：（每天的租用费用+保险费+油费+代驾费）*天数 + 实际超公里数*超公里费 + 实际超小时数*超小时费 + 破损补偿费用
-		int price = bookDay * (rentCar.getRentFee() + rentCar.getBusiness().getInsuranceFee() + rentCar.getBusiness().getFuelFee() + rentCar.getBusiness().getDriverFee()) + rentCar.getExceedKilometer() * rentCar.getExceedKilometerFee() + rentCar.getExceedHour() * rentCar.getExceedHourFee();
+		// 总计价格为：起步租用费用+保险费+油费+代驾费 + 实际超公里数*超公里费 + 实际超小时数*超小时费 + 破损补偿费用
+		int price = rentCar.getRentFee() + rentCar.getBusiness().getInsuranceFee() + rentCar.getBusiness().getFuelFee() + rentCar.getBusiness().getDriverFee() + rentCar.getExceedKilometer() * rentCar.getExceedKilometerFee() + rentCar.getExceedHour() * rentCar.getExceedHourFee();
 		rentCar.setTotalPrice(price);
 	}
 }

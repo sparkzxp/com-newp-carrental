@@ -17,8 +17,8 @@ public class Coupon extends BaseBean {
 	private String couponType;
 	private Integer fullKilometer;
 	private Integer freeKilometer;
-	private Integer rentDays;
-	private Integer freeDays;
+	private Integer rentHours;
+	private Integer freeHours;
 	private Double discount;
 	private List<RentType> rentTypes;
 //	private List<CarSeries> carSeriesList;
@@ -117,33 +117,33 @@ public class Coupon extends BaseBean {
 	}
 
 	/**
-	 * @return the rentDays
+	 * @return the rentHours
 	 */
-	public Integer getRentDays() {
-		return rentDays;
+	public Integer getRentHours() {
+		return rentHours;
 	}
 
 	/**
-	 * @param rentDays
-	 *            the rentDays to set
+	 * @param rentHours
+	 *            the rentHours to set
 	 */
-	public void setRentDays(Integer rentDays) {
-		this.rentDays = rentDays;
+	public void setRentHours(Integer rentHours) {
+		this.rentHours = rentHours;
 	}
 
 	/**
-	 * @return the freeDays
+	 * @return the freeHours
 	 */
-	public Integer getFreeDays() {
-		return freeDays;
+	public Integer getFreeHours() {
+		return freeHours;
 	}
 
 	/**
-	 * @param freeDays
-	 *            the freeDays to set
+	 * @param freeHours
+	 *            the freeHours to set
 	 */
-	public void setFreeDays(Integer freeDays) {
-		this.freeDays = freeDays;
+	public void setFreeHours(Integer freeHours) {
+		this.freeHours = freeHours;
 	}
 
 	/**

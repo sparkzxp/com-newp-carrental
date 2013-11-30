@@ -69,7 +69,7 @@
 				</td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用费用(元)：</td>
+                <td align="right" height="25px">起步价格(元)：</td>
                 <td><input type="text" name="rentFee" value="${business.rentFee}" style="width:200px;" class="{required:true,digits:true,min:0,max:30000}"/></td>
             </tr>
             <tr>
