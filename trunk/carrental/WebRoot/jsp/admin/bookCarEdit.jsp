@@ -171,7 +171,7 @@
                 		</c:forEach>
                 	</select>
                 </td>
-                <td width="20%" align="right" height="25px">租用类型：</td>
+                <td width="20%" align="right" height="25px">租用车型：</td>
                 <td width="30%">
                 	<select id="rentCar_rentType" name="rentType.id" style="width:200px;" class="{required:true}">
                 		<option value="">--请选择--</option>

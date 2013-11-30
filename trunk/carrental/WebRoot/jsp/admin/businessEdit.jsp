@@ -59,7 +59,7 @@
                 <td><input type="text" name="businessType" value="${business.businessType}" readonly="readonly" style="width:200px;" class="{required:true,maxlengthCN:50}"/></td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用类型：</td>
+                <td align="right" height="25px">租用车型：</td>
                 <td>
                 	<select name="rentType.id" style="width:200px;" class="{required:true}">
                 		<c:forEach items="${rentTypes}" var="parent">

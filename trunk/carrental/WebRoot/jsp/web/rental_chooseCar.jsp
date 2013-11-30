@@ -102,7 +102,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td valign="top"><img src="<%=basePath%>images/web/hot01.jpg" width="160"
+											<td valign="top"><img src="<%=basePath%>${parent.imagePath}" width="160"
 												height="130" /></td>
 											<td valign="top">
 												<ul>

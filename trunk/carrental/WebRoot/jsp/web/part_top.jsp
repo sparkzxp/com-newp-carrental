@@ -26,13 +26,13 @@
 					href="<%=basePath%>web/rental/toChooseBusiness">在线订车</a></div><div class="mainlevel"><a
 					href="javascript:void(0)">接送机</a>
 					<ul>
-						<li><a href="javascript:void(0)">接机</a></li>
-						<li><a href="javascript:void(0)">送机</a></li>
+						<li><a href="<%=basePath%>web/rental/toChooseBusiness?business.businessType=机场及车站接送&business.businessMore=pick">接机</a></li>
+						<li><a href="<%=basePath%>web/rental/toChooseBusiness?business.businessType=机场及车站接送&business.businessMore=send">送机</a></li>
 					</ul></div>
 					<div class="mainlevel"><a href="javascript:void(0)">日&nbsp;&nbsp;&nbsp;&nbsp;租</a>
 					<ul>
-						<li><a href="javascript:void(0)">全日组</a></li>
-						<li><a href="javascript:void(0)">半日租</a></li>
+						<li><a href="<%=basePath%>web/rental/toChooseBusiness?business.businessType=市用全日租">全日组</a></li>
+						<li><a href="<%=basePath%>web/rental/toChooseBusiness?business.businessType=市用半日租">半日租</a></li>
 					</ul></div>
 					<div><a href="<%=basePath%>web/toBusinessList">业务介绍</a></div><div><a 
 					href="<%=basePath%>web/toCouponList">优惠活动</a></div></td>

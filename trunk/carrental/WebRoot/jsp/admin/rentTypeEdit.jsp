@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<base href="<%=basePath%>">
-    <title>租用类型管理 新增 修改</title>
+    <title>租用车型管理 新增 修改</title>
 	<link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
     <link rel="stylesheet" href="<%=basePath%>plugin/ztree/css/select.css" type="text/css">
@@ -22,6 +22,7 @@
     <script language="javascript" src="<%=basePath%>js/common/json2.js"></script>
 	<script type="text/javascript" src="<%=basePath%>plugin/ztree/jquery.ztree.core-3.2.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>plugin/ztree/jquery.ztree.excheck-3.2.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/common/fileEveryWhere.js"></script>
     <script type="text/javascript">
     var api = frameElement.api, W = api.opener;
     
@@ -76,6 +77,30 @@
 	}
    	
     $(function() {
+    	$("input:file").fileEveryWhere({
+			ButtonText : "浏览"
+		});
+    	
+    	$("input[name=imageFile]").next("input[type=text]").val($('#rentType_imagePath').val());
+    	if('${result}' == 'SUCCESS'){
+    		$.prompt('操作成功',{
+				title: '提示',
+    			buttons: { "确认": true},
+    			submit:function(e,v,m,f){
+    				e.preventDefault();
+    				if(v){
+    					$.prompt.close();
+    					W.pageLoad();
+    				}
+    			}
+    		});
+    	}else if('${result}' != ''){
+    		$.prompt(data.result,{
+				title: '提示',
+    			buttons: { "确认": false}
+    		});
+    	}
+    	
     	var zNodes = JSON.parse('${carSeriesJson}');
     	$.fn.zTree.init($("#carSeriesTree"), setting, zNodes);
     	var zTree = $.fn.zTree.getZTreeObj("carSeriesTree"),
@@ -91,7 +116,22 @@
 		$("#carSeriesSel").attr("value", v);
 		$("#carSeriesIds").attr("value", k);
     	
-    	$('#btn_submit').click(function(){
+		$('#btn_submit').click(function(){
+    		if($("input[name=imageFile]").next("input[type=text]").val()==''){
+				$.prompt("请先上传活动图片",{
+					title: '提示',
+	    			buttons: { "确认": false}
+	    		});
+				return;
+   	   		}else if($('#editForm').valid()){
+    			if($("input[name=imageFile]").next("input[type=text]").val() != $('#rentType_imagePath').val()){
+	   				$('#rentType_imageUploadStatus').val('true');
+	   			}
+   	   			$('#editForm').submit();
+    		}
+    	});
+		
+    	<%-- $('#btn_submit').click(function(){
     		if($('#editForm').valid()){
 	    		$.post('<%=basePath%>rentType/doRentTypeEdit', $('#editForm').serialize(), function(data){
 	        		if(data.result == 'SUCCESS'){
@@ -115,18 +155,26 @@
 	        		}
 	    		}, "json");
     		}
-    	});
+    	}); --%>
     });
     </script>
 </head>
 <body>
-    <form name="editForm" id="editForm">
+    <form name="editForm" id="editForm" enctype="multipart/form-data" method="post" action="<%=basePath%>rentType/doRentTypeEdit">
     <input type="hidden" name="id" value="${rentType.id}"/>
+    <input type="hidden" id="rentType_imagePath" name="imagePath" value="${rentType.imagePath}"/>
+    <input type="hidden" id="rentType_imageUploadStatus" name="imageUploadStatus" value="false"/>
     <div class="content" style="height: 370px;">
         <table border="0" cellpadding="0" cellspacing="0" class="table">
             <tr>
-                <td width="30%" align="right" height="25px">租用类型名称：</td>
+                <td width="30%" align="right" height="25px">租用车型名称：</td>
                 <td><input type="text" name="typeName" value="${rentType.typeName}" style="width:200px;" class="{required:true,maxlengthCN:50}"/></td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">租用车型图片：</td>
+                <td>
+                	<input type="file" name="imageFile"/>
+                </td>
             </tr>
             <tr>
                 <td align="right" height="25px">选择车系：</td>

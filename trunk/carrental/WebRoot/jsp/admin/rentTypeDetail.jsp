@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<base href="<%=basePath%>">
-    <title>租用类型管理 详细</title>
+    <title>租用车型管理 详细</title>
     <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
     var api = frameElement.api, W = api.opener;
@@ -18,8 +18,16 @@
     <div class="content">
         <table width="99%" border="1px" cellpadding="0" cellspacing="0" class="table">
             <tr>
-                <td width="30%" align="right" height="25px">租用类型名称：</td>
+                <td width="30%" align="right" height="25px">租用车型名称：</td>
                 <td colspan="3">${rentType.typeName}</td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">租用车型图片：</td>
+                <td colspan="3">
+                	<c:if test="${rentType.imagePath != null and rentType.imagePath != ''}">
+                	<img alt="" src="<%=basePath%>${rentType.imagePath}"/>
+                	</c:if>
+                </td>
             </tr>
             <tr>
                 <td align="right" height="25px">选择车系：</td>
