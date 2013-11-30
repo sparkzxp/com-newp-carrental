@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>租用类型管理</title>
+		<title>租用车型管理</title>
 		<base href="<%=basePath%>">
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 		<link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
@@ -27,13 +27,13 @@
 				});
 				//新增
 				$("#add").click(function(){
-					$.show('新增租用类型','<%=basePath%>rentType/toRentTypeEdit?id=',550,400,"A");
+					$.show('新增租用车型','<%=basePath%>rentType/toRentTypeEdit?id=',550,400,"A");
 				});
 				//修改
 				$("#update").click(function(){
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						$.show('修改租用类型','<%=basePath%>rentType/toRentTypeEdit?id='+ids[0],550,400,'A');
+						$.show('修改租用车型','<%=basePath%>rentType/toRentTypeEdit?id='+ids[0],550,400,'A');
 					}else{
 						$.prompt('请选择一条数据',{
 							title: '提示',
@@ -106,18 +106,18 @@
 				$("#queryForm").submit();
 			}
 			function showDetail(id){
-				$.show('租用类型详细信息','<%=basePath%>rentType/toRentTypeDetail?id='+id,550,400,'A');
+				$.show('租用车型详细信息','<%=basePath%>rentType/toRentTypeDetail?id='+id,550,400,'A');
 			}
 		</script>
 	</head>
 	<body>
 	<form action="<%=basePath%>rentType/showRentTypeList" id="queryForm">
 	<div class="maintitle">
-		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;<a href="javascript:void(0);">车辆管理</a>&gt;租用类型管理</div>
-		<h1>租用类型管理</h1>
+		<div class="placenav">当前位置：<a href="javascript:void(0);">首页</a>&gt;<a href="javascript:void(0);">车辆管理</a>&gt;租用车型管理</div>
+		<h1>租用车型管理</h1>
 	</div>
 	<div class="button_nde">
-		租用类型名称：<input type="text" id="rentType_typeName" name="typeName" value="${rentType.typeName}" class="input"/>
+		租用车型名称：<input type="text" id="rentType_typeName" name="typeName" value="${rentType.typeName}" class="input"/>
 		限载人数大于：<input type="text" id="rentType_loadLimit" name="loadLimit" value="${rentType.loadLimit}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
@@ -132,7 +132,7 @@
 		<table width="100%" border="0" cellspacing="1" cellpadding="0" class="show">
 			<tr>
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
-				<th>租用类型名称</th>
+				<th>租用车型名称</th>
 				<th>限载人数</th>
 			</tr>
 			<c:forEach items="${rentTypes}" var="parent">

@@ -50,7 +50,7 @@ public class BusinessService implements IBusinessService {
 
 	public String add(Business business, Admin loginUser) {
 		if (checkExist(business)) {
-			return business.getBusinessType() + "已有此租用类型";
+			return business.getBusinessType() + "已有此租用车型";
 		}
 		this.businessDao.add(business);
 
@@ -65,7 +65,7 @@ public class BusinessService implements IBusinessService {
 
 	public String update(Business business, Admin loginUser) {
 		if (checkExist(business)) {
-			return business.getBusinessType() + "已有此租用类型";
+			return business.getBusinessType() + "已有此租用车型";
 		}
 		this.businessDao.update(business);
 
@@ -95,7 +95,7 @@ public class BusinessService implements IBusinessService {
 	}
 
 	/**
-	 * 验证该业务类型是否已有此租用类型
+	 * 验证该业务类型是否已有此租用车型
 	 * 
 	 * @author 张霄鹏
 	 * @return 存在：true，不存在：false

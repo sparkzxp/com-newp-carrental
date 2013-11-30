@@ -19,7 +19,7 @@
 		<%@ include file="part_banner.jsp"%>
 		<div class="i_sales">
 			<h1>
-				<a href="javascript:void(0)">查看更多</a><img src="<%=basePath%>images/web/cion02.gif"
+				<a href="<%=basePath%>web/toCouponList">查看更多</a><img src="<%=basePath%>images/web/cion02.gif"
 					width="232" height="26" />
 			</h1>
 			<blockquote>

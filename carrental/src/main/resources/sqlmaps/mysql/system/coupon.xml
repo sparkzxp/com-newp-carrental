@@ -82,14 +82,14 @@
 	<select id="queryList" resultMap="couponRstMap" parameterType="map">
 		SELECT T.* FROM `t_coupon` T
 		<include refid="query_where" />
-		order by T.start_date desc, T.coupon_title asc
+		order by T.end_date desc, T.coupon_title asc
 		<include refid="limit"/>
 	</select>
 	
 	<select id="queryEqualsList" resultMap="couponRstMap" parameterType="map">
 		SELECT T.* FROM `t_coupon` T
 		<include refid="queryEquals_where" />
-		order by T.start_date desc, T.coupon_title asc
+		order by T.end_date desc, T.coupon_title asc
 		<include refid="limit"/>
 	</select>
 

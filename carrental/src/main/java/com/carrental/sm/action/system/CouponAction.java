@@ -70,7 +70,12 @@ public class CouponAction {
 	}
 
 	@RequestMapping(value = "/toCouponEdit")
-	public String toCouponEdit(Coupon coupon, Model model, HttpServletRequest request) {
+	public String toCouponEdit(Coupon coupon, Model model) {
+		initCouponEdit(coupon, model);
+		return "admin/couponEdit";
+	}
+
+	private void initCouponEdit(Coupon coupon, Model model) {
 		boolean isUpdate = StringUtils.isNotEmpty(coupon.getId());
 		if (isUpdate) {
 			coupon = this.couponService.queryList(coupon, null).get(0);
@@ -97,7 +102,6 @@ public class CouponAction {
 			jsonArray.add(jsonObject);
 		}
 		model.addAttribute("rentTypeJson", jsonArray.toString());
-		return "admin/couponEdit";
 	}
 
 	@RequestMapping(value = "/doCouponEdit", method = RequestMethod.POST)
@@ -143,6 +147,8 @@ public class CouponAction {
 			logger.error(e);
 			model.addAttribute("result", e.getMessage());
 		}
+
+		initCouponEdit(coupon, model);
 		return "admin/couponEdit";
 	}
 
@@ -159,6 +165,7 @@ public class CouponAction {
 		Map<String, String> result = new HashMap<String, String>();
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
 		result.put("result", this.couponService.delete(ids, names, _admin));
+		// TODO 删除优惠活动图片
 		return result;
 	}
 }

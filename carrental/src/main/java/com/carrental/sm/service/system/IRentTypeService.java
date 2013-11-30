@@ -10,7 +10,7 @@ import com.carrental.sm.bean.system.RentType;
 import com.carrental.sm.common.bean.Pager;
 
 /**
- * 租用类型管理
+ * 租用车型管理
  * 
  * @author 张霄鹏
  */
@@ -18,12 +18,12 @@ import com.carrental.sm.common.bean.Pager;
 public interface IRentTypeService {
 
 	/**
-	 * 查询租用类型信息
+	 * 查询租用车型信息
 	 */
 	List<RentType> queryList(RentType rentType, Pager pager);
 
 	/**
-	 * 根据业务类型查询租用类型信息
+	 * 根据业务类型查询租用车型信息
 	 * 
 	 * @author 张霄鹏
 	 * @return List<RentType>

@@ -10,7 +10,7 @@
                 <td width="30%">
                 	${rentCar.city.cityName}
                 </td>
-                <td width="20%" align="right" height="25px">租用类型：</td>
+                <td width="20%" align="right" height="25px">租用车型：</td>
                 <td width="30%">
                 	${rentCar.rentType.typeName}
                 </td>

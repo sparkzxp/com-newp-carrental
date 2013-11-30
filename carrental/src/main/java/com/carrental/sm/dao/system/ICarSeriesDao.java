@@ -72,7 +72,7 @@ public interface ICarSeriesDao {
 	Integer delete(String ids);
 
 	/**
-	 * 根据租用类型查询车系信息
+	 * 根据租用车型查询车系信息
 	 * 
 	 * @author 张霄鹏
 	 * @return List<CarSeries>

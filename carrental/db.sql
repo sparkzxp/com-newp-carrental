@@ -295,7 +295,7 @@ DELETE FROM `t_coupon`;
 INSERT INTO `t_coupon` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `coupon_title`, `coupon_type`, `start_date`, `end_date`, `full_kilometer`, `free_kilometer`, `rent_hours`, `free_hours`, `discount`, `content`, `image_path`) VALUES
 	(1, '1', '2013-11-05 20:30:16', '1', '2013-11-05 20:30:16', '国庆送礼第一波', '公里满就送', '2013-10-27 00:00:00', '2013-10-29 00:00:00', 100, 10, NULL, NULL, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_951.jpg'),
 	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-29 20:31:42', '国庆送礼第二波', '小时满就送', '2013-10-27 00:00:00', '2013-11-29 00:00:00', NULL, NULL, 5, 1, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_952.jpg'),
-	(3, '1', '2013-11-08 14:32:46', '1', '2013-11-29 14:53:08', '国庆送礼第三波', '指定车型打折', '2013-10-27 00:00:00', '2013-11-30 00:00:00', NULL, NULL, NULL, NULL, 8.5, '<p>国庆给力活动开始啦！</p>\r\n<p>多款指定车系打折，奥迪A6L,宝马7系，总有你喜欢的一款。</p>\r\n<p>打折力度更是前所未有，快来订车吧！</p>', 'upload/coupon/image/2013-11-14/20131114094023_95.jpg');
+	(3, '1', '2013-11-08 14:32:46', '1', '2013-11-30 14:08:39', '国庆送礼第三波', '指定车型打折', '2013-10-27 00:00:00', '2013-11-30 00:00:00', NULL, NULL, NULL, NULL, 8.5, '<p>国庆给力活动开始啦！</p>\r\n<p>多款指定车系打折，奥迪A6L,宝马7系，总有你喜欢的一款。</p>\r\n<p>打折力度更是前所未有，快来订车吧！</p>', 'upload/coupon/image/2013-11-14/20131114094023_95.jpg');
 /*!40000 ALTER TABLE `t_coupon` ENABLE KEYS */;
 
 
@@ -354,9 +354,9 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   `content` varchar(500) NOT NULL,
   `level` varchar(2) NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~160 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~264 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -572,7 +572,14 @@ INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `le
 	(213, '1', '2013-11-29 22:36:03', '新增预订租用信息', '用户：系统管理员 于 2013-11-29 22:36:03 新增了预订号为：ZC20131110-0003 的预订租用信息', '5'),
 	(214, '1', '2013-11-29 22:45:28', '取车', '用户：系统管理员 于 2013-11-29 22:45:28 领取了预订号为：ZC20131103-2 的预订车辆', '5'),
 	(215, '1', '2013-11-30 12:14:46', '还车', '用户：系统管理员 于 2013-11-30 12:14:46 归还了预订号为：ZC20131103-1 的车辆', '5'),
-	(216, '1', '2013-11-30 12:16:32', '还车', '用户：系统管理员 于 2013-11-30 12:16:32 归还了预订号为：ZC20131103-1 的车辆', '5');
+	(216, '1', '2013-11-30 12:16:32', '还车', '用户：系统管理员 于 2013-11-30 12:16:32 归还了预订号为：ZC20131103-1 的车辆', '5'),
+	(217, '1', '2013-11-30 14:02:58', '修改租用类型信息', '用户：系统管理员 于 2013-11-30 14:02:58 修改了名为：舒适车型 的租用类型信息', '5'),
+	(218, '1', '2013-11-30 14:03:29', '修改租用类型信息', '用户：系统管理员 于 2013-11-30 14:03:29 修改了名为：豪华车型 的租用类型信息', '5'),
+	(219, '1', '2013-11-30 14:04:46', '修改租用类型信息', '用户：系统管理员 于 2013-11-30 14:04:46 修改了名为：豪华车型 的租用类型信息', '5'),
+	(220, '1', '2013-11-30 14:05:46', '修改优惠活动信息', '用户：系统管理员 于 2013-11-30 14:05:46 修改了名为：国庆送礼第三波 的优惠活动信息', '5'),
+	(221, '1', '2013-11-30 14:08:39', '修改优惠活动信息', '用户：系统管理员 于 2013-11-30 14:08:39 修改了名为：国庆送礼第三波 的优惠活动信息', '5'),
+	(222, '1', '2013-11-30 14:09:05', '修改租用类型信息', '用户：系统管理员 于 2013-11-30 14:09:05 修改了名为：舒适车型 的租用类型信息', '5'),
+	(223, '1', '2013-11-30 14:09:16', '修改租用类型信息', '用户：系统管理员 于 2013-11-30 14:09:16 修改了名为：豪华车型 的租用类型信息', '5');
 /*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
 
 
@@ -727,15 +734,16 @@ CREATE TABLE IF NOT EXISTS `t_rent_type` (
   `type_name` varchar(50) NOT NULL,
   `load_limit` tinyint(4) NOT NULL,
   `content` varchar(2000) DEFAULT NULL,
+  `image_path` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  carrental.t_rent_type 的数据：~2 rows (大约)
 DELETE FROM `t_rent_type`;
 /*!40000 ALTER TABLE `t_rent_type` DISABLE KEYS */;
-INSERT INTO `t_rent_type` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `type_name`, `load_limit`, `content`) VALUES
-	(1, '1', '2013-11-04 10:56:43', '1', '2013-11-28 15:24:57', '豪华车型', 4, ''),
-	(2, '1', '2013-11-04 16:21:50', '1', '2013-11-04 16:21:50', '舒适车型', 4, '');
+INSERT INTO `t_rent_type` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `type_name`, `load_limit`, `content`, `image_path`) VALUES
+	(1, '1', '2013-11-04 10:56:43', '1', '2013-11-30 14:09:16', '豪华车型', 4, '', 'upload/rentType/image/2013-11-30/20131130140916_4725.jpg'),
+	(2, '1', '2013-11-04 16:21:50', '1', '2013-11-30 14:09:05', '舒适车型', 4, '', 'upload/rentType/image/2013-11-30/20131130140905_9294.jpg');
 /*!40000 ALTER TABLE `t_rent_type` ENABLE KEYS */;
 
 

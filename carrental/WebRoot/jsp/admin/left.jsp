@@ -78,7 +78,7 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>carSeries/showCarSeriesList?isDelete=0')">车系管理</a></li>
 </c:if>
 <c:if test="${fn:indexOf(resourceIds, \",13,\") > -1}">
-<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentType/showRentTypeList')">租用类型管理</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentType/showRentTypeList')">租用车型管理</a></li>
 </c:if>
 <c:if test="${fn:indexOf(resourceIds, \",14,\") > -1}">
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>car/showCarList')">车辆管理</a></li>

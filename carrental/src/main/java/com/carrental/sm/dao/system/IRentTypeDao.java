@@ -6,14 +6,14 @@ import java.util.Map;
 import com.carrental.sm.bean.system.RentType;
 
 /**
- * 租用类型管理
+ * 租用车型管理
  * 
  * @author 张霄鹏
  */
 public interface IRentTypeDao {
 
 	/**
-	 * 条件查询全部租用类型信息，字符串类型like匹配
+	 * 条件查询全部租用车型信息，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏
 	 * @return List<RentType>
@@ -23,7 +23,7 @@ public interface IRentTypeDao {
 	List<RentType> queryList(Map<String, Object> params);
 
 	/**
-	 * 条件查询全部租用类型信息
+	 * 条件查询全部租用车型信息
 	 * 
 	 * @author 张霄鹏
 	 * @return List<RentType>
@@ -59,7 +59,7 @@ public interface IRentTypeDao {
 	List<RentType> queryByCarSeriesIds(String ids);
 
 	/**
-	 * 根据业务类型查询租用类型信息
+	 * 根据业务类型查询租用车型信息
 	 * 
 	 * @author 张霄鹏
 	 * @return List<RentType>
@@ -88,14 +88,14 @@ public interface IRentTypeDao {
 	Integer delete(String ids);
 
 	/**
-	 * 为租用类型增加车系关联
+	 * 为租用车型增加车系关联
 	 * 
 	 * @author 张霄鹏
 	 */
 	String addCarSeriesList(RentType rentType);
 
 	/**
-	 * 删除租用类型名下车系关联
+	 * 删除租用车型名下车系关联
 	 * 
 	 * @author 张霄鹏
 	 */

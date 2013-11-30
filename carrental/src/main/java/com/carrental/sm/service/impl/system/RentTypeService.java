@@ -59,7 +59,7 @@ public class RentTypeService implements IRentTypeService {
 
 	public String add(RentType rentType, String carSeriesIds, Admin loginUser) {
 		if (checkExist(rentType)) {
-			return "租用类型名称已存在";
+			return "租用车型名称已存在";
 		}
 		String check = checkCarSeriesRelation(rentType, carSeriesIds);
 		if (!"FALSE".equals(check)) {
@@ -78,8 +78,8 @@ public class RentTypeService implements IRentTypeService {
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);
-		log.setTitle("新增租用类型信息");
-		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 新增了名为：" + rentType.getTypeName() + " 的租用类型信息");
+		log.setTitle("新增租用车型信息");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 新增了名为：" + rentType.getTypeName() + " 的租用车型信息");
 		log.setLevel("5");
 		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
@@ -87,7 +87,7 @@ public class RentTypeService implements IRentTypeService {
 
 	public String update(RentType rentType, String carSeriesIds, Admin loginUser) {
 		if (checkExist(rentType)) {
-			return "租用类型名称已存在";
+			return "租用车型名称已存在";
 		}
 		String check = checkCarSeriesRelation(rentType, carSeriesIds);
 		if (!"FALSE".equals(check)) {
@@ -107,8 +107,8 @@ public class RentTypeService implements IRentTypeService {
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);
-		log.setTitle("修改租用类型信息");
-		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + rentType.getTypeName() + " 的租用类型信息");
+		log.setTitle("修改租用车型信息");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 修改了名为：" + rentType.getTypeName() + " 的租用车型信息");
 		log.setLevel("5");
 		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
@@ -117,7 +117,7 @@ public class RentTypeService implements IRentTypeService {
 	public String delete(String ids, String names, Admin loginUser) {
 		// 验证是否被使用
 		if (this.rentCarDao.countByRentTypeIds(ids) > 0) {
-			return "所选租用类型已被租用或预订过，请不要删除";
+			return "所选租用车型已被租用或预订过，请不要删除";
 		}
 		this.rentTypeDao.delete(ids);
 
@@ -125,15 +125,15 @@ public class RentTypeService implements IRentTypeService {
 
 		Log log = new Log();
 		log.setCreatedUser(loginUser);
-		log.setTitle("删除租用类型信息");
-		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 删除了名为：" + names + " 的租用类型信息");
+		log.setTitle("删除租用车型信息");
+		log.setContent("用户：" + loginUser.getAdminName() + " 于 " + DateUtil.getCurrentDateTime() + " 删除了名为：" + names + " 的租用车型信息");
 		log.setLevel("5");
 		this.logDao.add(log);
 		return Constants.OPERATION_SUCCESS;
 	}
 
 	/**
-	 * 验证租用类型名称是否存在
+	 * 验证租用车型名称是否存在
 	 * 
 	 * @author 张霄鹏
 	 * @return 存在：true，不存在：false
@@ -166,7 +166,7 @@ public class RentTypeService implements IRentTypeService {
 	}
 
 	/**
-	 * 验证该车系是否与别的租用类型已关联
+	 * 验证该车系是否与别的租用车型已关联
 	 * 
 	 * @author 张霄鹏
 	 * @return 未关联：FALSE
@@ -179,12 +179,12 @@ public class RentTypeService implements IRentTypeService {
 			if (CollectionUtils.isNotEmpty(list)) {
 				if (null == rentType || StringUtils.isEmpty(rentType.getId())) {
 					// 有且是新增操作，返回已关联
-					result = "车系 " + list.get(0).getCarSeriesList().get(0).getSeriesName() + " 已经被其它租用类型关联使用";
+					result = "车系 " + list.get(0).getCarSeriesList().get(0).getSeriesName() + " 已经被其它租用车型关联使用";
 				} else {
 					// 有且是更新操作，在循环比对id后，有一条不一样，返回已关联
 					for (RentType rt : list) {
 						if (!rt.getId().equals(rentType.getId())) {
-							result = "车系 " + rentType.getCarSeriesList().get(0).getSeriesName() + " 已经被其它租用类型关联使用";
+							result = "车系 " + rentType.getCarSeriesList().get(0).getSeriesName() + " 已经被其它租用车型关联使用";
 							break;
 						}
 					}

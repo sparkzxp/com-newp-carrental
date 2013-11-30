@@ -149,7 +149,7 @@ public class RentCarAction {
 			}
 		}
 
-		// 根据业务类型和租用类型查询业务ID
+		// 根据业务类型和租用车型查询业务ID
 		Business business = rentCar.getBusiness();
 		business.setRentType(rentCar.getRentType());
 		business = this.businessService.queryList(business, null).get(0);

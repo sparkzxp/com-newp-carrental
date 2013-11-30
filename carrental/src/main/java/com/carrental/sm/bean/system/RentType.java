@@ -15,6 +15,9 @@ public class RentType extends BaseBean {
 	private List<CarSeries> carSeriesList;
 	private String content;
 
+	private String imagePath;
+	private Boolean imageUploadStatus;// 不存数据库，修改时标记上传的图片是否有更改
+
 	/**
 	 * @return the typeName
 	 */
@@ -73,5 +76,35 @@ public class RentType extends BaseBean {
 	 */
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	/**
+	 * @return the imagePath
+	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	/**
+	 * @param imagePath
+	 *            the imagePath to set
+	 */
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	/**
+	 * @return the imageUploadStatus
+	 */
+	public Boolean getImageUploadStatus() {
+		return imageUploadStatus;
+	}
+
+	/**
+	 * @param imageUploadStatus
+	 *            the imageUploadStatus to set
+	 */
+	public void setImageUploadStatus(Boolean imageUploadStatus) {
+		this.imageUploadStatus = imageUploadStatus;
 	}
 }

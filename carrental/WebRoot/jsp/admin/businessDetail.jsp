@@ -22,7 +22,7 @@
                 <td colspan="3">${business.businessType}</td>
             </tr>
             <tr>
-                <td align="right" height="25px">租用类型：</td>
+                <td align="right" height="25px">租用车型：</td>
                 <td colspan="3">${business.rentType.typeName}</td>
             </tr>
             <tr>

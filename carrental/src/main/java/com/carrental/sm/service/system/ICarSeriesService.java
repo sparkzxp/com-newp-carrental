@@ -47,7 +47,7 @@ public interface ICarSeriesService {
 	String delete(String ids, String names, Admin loginUser);
 
 	/**
-	 * 根据租用类型查询车系信息
+	 * 根据租用车型查询车系信息
 	 * 
 	 * @author 张霄鹏
 	 * @return List<CarSeries>

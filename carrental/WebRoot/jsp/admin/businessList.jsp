@@ -118,7 +118,7 @@
 		<h1>业务管理</h1>
 	</div>
 	<div class="button_nde">
-		租用类型：<input type="text" id="business_rentType" name="rentType.typeName" value="${business.rentType.typeName}" class="input"/>
+		租用车型：<input type="text" id="business_rentType" name="rentType.typeName" value="${business.rentType.typeName}" class="input"/>
 		租用价格小于：<input type="text" id="business_rentFee" name="rentFee" value="${business.rentFee}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
@@ -134,7 +134,7 @@
 			<tr>
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>业务名称</th>
-				<th>租用类型</th>
+				<th>租用车型</th>
 				<th>起步价格(元)</th>
 				<th>超小时费(元/小时)</th>
 				<th>超公里费(元/公里)</th>

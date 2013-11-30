@@ -9,6 +9,7 @@
 		<result property="typeName" column="type_name" />
 		<result property="loadLimit" column="load_limit" />
 		<result property="content" column="content" />
+		<result property="imagePath" column="image_path" />
 		<association property="createdUser" column="created_user" select="adminNpc.queryByAdminId"/>
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 		<collection property="carSeriesList" javaType="java.util.ArrayList" ofType="carSeries" select="carSeriesNpc.queryByRentTypeId" column="id" />
@@ -105,10 +106,10 @@
 		</selectKey>
 		INSERT INTO `t_rent_type`(
 			created_user, created_dt, updated_user, updated_dt,
-			type_name, load_limit, content
+			type_name, load_limit, content, image_path
 		) VALUES (
 			#{createdUser.id}, NOW(), #{updatedUser.id}, NOW(),
-			#{typeName}, #{loadLimit}, #{content}
+			#{typeName}, #{loadLimit}, #{content}, #{imagePath}
 		)
 	</insert>
 	
@@ -118,7 +119,8 @@
 			updated_dt = NOW(),
 			type_name = #{typeName},
 			load_limit = #{loadLimit},
-			content = #{content}
+			content = #{content},
+			image_path = #{imagePath}
 			
 			WHERE id = #{id}
 	</update>

@@ -20,12 +20,12 @@
 			<a onmouseover="javascript:showit(6)" onmouseout="playit()" class="link" id="num6">06</a>
 		</div>
 		<div class="banner_img">
-			<img onmouseover="stopit()" onmouseout="playit()" src="<%=basePath%>images/web/banner01.jpg" id="pic1" />
-			<img onmouseover="stopit()" onmouseout="playit()" src="<%=basePath%>images/web/banner02.jpg" id="pic2" />
-			<img onmouseover="stopit()" onmouseout="playit()" src="<%=basePath%>images/web/banner03.jpg" id="pic3" />
-			<img onmouseover="stopit()" onmouseout="playit()" src="<%=basePath%>images/web/banner04.jpg" id="pic4" />
-			<img onmouseover="stopit()" onmouseout="playit()" src="<%=basePath%>images/web/banner05.jpg" id="pic5" />
-			<img onmouseover="stopit()" onmouseout="playit()" src="<%=basePath%>images/web/banner06.jpg" id="pic6" />
+			<img onmouseover="stopit()" onmouseout="playit()" onclick="javascript:window.location.href='<%=basePath%>web/rental/toChooseBusiness?business.businessType=点到点代驾'" style="cursor: pointer;" src="<%=basePath%>images/web/banner01.jpg" id="pic1" />
+			<img onmouseover="stopit()" onmouseout="playit()" onclick="javascript:window.location.href='<%=basePath%>web/rental/toChooseBusiness?business.businessType=机场及车站接送&business.businessMore=pick'" style="cursor: pointer;" src="<%=basePath%>images/web/banner02.jpg" id="pic2" />
+			<img onmouseover="stopit()" onmouseout="playit()" onclick="javascript:window.location.href='<%=basePath%>web/rental/toChooseBusiness?business.businessType=机场及车站接送&business.businessMore=send'" style="cursor: pointer;" src="<%=basePath%>images/web/banner03.jpg" id="pic3" />
+			<img onmouseover="stopit()" onmouseout="playit()" onclick="javascript:window.location.href='<%=basePath%>web/rental/toChooseBusiness?business.businessType=市用全日租'" style="cursor: pointer;" src="<%=basePath%>images/web/banner04.jpg" id="pic4" />
+			<img onmouseover="stopit()" onmouseout="playit()" onclick="javascript:window.location.href='<%=basePath%>web/rental/toChooseBusiness?business.businessType=会务车辆安排'" style="cursor: pointer;" src="<%=basePath%>images/web/banner05.jpg" id="pic5" />
+			<img onmouseover="stopit()" onmouseout="playit()" onclick="javascript:window.location.href='<%=basePath%>web/rental/toChooseBusiness?business.businessType=周边省市包车'" style="cursor: pointer;" src="<%=basePath%>images/web/banner06.jpg" id="pic6" />
 		</div>
 	</div>
 </div>
