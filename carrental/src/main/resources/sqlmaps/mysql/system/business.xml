@@ -97,6 +97,19 @@
 		order by T.rent_fee asc
 		<include refid="limit"/>
 	</select>
+
+	<select id="queryHotRentList" resultMap="businessRstMap" parameterType="map">
+		select T.*, TT.rentCount from t_business T
+		left join(
+		<!-- 查询最热门的租用车型 -->
+		select RT.id,RT.type_name,count(RC.id) rentCount from t_rent_car RC
+		join t_rent_type RT on RT.id = RC.rent_type_id
+		group by RT.type_name
+		) TT on TT.id = T.renttype_id
+		<include refid="queryEquals_where" />
+		order by TT.rentCount desc
+		<include refid="limit"/>
+	</select>
 	
 	<select id="count" resultType="int" parameterType="map">
 		select count(distinct T.id) FROM t_business T
