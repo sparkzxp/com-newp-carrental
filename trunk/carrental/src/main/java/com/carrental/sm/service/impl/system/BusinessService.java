@@ -48,6 +48,13 @@ public class BusinessService implements IBusinessService {
 		return businessDao.queryList(params);
 	}
 
+	public List<Business> queryHotRentList(Business business, Pager pager) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("business", business);
+		params.put("pager", pager);
+		return businessDao.queryHotRentList(params);
+	}
+
 	public String add(Business business, Admin loginUser) {
 		if (checkExist(business)) {
 			return business.getBusinessType() + "已有此租用车型";

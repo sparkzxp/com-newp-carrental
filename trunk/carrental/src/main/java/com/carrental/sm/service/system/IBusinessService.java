@@ -23,6 +23,11 @@ public interface IBusinessService {
 	List<Business> queryList(Business business, Pager pager);
 
 	/**
+	 * 查询最热门的租用业务
+	 */
+	List<Business> queryHotRentList(Business business, Pager pager);
+
+	/**
 	 * 新增
 	 * 
 	 * @author 张霄鹏

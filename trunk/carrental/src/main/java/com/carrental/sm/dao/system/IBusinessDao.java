@@ -33,6 +33,16 @@ public interface IBusinessDao {
 	List<Business> queryEqualsList(Map<String, Object> params);
 
 	/**
+	 * 查询最热门租用车型的租用业务
+	 * 
+	 * @author 张霄鹏
+	 * @return List<Business>
+	 * @param params
+	 *            :pager,business
+	 */
+	List<Business> queryHotRentList(Map<String, Object> params);
+
+	/**
 	 * 条件查询列表数量，字符串类型like匹配
 	 * 
 	 * @author 张霄鹏

@@ -28,6 +28,10 @@ public class BusinessDao implements IBusinessDao {
 		return this.sqlSession.selectList("businessNpc.queryEqualsList", params);
 	}
 
+	public List<Business> queryHotRentList(Map<String, Object> params) {
+		return this.sqlSession.selectList("businessNpc.queryHotRentList", params);
+	}
+
 	public Integer count(Map<String, Object> params) {
 		return this.sqlSession.selectOne("businessNpc.count", params);
 	}
