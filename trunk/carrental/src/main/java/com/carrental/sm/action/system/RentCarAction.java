@@ -1,17 +1,23 @@
 package com.carrental.sm.action.system;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +36,11 @@ import com.carrental.sm.bean.system.RentType;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
 import com.carrental.sm.common.CustomTimestampEditor;
+import com.carrental.sm.common.DateUtil;
 import com.carrental.sm.common.MD5;
 import com.carrental.sm.common.MessageException;
 import com.carrental.sm.common.RentCarUtil;
+import com.carrental.sm.common.SimpleMailSender;
 import com.carrental.sm.common.bean.Pager;
 import com.carrental.sm.service.system.IAdminService;
 import com.carrental.sm.service.system.IBusinessService;
@@ -50,6 +58,7 @@ import com.carrental.sm.service.system.IRentTypeService;
 @RequestMapping("rentCar")
 public class RentCarAction {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	private Logger logger = Logger.getLogger(getClass());
 
 	@InitBinder
 	public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
@@ -125,11 +134,24 @@ public class RentCarAction {
 	@RequestMapping(value = "/doBookCarEdit", method = RequestMethod.POST)
 	public Map<String, String> doBookCarEdit(RentCar rentCar, String bookUserType, HttpServletRequest request) {
 		Map<String, String> result = new HashMap<String, String>();
-		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
-		if (null == _admin || StringUtils.isEmpty(_admin.getId())) {
-			_admin = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
+		Admin loginAdmin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
+		if (null == loginAdmin || StringUtils.isEmpty(loginAdmin.getId())) {
+			loginAdmin = (Admin) request.getSession().getAttribute(Constants.SESSION_WEB_USER_KEY);
 		}
-		rentCar.setUpdatedUser(_admin);
+		rentCar.setUpdatedUser(loginAdmin);
+
+		if (rentCar.getBookGiveBackDt().before(rentCar.getBookPickUpDt())) {
+			result.put("result", "亲，您租车的预订还车时间不能在预订取车时间之前哦~");
+			return result;
+		}
+
+		// 租车请提前2小时预订
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.HOUR_OF_DAY, 2);
+		if (now.getTime().after(rentCar.getBookPickUpDt())) {
+			result.put("result", "亲，租车请提前2小时预订哦~");
+			return result;
+		}
 
 		// 选取车系不是选择活动中指定的打折车系
 		if (null != rentCar.getCoupon() && StringUtils.isNotEmpty(rentCar.getCoupon().getId())) {
@@ -193,31 +215,74 @@ public class RentCarAction {
 			} else {
 				_newer.setType(Constants.USER_CUSTOM_PERSONAL);
 			}
-			_newer.setCreatedUser(_admin);
-			_newer.setUpdatedUser(_admin);
+			_newer.setCreatedUser(loginAdmin);
+			_newer.setUpdatedUser(loginAdmin);
 		} else {
 			_newer = rentCar.getBookUser();
 		}
 
-		rentCar.setAgent(_admin);
+		if (Constants.USER_ADMIN.equals(loginAdmin.getType())) {
+			// 后台预订直接设置确认员
+			rentCar.setAgent(loginAdmin);
+		}
 		// rentCar.setRentStatus(Constants.RENT_STATUS_BOOK_EFFECT);
 
 		if (StringUtils.isNotEmpty(rentCar.getId())) {
 			// update
-			result.put("result", this.rentCarService.update(rentCar, _newer, _admin));
+			result.put("result", this.rentCarService.update(rentCar, _newer, loginAdmin));
 		} else {
 			// add
 			RentCar _r = new RentCar();
 			_r.setCreatedDt(new Timestamp(new Date().getTime()));
 			rentCar.setRentNumber(RentCarUtil.newRentNumber(this.rentCarService.count(_r)));
-			rentCar.setCreatedUser(_admin);
+			rentCar.setCreatedUser(loginAdmin);
 			try {
-				result.put("result", this.rentCarService.add(rentCar, _newer, _admin));
+				result.put("result", this.rentCarService.add(rentCar, _newer, loginAdmin));
 			} catch (MessageException e) {
 				result.put("result", e.getMessage());
 			}
 		}
 		result.put("id", rentCar.getId());
+
+		if (Constants.RENT_STATUS_NOT_ACCEPT.equals(rentCar.getRentStatus())) {
+			Properties prop = System.getProperties();
+			try {
+				prop.load(getClass().getResourceAsStream("/mail.properties"));
+			} catch (IOException e) {
+				logger.error(e.getMessage());
+			}catch (Exception e) {
+				logger.error(e.getMessage());
+			}
+			if (null != prop.getProperty("mail.smtp.username")) {
+				// 在线预订确认后，发送邮件
+				Admin _admin = new Admin();
+				_admin.setIsDelete("0");
+				_admin.setInBlacklist("0");
+				_admin.setType(Constants.USER_ADMIN);
+				_admin.setCity(rentCar.getCity());
+				List<Admin> admins = this.adminService.queryEqualsList(_admin, null);
+				List<String> recipients = new ArrayList<String>();
+				for (Admin a : admins) {
+					if (StringUtils.isNotEmpty(a.getEmail())) {
+						recipients.add(a.getEmail());
+					}
+				}
+				SimpleMailSender serviceSms = new SimpleMailSender(prop.getProperty("mail.smtp.username"), prop.getProperty("mail.smtp.password"));
+				StringBuffer content = new StringBuffer();
+				content.append("用户【").append(loginAdmin.getAdminName()).append(loginAdmin.getSex().equals("male") ? " 先生" : " 女士");
+				content.append("】于【").append(DateUtil.formatCurrentDate("yyyy-MM-dd HH:mm"));
+				content.append("】在线预订了【").append(rentCar.getBusiness().getBusinessType()).append("】业务的【");
+				content.append(rentCar.getRentType().getTypeName()).append("】车型，");
+				content.append("联系电话：").append(loginAdmin.getPhone()).append("，请尽快确认！");
+				try {
+					serviceSms.send(recipients, "确认在线预订", content.toString());
+				} catch (AddressException e) {
+					logger.error(e.getMessage());
+				} catch (MessagingException e) {
+					logger.error(e.getMessage());
+				}
+			}
+		}
 		return result;
 	}
 
@@ -251,6 +316,7 @@ public class RentCarAction {
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
 		rentCar.setUpdatedUser(_admin);
 		rentCar.setRentStatus(Constants.RENT_STATUS_BOOK_EFFECT);
+		rentCar.setAgent(_admin);
 		try {
 			result.put("result", this.rentCarService.confirmRentCar(rentCar, _admin));
 		} catch (MessageException e) {

@@ -249,7 +249,7 @@ form.cmxform label.error, label.error {
 						                <td>
 						                	<input type="text" id="rentCar_bookUser_adminName" name="bookUser.adminName" value="${rentCar.bookUser.adminName}" style="width:160px;" class="{required:true,maxlengthCN:50} input"/>
 						                	<input name="sex" type="radio"
-											value="female" <c:if test="${rentCar.bookUser == null or rentCar.bookUser.sex == 'female'}">checked="checked"</c:if> /> 女士 <input type="radio"
+											value="female" <c:if test="${rentCar.bookUser == null or rentCar.bookUser.sex == '' or rentCar.bookUser.sex == 'female'}">checked="checked"</c:if> /> 女士 <input type="radio"
 											name="sex" value="male" <c:if test="${rentCar.bookUser != null and rentCar.bookUser.sex == 'male'}">checked="checked"</c:if>/> 先生
 						                	<a href="javascript:void(0)" id="logMyAccount">已有账号，立即登录</a>
 						                </td>
