@@ -18,7 +18,7 @@ public interface IRentCarDao {
 	 * @author 张霄鹏
 	 * @return List<RentCar>
 	 * @param params
-	 *            :pager,rentCar
+	 *            :pager,rentCar,order
 	 */
 	List<RentCar> queryList(Map<String, Object> params);
 
@@ -28,9 +28,19 @@ public interface IRentCarDao {
 	 * @author 张霄鹏
 	 * @return List<RentCar>
 	 * @param params
-	 *            :pager,rentCar
+	 *            :pager,rentCar,order<city_asc>
 	 */
 	List<RentCar> queryEqualsList(Map<String, Object> params);
+
+	/**
+	 * 条件查询预订10分钟后还未确认的信息
+	 * 
+	 * @author 张霄鹏
+	 * @return List<RentCar>
+	 * @param params
+	 *            :pager,rentCar,order
+	 */
+	List<RentCar> queryUncomfirmList(Map<String, Object> params);
 
 	/**
 	 * 条件查询列表数量，字符串类型like匹配

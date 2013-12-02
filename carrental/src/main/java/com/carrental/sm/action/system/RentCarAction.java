@@ -273,7 +273,8 @@ public class RentCarAction {
 				content.append("】于【").append(DateUtil.formatCurrentDate("yyyy-MM-dd HH:mm"));
 				content.append("】在线预订了【").append(rentCar.getBusiness().getBusinessType()).append("】业务的【");
 				content.append(rentCar.getRentType().getTypeName()).append("】车型，");
-				content.append("联系电话：").append(loginAdmin.getPhone()).append("，请尽快确认！");
+				content.append("预订编号为：").append(rentCar.getRentNumber());
+				content.append("，联系电话为：").append(loginAdmin.getPhone()).append("，请尽快确认！");
 				try {
 					serviceSms.send(recipients, "确认在线预订", content.toString());
 				} catch (AddressException e) {

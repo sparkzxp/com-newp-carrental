@@ -28,6 +28,10 @@ public class RentCarDao implements IRentCarDao {
 		return this.sqlSession.selectList("rentCarNpc.queryEqualsList", params);
 	}
 
+	public List<RentCar> queryUncomfirmList(Map<String, Object> params) {
+		return this.sqlSession.selectList("rentCarNpc.queryUncomfirmList", params);
+	}
+
 	public Integer count(Map<String, Object> params) {
 		return this.sqlSession.selectOne("rentCarNpc.count", params);
 	}

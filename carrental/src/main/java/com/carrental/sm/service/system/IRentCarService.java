@@ -24,6 +24,19 @@ public interface IRentCarService {
 	List<RentCar> queryList(RentCar rentCar, Pager pager);
 
 	/**
+	 * 查询预订租用信息
+	 * 
+	 * @param order
+	 *            :city_asc
+	 */
+	List<RentCar> queryList(RentCar rentCar, Pager pager, String order);
+
+	/**
+	 * 查询预订10分钟后还未确认的信息
+	 */
+	List<RentCar> queryUncomfirmList(RentCar rentCar);
+
+	/**
 	 * 条件查询列表数量
 	 * 
 	 * @author 张霄鹏
@@ -34,7 +47,7 @@ public interface IRentCarService {
 	 * 新增
 	 * 
 	 * @author 张霄鹏
-	 * @throws MessageException 
+	 * @throws MessageException
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String add(RentCar rentCar, Admin newer, Admin loginUser) throws MessageException;
@@ -67,7 +80,7 @@ public interface IRentCarService {
 	 * 确认订单，会发送短信
 	 * 
 	 * @author 张霄鹏
-	 * @throws MessageException 
+	 * @throws MessageException
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
 	String confirmRentCar(RentCar rentCar, Admin _admin) throws MessageException;
