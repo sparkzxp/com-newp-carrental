@@ -154,6 +154,11 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=会务车辆安排')">会务车辆安排</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=周边省市包车')">周边省市包车</a></li> --%>
 </ul>
+<c:if test="${fn:indexOf(resourceIds, \",33,\") > -1}">
+<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>gps/toGpsMap')">GPS在线监控</a></p>
+<ul>
+</ul>
+</c:if>
 </c:if>
 </div>
 </body>

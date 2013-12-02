@@ -93,6 +93,25 @@
 		        		});
 					}
 				});
+				//查看GPS监控
+				$("#gps").click(function(){
+					var ids = getSelectedIdArray();
+					if(ids.length==1){
+						if(getSelectedByName('rentStatus') == '3' || getSelectedByName('rentStatus') == '4'){
+							window.location.href = '<%=basePath%>gps/toGpsMap?rentCarId='+ids[0];
+						}else{
+							$.prompt('该预订还未生效或未取车，没有GPS操作',{
+								title: '提示',
+			        			buttons: { "确认": false}
+			        		});
+						}
+					}else{
+						$.prompt('请选择一条数据',{
+							title: '提示',
+		        			buttons: { "确认": false}
+		        		});
+					}
+				});
 			});
 			//重新提交表单刷新页面
 			function pageLoad(){
@@ -130,6 +149,7 @@
 		<a href="javascript:void(0);" id="allot"><span>分配车辆和司机</span></a>
 		<a href="javascript:void(0);" id="pickUp"><span>取车</span></a>
 		<a href="javascript:void(0);" id="returnBack"><span>还车</span></a>
+		<a href="javascript:void(0);" id="gps"><span>查看GPS监控</span></a>
 		<h6 class="clear"></h6>
 	</div>
 	<div class="content">
