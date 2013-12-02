@@ -149,7 +149,13 @@
 		join t_business B on B.id = T.business_id
 		left join t_admin A on A.id = T.book_user_id
 		<include refid="query_where" />
-		order by T.rent_status asc, T.created_dt asc
+		order by 
+		<if test="order != null and order != ''">
+		<if test="order == 'city_asc'">
+		T.city_id asc,
+		</if>
+		</if>
+		T.rent_status asc, T.created_dt asc
 		<include refid="limit"/>
 	</select>
 	
@@ -160,8 +166,28 @@
 		join t_business B on B.id = T.business_id
 		left join t_admin A on A.id = T.book_user_id
 		<include refid="queryEquals_where" />
-		order by T.rent_status asc, T.created_dt asc
+		order by 
+		<if test="order != null and order != ''">
+		<if test="order == 'city_asc'">
+		T.city_id asc,
+		</if>
+		</if>
+		T.rent_status asc, T.created_dt asc
 		<include refid="limit"/>
+	</select>
+
+	<select id="queryUncomfirmList" resultMap="rentCarRstMap" parameterType="map">
+		SELECT T.* FROM `t_rent_car` T
+		join t_rent_type RT on RT.id = T.rent_type_id
+		left join t_car_series CS on CS.id = T.car_series_id
+		join t_business B on B.id = T.business_id
+		left join t_admin A on A.id = T.book_user_id
+		<include refid="query_where" />
+		<![CDATA[
+		and date_add(T.updated_dt, interval 10 minute) < now()
+		and date_add(T.updated_dt, interval 30 minute) > now()
+		]]>
+		order by T.city_id asc
 	</select>
 	
 	<select id="count" resultType="int" parameterType="map">

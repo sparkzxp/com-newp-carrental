@@ -212,5 +212,10 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.8.4</version>
+		</dependency>
 	</dependencies>
 </project>

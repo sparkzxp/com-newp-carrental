@@ -50,6 +50,10 @@ public class RentCarService implements IRentCarService {
 	private IMessageDao messageDao;
 
 	public List<RentCar> queryList(RentCar rentCar, Pager pager) {
+		return this.queryList(rentCar, pager, null);
+	}
+
+	public List<RentCar> queryList(RentCar rentCar, Pager pager, String order) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("rentCar", rentCar);
 
@@ -57,9 +61,20 @@ public class RentCarService implements IRentCarService {
 			pager.setTotalSize(this.rentCarDao.count(params));
 			PagerUtil.setPager(pager);
 		}
-
 		params.put("pager", pager);
+		params.put("order", order);
 		return rentCarDao.queryList(params);
+	}
+
+	public List<RentCar> queryUncomfirmList(RentCar rentCar) {
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		if (null == rentCar) {
+			rentCar = new RentCar();
+		}
+		rentCar.setRentStatus(Constants.RENT_STATUS_NOT_ACCEPT);
+		params.put("rentCar", rentCar);
+		return rentCarDao.queryUncomfirmList(params);
 	}
 
 	public Integer count(RentCar rentCar) {
