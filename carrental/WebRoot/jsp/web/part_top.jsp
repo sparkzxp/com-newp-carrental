@@ -17,7 +17,7 @@
 		</h1>
 	</div>
 	<img src="<%=basePath%>images/web/logo.jpg" width="189" height="60" class="logo" />
-	<div class="menu">
+	<div class="menu" style="padding: 0 0 0 0;">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td width="290"><h1 id="date">现在时间：</h1></td>
