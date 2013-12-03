@@ -12,6 +12,8 @@ public interface Constants {
 	String SESSION_ADMIN_MARK = "adminSessionMark";
 	String SESSION_WEB_USER_KEY = "webUserInfo";
 
+	String JSP_LOGIN = "admin/login";
+
 	String USER_CUSTOM_PERSONAL = "CUSTOM_PERSONAL";
 	String USER_CUSTOM_COMPANY = "CUSTOM_COMPANY";
 	String USER_ADMIN = "ADMIN";

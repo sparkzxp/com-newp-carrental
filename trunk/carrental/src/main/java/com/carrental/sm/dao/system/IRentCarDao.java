@@ -18,7 +18,7 @@ public interface IRentCarDao {
 	 * @author 张霄鹏
 	 * @return List<RentCar>
 	 * @param params
-	 *            :pager,rentCar,order
+	 *            :pager,rentCar,order<city_asc>
 	 */
 	List<RentCar> queryList(Map<String, Object> params);
 
@@ -38,9 +38,19 @@ public interface IRentCarDao {
 	 * @author 张霄鹏
 	 * @return List<RentCar>
 	 * @param params
-	 *            :pager,rentCar,order
+	 *            :pager,rentCar,order<city_asc>
 	 */
 	List<RentCar> queryUncomfirmList(Map<String, Object> params);
+
+	/**
+	 * 按月统计租车数据
+	 * 
+	 * @author 张霄鹏
+	 * @return List<Map<String, Object>>:rentNum,cancelNum,totalPrice,dt,cityName
+	 * @param params
+	 *            :statStartDate,statEndDate,cityId
+	 */
+	List<Map<String, Object>> statRentList(Map<String, Object> params);
 
 	/**
 	 * 条件查询列表数量，字符串类型like匹配

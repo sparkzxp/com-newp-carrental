@@ -1,5 +1,6 @@
 package com.carrental.sm.service.impl.system;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +76,37 @@ public class RentCarService implements IRentCarService {
 		rentCar.setRentStatus(Constants.RENT_STATUS_NOT_ACCEPT);
 		params.put("rentCar", rentCar);
 		return rentCarDao.queryUncomfirmList(params);
+	}
+
+	public List<Map<String, Object>> statRentList(Timestamp statStartDate, Timestamp statEndDate, String cityId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+
+//		Calendar start = Calendar.getInstance();
+//		if (null != statStartDate) {
+//			start.setTime(statStartDate);
+//		}
+//		start.set(Calendar.DAY_OF_MONTH, 1);
+//		start.set(Calendar.HOUR_OF_DAY, 0);
+//		start.set(Calendar.MINUTE, 0);
+//		start.set(Calendar.SECOND, 0);
+//		start.set(Calendar.MILLISECOND, 0);
+//		params.put("statStartDate", new Timestamp(start.getTime().getTime()));
+//
+//		Calendar end = Calendar.getInstance();
+//		if (null != statEndDate) {
+//			end.setTime(statEndDate);
+//		}
+//		end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
+//		end.set(Calendar.HOUR_OF_DAY, 23);
+//		end.set(Calendar.MINUTE, 59);
+//		end.set(Calendar.SECOND, 59);
+//		end.set(Calendar.MILLISECOND, 999);
+//		params.put("statEndDate", new Timestamp(end.getTime().getTime()));
+		
+		params.put("statStartDate", statStartDate);
+		params.put("statEndDate", statEndDate);
+		params.put("cityId", cityId);
+		return rentCarDao.statRentList(params);
 	}
 
 	public Integer count(RentCar rentCar) {

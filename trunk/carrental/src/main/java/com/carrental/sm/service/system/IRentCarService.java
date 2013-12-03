@@ -1,6 +1,8 @@
 package com.carrental.sm.service.system;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,15 @@ public interface IRentCarService {
 	 * 查询预订10分钟后还未确认的信息
 	 */
 	List<RentCar> queryUncomfirmList(RentCar rentCar);
+
+	/**
+	 * 按月统计租车数据
+	 * 
+	 * @author 张霄鹏
+	 * @param cityId 
+	 * @return List<Map<String, Object>>:rentNum,cancelNum,totalPrice,dt,cityName
+	 */
+	List<Map<String, Object>> statRentList(Timestamp statStartDate, Timestamp statEndDate, String cityId);
 
 	/**
 	 * 条件查询列表数量
