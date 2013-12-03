@@ -16,7 +16,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	if(window.parent!=window){
-		top.location.href = "<%=basePath%>";
+		top.location.href = "<%=basePath%>admin/login";
 	}
 	
 	if($.query.get('logout') == '' && '${message}' == '' && $.cookie('carrental.com') != null){

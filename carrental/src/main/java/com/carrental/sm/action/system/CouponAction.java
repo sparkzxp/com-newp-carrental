@@ -161,11 +161,17 @@ public class CouponAction {
 
 	@ResponseBody
 	@RequestMapping(value = "/doCouponDelete")
-	public Map<String, String> doCouponDelete(String ids, String names, HttpServletRequest request) {
+	public Map<String, String> doCouponDelete(String ids, String names, String images, HttpServletRequest request) {
 		Map<String, String> result = new HashMap<String, String>();
 		Admin _admin = (Admin) request.getSession().getAttribute(Constants.SESSION_ADMIN_KEY);
 		result.put("result", this.couponService.delete(ids, names, _admin));
-		// TODO 删除优惠活动图片
+		// 删除优惠活动图片
+		if (result.get("result").toString().equals(Constants.OPERATION_SUCCESS)) {
+			for (String l : images.split(",")) {
+				FileUtil.deleteFile(request.getSession().getServletContext().getRealPath("/") + l);
+				logger.info("删除文件成功：" + request.getSession().getServletContext().getRealPath("/") + l);
+			}
+		}
 		return result;
 	}
 }
