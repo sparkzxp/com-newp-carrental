@@ -190,6 +190,35 @@
 		order by T.city_id asc
 	</select>
 	
+	<select id="statRentList" resultType="map" parameterType="map">
+		select 
+			sum(case T.rent_status when '1-A' then 0 else 1 end) rentNum,
+			sum(case T.rent_status when '1-A' then 1 else 0 end) cancelNum,
+			sum(T.total_price) totalPrice,
+			DATE_FORMAT(T.created_dt, '%Y-%m') dt,
+			<choose>
+				<when test="cityId == null or cityId == ''">
+				'' cityName
+				</when>
+				<otherwise>
+				C.city_name cityName
+				</otherwise>
+			</choose>
+		from t_rent_car T
+		<if test="cityId != null and cityId != ''">
+		join t_city C on C.id = T.city_id
+		</if>
+		<![CDATA[
+		where T.created_dt > #{statStartDate}
+		and T.created_dt < #{statEndDate}
+		]]>
+		<if test="cityId != null and cityId != ''">
+		and C.id = #{cityId}
+		</if>
+		group by DATE_FORMAT(T.created_dt, '%Y-%m')
+		order by dt asc
+	</select>
+	
 	<select id="count" resultType="int" parameterType="map">
 		select count(T.id) FROM t_rent_car T
 		join t_rent_type RT on RT.id = T.rent_type_id

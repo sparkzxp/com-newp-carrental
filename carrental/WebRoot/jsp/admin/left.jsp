@@ -15,11 +15,26 @@ $(function(){
 	$('p').click(function(o){
 		for(var i=0; i<$('p').length; i++){
 			if($('p')[i] == o.currentTarget){
-				$($('p')[i]).find('a').addClass('current');
-				$($('ul')[i]).find('li').show();
+				if($($('ul')[i]).find('li').css('display') == 'none'){
+					$($('p')[i]).find('a').addClass('current');
+					$($('ul')[i]).find('li').show();
+				}else{
+					$($('p')[i]).find('a').removeClass('current');
+					$($('ul')[i]).find('li').hide();
+				}
 			}else{
 				$($('p')[i]).find('a').removeClass('current');
 				$($('ul')[i]).find('li').hide();
+			}
+		}
+	});
+	
+	$('li').click(function(o){
+		for(var i=0; i<$('li').length; i++){
+			if($('li')[i] == o.currentTarget){
+				$($('li')[i]).find('a').addClass('current_a');
+			}else{
+				$($('li')[i]).find('a').removeClass('current_a');
 			}
 		}
 	});
@@ -56,21 +71,25 @@ function toUrl(url){
 </c:if>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",2,\") > -1}">
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>city/showCityList?isDelete=0')">城市管理</a></p>
 <ul>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",9,\") > -1}">
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>company/toCompanyEdit')">企业信息管理</a></p>
 <ul>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",10,\") > -1}">
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>notice/showNoticeList')">企业公告管理</a></p>
 <ul>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",11,\") > -1}">
 <p><a href="javascript:void(0);">车辆管理</a></p>
 <ul>
@@ -85,11 +104,13 @@ function toUrl(url){
 </c:if>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",15,\") > -1}">
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>driver/showDriverList')">司机管理</a></p>
 <ul>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",16,\") > -1}">
 <p><a href="javascript:void(0);">业务管理</a></p>
 <ul>
@@ -116,11 +137,13 @@ function toUrl(url){
 </c:if>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",23,\") > -1}">
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>coupon/showCouponList')">活动优惠管理</a></p>
 <ul>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",24,\") > -1}">
 <p><a href="javascript:void(0);">车辆预订管理</a></p>
 <ul>
@@ -144,6 +167,7 @@ function toUrl(url){
 </c:if>
 </ul>
 </c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",31,\") > -1}">
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3\'&rentStatus=\'4')">车辆租用管理</a></p>
 <ul>
@@ -154,12 +178,20 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=会务车辆安排')">会务车辆安排</a></li>
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>rentCar/showRentCarList?rentStatus=2\'&rentStatus=\'3&business.businessType=周边省市包车')">周边省市包车</a></li> --%>
 </ul>
+</c:if>
+
 <c:if test="${fn:indexOf(resourceIds, \",33,\") > -1}">
 <p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>gps/toGpsMap')">GPS在线监控</a></p>
 <ul>
 </ul>
 </c:if>
+
+<c:if test="${fn:indexOf(resourceIds, \",34,\") > -1}">
+<p><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>stat/showRentStatList')">数据统计汇总</a></p>
+<ul>
+</ul>
 </c:if>
+
 </div>
 </body>
 </html>

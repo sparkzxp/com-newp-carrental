@@ -67,6 +67,7 @@ input{border:0;}
 .leftmenu ul{list-style-type:none;}
 .leftmenu ul li a{line-height:40px;background:#ffffff url(../../images/admin/cion01.gif) repeat-x left bottom;padding:0 10px 0 20px;display:block;}
 .leftmenu ul li a:hover{background:url(../../images/admin/cion03.gif) repeat-x left bottom;}
+.leftmenu ul li .current_a{background:url(../../images/admin/cion03.gif) repeat-x left bottom;}
 
 
 .placenav{float:right;margin:10px 10px 0 0;}

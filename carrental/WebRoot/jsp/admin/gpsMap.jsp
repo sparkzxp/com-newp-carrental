@@ -145,9 +145,6 @@
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>
 	<div class="button_nde">
-		<a href="javascript:void(0);" id="add"><span>新增</span></a>
-		<a href="javascript:void(0);" id="update"><span>修改</span></a>
-		<a href="javascript:void(0);" id="del"><span>删除</span></a>
 		<h6 class="clear"></h6>
 	</div>
 	<div class="content" id="container" style="width:97%;height: 500px;">
