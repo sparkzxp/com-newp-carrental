@@ -119,7 +119,7 @@
 	</div>
 	<div class="button_nde">
 		租用车型：<input type="text" id="business_rentType" name="rentType.typeName" value="${business.rentType.typeName}" class="input"/>
-		租用价格小于：<input type="text" id="business_rentFee" name="rentFee" value="${business.rentFee}" class="input"/>
+		起步价格小于：<input type="text" id="business_rentFee" name="rentFee" value="${business.rentFee}" class="input"/>
 	    <input type="button" id="query" class="btn" value="查询">
 		<input type="button" id="clearForm" class="btn" value="清空">
 	</div>

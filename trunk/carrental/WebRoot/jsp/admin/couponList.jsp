@@ -62,7 +62,8 @@
 			        					$.post("<%=basePath%>coupon/doCouponDelete", 
 			        						{
 			        							"ids": array2String(getSelectedIdArray()),
-			        							"names":array2String(getSelectedArrayByName("couponTitle"))
+			        							"names":array2String(getSelectedArrayByName("couponTitle")),
+			        							"images":array2String(getSelectedArrayByName("imagePath"))
 			        						}, function(data){
 						   					if(data.result=="SUCCESS"){
 						   						$.prompt.goToState('state1', true);
@@ -141,6 +142,7 @@
 				<th>活动类型</th>
 				<th>开始时间</th>
 				<th>结束时间</th>
+				<th style="display: none;">活动图片</th>
 			</tr>
 			<c:forEach items="${coupons}" var="parent">
 			<tr>
@@ -149,6 +151,7 @@
 				<td name="couponType" align="center"><c:out value="${parent.couponType}"/></td>
 				<td name="startDate" align="center"><fmt:formatDate value="${parent.startDate}" type="both" pattern="yyyy-MM-dd"/></td>
 				<td name="endDate" align="center"><fmt:formatDate value="${parent.endDate}" type="both" pattern="yyyy-MM-dd"/></td>
+				<td style="display: none;" name="imagePath" align="center"><c:out value="${parent.imagePath}"/></td>
 			</tr>
 			</c:forEach>
 		</table>

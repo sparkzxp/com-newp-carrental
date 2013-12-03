@@ -62,7 +62,8 @@
 			        					$.post("<%=basePath%>rentType/doRentTypeDelete", 
 			        						{
 			        							"ids": array2String(getSelectedIdArray()),
-			        							"names":array2String(getSelectedArrayByName("typeName"))
+			        							"names":array2String(getSelectedArrayByName("typeName")),
+			        							"images":array2String(getSelectedArrayByName("imagePath"))
 			        						}, function(data){
 						   					if(data.result=="SUCCESS"){
 						   						$.prompt.goToState('state1', true);
@@ -134,12 +135,14 @@
 				<th width="20"><input type="checkbox" name="checkbox" id="checkbox" /></th>
 				<th>租用车型名称</th>
 				<th>限载人数</th>
+				<th style="display: none;">车型图片</th>
 			</tr>
 			<c:forEach items="${rentTypes}" var="parent">
 			<tr>
 				<td name="id" align="center"><input type="checkbox" value="<c:out value="${parent.id}"/>"/></td>
 				<td name="typeName" align="center"><a href="javascript:void(0);" style="color: blue;" onclick="showDetail('${parent.id}')"><c:out value="${parent.typeName}"/></a></td>
 				<td name="loadLimit" align="center"><c:out value="${parent.loadLimit}"/></td>
+				<td style="display: none;" name="imagePath" align="center"><c:out value="${parent.imagePath}"/></td>
 			</tr>
 			</c:forEach>
 		</table>

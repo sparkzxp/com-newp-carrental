@@ -90,7 +90,7 @@
                 <td width="25%" align="right" height="25px">生产厂商：</td>
                 <td>
                 	<input type="text" name="manufacturer" value="${carSeries.manufacturer}" style="width:200px;" class="{required:true,maxlengthCN:50}"/>
-                	<span style="color: red;">请上传宽29像素，高29像素的图片</span>
+                	<span style="color: red;">标志请上传宽高都为29像素的图片</span>
                 </td>
             </tr>
             <tr>

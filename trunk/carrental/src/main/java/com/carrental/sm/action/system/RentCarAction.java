@@ -254,7 +254,7 @@ public class RentCarAction {
 				logger.error(e.getMessage());
 			}
 			if (null != prop.getProperty("mail.smtp.username")) {
-				// 在线预订确认后，发送邮件
+				// WEB在线预订后，向对应城市的管理员（业务员）发送邮件确认
 				Admin _admin = new Admin();
 				_admin.setIsDelete("0");
 				_admin.setInBlacklist("0");

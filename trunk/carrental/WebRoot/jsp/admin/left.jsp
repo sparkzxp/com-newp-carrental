@@ -15,7 +15,7 @@ $(function(){
 	$('p').click(function(o){
 		for(var i=0; i<$('p').length; i++){
 			if($('p')[i] == o.currentTarget){
-				if($($('ul')[i]).find('li').css('display') == 'none'){
+				if($($('ul')[i]).find('li').size() == 0 || $($('ul')[i]).find('li').css('display') == 'none'){
 					$($('p')[i]).find('a').addClass('current');
 					$($('ul')[i]).find('li').show();
 				}else{
