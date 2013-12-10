@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>汽车租赁后台管理系统 登录</title>
+<title>新广得利租车后台管理系统 登录</title>
 <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
@@ -91,7 +91,7 @@ function submitLoginForm(){
         </td>
       </tr>
     </table>
-    <h1>技术支持：某某公司</h1>
+    <h1>技术支持：上海致昱科技</h1>
 </div>
 </form>
 </body>

@@ -5,7 +5,7 @@
 <head>
 <base href="<%=basePath%>" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>欢迎使用新广租车平台</title>
+<title>欢迎使用新广得利租车平台</title>
 <link href="<%=basePath%>css/web/style.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />

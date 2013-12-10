@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `t_company` (
 DELETE FROM `t_company`;
 /*!40000 ALTER TABLE `t_company` DISABLE KEYS */;
 INSERT INTO `t_company` (`id`, `name`, `address`, `tel`, `postcode`, `fax`, `content`, `created_user`, `created_dt`, `updated_user`, `updated_dt`) VALUES
-	(1, '新广得利租车', '上海市黄浦区陆家浜路721-723号', '0510-8888888', '214000', '0510-8888888', '<p>上海新广得利汽车租赁有限公司成立于二〇〇七年，前身是市属机关三产；是具有上海市经营资质的正规汽车租赁公司。</p>\r\n<p>公司注册以及实到资金均为人民币壹仟萬圆整，且拥有自营品牌汽车4S店多家，企业实力雄厚。</p>\r\n<p>公司营销团队具有丰富的实际经验，能为客户带来愉悦的租车体验。</p>\r\n<p>新广得利致力打造：</p>\r\n<p>★精品带驾服务</p>\r\n<p>★企业菁英自驾长租</p>\r\n<p>★管家式车辆托管</p>', '1', '2013-11-01 11:36:32', '1', '2013-11-12 11:59:20');
+	(1, '新广得利租车', '上海市黄浦区陆家浜路721-723号', '0510-8888888', '214000', '0510-8888888', '<p>上海新广得利新广得利租车有限公司成立于二〇〇七年，前身是市属机关三产；是具有上海市经营资质的正规新广得利租车公司。</p>\r\n<p>公司注册以及实到资金均为人民币壹仟萬圆整，且拥有自营品牌汽车4S店多家，企业实力雄厚。</p>\r\n<p>公司营销团队具有丰富的实际经验，能为客户带来愉悦的租车体验。</p>\r\n<p>新广得利致力打造：</p>\r\n<p>★精品带驾服务</p>\r\n<p>★企业菁英自驾长租</p>\r\n<p>★管家式车辆托管</p>', '1', '2013-11-01 11:36:32', '1', '2013-11-12 11:59:20');
 /*!40000 ALTER TABLE `t_company` ENABLE KEYS */;
 
 
@@ -293,9 +293,9 @@ CREATE TABLE IF NOT EXISTS `t_coupon` (
 DELETE FROM `t_coupon`;
 /*!40000 ALTER TABLE `t_coupon` DISABLE KEYS */;
 INSERT INTO `t_coupon` (`id`, `created_user`, `created_dt`, `updated_user`, `updated_dt`, `coupon_title`, `coupon_type`, `start_date`, `end_date`, `full_kilometer`, `free_kilometer`, `rent_hours`, `free_hours`, `discount`, `content`, `image_path`) VALUES
-	(1, '1', '2013-11-05 20:30:16', '1', '2013-11-05 20:30:16', '国庆送礼第一波', '公里满就送', '2013-10-27 00:00:00', '2013-10-29 00:00:00', 100, 10, NULL, NULL, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_951.jpg'),
-	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-29 20:31:42', '国庆送礼第二波', '小时满就送', '2013-10-27 00:00:00', '2013-11-29 00:00:00', NULL, NULL, 5, 1, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_952.jpg'),
-	(3, '1', '2013-11-08 14:32:46', '1', '2013-11-30 14:08:39', '国庆送礼第三波', '指定车型打折', '2013-10-27 00:00:00', '2013-11-30 00:00:00', NULL, NULL, NULL, NULL, 8.5, '<p>国庆给力活动开始啦！</p>\r\n<p>多款指定车系打折，奥迪A6L,宝马7系，总有你喜欢的一款。</p>\r\n<p>打折力度更是前所未有，快来订车吧！</p>', 'upload/coupon/image/2013-11-14/20131114094023_95.jpg');
+	(1, '1', '2013-11-05 20:30:16', '1', '2013-11-05 20:30:16', '国庆送礼第一波', '公里满就送', '2013-10-27 00:00:00', '2014-01-29 00:00:00', 100, 10, NULL, NULL, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_951.jpg'),
+	(2, '1', '2013-11-05 20:31:42', '1', '2013-11-29 20:31:42', '国庆送礼第二波', '小时满就送', '2013-10-27 00:00:00', '2014-01-29 00:00:00', NULL, NULL, 5, 1, NULL, '', 'upload/coupon/image/2013-11-14/20131114094023_952.jpg'),
+	(3, '1', '2013-11-08 14:32:46', '1', '2013-11-30 14:08:39', '国庆送礼第三波', '指定车型打折', '2013-10-27 00:00:00', '2014-01-30 00:00:00', NULL, NULL, NULL, NULL, 8.5, '<p>国庆给力活动开始啦！</p>\r\n<p>多款指定车系打折，奥迪A6L,宝马7系，总有你喜欢的一款。</p>\r\n<p>打折力度更是前所未有，快来订车吧！</p>', 'upload/coupon/image/2013-11-14/20131114094023_95.jpg');
 /*!40000 ALTER TABLE `t_coupon` ENABLE KEYS */;
 
 
@@ -356,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~264 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~190 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -788,7 +788,7 @@ CREATE TABLE IF NOT EXISTS `t_resource` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_resource 的数据：~33 rows (大约)
+-- 正在导出表  carrental.t_resource 的数据：~34 rows (大约)
 DELETE FROM `t_resource`;
 /*!40000 ALTER TABLE `t_resource` DISABLE KEYS */;
 INSERT INTO `t_resource` (`id`, `name`, `type`, `parent_id`) VALUES
@@ -859,7 +859,7 @@ CREATE TABLE IF NOT EXISTS `t_role_resource` (
   `resource_id` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_role_resource 的数据：~88 rows (大约)
+-- 正在导出表  carrental.t_role_resource 的数据：~91 rows (大约)
 DELETE FROM `t_role_resource`;
 /*!40000 ALTER TABLE `t_role_resource` DISABLE KEYS */;
 INSERT INTO `t_role_resource` (`role_id`, `resource_id`) VALUES

@@ -5,7 +5,7 @@
 <head>
 <base href="<%=basePath%>" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>欢迎使用新广租车平台</title>
+<title>欢迎使用新广得利租车平台</title>
 <link href="<%=basePath%>css/web/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .jiesong_car h1 a {

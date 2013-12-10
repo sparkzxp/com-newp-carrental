@@ -106,7 +106,7 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 
-	<!-- <error-page>
+	<error-page>
 		<error-code>401</error-code>
 		<location>/jsp/error/404.jsp</location>
 	</error-page>
@@ -129,7 +129,7 @@
 	<error-page>
 		<exception-type>java.lang.NullPointerException</exception-type>
 		<location>/jsp/error/npe.jsp</location>
-	</error-page> -->
+	</error-page>
 	
     <mime-mapping>
 	    <extension>js</extension> 

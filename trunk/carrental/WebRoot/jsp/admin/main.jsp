@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
-<title>汽车租赁后台管理系统</title>
+<title>新广得利租车后台管理系统</title>
 </head>
 <frameset rows="106,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="<%=basePath%>main/top" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="顶部" />

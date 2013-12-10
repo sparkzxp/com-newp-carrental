@@ -8,6 +8,6 @@
 				href="javascript:void(0)">诚征英才</a>|<a href="javascript:void(0)">联系我们</a>
 		</p> --%>
 		<p>电话：${company.tel} 传真：${company.fax} 地址：${company.address}</p>
-		<p>© 2013-2014 某某技术有限公司 版权所有 | 京ICP证XXXXXX号</p>
+		<p>© 2013-2014 上海致昱科技 版权所有<!--  | 京ICP证XXXXXX号 --></p>
 	</div>
 </div>
