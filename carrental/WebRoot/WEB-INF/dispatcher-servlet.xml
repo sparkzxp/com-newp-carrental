@@ -70,7 +70,7 @@
                 <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">uploadError</prop>
             </props>
         </property>
-        <!-- <property name="defaultErrorView">  
+        <property name="defaultErrorView">  
 		 	<value>/error/error</value>
 		</property>
 		<property name="defaultStatusCode">  
@@ -78,6 +78,6 @@
 		</property>	
 		<property name="warnLogCategory">  
 		 	<value>org.springframework.web.servlet.handler.SimpleMappingExceptionResolver</value>
-		</property>	 -->
+		</property>
 	</bean>
 </beans>

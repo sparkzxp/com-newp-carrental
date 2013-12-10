@@ -13,7 +13,7 @@
 			</c:choose>
 		</blockquote>
 		<h1 style="padding: 0;">
-			欢迎光临 新广得利租赁！<span>服务热线：4008-123-123</span>
+			欢迎光临 新广得利租车！<span>服务热线：4008-123-123</span>
 		</h1>
 	</div>
 	<img src="<%=basePath%>images/web/logo.jpg" width="189" height="60" class="logo" />
