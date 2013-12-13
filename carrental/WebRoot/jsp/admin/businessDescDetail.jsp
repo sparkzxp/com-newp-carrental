@@ -22,8 +22,20 @@
                 <td colspan="3">${businessDesc.name}</td>
             </tr>
             <tr>
+                <td align="right" height="25px">业务简介：</td>
+                <td colspan="3">${businessDesc.brief}</td>
+            </tr>
+            <tr>
                 <td align="right" height="25px">业务说明：</td>
                 <td colspan="3"><%-- ${fn:replace(businessDesc.content,vEnter,"<br>")} --%>${businessDesc.content}</td>
+            </tr>
+            <tr>
+                <td align="right" height="25px">业务图片：</td>
+                <td colspan="3">
+                	<c:if test="${businessDesc.imagePath != null and businessDesc.imagePath != ''}">
+                	<img alt="" src="<%=basePath%>${businessDesc.imagePath}" width="298" height="313"/>
+                	</c:if>
+                </td>
             </tr>
             <tr>
                 <td align="right" height="25px">修改人：</td>

@@ -7,6 +7,8 @@
 		<result property="updatedDt" column="updated_dt" />
 		<result property="name" column="name" />
 		<result property="content" column="content" />
+		<result property="brief" column="brief" />
+		<result property="imagePath" column="image_path" />
 		<association property="updatedUser" column="updated_user" select="adminNpc.queryByAdminId"/>
 	</resultMap>
 
@@ -31,7 +33,9 @@
 	<update id="update" parameterType="businessDesc">
 		update `t_business_desc` set
 			name = #{name},
-			content = #{content}
+			content = #{content},
+			brief = #{brief},
+			image_path = #{imagePath}
 			WHERE id = #{id}
 	</update>
 </mapper>
