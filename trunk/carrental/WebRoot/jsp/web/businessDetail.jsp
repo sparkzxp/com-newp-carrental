@@ -46,7 +46,7 @@
 					</script> -->
 
 					<div align="center">
-						<img src="<%=basePath%>images/web/work01.jpg" width="348" height="191" />
+						<img src="<%=basePath%>${businessDesc.imagePath}" width="298" height="313" />
 					</div>
 					<%-- ${fn:replace(parent.content,vEnter,"<br>")} --%>
 					${businessDesc.content}

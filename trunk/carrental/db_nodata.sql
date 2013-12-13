@@ -73,6 +73,8 @@ CREATE TABLE IF NOT EXISTS `t_business_desc` (
   `updated_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `name` varchar(50) NOT NULL,
   `content` varchar(3000) NOT NULL,
+  `brief` varchar(140) NOT NULL,
+  `image_path` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

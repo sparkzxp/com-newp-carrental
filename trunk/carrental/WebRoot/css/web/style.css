@@ -148,7 +148,7 @@ input{border:0;}
 
 .work a{border:1px solid #909090;display:block;width:298px;float:left;margin:20px 15px 0 0;}
 .work a h1{line-height:40px;background:#909090;text-align:center;color:#ffffff;font-size:20px;font-weight:normal;}
-.work a p{text-indent:2em;border-top:1px solid #cdcbcc;padding:5px;}
+.work a p{text-indent:2em;border-top:1px solid #cdcbcc;padding:5px;height: 65px;}
 .work a:visited{color:#ffffff;}
 .work a:hover{border:1px solid #c50d22;color:#ffffff;}
 .work a:hover h1{background:#c50d22;}

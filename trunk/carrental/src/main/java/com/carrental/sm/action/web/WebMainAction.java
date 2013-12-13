@@ -100,6 +100,8 @@ public class WebMainAction {
 	public String toBusinessList(Model model, HttpServletRequest request) {
 		initTop(model, request);
 		initBottom(model);
+		List<BusinessDesc> businessDescs = this.businessDescService.queryEqualsList(null);
+		model.addAttribute("businessDescs", businessDescs);
 		return "web/businessList";
 	}
 

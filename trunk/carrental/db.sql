@@ -96,19 +96,21 @@ CREATE TABLE IF NOT EXISTS `t_business_desc` (
   `updated_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `name` varchar(50) NOT NULL,
   `content` varchar(3000) NOT NULL,
+  `brief` varchar(140) NOT NULL,
+  `image_path` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  carrental.t_business_desc 的数据：~6 rows (大约)
 DELETE FROM `t_business_desc`;
 /*!40000 ALTER TABLE `t_business_desc` DISABLE KEYS */;
-INSERT INTO `t_business_desc` (`id`, `updated_user`, `updated_dt`, `name`, `content`) VALUES
-	(1, '1', '2013-11-23 11:01:18', '点到点代驾', '<p>点到点代驾说明</p>\r\n<p>驾龄超过5年的专业司机提供服务。 统一着装：衬衫、西裤、白手套，秋冬季节配深色西装外套。标准普通话，经过培训的统一话术，文明用语。</p>'),
-	(2, '1', '2013-11-23 10:06:57', '机场及车站接送', '机场及车站接送说明'),
-	(3, '1', '2013-11-23 10:07:19', '市用半日租', '市用半日租说明'),
-	(4, '1', '2013-11-23 10:07:34', '市用全日租', '市用全日租说明'),
-	(5, '1', '2013-11-23 10:08:10', '会务车辆安排', '会务车辆安排说明'),
-	(6, '1', '2013-11-23 10:08:25', '周边省市包车', '周边省市包车说明');
+INSERT INTO `t_business_desc` (`id`, `updated_user`, `updated_dt`, `name`, `content`, `brief`, `image_path`) VALUES
+	(1, '1', '2013-12-13 14:30:19', '点到点代驾', '<p>点到点代驾说明</p>\r\n<p>驾龄超过5年的专业司机提供服务。 统一着装：衬衫、西裤、白手套，秋冬季节配深色西装外套。标准普通话，经过培训的统一话术，文明用语。</p>', '点到点代驾说明', 'upload/businessDesc/image/2013-12-13/20131213143019_7482.jpg'),
+	(2, '1', '2013-12-13 14:36:41', '机场及车站接送', '<p>机场及车站接送说明</p>', '机场及车站接送说明', 'upload/businessDesc/image/2013-12-13/20131213143019_7483.jpg'),
+	(3, '1', '2013-12-13 14:36:45', '市用半日租', '<p>市用半日租说明</p>', '市用半日租说明', 'upload/businessDesc/image/2013-12-13/20131213143019_7484.jpg'),
+	(4, '1', '2013-12-13 14:36:50', '市用全日租', '<p>市用全日租说明</p>', '市用全日租说明', 'upload/businessDesc/image/2013-12-13/20131213143342_3457.jpg'),
+	(5, '1', '2013-12-13 14:36:54', '会务车辆安排', '<p>会务车辆安排说明</p>', '会务车辆安排说明', 'upload/businessDesc/image/2013-12-13/20131213143342_3458.jpg'),
+	(6, '1', '2013-12-13 14:36:59', '周边省市包车', '<p>周边省市包车说明</p>', '周边省市包车说明', 'upload/businessDesc/image/2013-12-13/20131213143342_3459.jpg');
 /*!40000 ALTER TABLE `t_business_desc` ENABLE KEYS */;
 
 
@@ -263,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `t_company` (
 DELETE FROM `t_company`;
 /*!40000 ALTER TABLE `t_company` DISABLE KEYS */;
 INSERT INTO `t_company` (`id`, `name`, `address`, `tel`, `postcode`, `fax`, `content`, `created_user`, `created_dt`, `updated_user`, `updated_dt`) VALUES
-	(1, '新广得利租车', '上海市黄浦区陆家浜路721-723号', '0510-8888888', '214000', '0510-8888888', '<p>上海新广得利新广得利租车有限公司成立于二〇〇七年，前身是市属机关三产；是具有上海市经营资质的正规新广得利租车公司。</p>\r\n<p>公司注册以及实到资金均为人民币壹仟萬圆整，且拥有自营品牌汽车4S店多家，企业实力雄厚。</p>\r\n<p>公司营销团队具有丰富的实际经验，能为客户带来愉悦的租车体验。</p>\r\n<p>新广得利致力打造：</p>\r\n<p>★精品带驾服务</p>\r\n<p>★企业菁英自驾长租</p>\r\n<p>★管家式车辆托管</p>', '1', '2013-11-01 11:36:32', '1', '2013-11-12 11:59:20');
+	(1, '新广得利租车', '上海市黄浦区陆家浜路721-723号', '0510-8888888', '214000', '0510-8888888', '<p>上海新广得利汽车租赁有限公司成立于二〇〇七年，前身是市属机关三产；是具有上海市经营资质的正规汽车租赁公司。</p>\r\n<p>公司注册以及实到资金均为人民币壹仟萬圆整，且拥有自营品牌汽车4S店多家，企业实力雄厚。</p>\r\n<p>公司营销团队具有丰富的实际经验，能为客户带来愉悦的租车体验。</p>\r\n<p>新广得利致力打造：</p>\r\n<p>★精品带驾服务</p>\r\n<p>★企业菁英自驾长租</p>\r\n<p>★管家式车辆托管</p>', '1', '2013-11-01 11:36:32', '1', '2013-11-12 11:59:20');
 /*!40000 ALTER TABLE `t_company` ENABLE KEYS */;
 
 
@@ -354,9 +356,9 @@ CREATE TABLE IF NOT EXISTS `t_log` (
   `content` varchar(500) NOT NULL,
   `level` varchar(2) NOT NULL DEFAULT '5',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8;
 
--- 正在导出表  carrental.t_log 的数据：~190 rows (大约)
+-- 正在导出表  carrental.t_log 的数据：~258 rows (大约)
 DELETE FROM `t_log`;
 /*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
 INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `level`) VALUES
@@ -602,7 +604,9 @@ INSERT INTO `t_log` (`id`, `created_user`, `created_dt`, `title`, `content`, `le
 	(243, '1', '2013-12-03 14:43:13', '新增资源信息', '用户：系统管理员 于 2013-12-03 14:43:13 新增了名为：数据统计汇总 的资源信息', '5'),
 	(244, '1', '2013-12-03 14:43:33', '修改角色信息', '用户：系统管理员 于 2013-12-03 14:43:33 修改了名为：系统管理员 的角色信息', '5'),
 	(245, '1', '2013-12-03 14:43:40', '修改角色信息', '用户：系统管理员 于 2013-12-03 14:43:40 修改了名为：上海业务员 的角色信息', '5'),
-	(246, '1', '2013-12-03 14:43:50', '修改角色信息', '用户：系统管理员 于 2013-12-03 14:43:50 修改了名为：南京业务员 的角色信息', '5');
+	(246, '1', '2013-12-03 14:43:50', '修改角色信息', '用户：系统管理员 于 2013-12-03 14:43:50 修改了名为：南京业务员 的角色信息', '5'),
+	(247, '1', '2013-12-13 14:30:19', '修改业务描述信息', '用户：系统管理员 于 2013-12-13 14:30:19 修改了名为：点到点代驾 的业务描述信息', '5'),
+	(248, '1', '2013-12-13 14:33:42', '修改业务描述信息', '用户：系统管理员 于 2013-12-13 14:33:42 修改了名为：市用全日租 的业务描述信息', '5');
 /*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
 
 
