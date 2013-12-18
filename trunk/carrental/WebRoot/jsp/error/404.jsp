@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
+<link rel="shortcut icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
 <base href="<%=basePath%>">
 <title>404异常处理页面</title>
 <style type="text/css">

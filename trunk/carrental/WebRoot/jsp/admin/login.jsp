@@ -3,8 +3,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>新广得利租车后台管理系统 登录</title>
 <base href="<%=basePath%>" />
+<link rel="icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
+<link rel="shortcut icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
+<title>新广得利租车后台管理系统 登录</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<%=basePath%>js/common/png.js"></script>

@@ -88,16 +88,30 @@ public class JitianService {
 		jsonObject.put("queryStartDt", DateUtil.formatDate(tracker.getQueryStartDt(), "yyyy-MM-dd HH:mm"));
 		jsonObject.put("queryEndDt", DateUtil.formatDate(tracker.getQueryEndDt(), "yyyy-MM-dd HH:mm"));
 
-		JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
-		String wsUrl = "http://58.214.240.29:82/jitian/ws/fetchGpsService?wsdl";
-		String method = "findByPlateNumAndDate";
-		Client client = dcf.createClient(wsUrl);
-		Object[] res = null;
+		Properties prop = System.getProperties();
 		try {
-			res = client.invoke(method, jsonObject.toString());// 调用webservice，cxf客户端调用webservice就是这么简单
-			result = JSONObject.fromObject(res[0]);
+			prop.load(getClass().getResourceAsStream("/webservice.properties"));
+		} catch (IOException e) {
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+
+		if (null != prop.getProperty("jitian.fetchGps.wsUrl")) {
+			String wsUrl = prop.getProperty("jitian.fetchGps.wsUrl");
+			String method = prop.getProperty("jitian.fetchGps.method");
+			JaxWsDynamicClientFactory dcf = JaxWsDynamicClientFactory.newInstance();
+//			String wsUrl = "http://58.214.240.29:82/jitian/ws/fetchGpsService?wsdl";
+//			String method = "findByPlateNumAndDate";
+			Client client = dcf.createClient(wsUrl);
+			Object[] res = null;
+			try {
+				res = client.invoke(method, jsonObject.toString());// 调用webservice，cxf客户端调用webservice就是这么简单
+				result = JSONObject.fromObject(res[0]);
+			} catch (Exception e) {
+				logger.error(e);
+				result.put("result", "通信失败，请稍后再试");
+			}
 		}
 		// END SNIPPET: client
 		return result;
