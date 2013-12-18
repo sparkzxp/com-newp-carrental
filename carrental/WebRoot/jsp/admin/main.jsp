@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
+<link rel="shortcut icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
 <script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.2.min.js"></script>
 <title>新广得利租车后台管理系统</title>
 </head>

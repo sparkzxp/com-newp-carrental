@@ -4,8 +4,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>城市管理</title>
 		<base href="<%=basePath%>">
+		<title>城市管理</title>
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>plugin/jquery-impromptu/jquery-impromptu.css">
 		<link href="<%=basePath%>css/admin/style.css" rel="stylesheet" type="text/css" />
 		
@@ -126,7 +126,7 @@
 							}
 						}
 					}
-					window.setTimeout(showCarHistory(), 1000);
+					window.setTimeout(function(){showCarHistory();}, 1000);
 				}
 			}
 		</script>

@@ -5,6 +5,8 @@
 <head>
 <base href="<%=basePath%>" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
+<link rel="shortcut icon" type="image/x-icon" href="<%=basePath%>favicon.ico"/>
 <title>欢迎使用新广得利租车平台</title>
 <link href="<%=basePath%>css/web/style.css" rel="stylesheet" type="text/css">
 <link href="<%=basePath%>plugin/jquery-validation-1.10.0/demo/css/screen.css" rel="stylesheet" type="text/css" />

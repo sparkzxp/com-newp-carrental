@@ -3,14 +3,14 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
 	class="help">
 	<tr>
-		<th width="25%">关于新广</th>
+		<th width="25%">关于我们</th>
 		<th width="25%">支付说明</th>
 		<th width="25%">用车帮助</th>
 		<th width="25%">特色服务</th>
 	</tr>
 	<tr>
 		<td valign="top">
-			<a href="<%=basePath%>web/toCompany">关于新广</a>
+			<a href="<%=basePath%>web/toCompany">联系我们</a>
 		</td>
 		<td valign="top">
 			<a href="<%=basePath%>web/toRentTypeAndBusiness?businessType=点到点代驾">关于费用</a>
