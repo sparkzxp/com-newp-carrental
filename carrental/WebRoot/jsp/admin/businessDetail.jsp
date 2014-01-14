@@ -38,10 +38,6 @@
                 <td colspan="3">${business.insuranceFee}</td>
             </tr>
             <tr>
-                <td align="right" height="25px">保险费用(元)：</td>
-                <td colspan="3">${business.insuranceFee}</td>
-            </tr>
-            <tr>
                 <td align="right" height="25px">油费(燃油附加费)(元)：</td>
                 <td colspan="3">${business.fuelFee}</td>
             </tr>
