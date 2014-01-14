@@ -27,13 +27,13 @@
 				});
 				//新增
 				$("#add").click(function(){
-					$.show('新增业务','<%=basePath%>business/toBusinessEdit?id=&businessType='+$('#business_businessType').val(),550,400,"A");
+					$.show('新增业务','<%=basePath%>business/toBusinessEdit?id=&businessType='+encodeURI($('#business_businessType').val()),550,400,"A");
 				});
 				//修改
 				$("#update").click(function(){
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						$.show('修改业务','<%=basePath%>business/toBusinessEdit?id='+ids[0]+'&businessType='+$('#business_businessType').val(),550,400,'A');
+						$.show('修改业务','<%=basePath%>business/toBusinessEdit?id='+ids[0]+'&businessType='+encodeURI($('#business_businessType').val()),550,400,'A');
 					}else{
 						$.prompt('请选择一条数据',{
 							title: '提示',

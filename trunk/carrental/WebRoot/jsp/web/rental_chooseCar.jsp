@@ -110,7 +110,7 @@
 												<ul>
 													<c:forEach items="${businesses}" var="biz">
 													<c:if test="${biz.rentType.id == parent.id}">
-													<li>价格<fmt:formatNumber value="${biz.rentFee * rentCar.city.multiple}" pattern="#,###,###"/>元起（<fmt:formatNumber value="${biz.exceedHourFee * rentCar.city.multiple}" pattern="#,###,###"/>元/小时+<fmt:formatNumber value="${biz.exceedKilometerFee * rentCar.city.multiple}" pattern="#,###,###"/>元/公里）</li>
+													<li>起步价格<fmt:formatNumber value="${biz.rentFee * rentCar.city.multiple}" pattern="#,###,###"/>元（<fmt:formatNumber value="${biz.exceedHourFee * rentCar.city.multiple}" pattern="#,###,###"/>元/小时+<fmt:formatNumber value="${biz.exceedKilometerFee * rentCar.city.multiple}" pattern="#,###,###"/>元/公里）</li>
 													<li>人数：${parent.loadLimit}&nbsp;&nbsp;费用包含：
 													<c:if test="${biz.fuelFee == null or biz.fuelFee == 0}">油</c:if>&nbsp;
 													<c:if test="${biz.insuranceFee == null or biz.insuranceFee == 0}">险</c:if>&nbsp;

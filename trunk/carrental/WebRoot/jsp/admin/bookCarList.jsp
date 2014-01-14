@@ -28,7 +28,7 @@
 				});
 				//新增
 				$("#add").click(function(){
-					$.show('新增系统车辆预订','<%=basePath%>rentCar/toBookCarEdit?id=&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,"A");
+					$.show('新增系统车辆预订','<%=basePath%>rentCar/toBookCarEdit?id=&business.businessType='+encodeURI($('#rentCar_business').val())+'&business.id='+$('#rentCar_business_id').val(),700,500,"A");
 				});
 				//修改
 				$("#update").click(function(){
@@ -36,7 +36,7 @@
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
 						if(getSelectedByName('rentStatus') == '1'){
-							$.show('修改系统车辆预订','<%=basePath%>rentCar/toBookCarEdit?id='+ids[0]+'&business.businessType='+$('#rentCar_business').val()+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
+							$.show('修改系统车辆预订','<%=basePath%>rentCar/toBookCarEdit?id='+ids[0]+'&business.businessType='+encodeURI($('#rentCar_business').val())+'&business.id='+$('#rentCar_business_id').val(),700,500,'A');
 						}else{
 							$.prompt('该预订已生效或已取消，请不要修改',{
 								title: '提示',

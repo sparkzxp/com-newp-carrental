@@ -41,7 +41,7 @@ $(function(){
 });
 
 function toUrl(url){
-	parent.$("#mainFrame").attr("src",url).load();
+	parent.$("#mainFrame").attr("src",encodeURI(url)).load();
 }
 </script>
 </head>
@@ -118,7 +118,7 @@ function toUrl(url){
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>businessDesc/showBusinessDescList')">业务描述管理</a></li>
 </c:if>
 <c:if test="${fn:indexOf(resourceIds, \",17,\") > -1}">
-<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=点到点代驾')">点到点代驾</a></li>
+<li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?id=&businessType=点到点代驾')">点到点代驾</a></li>
 </c:if>
 <c:if test="${fn:indexOf(resourceIds, \",18,\") > -1}">
 <li style="display: none;"><a href="javascript:void(0);" onclick="toUrl('<%=basePath%>business/showBusinessList?businessType=机场及车站接送')">机场及车站接送</a></li>
