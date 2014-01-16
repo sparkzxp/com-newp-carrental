@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.carrental.sm.bean.system.Admin;
+import com.carrental.sm.bean.system.City;
 import com.carrental.sm.bean.system.Resource;
 import com.carrental.sm.bean.system.Role;
 import com.carrental.sm.common.Constants;
@@ -53,6 +54,12 @@ public class MainAction {
 			Admin tmp = adminList.get(0);
 			if (tmp.getPassword().equals(MD5.MD5_32(admin.getPassword()))) {
 				request.getSession().setAttribute(Constants.SESSION_ADMIN_KEY, tmp);
+				// 系统管理员角色无监管城市，只需筛选掉已删除的城市
+				if (null == tmp.getRole().getCity()) {
+					City _city = new City();
+					_city.setIsDelete("0");
+					tmp.getRole().setCity(_city);
+				}
 				request.getSession().setAttribute(Constants.SESSION_ROLE_KEY, tmp.getRole());
 				model.addAttribute("admin", tmp);
 				return "admin/main";

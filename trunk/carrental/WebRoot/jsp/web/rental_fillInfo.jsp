@@ -414,7 +414,7 @@ form.cmxform label.error, label.error {
 								<h2>用车城市：${rentCar.city.cityName}</h2>
 								<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr>
-										<td width="27"><img src="<%=basePath%>images/web/cion20.gif" width="22"
+										<td width="27"><img src="<%=basePath%>images/web/icon_${rentCar.business.businessMore}.jpg" width="22"
 											height="22" /></td>
 										<td>
 											<c:choose>

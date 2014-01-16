@@ -78,7 +78,16 @@
 					// 状态为3的才允许修改
 					var ids = getSelectedIdArray();
 					if(ids.length==1){
-						if(getSelectedByName('rentStatus') == '3'){
+						var now = new Date();
+						var nowDt = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+						var arr = getSelectedByName('bookPickUpDt').split(' ')[0].split('-');
+						var bookPickUpDt = new Date(arr[0], arr[1]-1, arr[2]);
+						if(nowDt.getTime() < bookPickUpDt.getTime()){
+							$.prompt('该预订还未过预订取车时间，无法进行还车操作',{
+								title: '提示',
+			        			buttons: { "确认": false}
+			        		});
+						}else if(getSelectedByName('rentStatus') == '3'){
 							$.show('取车','<%=basePath%>rentCar/toCarReturnBack?id='+ids[0],700,600,'A');
 						}else{
 							$.prompt('该预订还未生效或未取车，无法进行还车操作',{

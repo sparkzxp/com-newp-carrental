@@ -24,10 +24,20 @@
         		});
     		}else{
     			if($(':radio[checked]').attr('id') != null){
-	    			if($(':radio[checked]').attr('id') == 'airportOrStation_send'){
+    				if($(':radio[checked]').attr('id') == 'pointToPoint'){
+	    				$('#rentCar_business_businessMore').val('point');
+	    			}else if($(':radio[checked]').attr('id') == 'airportOrStation_send'){
 	    				$('#rentCar_business_businessMore').val('send');
 	    			}else if($(':radio[checked]').attr('id') == 'airportOrStation_pick'){
 	    				$('#rentCar_business_businessMore').val('pick');
+	    			}else if($(':radio[checked]').attr('id') == 'halfDay'){
+	    				$('#rentCar_business_businessMore').val('half');
+	    			}else if($(':radio[checked]').attr('id') == 'wholeDay'){
+	    				$('#rentCar_business_businessMore').val('whole');
+	    			}else if($(':radio[checked]').attr('id') == 'meetingCar'){
+	    				$('#rentCar_business_businessMore').val('meeting');
+	    			}else if($(':radio[checked]').attr('id') == 'aroundProvince'){
+	    				$('#rentCar_business_businessMore').val('around');
 	    			}
     			}
 	    		$('#editForm').submit();
@@ -108,41 +118,41 @@
 						<td valign="top"><table width="100%" border="0"
 								cellspacing="0" cellpadding="0" class="online_yewu">
 								<tr>
-									<td><input name="business.businessType" type="radio" value="点到点代驾"
+									<td><input name="business.businessType" type="radio" id="pointToPoint" value="点到点代驾"
 										<c:if test="${null == rentCar || null == rentCar.business || rentCar.business.businessType == ''}">checked="checked"</c:if>
 										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '点到点代驾'}">checked="checked"</c:if> /><img
-										src="<%=basePath%>images/web/cion18.gif" width="22" height="22" />点到点代驾（
+										src="<%=basePath%>images/web/icon_point.jpg" width="22" height="22" />点到点代驾（
 										无需等待，24小时为您随时待命 ）</td>
 								</tr>
 								<tr>
 									<td><input name="business.businessType" type="radio" id="airportOrStation_send" value="机场及车站接送"
 										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '机场及车站接送' && rentCar.business.businessMore == 'send'}">checked="checked"</c:if> /><img
-										src="<%=basePath%>images/web/cion18.gif" width="22" height="22" />机场及车站送机（
+										src="<%=basePath%>images/web/icon_send.jpg" width="22" height="22" />机场及车站送机（
 										24小时准时出发，安心开启旅程 ）</td>
 								</tr>
 								<tr>
 									<td><input name="business.businessType" type="radio" id="airportOrStation_pick" value="机场及车站接送"
-										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '机场及车站接送' && rentCar.business.businessMore == 'pick'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/cion19.gif" width="22"
+										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '机场及车站接送' && rentCar.business.businessMore == 'pick'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/icon_pick.jpg" width="22"
 										height="22" />机场及车站接机 （自动跟踪航班动态，飞机晚点免费等待）</td>
 								</tr>
 								<tr>
-									<td><input name="business.businessType" type="radio" value="市用半日租"
-										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '市用半日租'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/cion20.gif" width="22"
+									<td><input name="business.businessType" type="radio" id="halfDay" value="市用半日租"
+										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '市用半日租'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/icon_half.jpg" width="22"
 										height="22" />市用半日租 （4小时租车，打包更划算）</td>
 								</tr>
 								<tr>
-									<td><input name="business.businessType" type="radio" value="市用全日租"
-										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '市用全日租'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/cion22.gif" width="22"
+									<td><input name="business.businessType" type="radio" id="wholeDay" value="市用全日租"
+										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '市用全日租'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/icon_whole.jpg" width="22"
 										height="22" />市用全日租 （8小时租车，一天为您护航）</td>
 								</tr>
 								<tr>
-									<td><input name="business.businessType" type="radio" value="会务车辆安排"
-										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '会务车辆安排'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/cion21.gif" width="22"
+									<td><input name="business.businessType" type="radio" id="meetingCar" value="会务车辆安排"
+										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '会务车辆安排'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/icon_meeting.jpg" width="22"
 										height="22" />会务车辆安排 （全程接送，方便快捷）</td>
 								</tr>
 								<tr>
-									<td><input name="business.businessType" type="radio" value="周边省市包车"
-										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '周边省市包车'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/cion23.gif" width="22"
+									<td><input name="business.businessType" type="radio" id="aroundProvince" value="周边省市包车"
+										<c:if test="${null != rentCar && null != rentCar.business && rentCar.business.businessType == '周边省市包车'}">checked="checked"</c:if> /><img src="<%=basePath%>images/web/icon_around.jpg" width="22"
 										height="22" />周边省市包车 （长途用车，安心且优惠）</td>
 								</tr>
 							</table></td>
